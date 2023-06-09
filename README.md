@@ -1,2 +1,2 @@
-# c-_example_code
+# C++ Example Code
 A collection of example code written in C++.
