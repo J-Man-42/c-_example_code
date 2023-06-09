@@ -1,0 +1,4 @@
+# Ignore all compiled and output files.
+*.o
+main
+output.txt
