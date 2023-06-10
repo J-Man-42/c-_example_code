@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "sorting.h"
-#include "../min_and_max/min_max.h"
 using namespace std;
 
 
@@ -17,6 +16,10 @@ int main() {
 
 	// Display the array.
 	displayArray(arr, SIZE);
+
+	// Display array with highlighting.
+	uint highlight[3] = {3, 6, 9};
+	displayArray(arr, SIZE, highlight, 3);
 
 	return 0;
 }
