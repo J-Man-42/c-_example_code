@@ -9,5 +9,6 @@ void displayArray(
 	const uint COUNT = 0
 );
 void bubbleSort(uint array[], const uint SIZE);
+void selectionSort(uint array[], const uint SIZE);
 
 #endif

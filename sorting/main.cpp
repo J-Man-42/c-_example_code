@@ -21,11 +21,17 @@ int main() {
 	uint size = 30;
 	uint* array = generateRandomArray(size);
 
-	// Test Bubble sort.
-	bubbleSort(array, size);
+	// Test Bubble Sort.
+	// bubbleSort(array, size);
 
 	// Delete the array.
-	delete [] array;
+	// delete [] array;
+
+	// Randomise array again.
+	// array = generateRandomArray(size);
+
+	// Test Selection Sort.
+	selectionSort(array, size);
 
 	return 0;
 }
