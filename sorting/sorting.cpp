@@ -6,8 +6,8 @@
 #include "../colour_text/colour_text.h"
 #include "../min_and_max/min_max.h"
 using namespace std;
-using namespace std::this_thread;     // sleep_for, sleep_until
-using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
+using namespace std::this_thread;	// sleep_for, sleep_until
+using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
 // Generate a random integer between minValue and maxValue.
@@ -46,8 +46,8 @@ void displayArray(
 		}
 	}
 
-	// Get the maximum value
-	uint maxValue = max(array, SIZE);
+	// Specify the height of the array.
+	uint height = 40;
 
 	// Clear the screen.
 	cout << "\033[2J\033[1;1H";
@@ -58,14 +58,9 @@ void displayArray(
 	}
 	cout << "┴┴\n";
 
-	// Ensure the top layer is displayed.
-	if (maxValue % 2 == 1) {
-		maxValue++;
-	}
-
 	// All remaining layers.
 	string bar;
-	for (size_t n = maxValue; n > 0; n -= 2) {
+	for (size_t n = height; n > 0; n -= 2) {
 		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 
@@ -109,8 +104,8 @@ void displayArray(
 
 
 // Bubble sort the given array.
-void bubbleSort(uint array[], const uint SIZE) {
-	auto delay = 50ms;
+void bubbleSort(uint array[], const uint SIZE, uint ms) {
+	auto delay = milliseconds(ms);
 	uint highlight[2];
 	char colour[2] = {'C', 'C'};
 
@@ -145,8 +140,8 @@ void bubbleSort(uint array[], const uint SIZE) {
 
 
 // Selection sort the given array.
-void selectionSort(uint array[], const uint SIZE) {
-	auto delay = 50ms;
+void selectionSort(uint array[], const uint SIZE, uint ms) {
+	auto delay = milliseconds(ms);
 	uint highlight[3];
 	char compareColour[3] = {'C', 'C', 'R'};
 	char swapColour[2] = {'R', 'R'};

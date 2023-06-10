@@ -8,7 +8,7 @@ void displayArray(
 	uint* highlight = nullptr, char* colour = nullptr,
 	const uint COUNT = 0
 );
-void bubbleSort(uint array[], const uint SIZE);
-void selectionSort(uint array[], const uint SIZE);
+void bubbleSort(uint array[], const uint SIZE, uint ms = 500);
+void selectionSort(uint array[], const uint SIZE, uint ms = 500);
 
 #endif
