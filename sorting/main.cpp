@@ -22,17 +22,18 @@ uint* generateRandomArray(const uint SIZE) {
 // Main loop function.
 int main() {
 	uint answer;
+	size_t size = 20;
 	uint milliseconds = 50;
+	bool thinBar = false;
 
 	// Initialise array.
-	size_t size = 20;
 	uint* array = generateRandomArray(size);
 
 	// Main loop.
 	while (true) {
 
 		// Display the array.
-		displayArray(array, size);
+		displayArray(array, size, thinBar);
 
 		// Show the options.
 		cout << "==============================" << endl;
@@ -41,9 +42,9 @@ int main() {
 		cout << "==============================" << endl;
 		cout << "(0)  Randomise Array" << endl;
 		cout << "(1)  Resize Array" << endl;
-		cout << "(2)  Milliseconds Delay" << endl;
-		cout << "(3)  Bubble Sort" << endl;
-		cout << "(4)  Selection Sort" << endl;
+		cout << "(2)  Toggle Bar Width" << endl;
+		cout << "(3)  Milliseconds Delay" << endl;
+		cout << "(4)  Sort Array" << endl;
 		cout << "==============================" << endl;
 
 		// Get user input.
@@ -98,22 +99,37 @@ int main() {
 			break;
 
 
-		// Change the milliseconds delay when sorting.
+		// Toggle the width of the vertical bars.
 		case 2:
+			thinBar = !thinBar;
+			break;
+
+
+		// Change the milliseconds delay when sorting.
+		case 3:
 			cout << "new delay = ";
 			cin >> milliseconds;
 			break;
 
 
-		// Run bubble sort the array.
-		case 3:
-			bubbleSort(array, size, milliseconds);
-			break;
-
-
-		// Run selection sort the array.
+		// Run one of the sorting algorithms..
 		case 4:
-			selectionSort(array, size, milliseconds);
+			cout << "==============================" << endl;
+			cout << "(1)  Bubble Sort" << endl;
+			cout << "(2)  Selection Sort" << endl;
+			cout << "==============================" << endl;
+			cout << "> ";
+			cin >> answer;
+
+			// Run the requested sorting algorithm.
+			switch (answer) {
+			case 1:
+				bubbleSort(array, size, milliseconds, thinBar);
+				break;
+			case 2:
+				selectionSort(array, size, milliseconds, thinBar);
+				break;
+			}
 			break;
 		}
 	}

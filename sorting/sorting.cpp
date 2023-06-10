@@ -28,8 +28,8 @@ uint randint(uint minValue, uint maxValue) {
 
 // Displays the array content as pillars.
 void displayArray(
-	uint array[], const uint SIZE, uint* highlight,
-	char* colour, const uint COUNT) {
+	uint array[], const uint SIZE, bool thinBar,
+	uint* highlight, char* colour, const uint COUNT) {
 
 	// Configure the highlight colours.
 	size_t index = 0;
@@ -49,29 +49,40 @@ void displayArray(
 	// Specify the height of the array.
 	uint height = 40;
 
+	// Configure the bar width.
+	size_t width = (thinBar ? 1 : 2);
+
 	// Clear the screen.
 	cout << "\033[2J\033[1;1H";
 
 	// Above the bars.
 	for (size_t i = 1; i < SIZE; i++) {
-		cout << "┴┴┴";
+		for (size_t j = 0; j <= width; j++) {
+			cout << "┴";
+		}
 	}
-	cout << "┴┴\n";
+	for (size_t i = 0; i < width; i++) {
+		cout << "┴";
+	}
+	cout << endl;
 
 	// All remaining layers.
-	string bar;
+	string bar, shape;
 	for (size_t n = height; n > 0; n -= 2) {
 		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Get the bar shape.
 			if (array[i] >= n) {
-				bar = "██ ";
+				shape = "█";
 			} else if (array[i] == n-1) {
-				bar = "▄▄ ";
+				shape = "▄";
 			} else {
-				bar = "   ";
+				shape = " ";
 			}
+
+			// Get the full bar.
+			bar = (width == 2 ? (shape+shape) : shape) + " ";
 
 			// Print text in the appropriate colour.
 			cout << colourText(bar, colours[i]);
@@ -80,22 +91,29 @@ void displayArray(
 	}
 
 	// Show the numbers below the bars.
-	index = 0;
-	for (size_t i = 0; i < SIZE; i++) {
-		if (colours[i] == '\0') {
-			cout << setw(2) << array[i];
-		} else {
-			cout << setw(13) << colourText(to_string(array[i]), colours[i]);
+	if (!thinBar) {
+		index = 0;
+		for (size_t i = 0; i < SIZE; i++) {
+			if (colours[i] == '\0') {
+				cout << setw(2) << array[i];
+			} else {
+				cout << setw(13) << colourText(to_string(array[i]), colours[i]);
+			}
+			cout << " ";
 		}
-		cout << " ";
+		cout << endl;
 	}
-	cout << endl;
 
 	// Below the numbers.
 	for (size_t i = 1; i < SIZE; i++) {
-		cout << "┬┬┬";
+		for (size_t j = 0; j <= width; j++) {
+			cout << "┬";
+		}
 	}
-	cout << "┬┬\n\n";
+	for (size_t i = 0; i < width; i++) {
+		cout << "┬";
+	}
+	cout << "\n\n";
 
 	// Delete dynamic memory.
 	delete [] colours;
@@ -104,13 +122,13 @@ void displayArray(
 
 
 // Bubble sort the given array.
-void bubbleSort(uint array[], const uint SIZE, uint ms) {
+void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	uint highlight[2];
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
@@ -120,34 +138,34 @@ void bubbleSort(uint array[], const uint SIZE, uint ms) {
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, colour, 2);
+			displayArray(array, SIZE, thinBar, highlight, colour, 2);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, highlight, colour, 2);
+				displayArray(array, SIZE, thinBar, highlight, colour, 2);
 				sleep_for(delay);
 			}
 		}
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 }
 
 
 
 // Selection sort the given array.
-void selectionSort(uint array[], const uint SIZE, uint ms) {
+void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	uint highlight[3];
 	char compareColour[3] = {'C', 'C', 'R'};
 	char swapColour[2] = {'R', 'R'};
 
 	// Display the array before sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
 	// Indicate the starting index.
@@ -160,7 +178,7 @@ void selectionSort(uint array[], const uint SIZE, uint ms) {
 			highlight[1] = j;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, compareColour, 3);
+			displayArray(array, SIZE, thinBar, highlight, compareColour, 3);
 			sleep_for(delay);
 			if (array[j] < array[minIndex]) {
 				minIndex = j;
@@ -171,14 +189,14 @@ void selectionSort(uint array[], const uint SIZE, uint ms) {
 		// Display the array before and after swapping.
 		highlight[0] = minIndex;
 		highlight[1] = i;
-		displayArray(array, SIZE, highlight, swapColour, 2);
+		displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
 		sleep_for(delay);
 		swap(array[i], array[minIndex]);
-		displayArray(array, SIZE, highlight, swapColour, 2);
+		displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
 		sleep_for(delay);
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 }
