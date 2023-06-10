@@ -28,13 +28,14 @@ uint randint(uint minValue, uint maxValue) {
 
 // Displays the array content as pillars.
 void displayArray(
-	uint array[], const uint SIZE, uint* highlight, const uint COUNT) {
-
-	// Clear the screen.
-	cout << "\033[2J\033[1;1H";
+	uint array[], const uint SIZE, uint* highlight,
+	char* colour, const uint COUNT) {
 
 	// Get the maximum value
 	uint maxValue = max(array, SIZE);
+
+	// Clear the screen.
+	cout << "\033[2J\033[1;1H";
 
 	// Above the bars.
 	for (size_t i = 1; i < SIZE; i++) {
@@ -49,9 +50,9 @@ void displayArray(
 
 	// All remaining layers.
 	string bar;
-	size_t colourIndex = 0;
+	size_t index;
 	for (size_t n = maxValue; n > 0; n -= 2) {
-		colourIndex = 0;
+		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Get the bar shape.
@@ -64,9 +65,9 @@ void displayArray(
 			}
 
 			// Get the bar colour.
-			if (colourIndex < COUNT && highlight[colourIndex] == i) {
-				cout << colourText(bar, 'C');
-				colourIndex++;
+			if (index < COUNT && highlight[index] == i) {
+				cout << colourText(bar, colour[index]);
+				index++;
 			} else {
 				cout << bar;
 			}
@@ -75,11 +76,11 @@ void displayArray(
 	}
 
 	// Show the numbers below the bars.
-	colourIndex = 0;
+	index = 0;
 	for (size_t i = 0; i < SIZE; i++) {
-		if (colourIndex < COUNT && highlight[colourIndex] == i) {
-			cout << setw(13) << colourText(to_string(array[i]), 'C');
-			colourIndex++;
+		if (index < COUNT && highlight[index] == i) {
+			cout << setw(13) << colourText(to_string(array[i]), colour[index]);
+			index++;
 		} else {
 			cout << setw(2) << array[i];
 		}
@@ -98,26 +99,27 @@ void displayArray(
 
 // Bubble sort the given array.
 void bubbleSort(uint array[], const uint SIZE) {
-	auto delay = 50ms;
+	auto delay = 500ms;
 
 	// Display the array before sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	uint highlight[SIZE];
+	uint highlight[2];
+	char colour[2] = {'C', 'C'};
 	for (size_t n = SIZE; n > 0; n--) {
 		for (size_t i = 1; i < n; i++) {
 			highlight[0] = i-1;
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, 2);
+			displayArray(array, SIZE, highlight, colour, 2);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, highlight, 2);
+				displayArray(array, SIZE, highlight, colour, 2);
 				sleep_for(delay);
 			}
 		}

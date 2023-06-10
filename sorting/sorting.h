@@ -5,7 +5,8 @@
 uint randint(uint minvalue, uint maxValue);
 void displayArray(
 	uint array[], const uint SIZE,
-	uint* highlight = nullptr, const uint COUNT = 0
+	uint* highlight = nullptr, char* colour = nullptr,
+	const uint COUNT = 0
 );
 void bubbleSort(uint array[], const uint SIZE);
 

@@ -5,17 +5,27 @@
 using namespace std;
 
 
+// Generates a new random array with elements from 1 to 40.
+uint* generateRandomArray(const uint SIZE) {
+	uint* array = new uint[SIZE];
+	for (size_t i = 0; i < SIZE; i++) {
+		array[i] = randint(1, 40);
+	}
+	return array;
+}
+
+
 int main() {
 	
 	// Initialise array.
-	const uint SIZE = 30;
-	uint arr[SIZE];
-	for (uint i = 0; i < SIZE; i++) {
-		arr[i] = randint(1, 40);
-	}
+	uint size = 30;
+	uint* array = generateRandomArray(size);
 
 	// Test Bubble sort.
-	bubbleSort(arr, SIZE);
+	bubbleSort(array, size);
+
+	// Delete the array.
+	delete [] array;
 
 	return 0;
 }
