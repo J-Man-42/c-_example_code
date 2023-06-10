@@ -38,8 +38,10 @@ fi
 
 # Gather list of all header filenames.
 headers=( $(ls *.h 2>/dev/null | cut -d '.' -f1) )
-paths=( $(echo ${include[@]%.*}) )
-titles=( $(echo "${paths[@]}" | awk -F / '{print $NF}') )
+paths=( $(echo "${include[@]%.*}") )
+for path in "${paths[@]}"; do
+	titles+=( $(echo "$path" | awk -F / '{print $NF}') )
+done
 
 
 # Start with main
