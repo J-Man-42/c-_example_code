@@ -117,6 +117,7 @@ int main() {
 			cout << "==============================" << endl;
 			cout << "(1)  Bubble Sort" << endl;
 			cout << "(2)  Selection Sort" << endl;
+			cout << "(3)  Insertion Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin >> answer;
@@ -128,6 +129,9 @@ int main() {
 				break;
 			case 2:
 				selectionSort(array, size, milliseconds, thinBar);
+				break;
+			case 3:
+				insertionSort(array, size, milliseconds, thinBar);
 				break;
 			}
 			break;

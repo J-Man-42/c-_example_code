@@ -12,5 +12,7 @@ void bubbleSort(
 	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
 void selectionSort(
 	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
+void insertionSort(
+	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
 
 #endif

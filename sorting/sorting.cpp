@@ -202,3 +202,39 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 }
+
+
+
+// Insertion sort the given array.
+void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+	auto delay = milliseconds(ms);
+	uint highlight[3];
+	char colour[2] = {'C', 'C'};
+
+	// Display the array before sorting.
+	displayArray(array, SIZE, thinBar);
+	sleep_for(delay);
+
+	// Iterate starting from the second element.
+	for (size_t i = 1; i < SIZE; i++) {
+		highlight[0] = i;
+		displayArray(array, SIZE, thinBar, highlight, colour, 1);
+		sleep_for(delay);
+
+		size_t j = i;
+		while (j > 0 && array[j] < array[j-1]) {
+			highlight[0] = j;
+			highlight[1] = j-1;
+			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			sleep_for(delay);
+			swap(array[j], array[j-1]);
+			j--;
+			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			sleep_for(delay);
+		}
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE, thinBar);
+	sleep_for(delay);
+}
