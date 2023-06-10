@@ -66,23 +66,25 @@ void displayArray(
 	}
 	cout << endl;
 
-	// All remaining layers.
-	string bar, shape;
+	// Setup single/double bar.
+	string singleBar[] = {"█ ", "▄ ", "  "};
+	string doubleBar[] = {"██ ", "▄▄ ", "   "};
+	string* bars = (thinBar ? singleBar : doubleBar);
+	string bar;
+
+	// Iterate through all layers.
 	for (size_t n = height; n > 0; n -= 2) {
 		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Get the bar shape.
 			if (array[i] >= n) {
-				shape = "█";
+				bar = bars[0];
 			} else if (array[i] == n-1) {
-				shape = "▄";
+				bar = bars[1];
 			} else {
-				shape = " ";
+				bar = bars[2];
 			}
-
-			// Get the full bar.
-			bar = (width == 2 ? (shape+shape) : shape) + " ";
 
 			// Print text in the appropriate colour.
 			cout << colourText(bar, colours[i]);
