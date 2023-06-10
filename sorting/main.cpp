@@ -14,12 +14,8 @@ int main() {
 		arr[i] = randint(1, 40);
 	}
 
-	// Display the array.
-	displayArray(arr, SIZE);
-
-	// Display array with highlighting.
-	uint highlight[3] = {3, 6, 9};
-	displayArray(arr, SIZE, highlight, 3);
+	// Test Bubble sort.
+	bubbleSort(arr, SIZE);
 
 	return 0;
 }
