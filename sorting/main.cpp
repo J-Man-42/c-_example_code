@@ -13,11 +13,9 @@ int main() {
 	uint arr[SIZE];
 	for (uint i = 0; i < SIZE; i++) {
 		arr[i] = randint(1, 40);
-		cout << arr[i] << " ";
 	}
-	cout << endl;
 
-	cout << "\nDisplay array as bars:" << endl;
+	// Display the array.
 	displayArray(arr, SIZE);
 
 	return 0;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "sorting.h"
 #include "../min_and_max/min_max.h"
 using namespace std;
@@ -25,15 +26,20 @@ void displayArray(uint array[], const uint SIZE) {
 
 	// Get the maximum value
 	uint maxValue = max(array, SIZE);
-	cout << "maxValue = " << maxValue << endl;
+
+	// Above the bars.
+	for (size_t i = 0; i < SIZE-1; i++) {
+		cout << "┴┴┴";
+	}
+	cout << "┴┴\n";
 
 	// The top odd number layer.
 	if (maxValue % 2 == 1) {
 		for (size_t i = 0; i < SIZE; i++) {
 			if (array[i] == maxValue) {
-				cout << "▄ ";
+				cout << "▄▄ ";
 			} else {
-				cout << "  ";
+				cout << "   ";
 			}
 		}
 		cout << endl;
@@ -41,16 +47,28 @@ void displayArray(uint array[], const uint SIZE) {
 	}
 
 	// All remaining layers.
-	for (size_t i = maxValue; i > 0; i -= 2) {
-		for (size_t j = 0; j < SIZE; j++) {
-			if (array[j] >= i) {
-				cout << "█ ";
-			} else if (array[j] == i-1) {
-				cout << "▄ ";
+	for (size_t n = maxValue; n > 0; n -= 2) {
+		for (size_t i = 0; i < SIZE; i++) {
+			if (array[i] >= n) {
+				cout << "██ ";
+			} else if (array[i] == n-1) {
+				cout << "▄▄ ";
 			} else {
-				cout << "  ";
+				cout << "   ";
 			}
 		}
 		cout << endl;
 	}
+
+	// Show the numbers below the bars.
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << setw(2) << array[i] << " ";
+	}
+	cout << endl;
+
+	// Below the numbers.
+	for (size_t i = 0; i < SIZE-1; i++) {
+		cout << "┬┬┬";
+	}
+	cout << "┬┬\n";
 }
