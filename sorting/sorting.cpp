@@ -35,32 +35,14 @@ void displayArray(
 	}
 	cout << "┴┴\n";
 
-	// The top odd number layer.
-	string bar;
-	size_t colourIndex = 0;
+	// Ensure the top layer is displayed.
 	if (maxValue % 2 == 1) {
-		for (size_t i = 0; i < SIZE; i++) {
-
-			// Get the bar shape.
-			if (array[i] == maxValue) {
-				bar = "▄▄ ";
-			} else {
-				bar = "   ";
-			}
-
-			// Get the bar colour.
-			if (COUNT > 0 && colourIndex < COUNT && highlight[colourIndex] == i) {
-				cout << colourText(bar, 'G');
-				colourIndex++;
-			} else {
-				cout << bar;
-			}
-		}
-		cout << endl;
-		maxValue--;
+		maxValue++;
 	}
 
 	// All remaining layers.
+	string bar;
+	size_t colourIndex = 0;
 	for (size_t n = maxValue; n > 0; n -= 2) {
 		colourIndex = 0;
 		for (size_t i = 0; i < SIZE; i++) {
