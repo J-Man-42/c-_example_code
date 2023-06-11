@@ -21,6 +21,7 @@ class LinkedList
 {
 public:
 	LinkedList();
+	LinkedList(const LinkedList<T>& other);
 	~LinkedList();
 	void add(T element);
 	void clear();

@@ -9,6 +9,30 @@ LinkedList<T>::LinkedList() {
 }
 
 
+// The copy constructor.
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& other) {
+	this->length = other.length;
+	this->head = nullptr;
+	this->tail = nullptr;
+
+	// Copy other.head if not null.
+	if (other.head) {
+		this->head = new Node<T>(other.head->data);
+		this->tail = this->head;
+
+		// Copy all remaining elements.
+		Node<T>* otherPtr = other.head->next;
+		while (otherPtr) {
+			this->tail->next = new Node<T>(otherPtr->data);
+			this->tail->next->prev = this->tail;
+			this->tail = this->tail->next;
+			otherPtr = otherPtr->next;
+		}
+	}
+}
+
+
 // The destructor.
 template <class T>
 LinkedList<T>::~LinkedList() {
