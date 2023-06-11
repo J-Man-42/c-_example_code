@@ -39,16 +39,14 @@ void displayArray(
 
 	// Configure the highlight colours.
 	size_t index = 0;
-	char* colours = new char[SIZE];
+	char colours[SIZE];
 	for (size_t i = 0; i < SIZE; i++) {
 		colours[i] = '\0';
 	}
 	for (size_t i = 0; i < COUNT; i++) {
-		for (size_t j = 0; j < SIZE; j++) {
-			if (highlight[i] == j) {
-				colours[j] = colour[index];
-				index++;
-			}
+		if (highlight[i] < SIZE) {
+			colours[highlight[i]] = colour[index];
+			index++;
 		}
 	}
 
@@ -123,9 +121,6 @@ void displayArray(
 		cout << "┬";
 	}
 	cout << "\n\n";
-
-	// Delete dynamic memory.
-	delete [] colours;
 }
 
 
@@ -133,8 +128,9 @@ void displayArray(
 // Bubble sort the given array.
 void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
-	uint highlight[2];
-	char colour[2] = {'C', 'C'};
+	const size_t COUNT = 3;
+	uint highlight[COUNT];
+	char colour[COUNT] = {'C', 'C', 'X'};
 
 	// Display the array before sorting.
 	clearScreen();
@@ -144,20 +140,21 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	// Indicate update which element to sort.
 	bool swapped;
 	for (size_t n = SIZE; n > 0; n--) {
+		highlight[2] = n;
 		swapped = false;
 		for (size_t i = 1; i < n; i++) {
 			highlight[0] = i-1;
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, 2);
+				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
