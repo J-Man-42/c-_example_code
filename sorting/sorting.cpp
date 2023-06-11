@@ -283,7 +283,7 @@ void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 
 		// Iterate in descending order.
 		swapped = false;
-		for (size_t i = end; i > start; i--) {
+		for (size_t i = end-1; i > start; i--) {
 			highlight[0] = i-1;
 			highlight[1] = i;
 
