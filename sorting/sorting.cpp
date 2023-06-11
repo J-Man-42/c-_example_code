@@ -261,8 +261,9 @@ void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 // Cocktail shaker sort the given array.
 void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
-	uint highlight[2];
-	char colour[2] = {'C', 'C'};
+	const size_t COUNT = 4;
+	uint highlight[COUNT];
+	char colour[COUNT] = {'C', 'C', 'X', 'X'};
 
 	// Display the array before sorting.
 	clearScreen();
@@ -275,20 +276,21 @@ void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	do {
 
 		// Iterate in ascending order.
+		highlight[2] = start-1;
 		swapped = false;
 		for (size_t i = start+1; i < end; i++) {
 			highlight[0] = i-1;
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, 2);
+				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
@@ -300,20 +302,21 @@ void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 		}
 
 		// Iterate in descending order.
+		highlight[3] = end;
 		swapped = false;
 		for (size_t i = end-1; i > start; i--) {
 			highlight[0] = i-1;
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, 2);
+				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
