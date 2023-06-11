@@ -2,6 +2,7 @@
 #define SORTING_H
 
 // All function prototypes.
+void clearScreen();
 uint randint(uint minValue, uint maxValue);
 void displayArray(
 	uint array[], const uint SIZE, bool thinBar = false,

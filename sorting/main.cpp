@@ -5,8 +5,8 @@
 #include <ctime>
 #include "sorting.h"
 using namespace std;
-using namespace std::this_thread;     // sleep_for, sleep_until
-using namespace std::chrono_literals; // ns, us, ms, s, h, etc.
+using namespace std::this_thread;	// sleep_for, sleep_until
+using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
 // Generates a new random array with elements from 1 to 40.
@@ -28,6 +28,9 @@ int main() {
 
 	// Initialise array.
 	uint* array = generateRandomArray(size);
+
+	// Clear the screen.
+	cout << "\033[2J\033[1;1H";
 
 	// Main loop.
 	while (true) {
@@ -62,6 +65,7 @@ int main() {
 		case 0:
 			delete [] array;
 			array = generateRandomArray(size);
+			clearScreen();
 			break;
 
 
@@ -96,12 +100,14 @@ int main() {
 				size = newSize;
 			}
 
+			clearScreen();
 			break;
 
 
 		// Toggle the width of the vertical bars.
 		case 2:
 			thinBar = !thinBar;
+			clearScreen();
 			break;
 
 
@@ -109,6 +115,7 @@ int main() {
 		case 3:
 			cout << "new delay = ";
 			cin >> milliseconds;
+			clearScreen();
 			break;
 
 
@@ -137,6 +144,8 @@ int main() {
 			case 4:
 				cocktailShakerSort(array, size, milliseconds, thinBar);
 				break;
+			default:
+				clearScreen();
 			}
 			break;
 		}

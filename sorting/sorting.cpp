@@ -10,6 +10,12 @@ using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
+// Clears the terminal screen.
+void clearScreen() {
+	cout << "\033[2J\033[1;1H";
+}
+
+
 // Generate a random integer between minValue and maxValue.
 uint randint(uint minValue, uint maxValue) {
 
@@ -52,8 +58,9 @@ void displayArray(
 	// Configure the bar width.
 	size_t width = (thinBar ? 1 : 2);
 
-	// Clear the screen.
-	cout << "\033[2J\033[1;1H";
+	// Move the cursor up N spaces.
+	size_t N = (thinBar ? 23 : 24);
+	cout << "\033["<<N<<"A\r";
 
 	// Above the bars.
 	for (size_t i = 1; i < SIZE; i++) {
@@ -130,6 +137,7 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
+	clearScreen();
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
@@ -175,6 +183,7 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	char swapColour[2] = {'R', 'R'};
 
 	// Display the array before sorting.
+	clearScreen();
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
@@ -224,6 +233,7 @@ void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
+	clearScreen();
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
@@ -260,6 +270,7 @@ void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
+	clearScreen();
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
