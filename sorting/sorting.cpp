@@ -38,15 +38,13 @@ void displayArray(
 	uint* highlight, char* colour, const uint COUNT) {
 
 	// Configure the highlight colours.
-	size_t index = 0;
 	char colours[SIZE];
 	for (size_t i = 0; i < SIZE; i++) {
 		colours[i] = '\0';
 	}
 	for (size_t i = 0; i < COUNT; i++) {
 		if (highlight[i] < SIZE) {
-			colours[highlight[i]] = colour[index];
-			index++;
+			colours[highlight[i]] = colour[i];
 		}
 	}
 
@@ -79,7 +77,6 @@ void displayArray(
 
 	// Iterate through all layers.
 	for (size_t n = height; n > 0; n -= 2) {
-		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Get the bar shape.
@@ -99,7 +96,6 @@ void displayArray(
 
 	// Show the numbers below the bars.
 	if (!thinBar) {
-		index = 0;
 		for (size_t i = 0; i < SIZE; i++) {
 			if (colours[i] == '\0') {
 				cout << setw(2) << array[i];
@@ -175,9 +171,10 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 // Selection sort the given array.
 void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
-	uint highlight[3];
-	char compareColour[3] = {'C', 'C', 'R'};
-	char swapColour[2] = {'R', 'R'};
+	const size_t COUNT = 4;
+	uint highlight[COUNT];
+	char compareColour[COUNT] = {'X', 'C', 'C', 'R'};
+	char swapColour[COUNT-1] = {'X', 'R', 'R'};
 
 	// Display the array before sorting.
 	clearScreen();
@@ -186,32 +183,33 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 
 	// Indicate the starting index.
 	size_t minIndex;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (uint i = 0; i < SIZE; i++) {
+		highlight[0] = i-1;
 		minIndex = i;
-		highlight[2] = minIndex;
+		highlight[3] = minIndex;
 		for (size_t j = i+1; j < SIZE; j++) {
-			highlight[0] = i;
-			highlight[1] = j;
+			highlight[1] = i;
+			highlight[2] = j;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, compareColour, 3);
+			displayArray(array, SIZE, thinBar, highlight, compareColour, COUNT);
 			sleep_for(delay);
 			if (array[j] < array[minIndex]) {
 				minIndex = j;
-				highlight[2] = minIndex;
+				highlight[3] = minIndex;
 			}
 		}
 
 		// Display the array before and after swapping.
-		highlight[0] = minIndex;
-		highlight[1] = i;
-		displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
+		highlight[1] = minIndex;
+		highlight[2] = i;
+		displayArray(array, SIZE, thinBar, highlight, swapColour, COUNT-1);
 		sleep_for(delay);
 
 		// Only swap if needed.
 		if (minIndex != i) {
 			swap(array[i], array[minIndex]);
-			displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
+			displayArray(array, SIZE, thinBar, highlight, swapColour, COUNT-1);
 			sleep_for(delay);
 		}
 	}
