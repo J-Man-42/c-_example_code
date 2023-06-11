@@ -251,6 +251,58 @@ void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
 
+	// Loop while a swap has occurred.
+	size_t start = 0, end = SIZE;
+	bool swapped;
+	do {
+
+		// Iterate in ascending order.
+		swapped = false;
+		for (size_t i = start+1; i < end; i++) {
+			highlight[0] = i-1;
+			highlight[1] = i;
+
+			// Display the current comparison.
+			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			sleep_for(delay);
+			if (array[i] < array[i-1]) {
+				swap(array[i], array[i-1]);
+				swapped = true;
+
+				// Display the swapped elements.
+				displayArray(array, SIZE, thinBar, highlight, colour, 2);
+				sleep_for(delay);
+			}
+		}
+		end--;
+
+		// Break if no swap occurred
+		if (!swapped) {
+			break;
+		}
+
+		// Iterate in descending order.
+		swapped = false;
+		for (size_t i = end; i > start; i--) {
+			highlight[0] = i-1;
+			highlight[1] = i;
+
+			// Display the current comparison.
+			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			sleep_for(delay);
+			if (array[i] < array[i-1]) {
+				swap(array[i], array[i-1]);
+				swapped = true;
+
+				// Display the swapped elements.
+				displayArray(array, SIZE, thinBar, highlight, colour, 2);
+				sleep_for(delay);
+			}
+		}
+		start++;
+
+	} while (swapped);
+
 	// Display the array after sorting.
 	displayArray(array, SIZE, thinBar);
 	sleep_for(delay);
