@@ -134,7 +134,9 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
+	bool swapped;
 	for (size_t n = SIZE; n > 0; n--) {
+		swapped = false;
 		for (size_t i = 1; i < n; i++) {
 			highlight[0] = i-1;
 			highlight[1] = i;
@@ -144,11 +146,17 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
+				swapped = true;
 
 				// Display the swapped elements.
 				displayArray(array, SIZE, thinBar, highlight, colour, 2);
 				sleep_for(delay);
 			}
+		}
+
+		// Break loop if no swaps occurred.
+		if (!swapped) {
+			break;
 		}
 	}
 
@@ -171,8 +179,10 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	sleep_for(delay);
 
 	// Indicate the starting index.
+	bool swapped;
 	size_t minIndex;
 	for (size_t i = 0; i < SIZE; i++) {
+		swapped = false;
 		minIndex = i;
 		highlight[2] = minIndex;
 		for (size_t j = i+1; j < SIZE; j++) {
@@ -189,13 +199,18 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 		}
 
 		// Display the array before and after swapping.
-		highlight[0] = minIndex;
-		highlight[1] = i;
-		displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
-		sleep_for(delay);
-		swap(array[i], array[minIndex]);
-		displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
-		sleep_for(delay);
+		swapped = (minIndex != i);
+		if (swapped) {
+			highlight[0] = minIndex;
+			highlight[1] = i;
+			displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
+			sleep_for(delay);
+			swap(array[i], array[minIndex]);
+			displayArray(array, SIZE, thinBar, highlight, swapColour, 2);
+			sleep_for(delay);
+		} else {
+			break;
+		}
 	}
 
 	// Display the array after sorting.
