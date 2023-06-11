@@ -2,25 +2,31 @@
 #define LINKED_LIST_H
 
 
+#include <iostream>
+
+
 // The Node struct.
 template<class T>
 struct Node
 {
 	T data;
-	Node* next;
-	Node* prev;
+	Node* next = nullptr;
+	Node* prev = nullptr;
 };
 
 
-// The standard linked list.
+// The doubly linked list class.
 template<class T>
 class LinkedList
 {
 public:
 	LinkedList();
 	~LinkedList();
+	void add(T element);
 	void clear();
+	uint size() const;
 private:
+	uint length;
 	Node<T>* head;
 	Node<T>* tail;
 };
