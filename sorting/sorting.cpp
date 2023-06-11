@@ -208,7 +208,7 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 // Insertion sort the given array.
 void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
-	uint highlight[3];
+	uint highlight[2];
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
@@ -233,6 +233,23 @@ void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 			sleep_for(delay);
 		}
 	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE, thinBar);
+	sleep_for(delay);
+}
+
+
+
+// Cocktail shaker sort the given array.
+void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+	auto delay = milliseconds(ms);
+	uint highlight[2];
+	char colour[2] = {'C', 'C'};
+
+	// Display the array before sorting.
+	displayArray(array, SIZE, thinBar);
+	sleep_for(delay);
 
 	// Display the array after sorting.
 	displayArray(array, SIZE, thinBar);

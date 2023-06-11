@@ -2,7 +2,7 @@
 #define SORTING_H
 
 // All function prototypes.
-uint randint(uint minvalue, uint maxValue);
+uint randint(uint minValue, uint maxValue);
 void displayArray(
 	uint array[], const uint SIZE, bool thinBar = false,
 	uint* highlight = nullptr, char* colour = nullptr,
@@ -13,6 +13,8 @@ void bubbleSort(
 void selectionSort(
 	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
 void insertionSort(
+	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
+void cocktailShakerSort(
 	uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
 
 #endif
