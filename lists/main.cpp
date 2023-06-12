@@ -92,7 +92,6 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (0)  operator[]" << endl;
 		cout << " (1)  add(element)" << endl;
 		cout << " (2)  clear()" << endl;
 		cout << " (3)  get(index)" << endl;
@@ -103,6 +102,7 @@ int main() {
 		cout << " (8)  size()" << endl;
 		cout << " (9)  toDynamicArray()" << endl;
 		cout << "(10)  toDynamicArray(size)" << endl;
+		cout << "(11)  operator[]" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -147,7 +147,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 			}
-			sleep_for(seconds(1));
+			sleep_for(seconds(2));
 			break;
 
 
@@ -171,7 +171,7 @@ int main() {
 				list.remove(element);
 			} catch (string e) {
 				cout << e << endl;
-				sleep_for(seconds(1));
+				sleep_for(seconds(2));
 			}
 			break;
 
@@ -185,12 +185,12 @@ int main() {
 				list.removeAt(index);
 			} catch (char const* e) {
 				cout << e << endl;
-				sleep_for(seconds(1));
+				sleep_for(seconds(2));
 			}
 			break;
 
 
-		// Set element at given index. 
+		// Set element at given index.
 		case 7:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
@@ -205,7 +205,7 @@ int main() {
 		case 8:
 			cout << "size()" << endl;
 			cout << "List size:  " << list.size() << endl;
-			sleep_for(seconds(1));
+			sleep_for(seconds(2));
 			break;
 
 
@@ -220,7 +220,7 @@ int main() {
 				cout << e << endl;
 				size = 0;
 				array = new uint[size];
-				sleep_for(seconds(1));
+				sleep_for(seconds(2));
 			}
 			break;
 
@@ -237,9 +237,38 @@ int main() {
 				cout << e << endl;
 				size = 0;
 				array = new uint[size];
-				sleep_for(seconds(1));
+				sleep_for(seconds(2));
 			}
 			break;
+
+
+		// Work with the subscript operator.
+		case 11:
+			cout << "operator[]" << endl;
+			cout << "> set or get value (s/g):  ";
+			cin.getline(answer, 3);
+			answer[0] = tolower(answer[0]);
+			if (answer[0] == 's') {
+				cout << "Setting value" << endl;
+				cout << "> index = ";
+				cin >> index;
+				cout << "> element = ";
+				cin >> element;
+				list[index] = element;
+			} else if (answer[0] == 'g') {
+				cout << "Getting value:" << endl;
+				cout << "> index = ";
+				cin >> index;
+				try {
+					element = list[index];
+					cout << "list["<<index<<"] = " << element << endl;
+				} catch (char const* e) {
+					cout << e << endl;
+				}
+				sleep_for(seconds(2));
+			}
+			break;
+
 		}
 	}
 

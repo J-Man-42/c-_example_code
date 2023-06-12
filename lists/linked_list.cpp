@@ -43,6 +43,38 @@ LinkedList<T>::~LinkedList() {
 
 
 
+// Overload the subscript operator.
+template<class T>
+T& LinkedList<T>::operator[](const uint index) {
+	Node<T>* nodePtr;
+
+	// Throw error if index out of bounds.
+	if (index >= length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// See if index is closer to head.
+	if (length-index >= index) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-1; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Return the element.
+	return nodePtr->data;
+}
+
+
+
 // Add an element to the end of the list.
 template<class T>
 void LinkedList<T>::add(const T element) {
