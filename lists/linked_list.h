@@ -30,6 +30,7 @@ public:
 	T removeAt(const uint index);
 	uint size() const;
 	T* toDynamicArray();
+	T* toDynamicArray(const uint SIZE);
 private:
 	uint length;
 	Node<T>* head;

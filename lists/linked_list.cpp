@@ -265,4 +265,31 @@ uint LinkedList<T>::size() const {
 
 // Converts the list into a dynamic array.
 template <class T>
-T* LinkedList<T>::toDynamicArray() {}
+T* LinkedList<T>::toDynamicArray() {
+
+	// Throw an error if the list is empty.
+	if (!head) {
+		throw "Error! No elements in the list";
+	}
+
+	// Returns array of list length.
+	return toDynamicArray(length);
+}
+
+
+// Converts the list into a dynamic array of the given size.
+template <class T>
+T* LinkedList<T>::toDynamicArray(const uint SIZE) {
+	
+	// Copy all elements to the new array.
+	T* array = new T[SIZE];
+	Node<T>* nodePtr = head;
+	size_t limit = (length > SIZE ? SIZE : length);
+	for (size_t i = 0; i < limit; i++) {
+		array[i] = nodePtr->data;
+		nodePtr = nodePtr->next;
+	}
+
+	// Return the final array.
+	return array;
+}
