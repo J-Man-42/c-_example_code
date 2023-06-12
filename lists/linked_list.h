@@ -21,6 +21,7 @@ public:
 	T removeAt(const uint index);
 	void set(const uint index, const T element);
 	uint size() const;
+	LinkedList<T>* subList(const uint start, const uint end);
 	T* toDynamicArray();
 	T* toDynamicArray(const uint SIZE);
 private:

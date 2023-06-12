@@ -263,7 +263,7 @@ T LinkedList<T>::removeAt(const uint index) {
 
 
 
-// Set the element at the given index. 
+// Set the element at the given index.
 template<class T>
 void LinkedList<T>::set(const uint index, const T element) {
 
@@ -288,6 +288,33 @@ uint LinkedList<T>::size() const {
 
 
 
+// Returns a sub list from start to end.
+template<class T>
+LinkedList<T>* LinkedList<T>::subList(const uint start, const uint end) {
+
+	// Throw error if invalid index.
+	if (start >= end || start >= length || end > length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// Create the new list.
+	LinkedList<T>* list = new LinkedList();
+
+	// Find the starting point.
+	Node<T>* nodePtr = findIndex(start);
+
+	// Copy elements from start to end.
+	for (size_t i = start; i < end; i++) {
+		list->add(nodePtr->data);
+		nodePtr = nodePtr->next;
+	}
+
+	// Return the sublist.
+	return list;
+}
+
+
+
 // Converts the list into a dynamic array.
 template<class T>
 T* LinkedList<T>::toDynamicArray() {
@@ -305,7 +332,7 @@ T* LinkedList<T>::toDynamicArray() {
 // Converts the list into a dynamic array of the given size.
 template<class T>
 T* LinkedList<T>::toDynamicArray(const uint SIZE) {
-	
+
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
 	Node<T>* nodePtr = head;

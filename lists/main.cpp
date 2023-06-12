@@ -65,9 +65,11 @@ void displayArray(uint* array, const uint SIZE) {
 // Main function.
 int main() {
 	char answer[3];
+	uint start, end;
 	uint number;
 	uint element;
 	size_t index;
+	LinkedList<uint>* sublist = nullptr;
 
 	// Create the linked list.
 	LinkedList<uint> list;
@@ -100,9 +102,10 @@ int main() {
 		cout << " (6)  removeAt(index)" << endl;
 		cout << " (7)  set(index, element)" << endl;
 		cout << " (8)  size()" << endl;
-		cout << " (9)  toDynamicArray()" << endl;
-		cout << "(10)  toDynamicArray(size)" << endl;
-		cout << "(11)  operator[]" << endl;
+		cout << " (9)  subList(start, end)" << endl;
+		cout << "(10)  toDynamicArray()" << endl;
+		cout << "(11)  toDynamicArray(size)" << endl;
+		cout << "(12)  operator[]" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -209,8 +212,29 @@ int main() {
 			break;
 
 
-		// Convert to a dynamic array.
+		// Creates sub list from start to end.
 		case 9:
+			cout << "subList(start, end)" << endl;
+			cout << "> start = ";
+			cin >> start;
+			cout << "> end = ";
+			cin >> end;
+			try {
+				sublist = list.subList(start, end);
+				cout << "Sublist:" << endl;
+				sublist->print();
+				delete sublist;
+				sublist = nullptr;
+				sleep_for(seconds(5));
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Convert to a dynamic array.
+		case 10:
 			cout << "toDynamicArray()" << endl;
 			delete array;
 			try {
@@ -226,7 +250,7 @@ int main() {
 
 
 		// Convert to a dynamic array of specified size.
-		case 10:
+		case 11:
 			cout << "toDynamicArray(size)" << endl;
 			cout << "> size = ";
 			cin >> size;
@@ -243,7 +267,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 11:
+		case 12:
 			cout << "operator[]" << endl;
 			cout << "> set or get value (s/g):  ";
 			cin.getline(answer, 3);
