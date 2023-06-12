@@ -20,5 +20,9 @@ int main() {
 	cout << "\nmin(array) = " << min(array, SIZE) << endl;
 	cout << "max(array) = " << max(array, SIZE) << endl;
 
+	uint a = 3, b = 5;
+	cout << "\nmin("<<a<<", "<<b<<") = " << min(a, b) << endl;
+	cout << "max("<<a<<", "<<b<<") = " << max(a, b) << endl;
+
 	return 0;
 }
