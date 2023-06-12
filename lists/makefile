@@ -1,7 +1,7 @@
-main:  main.o linked_list.cpp linked_list.h
+main:  main.o
 	g++ -Wall main.o -o main
 
-main.o:  main.cpp
+main.o:  main.cpp linked_list.cpp linked_list.h node.cpp node.h
 	g++ -Wall -c main.cpp
 
 run:  main

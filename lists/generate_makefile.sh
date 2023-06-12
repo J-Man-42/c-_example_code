@@ -54,11 +54,9 @@ template=("${temp[@]}")
 printf "main:  main.o" > makefile
 for title in ${headers[@]}; do
 	if [[ "${template[@]}" && "${template[@]}" == *"$title"* ]]; then
-		printf " $title.cpp" >> makefile
-	else
-		printf " $title.o" >> makefile
+		continue
 	fi
-	printf " $title.h" >> makefile
+	printf " $title.o $title.h" >> makefile
 done
 for (( i = 0; i < ${#titles[@]}; i++ )); do
 	if [[ "${template[@]}" && "${template[@]}" == *"${titles[i]}"* ]]; then
@@ -82,8 +80,11 @@ echo " -o main" >> makefile
 
 
 # Continue with main.o
-printf "\nmain.o:  main.cpp\n" >> makefile
-printf "\tg++ -Wall -c main.cpp\n" >> makefile
+printf "\nmain.o:  main.cpp" >> makefile
+for title in ${template[@]}; do
+	printf " $title.cpp $title.h" >> makefile
+done
+printf "\n\tg++ -Wall -c main.cpp\n" >> makefile
 
 
 # Continue with each entry in headers.
