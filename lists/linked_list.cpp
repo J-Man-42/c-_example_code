@@ -113,7 +113,7 @@ void LinkedList<T>::insert(uint index, T element) {
 
 	// See if index is closer to head.
 	Node<T>* nodePtr;
-	if (true) {
+	if (length-index-1 >= index) {
 		nodePtr = head;
 		for (size_t i = 0; i < index; i++) {
 			nodePtr = nodePtr->next;
