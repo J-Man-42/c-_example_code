@@ -46,31 +46,7 @@ LinkedList<T>::~LinkedList() {
 // Overload the subscript operator.
 template<class T>
 T& LinkedList<T>::operator[](const uint index) {
-	Node<T>* nodePtr;
-
-	// Throw error if index out of bounds.
-	if (index >= length) {
-		throw "Error! Index out of bounds";
-	}
-
-	// See if index is closer to head.
-	if (length-index >= index) {
-		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
-			nodePtr = nodePtr->next;
-		}
-	}
-
-	// Otherwise, index is closer to tail.
-	else {
-		nodePtr = tail;
-		for (size_t i = length-1; i > index; i--) {
-			nodePtr = nodePtr->prev;
-		}
-	}
-
-	// Return the element.
-	return nodePtr->data;
+	return findIndex(index)->data;
 }
 
 
@@ -119,32 +95,8 @@ void LinkedList<T>::clear() {
 
 // Returns the element at the given index.
 template<class T>
-T LinkedList<T>::get(const uint index) const {
-	Node<T>* nodePtr;
-
-	// Throw error if index out of bounds.
-	if (index >= length) {
-		throw "Error! Index out of bounds";
-	}
-
-	// See if index is closer to head.
-	if (length-index >= index) {
-		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
-			nodePtr = nodePtr->next;
-		}
-	}
-
-	// Otherwise, index is closer to tail.
-	else {
-		nodePtr = tail;
-		for (size_t i = length-1; i > index; i--) {
-			nodePtr = nodePtr->prev;
-		}
-	}
-
-	// Return the element.
-	return nodePtr->data;
+T LinkedList<T>::get(const uint index) {
+	return (*this)[index];
 }
 
 
@@ -153,7 +105,6 @@ T LinkedList<T>::get(const uint index) const {
 template<class T>
 void LinkedList<T>::insert(const uint index, const T element) {
 	Node<T>* newNode = new Node<T>(element);
-	length++;
 
 	// If empty list, assign as head and tail.
 	if (!head) {
@@ -166,39 +117,26 @@ void LinkedList<T>::insert(const uint index, const T element) {
 		tail->next = newNode;
 		newNode->prev = tail;
 		tail = newNode;
-		return;
 	}
 
 	// See if element should be added to the front.
-	if (index == 0) {
+	else if (index == 0) {
 		head->prev = newNode;
 		newNode->next = head;
 		head = newNode;
-		return;
 	}
 
-	// See if index is closer to head.
-	Node<T>* nodePtr;
-	if (length-index-1 >= index) {
-		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
-			nodePtr = nodePtr->next;
-		}
-	}
-
-	// Otherwise, index is closer to tail.
+	// It is somewhere in the middle.
 	else {
-		nodePtr = tail;
-		for (size_t i = length-2; i > index; i--) {
-			nodePtr = nodePtr->prev;
-		}
+		Node<T>* nodePtr = findIndex(index);
+		newNode->next = nodePtr;
+		newNode->prev = nodePtr->prev;
+		newNode->next->prev = newNode;
+		newNode->prev->next = newNode;
 	}
 
-	// Create and link the new node.
-	newNode->next = nodePtr;
-	newNode->prev = nodePtr->prev;
-	newNode->next->prev = newNode;
-	newNode->prev->next = newNode;
+	// Increment the list length.
+	length++;
 }
 
 
@@ -281,32 +219,15 @@ T LinkedList<T>::remove(const T element) {
 // Removes the element at the given index.
 template<class T>
 T LinkedList<T>::removeAt(const uint index) {
-	Node<T>* nodePtr;
-	T element;
 
-	// If not found, throw error.
+	// Throw error if index out of bounds.
 	if (index >= length) {
 		throw "Error! Index out of bounds";
 	}
 
-	// See if index is closer to head.
-	if (length-index >= index) {
-		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
-			nodePtr = nodePtr->next;
-		}
-	}
-
-	// Otherwise, index is closer to tail.
-	else {
-		nodePtr = tail;
-		for (size_t i = length-1; i > index; i--) {
-			nodePtr = nodePtr->prev;
-		}
-	}
-
-	// Assign the element to return.
-	element = nodePtr->data;
+	// Find correct node and get the element.
+	Node<T>* nodePtr = findIndex(index);
+	T element = nodePtr->data;
 
 	// The only element.
 	if (head == tail) {
@@ -345,7 +266,6 @@ T LinkedList<T>::removeAt(const uint index) {
 // Set the element at the given index. 
 template<class T>
 void LinkedList<T>::set(const uint index, const T element) {
-	Node<T>* nodePtr;
 
 	// If index out of bounds, add to the end.
 	if (index >= length) {
@@ -353,23 +273,8 @@ void LinkedList<T>::set(const uint index, const T element) {
 		return;
 	}
 
-	// See if index is closer to head.
-	if (length-index >= index) {
-		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
-			nodePtr = nodePtr->next;
-		}
-	}
-
-	// Otherwise, index is closer to tail.
-	else {
-		nodePtr = tail;
-		for (size_t i = length-1; i > index; i--) {
-			nodePtr = nodePtr->prev;
-		}
-	}
-
-	// Set the element.
+	// Find the node and set the element.
+	Node<T>* nodePtr = findIndex(index);
 	nodePtr->data = element;
 }
 
@@ -412,4 +317,36 @@ T* LinkedList<T>::toDynamicArray(const uint SIZE) {
 
 	// Return the final array.
 	return array;
+}
+
+
+
+// Find the node corresponding to the given index.
+template<class T>
+Node<T>* LinkedList<T>::findIndex(const uint index) {
+	Node<T>* nodePtr;
+
+	// Throw error if index out of bounds.
+	if (index >= length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// See if index is closer to head.
+	if (length-index >= index) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-1; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Return the element.
+	return nodePtr;
 }

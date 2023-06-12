@@ -14,7 +14,7 @@ public:
 	T& operator[](const uint index);
 	void add(const T element);
 	void clear();
-	T get(const uint index) const;
+	T get(const uint index);
 	void insert(const uint index, const T element);
 	void print();
 	T remove(const T element);
@@ -24,6 +24,7 @@ public:
 	T* toDynamicArray();
 	T* toDynamicArray(const uint SIZE);
 private:
+	Node<T>* findIndex(const uint index);
 	uint length;
 	Node<T>* head;
 	Node<T>* tail;
