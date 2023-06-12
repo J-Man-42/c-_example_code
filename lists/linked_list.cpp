@@ -150,11 +150,12 @@ void LinkedList<T>::print() {
 
 	// Iterate through all elements.
 	Node<T>* nodePtr = head;
+	cout << "(";
 	while (nodePtr->next) {
-		cout << nodePtr->data << " <--> ";
+		cout << nodePtr->data << ")──(";
 		nodePtr = nodePtr->next;
 	}
-	cout << nodePtr->data << endl;
+	cout << nodePtr->data << ")" << endl;
 }
 
 

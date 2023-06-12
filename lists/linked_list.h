@@ -3,16 +3,7 @@
 
 
 #include <iostream>
-
-
-// The Node struct.
-template<class T>
-struct Node
-{
-	T data;
-	Node* next = nullptr;
-	Node* prev = nullptr;
-};
+#include "node.h"
 
 
 // The doubly linked list class.
