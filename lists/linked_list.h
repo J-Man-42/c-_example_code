@@ -26,6 +26,7 @@ public:
 	void add(const T element);
 	void clear();
 	void insert(const uint index, const T element);
+	void print();
 	T remove(const T element);
 	T removeAt(const uint index);
 	uint size() const;

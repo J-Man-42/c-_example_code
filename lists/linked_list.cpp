@@ -1,4 +1,6 @@
+#include <iostream>
 #include "linked_list.h"
+using namespace std;
 
 
 // The constructor.
@@ -133,6 +135,26 @@ void LinkedList<T>::insert(const uint index, const T element) {
 	newNode->prev = nodePtr->prev;
 	newNode->next->prev = newNode;
 	newNode->prev->next = newNode;
+}
+
+
+
+// Elegantly prints the contents of the list.
+template <class T>
+void LinkedList<T>::print() {
+
+	// Do nothing if empty list.
+	if (!head) {
+		return;
+	}
+
+	// Iterate through all elements.
+	Node<T>* nodePtr = head;
+	while (nodePtr->next) {
+		cout << nodePtr->data << " <--> ";
+		nodePtr = nodePtr->next;
+	}
+	cout << nodePtr->data << endl;
 }
 
 
