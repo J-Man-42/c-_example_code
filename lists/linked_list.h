@@ -25,6 +25,7 @@ public:
 	~LinkedList();
 	void add(T element);
 	void clear();
+	void insert(uint index, T element);
 	uint size() const;
 private:
 	uint length;

@@ -82,6 +82,61 @@ void LinkedList<T>::clear() {
 }
 
 
+
+// Insert element at the specified index.
+template <class T>
+void LinkedList<T>::insert(uint index, T element) {
+	Node<T>* newNode = new Node<T>(element);
+	length++;
+
+	// If empty list, assign as head and tail.
+	if (!head) {
+		head = tail = newNode;
+		return;
+	}
+
+	// See if element is simply appended to the end.
+	if (index >= length-1) {
+		tail->next = newNode;
+		newNode->prev = tail;
+		tail = newNode;
+		return;
+	}
+
+	// See if element should be added to the front.
+	if (index == 0) {
+		head->prev = newNode;
+		newNode->next = head;
+		head = newNode;
+		return;
+	}
+
+	// See if index is closer to head.
+	Node<T>* nodePtr;
+	if (true) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-2; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Create and link the new node.
+	newNode->next = nodePtr;
+	newNode->prev = nodePtr->prev;
+	newNode->next->prev = newNode;
+	newNode->prev->next = newNode;
+}
+
+
+
 // Get the number of elements in the list.
 template <class T>
 uint LinkedList<T>::size() const {
