@@ -43,7 +43,7 @@ LinkedList<T>::~LinkedList() {
 
 // Add an element to the end of the list.
 template <class T>
-void LinkedList<T>::add(T element) {
+void LinkedList<T>::add(const T element) {
 	length++;
 
 	// See if it's the first element.
@@ -85,7 +85,7 @@ void LinkedList<T>::clear() {
 
 // Insert element at the specified index.
 template <class T>
-void LinkedList<T>::insert(uint index, T element) {
+void LinkedList<T>::insert(const uint index, const T element) {
 	Node<T>* newNode = new Node<T>(element);
 	length++;
 
@@ -139,7 +139,7 @@ void LinkedList<T>::insert(uint index, T element) {
 
 // Removes the first instance of the given element.
 template <class T>
-T LinkedList<T>::remove(T element) {
+T LinkedList<T>::remove(const T element) {
 	bool found = false;
 	Node<T>* nodePtr = head;
 
@@ -193,7 +193,7 @@ T LinkedList<T>::remove(T element) {
 
 // Removes the element at the given index.
 template <class T>
-T LinkedList<T>::removeAt(uint index) {
+T LinkedList<T>::removeAt(const uint index) {
 	Node<T>* nodePtr;
 	T element;
 
@@ -260,3 +260,9 @@ template <class T>
 uint LinkedList<T>::size() const {
 	return length;
 }
+
+
+
+// Converts the list into a dynamic array.
+template <class T>
+T* LinkedList<T>::toDynamicArray() {}

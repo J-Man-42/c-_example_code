@@ -23,12 +23,13 @@ public:
 	LinkedList();
 	LinkedList(const LinkedList<T>& other);
 	~LinkedList();
-	void add(T element);
+	void add(const T element);
 	void clear();
-	void insert(uint index, T element);
-	T remove(T element);
-	T removeAt(uint index);
+	void insert(const uint index, const T element);
+	T remove(const T element);
+	T removeAt(const uint index);
 	uint size() const;
+	T* toDynamicArray();
 private:
 	uint length;
 	Node<T>* head;
