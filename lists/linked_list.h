@@ -38,5 +38,6 @@ private:
 	Node<T>* tail;
 };
 
+#include "linked_list.cpp"
 
 #endif

@@ -38,7 +38,10 @@ void displayArray(uint* array, const uint SIZE) {
 	// Display the top border.
 	cout << "┌─";
 	for (size_t i = 0; i < SIZE; i++) {
-		width = log10(array[i]) + 1;
+		width = 1;
+		if (array[i] > 0) {
+			width += log10(array[i]);
+		}
 		for (size_t j = 0; j < width; j++) {
 			cout << "─";
 		}
@@ -58,7 +61,10 @@ void displayArray(uint* array, const uint SIZE) {
 	// Display the bottom border.
 	cout << "└─";
 	for (size_t i = 0; i < SIZE; i++) {
-		width = log10(array[i]) + 1;
+		width = 1;
+		if (array[i] > 0) {
+			width += log10(array[i]);
+		}
 		for (size_t j = 0; j < width; j++) {
 			cout << "─";
 		}
@@ -71,14 +77,40 @@ void displayArray(uint* array, const uint SIZE) {
 }
 
 
+
 // Main function.
 int main() {
+	uint answer;
 
-	// Test the displayArray() function.
-	const size_t SIZE = 10;
-	uint* array = generateRandomArray(SIZE);
-	displayArray(array, SIZE);
+	// Create the linked list.
+	LinkedList<uint> list;
 
+	// Declare the array pointer.
+	uint size = 1;
+	uint* array = new uint[size];
 
+	// Loop forever.
+	while (true) {
+
+		cout << "List:" << endl;
+		list.print();
+
+		cout << "\nArray:" << endl;
+		displayArray(array, size);
+
+		cout << "==============================" << endl;
+		cout << "(1)  add(element)" << endl;
+		cout << "(2)  clear()" << endl;
+		cout << "(3)  insert(index, element)" << endl;
+		cout << "(4)  print()" << endl;
+		cout << "(5)  remove(element)" << endl;
+		cout << "(6)  removeAt(index)" << endl;
+		cout << "(7)  size()" << endl;
+		cout << "(8)  toDynamicArray()" << endl;
+		cout << "(9)  toDynamicArray(size)" << endl;
+		cout << "==============================" << endl;
+		cout << "> ";
+		cin >> answer;
+	}
 	return 0;
 }
