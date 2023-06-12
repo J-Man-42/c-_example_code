@@ -136,6 +136,21 @@ int main() {
 			break;
 
 
+		// Get element at index.
+		case 3:
+			cout << "get(index)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			try {
+				element = list.get(index);
+				cout << "list["<<index<<"] = " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(1));
+			break;
+
+
 		// Insert an element.
 		case 4:
 			cout << "insert(index, element)" << endl;
@@ -168,10 +183,21 @@ int main() {
 			cin >> index;
 			try {
 				list.removeAt(index);
-			} catch (string e) {
+			} catch (char const* e) {
 				cout << e << endl;
 				sleep_for(seconds(1));
 			}
+			break;
+
+
+		// Set element at given index. 
+		case 7:
+			cout << "set(index, element)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			cout << "> element = ";
+			cin >> element;
+			list.set(index, element);
 			break;
 
 
