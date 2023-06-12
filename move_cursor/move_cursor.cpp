@@ -5,13 +5,19 @@ using namespace std;
 
 // Move the cursor to the given line and column number.
 void positionCursor(uint L, uint C) {
-	cout << "\033["<<L<<";"<<C<<";";
+	cout << "\033["<<L<<";"<<C<<"H";
 }
 
 
 // Move the cursor up N lines.
 void moveCursorUp(uint N) {
 	cout << "\033["<<N<<"A";
+}
+
+
+// Move the cursor down N lines.
+void moveCursorDown(uint N) {
+	cout << "\033["<<N<<"B";
 }
 
 
