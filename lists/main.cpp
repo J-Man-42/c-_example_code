@@ -1,44 +1,12 @@
 #include <iostream>
-#include <cstdlib>
 #include <chrono>
 #include <thread>
-#include <ctime>
 #include <cmath>
 #include "linked_list.h"
+#include "../move_cursor/move_cursor.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
-
-
-// Clears the terminal screen.
-void clearScreen() {
-    cout << "\033[2J\033[1;1H";
-}
-
-
-// Generate a random integer between minValue and maxValue.
-uint randint(uint minValue, uint maxValue) {
-
-    // Configure the seed.
-    static uint long seed = 0;
-    if (seed == 0) {
-        seed = time(0);
-        srand(seed);
-    }
-
-    // Generate and return a random integer.
-    return rand() % (maxValue - minValue + 1) + minValue;
-}
-
-
-// Generates a new random array with elements from 1 to 40.
-uint* generateRandomArray(const uint SIZE) {
-    uint* array = new uint[SIZE];
-    for (size_t i = 0; i < SIZE; i++) {
-        array[i] = randint(1, 40);
-    }
-    return array;
-}
 
 
 // Elegantly displays the content of the array.
@@ -106,8 +74,8 @@ int main() {
 	uint size = 0;
 	uint* array = new uint[size];
 
-	// Loop forever.
-	while (true) {
+	// Loop until Q has been entered.
+	while (answer != 'Q') {
 
 		// Clear the screen
 		clearScreen();
@@ -122,7 +90,6 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << "(0)  << QUIT PROGRAM >>" << endl;
 		cout << "(1)  add(element)" << endl;
 		cout << "(2)  clear()" << endl;
 		cout << "(3)  insert(index, element)" << endl;
@@ -131,18 +98,15 @@ int main() {
 		cout << "(6)  size()" << endl;
 		cout << "(7)  toDynamicArray()" << endl;
 		cout << "(8)  toDynamicArray(size)" << endl;
+		cout << "(Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin >> answer;
+		answer = toupper(answer);
 
 
 		// Switch statement for answer.
 		switch (answer) {
-
-
-		// Quit.
-		case '0':
-			return 0;
 
 
 		// Add an element.
@@ -215,9 +179,9 @@ int main() {
 			try {
 				array = list.toDynamicArray();
 				size = list.size();
-			} catch (string e) {
+			} catch (char const* e) {
 				cout << e << endl;
-				size = 1;
+				size = 0;
 				array = new uint[size];
 				sleep_for(seconds(1));
 			}
@@ -230,7 +194,14 @@ int main() {
 			cout << "> size = ";
 			cin >> size;
 			delete array;
-			array = list.toDynamicArray(size);
+			try {
+				array = list.toDynamicArray(size);
+			} catch (char const* e) {
+				cout << e << endl;
+				size = 0;
+				array = new uint[size];
+				sleep_for(seconds(1));
+			}
 			break;
 		}
 	}
