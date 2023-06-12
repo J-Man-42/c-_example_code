@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <chrono>
 #include <thread>
 #include <cmath>
@@ -63,7 +64,8 @@ void displayArray(uint* array, const uint SIZE) {
 
 // Main function.
 int main() {
-	char answer;
+	char answer[3];
+	uint number;
 	uint element;
 	size_t index;
 
@@ -75,7 +77,7 @@ int main() {
 	uint* array = new uint[size];
 
 	// Loop until Q has been entered.
-	while (answer != 'Q') {
+	while (answer[0] != 'Q') {
 
 		// Clear the screen
 		clearScreen();
@@ -90,27 +92,36 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << "(1)  add(element)" << endl;
-		cout << "(2)  clear()" << endl;
-		cout << "(3)  insert(index, element)" << endl;
-		cout << "(4)  remove(element)" << endl;
-		cout << "(5)  removeAt(index)" << endl;
-		cout << "(6)  size()" << endl;
-		cout << "(7)  toDynamicArray()" << endl;
-		cout << "(8)  toDynamicArray(size)" << endl;
-		cout << "(Q)  << QUIT PROGRAM >>" << endl;
+		cout << " (0)  operator[]" << endl;
+		cout << " (1)  add(element)" << endl;
+		cout << " (2)  clear()" << endl;
+		cout << " (3)  get(index)" << endl;
+		cout << " (4)  insert(index, element)" << endl;
+		cout << " (5)  remove(element)" << endl;
+		cout << " (6)  removeAt(index)" << endl;
+		cout << " (7)  set(index, element)" << endl;
+		cout << " (8)  size()" << endl;
+		cout << " (9)  toDynamicArray()" << endl;
+		cout << "(10)  toDynamicArray(size)" << endl;
+		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
-		cin >> answer;
-		answer = toupper(answer);
+		cin.getline(answer, 3);
+		answer[0] = toupper(answer[0]);
+
+		// Simply continue when a string is entered.
+		if (isalpha(answer[0])) {
+			continue;
+		}
 
 
 		// Switch statement for answer.
-		switch (answer) {
+		number = atoi(answer);
+		switch (number) {
 
 
 		// Add an element.
-		case '1':
+		case 1:
 			cout << "add(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -119,14 +130,14 @@ int main() {
 
 
 		// Clear all elements.
-		case '2':
+		case 2:
 			cout << "clear()" << endl;
 			list.clear();
 			break;
 
 
 		// Insert an element.
-		case '3':
+		case 4:
 			cout << "insert(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -137,7 +148,7 @@ int main() {
 
 
 		// Remove the specified element.
-		case '4':
+		case 5:
 			cout << "remove(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -151,7 +162,7 @@ int main() {
 
 
 		// Remove element at the given index.
-		case '5':
+		case 6:
 			cout << "removeAt(index)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -165,7 +176,7 @@ int main() {
 
 
 		// Display the number of elements.
-		case '6':
+		case 8:
 			cout << "size()" << endl;
 			cout << "List size:  " << list.size() << endl;
 			sleep_for(seconds(1));
@@ -173,7 +184,7 @@ int main() {
 
 
 		// Convert to a dynamic array.
-		case '7':
+		case 9:
 			cout << "toDynamicArray()" << endl;
 			delete array;
 			try {
@@ -189,7 +200,7 @@ int main() {
 
 
 		// Convert to a dynamic array of specified size.
-		case '8':
+		case 10:
 			cout << "toDynamicArray(size)" << endl;
 			cout << "> size = ";
 			cin >> size;

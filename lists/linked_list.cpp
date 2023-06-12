@@ -4,7 +4,7 @@ using namespace std;
 
 
 // The constructor.
-template <class T>
+template<class T>
 LinkedList<T>::LinkedList() {
 	head = tail = nullptr;
 	length = 0;
@@ -12,7 +12,7 @@ LinkedList<T>::LinkedList() {
 
 
 // The copy constructor.
-template <class T>
+template<class T>
 LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 	this->length = other.length;
 	this->head = nullptr;
@@ -36,7 +36,7 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 
 
 // The destructor.
-template <class T>
+template<class T>
 LinkedList<T>::~LinkedList() {
 	clear();
 }
@@ -44,7 +44,7 @@ LinkedList<T>::~LinkedList() {
 
 
 // Add an element to the end of the list.
-template <class T>
+template<class T>
 void LinkedList<T>::add(const T element) {
 	length++;
 
@@ -64,7 +64,7 @@ void LinkedList<T>::add(const T element) {
 
 
 // Delete all entries in the list.
-template <class T>
+template<class T>
 void LinkedList<T>::clear() {
 	length = 0;
 
@@ -85,8 +85,40 @@ void LinkedList<T>::clear() {
 
 
 
+// Returns the element at the given index.
+template<class T>
+T LinkedList<T>::get(const uint index) const {
+	Node<T>* nodePtr;
+
+	// Throw error if index out of bounds.
+	if (index >= length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// See if index is closer to head.
+	if (length-index >= index) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-1; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Return the element.
+	return nodePtr->data;
+}
+
+
+
 // Insert element at the specified index.
-template <class T>
+template<class T>
 void LinkedList<T>::insert(const uint index, const T element) {
 	Node<T>* newNode = new Node<T>(element);
 	length++;
@@ -140,7 +172,7 @@ void LinkedList<T>::insert(const uint index, const T element) {
 
 
 // Elegantly prints the contents of the list.
-template <class T>
+template<class T>
 void LinkedList<T>::print() {
 
 	// Do nothing if empty list.
@@ -161,7 +193,7 @@ void LinkedList<T>::print() {
 
 
 // Removes the first instance of the given element.
-template <class T>
+template<class T>
 T LinkedList<T>::remove(const T element) {
 	bool found = false;
 	Node<T>* nodePtr = head;
@@ -215,7 +247,7 @@ T LinkedList<T>::remove(const T element) {
 
 
 // Removes the element at the given index.
-template <class T>
+template<class T>
 T LinkedList<T>::removeAt(const uint index) {
 	Node<T>* nodePtr;
 	T element;
@@ -278,8 +310,41 @@ T LinkedList<T>::removeAt(const uint index) {
 
 
 
+// Set the element at the given index. 
+template<class T>
+void LinkedList<T>::set(const uint index, const T element) {
+	Node<T>* nodePtr;
+
+	// If index out of bounds, add to the end.
+	if (index >= length) {
+		add(element);
+		return;
+	}
+
+	// See if index is closer to head.
+	if (length-index >= index) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-1; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Set the element.
+	nodePtr->data = element;
+}
+
+
+
 // Get the number of elements in the list.
-template <class T>
+template<class T>
 uint LinkedList<T>::size() const {
 	return length;
 }
@@ -287,7 +352,7 @@ uint LinkedList<T>::size() const {
 
 
 // Converts the list into a dynamic array.
-template <class T>
+template<class T>
 T* LinkedList<T>::toDynamicArray() {
 
 	// Throw an error if the list is empty.
@@ -301,7 +366,7 @@ T* LinkedList<T>::toDynamicArray() {
 
 
 // Converts the list into a dynamic array of the given size.
-template <class T>
+template<class T>
 T* LinkedList<T>::toDynamicArray(const uint SIZE) {
 	
 	// Copy all elements to the new array.
