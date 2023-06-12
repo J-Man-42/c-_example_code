@@ -48,13 +48,12 @@ for path in "${template[@]}"; do
 	temp+=( $(echo "$path" | awk -F / '{print $NF}') )
 done
 template=("${temp[@]}")
-unset temp
 
 
 # Start with main
 printf "main:  main.o" > makefile
 for title in ${headers[@]}; do
-	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+	if [[ "${template[@]}" && "${template[@]}" == *"$title"* ]]; then
 		printf " $title.cpp" >> makefile
 	else
 		printf " $title.o" >> makefile
@@ -62,7 +61,7 @@ for title in ${headers[@]}; do
 	printf " $title.h" >> makefile
 done
 for (( i = 0; i < ${#titles[@]}; i++ )); do
-	if [[ "${template[@]}" && "${titles[i]}" == *"${template[@]}" ]]; then
+	if [[ "${template[@]}" && "${template[@]}" == *"${titles[i]}"* ]]; then
 		continue
 	fi
 	printf " ${titles[i]}.o ${paths[i]}.h" >> makefile
@@ -71,7 +70,7 @@ done
 # Compile all .o files.
 printf "\n\tg++ -Wall main.o" >> makefile
 for title in ${headers[@]}; do
-	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+	if [[ "${template[@]}" && "${template[@]}" == *"$title"* ]]; then
 		continue
 	fi
 	printf " $title.o" >> makefile
@@ -89,14 +88,14 @@ printf "\tg++ -Wall -c main.cpp\n" >> makefile
 
 # Continue with each entry in headers.
 for title in ${headers[@]}; do
-	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+	if [[ "${template[@]}" && "${template[@]}" == *"$title"* ]]; then
 		continue
 	fi
 	printf "\n$title.o:  $title.cpp $title.h\n" >> makefile
 	printf "\tg++ -Wall -c $title.cpp\n" >> makefile
 done
 for (( i = 0; i < ${#titles[@]}; i++ )); do
-	if [[ "${template[@]}" && "${titles[i]}" == *"${template[@]}" ]]; then
+	if [[ "${template[@]}" && "${template[@]}" == *"${titles[i]}"* ]]; then
 		continue
 	fi
 	printf "\n${titles[i]}.o:  ${paths[i]}.cpp ${paths[i]}.h\n" >> makefile
