@@ -22,10 +22,11 @@ function showHelp() {
 ################################################################################
 
 # Organize the input parameters.
-while getopts "hi:" arg; do
+while getopts "hi:t:" arg; do
 	case $arg in
 		h) help=true;;
 		i) include+=("$OPTARG");;
+		t) template+=("$OPTARG");;
 	esac
 done
 
@@ -42,20 +43,32 @@ paths=( $(echo "${include[@]%.*}") )
 for path in "${paths[@]}"; do
 	titles+=( $(echo "$path" | awk -F / '{print $NF}') )
 done
+template=( $(echo "${template[@]%.*}")  )
 
 
 # Start with main
 printf "main:  main.o" > makefile
 for title in ${headers[@]}; do
-	printf " $title.o $title.h" >> makefile
+	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+		printf " $title.cpp" >> makefile
+	else
+		printf " $title.o" >> makefile
+	fi
+	printf " $title.h" >> makefile
 done
 for (( i = 0; i < ${#titles[@]}; i++ )); do
+	if [[ "${template[@]}" && "${titles[i]}" == *"${template[@]}" ]]; then
+		continue
+	fi
 	printf " ${titles[i]}.o ${paths[i]}.h" >> makefile
 done
 
 # Compile all .o files.
 printf "\n\tg++ -Wall main.o" >> makefile
 for title in ${headers[@]}; do
+	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+		continue
+	fi
 	printf " $title.o" >> makefile
 done
 for title in ${titles[@]}; do
@@ -71,10 +84,16 @@ printf "\tg++ -Wall -c main.cpp\n" >> makefile
 
 # Continue with each entry in headers.
 for title in ${headers[@]}; do
+	if [[ "${template[@]}" && "$title" == *"${template[@]}" ]]; then
+		continue
+	fi
 	printf "\n$title.o:  $title.cpp $title.h\n" >> makefile
 	printf "\tg++ -Wall -c $title.cpp\n" >> makefile
 done
 for (( i = 0; i < ${#titles[@]}; i++ )); do
+	if [[ "${template[@]}" && "${titles[i]}" == *"${template[@]}" ]]; then
+		continue
+	fi
 	printf "\n${titles[i]}.o:  ${paths[i]}.cpp ${paths[i]}.h\n" >> makefile
 	printf "\tg++ -Wall -c ${paths[i]}.cpp -o ${titles[i]}.o\n" >> makefile
 done
