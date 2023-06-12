@@ -44,6 +44,11 @@ for path in "${paths[@]}"; do
 	titles+=( $(echo "$path" | awk -F / '{print $NF}') )
 done
 template=( $(echo "${template[@]%.*}")  )
+for path in "${template[@]}"; do
+	temp+=( $(echo "$path" | awk -F / '{print $NF}') )
+done
+template=("${temp[@]}")
+unset temp
 
 
 # Start with main
