@@ -137,6 +137,16 @@ void LinkedList<T>::insert(uint index, T element) {
 
 
 
+template <class T>
+T LinkedList<T>::remove(T element) {}
+
+
+
+template <class T>
+T LinkedList<T>::removeAt(uint index) {}
+
+
+
 // Get the number of elements in the list.
 template <class T>
 uint LinkedList<T>::size() const {
