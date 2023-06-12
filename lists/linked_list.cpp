@@ -193,7 +193,65 @@ T LinkedList<T>::remove(T element) {
 
 // Removes the element at the given index.
 template <class T>
-T LinkedList<T>::removeAt(uint index) {}
+T LinkedList<T>::removeAt(uint index) {
+	Node<T>* nodePtr;
+	T element;
+
+	// If not found, throw error.
+	if (index >= length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// See if index is closer to head.
+	if (length-index >= index) {
+		nodePtr = head;
+		for (size_t i = 0; i < index; i++) {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Otherwise, index is closer to tail.
+	else {
+		nodePtr = tail;
+		for (size_t i = length-1; i > index; i--) {
+			nodePtr = nodePtr->prev;
+		}
+	}
+
+	// Assign the element to return.
+	element = nodePtr->data;
+
+	// The only element.
+	if (head == tail) {
+		delete head;
+		head = tail = nullptr;
+	}
+
+	// The element is the first element.
+	else if (head == nodePtr) {
+		head = head->next;
+		delete head->prev;
+		head->prev = nullptr;
+	}
+
+	// The element is the last element.
+	else if (tail == nodePtr) {
+		tail = tail->prev;
+		delete tail->next;
+		tail->next = nullptr;
+	}
+
+	// Otherwise, it is somewhere in the middle.
+	else {
+		nodePtr->prev->next = nodePtr->next;
+		nodePtr->next->prev = nodePtr->prev;
+		delete nodePtr;
+	}
+
+	// Return the element.
+	length--;
+	return element;
+}
 
 
 
