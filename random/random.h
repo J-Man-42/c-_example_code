@@ -5,5 +5,6 @@
 void updateSeed();
 int randInt(int minValue, int maxValue);
 uint randUint(uint minValue, uint maxValue);
+double randDouble(double minValue, double maxValue);
 
 #endif

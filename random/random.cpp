@@ -28,3 +28,11 @@ uint randUint(uint minValue, uint maxValue) {
 	updateSeed();
 	return rand() % (maxValue - minValue + 1) + minValue;
 }
+
+
+// Generate a random double between minValue and maxValue.
+double randDouble(double minValue, double maxValue) {
+	updateSeed();
+	double randValue = double(rand()) / RAND_MAX;
+    return randValue * (maxValue - minValue) + minValue;
+}
