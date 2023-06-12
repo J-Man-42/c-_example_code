@@ -11,8 +11,6 @@ function showHelp() {
 	echo "║    -h:  Shows the help dialogue                                    ║"
 	echo "║    -i:  Specify additional headers to include in the makefile      ║"
 	echo "║    -t:  Specify titles that use template classes                   ║"
-	echo "║                                                                    ║"
-	echo "║ Opens the help dialogue if no arguments are provided.              ║"
 	echo "╚════════════════════════════════════════════════════════════════════╝"
 	exit 1
 }
