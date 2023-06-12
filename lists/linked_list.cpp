@@ -137,11 +137,61 @@ void LinkedList<T>::insert(uint index, T element) {
 
 
 
+// Removes the first instance of the given element.
 template <class T>
-T LinkedList<T>::remove(T element) {}
+T LinkedList<T>::remove(T element) {
+	bool found = false;
+	Node<T>* nodePtr = head;
+
+	// Iterate until null or element found.
+	while (nodePtr) {
+		if (nodePtr->data == element) {
+			found = true;
+			break;
+		}
+		nodePtr = nodePtr->next;
+	}
+
+	// If not found, throw error.
+	if (!found) {
+		throw "Error! Element '"+to_string(element)+"' not found";
+	}
+
+	// The only element.
+	if (head == tail) {
+		delete head;
+		head = tail = nullptr;
+	}
+
+	// The element is the first element.
+	else if (head == nodePtr) {
+		head = head->next;
+		delete head->prev;
+		head->prev = nullptr;
+	}
+
+	// The element is the last element.
+	else if (tail == nodePtr) {
+		tail = tail->prev;
+		delete tail->next;
+		tail->next = nullptr;
+	}
+
+	// Otherwise, it is somewhere in the middle.
+	else {
+		nodePtr->prev->next = nodePtr->next;
+		nodePtr->next->prev = nodePtr->prev;
+		delete nodePtr;
+	}
+
+	// Return the element.
+	length--;
+	return element;
+}
 
 
 
+// Removes the element at the given index.
 template <class T>
 T LinkedList<T>::removeAt(uint index) {}
 
