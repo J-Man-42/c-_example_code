@@ -34,6 +34,9 @@ void Sorting::toggleBarWidth() {
 // Update the display bar height.
 void Sorting::setBarHeight(uint height) {
 	Sorting::height = height;
+	if (height % 2 == 1) {
+		Sorting::height++;
+	}
 }
 
 
