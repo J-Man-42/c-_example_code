@@ -312,35 +312,46 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 // Insertion sort the given array.
 void Sorting::insertionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	uint highlight[2];
-	char colour[2] = {'C', 'C'};
-
+	LinkedList<Highlight>* blank = nullptr;
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('C'));
+	bool swapped;
+	
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, blank);
 	sleep_for(delay);
 
 	// Iterate starting from the second element.
 	for (size_t i = 1; i < SIZE; i++) {
-		highlight[0] = i;
-		displayArray(array, SIZE, highlight, colour, 1);
-		sleep_for(delay);
+		swapped = false;
 
+		// Loop while swapping is needed.
 		size_t j = i;
 		while (j > 0 && array[j] < array[j-1]) {
-			highlight[0] = j;
-			highlight[1] = j-1;
-			displayArray(array, SIZE, highlight, colour, 2);
+			(*highlight)[0].index = j-1;
+			(*highlight)[1].index = j;
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			swap(array[j], array[j-1]);
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
+			swapped = true;
 			j--;
-			displayArray(array, SIZE, highlight, colour, 2);
+		}
+
+		// Only print if no swap occurred.
+		if (!swapped) {
+			(*highlight)[0].index = i-1;
+			(*highlight)[1].index = i;
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, blank);
 	sleep_for(delay);
 }
 
