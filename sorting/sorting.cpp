@@ -360,13 +360,14 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 // Cocktail shaker sort the given array.
 void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	const size_t COUNT = 4;
-	uint highlight[COUNT];
-	char colour[COUNT] = {'C', 'C', 'X', 'X'};
+	LinkedList<Highlight>* blank = nullptr;
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('C'));
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, blank);
 	sleep_for(delay);
 
 	// Loop while a swap has occurred.
@@ -374,56 +375,56 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	bool swapped;
 	do {
 
-		// Iterate in ascending order.
-		highlight[2] = start-1;
+		// Iterate forwards.
 		swapped = false;
 		for (size_t i = start+1; i < end; i++) {
-			highlight[0] = i-1;
-			highlight[1] = i;
+			(*highlight)[0].index = i-1;
+			(*highlight)[1].index = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, colour, COUNT);
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, highlight, colour, COUNT);
+				displayArray(array, SIZE, highlight);
 				sleep_for(delay);
 			}
 		}
 		end--;
+		highlight->add(Highlight('X', end));
 
-		// Break if no swap occurred
+		// Break if no swap occurred.
 		if (!swapped) {
 			break;
 		}
 
-		// Iterate in descending order.
-		highlight[3] = end;
+		// Iterate backwards.
 		swapped = false;
 		for (size_t i = end-1; i > start; i--) {
-			highlight[0] = i-1;
-			highlight[1] = i;
+			(*highlight)[0].index = i-1;
+			(*highlight)[1].index = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, colour, COUNT);
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, highlight, colour, COUNT);
+				displayArray(array, SIZE, highlight);
 				sleep_for(delay);
 			}
 		}
+		highlight->add(Highlight('X', start));
 		start++;
 
 	} while (swapped);
 
 	// Display the array after sorting.
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, blank);
 	sleep_for(delay);
 }
