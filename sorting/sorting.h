@@ -38,12 +38,7 @@ public:
 	static void toggleBarWidth();
 	static void displayArray(
 		uint array[], const uint SIZE,
-		uint* highlight = nullptr, char* colour = nullptr,
-		const uint COUNT = 0
-	);
-	static void displayArray(
-		uint array[], const uint SIZE,
-		LinkedList<Highlight>* highlight
+		LinkedList<Highlight>* highlight = nullptr
 	);
 	static void bubbleSort(uint array[], const uint SIZE);
 	static void selectionSort(uint array[], const uint SIZE);

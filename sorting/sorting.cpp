@@ -24,92 +24,6 @@ void Sorting::toggleBarWidth() {
 // Displays the array content as pillars.
 void Sorting::displayArray(
 	uint array[], const uint SIZE,
-	uint* highlight, char* colour, const uint COUNT) {
-
-	// Configure the highlight colours.
-	char colours[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
-		colours[i] = '\0';
-	}
-	for (size_t i = 0; i < COUNT; i++) {
-		if (highlight[i] < SIZE) {
-			colours[highlight[i]] = colour[i];
-		}
-	}
-
-	// Specify the height of the array.
-	uint height = 40;
-
-	// Move the cursor up N spaces.
-	size_t N = (barWidth == 1 ? 23 : 24);
-	moveCursorUp(N);
-
-	// Above the bars.
-	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= barWidth; j++) {
-			cout << "┴";
-		}
-	}
-	for (size_t i = 0; i < barWidth; i++) {
-		cout << "┴";
-	}
-	cout << endl;
-
-	// Setup single/double bar.
-	string singleBar[] = {"█ ", "▄ ", "  "};
-	string doubleBar[] = {"██ ", "▄▄ ", "   "};
-	string* bars = (barWidth == 1 ? singleBar : doubleBar);
-	string bar;
-
-	// Iterate through all layers.
-	for (size_t n = height; n > 0; n -= 2) {
-		for (size_t i = 0; i < SIZE; i++) {
-
-			// Get the bar shape.
-			if (array[i] >= n) {
-				bar = bars[0];
-			} else if (array[i] == n-1) {
-				bar = bars[1];
-			} else {
-				bar = bars[2];
-			}
-
-			// Print text in the appropriate colour.
-			cout << colourText(bar, colours[i]);
-		}
-		cout << endl;
-	}
-
-	// Show the numbers below the bars.
-	if (barWidth > 1) {
-		for (size_t i = 0; i < SIZE; i++) {
-			if (colours[i] == '\0') {
-				cout << setw(2) << array[i];
-			} else {
-				cout << setw(13) << colourText(to_string(array[i]), colours[i]);
-			}
-			cout << " ";
-		}
-		cout << endl;
-	}
-
-	// Below the numbers.
-	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= barWidth; j++) {
-			cout << "┬";
-		}
-	}
-	for (size_t i = 0; i < barWidth; i++) {
-		cout << "┬";
-	}
-	cout << "\n\n";
-}
-
-
-
-// Displays the array content as pillars.
-void Sorting::displayArray(
-	uint array[], const uint SIZE,
 	LinkedList<Highlight>* highlight) {
 
 	// Configure the highlight colours.
@@ -197,14 +111,13 @@ void Sorting::displayArray(
 // Bubble sort the given array.
 void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	LinkedList<Highlight>* blank = nullptr;
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 	
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
@@ -238,7 +151,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Delete dynamic memory.
@@ -251,7 +164,6 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 // Selection sort the given array.
 void Sorting::selectionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	LinkedList<Highlight>* blank = nullptr;
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
@@ -259,7 +171,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Indicate the starting index.
@@ -312,7 +224,6 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 // Insertion sort the given array.
 void Sorting::insertionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	LinkedList<Highlight>* blank = nullptr;
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
@@ -320,7 +231,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Iterate starting from the second element.
@@ -351,7 +262,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }
 
@@ -360,14 +271,13 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 // Cocktail shaker sort the given array.
 void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	LinkedList<Highlight>* blank = nullptr;
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Loop while a swap has occurred.
@@ -425,6 +335,6 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	} while (swapped);
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, blank);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }
