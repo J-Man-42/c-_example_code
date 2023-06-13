@@ -11,10 +11,20 @@ using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
+// Set static member values.
+uint Sorting::delay = 50;
+uint Sorting::barWidth = 2;
+
+
+// Toggles between a width of 1 and a width of 2.
+void Sorting::toggleBarWidth() {
+	barWidth = barWidth % 2 + 1;
+}
+
 
 // Displays the array content as pillars.
 void Sorting::displayArray(
-	uint array[], const uint SIZE, bool thinBar,
+	uint array[], const uint SIZE,
 	uint* highlight, char* colour, const uint COUNT) {
 
 	// Configure the highlight colours.
@@ -31,20 +41,17 @@ void Sorting::displayArray(
 	// Specify the height of the array.
 	uint height = 40;
 
-	// Configure the bar width.
-	size_t width = (thinBar ? 1 : 2);
-
 	// Move the cursor up N spaces.
-	size_t N = (thinBar ? 23 : 24);
+	size_t N = (barWidth == 1 ? 23 : 24);
 	moveCursorUp(N);
 
 	// Above the bars.
 	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= width; j++) {
+		for (size_t j = 0; j <= barWidth; j++) {
 			cout << "┴";
 		}
 	}
-	for (size_t i = 0; i < width; i++) {
+	for (size_t i = 0; i < barWidth; i++) {
 		cout << "┴";
 	}
 	cout << endl;
@@ -52,7 +59,7 @@ void Sorting::displayArray(
 	// Setup single/double bar.
 	string singleBar[] = {"█ ", "▄ ", "  "};
 	string doubleBar[] = {"██ ", "▄▄ ", "   "};
-	string* bars = (thinBar ? singleBar : doubleBar);
+	string* bars = (barWidth == 1 ? singleBar : doubleBar);
 	string bar;
 
 	// Iterate through all layers.
@@ -75,7 +82,7 @@ void Sorting::displayArray(
 	}
 
 	// Show the numbers below the bars.
-	if (!thinBar) {
+	if (barWidth > 1) {
 		for (size_t i = 0; i < SIZE; i++) {
 			if (colours[i] == '\0') {
 				cout << setw(2) << array[i];
@@ -89,11 +96,11 @@ void Sorting::displayArray(
 
 	// Below the numbers.
 	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= width; j++) {
+		for (size_t j = 0; j <= barWidth; j++) {
 			cout << "┬";
 		}
 	}
-	for (size_t i = 0; i < width; i++) {
+	for (size_t i = 0; i < barWidth; i++) {
 		cout << "┬";
 	}
 	cout << "\n\n";
@@ -102,15 +109,15 @@ void Sorting::displayArray(
 
 
 // Bubble sort the given array.
-void Sorting::bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
-	auto delay = milliseconds(ms);
+void Sorting::bubbleSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
 	const size_t COUNT = 3;
 	uint highlight[COUNT];
 	char colour[COUNT] = {'C', 'C', 'X'};
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
@@ -123,14 +130,14 @@ void Sorting::bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+			displayArray(array, SIZE, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+				displayArray(array, SIZE, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
@@ -142,15 +149,15 @@ void Sorting::bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }
 
 
 
 // Selection sort the given array.
-void Sorting::selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
-	auto delay = milliseconds(ms);
+void Sorting::selectionSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
 	const size_t COUNT = 4;
 	uint highlight[COUNT];
 	char compareColour[COUNT] = {'X', 'C', 'C', 'R'};
@@ -158,7 +165,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Indicate the starting index.
@@ -172,7 +179,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar
 			highlight[2] = j;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, compareColour, COUNT);
+			displayArray(array, SIZE, highlight, compareColour, COUNT);
 			sleep_for(delay);
 			if (array[j] < array[minIndex]) {
 				minIndex = j;
@@ -183,71 +190,71 @@ void Sorting::selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar
 		// Display the array before and after swapping.
 		highlight[1] = minIndex;
 		highlight[2] = i;
-		displayArray(array, SIZE, thinBar, highlight, swapColour, COUNT-1);
+		displayArray(array, SIZE, highlight, swapColour, COUNT-1);
 		sleep_for(delay);
 
 		// Only swap if needed.
 		if (minIndex != i) {
 			swap(array[i], array[minIndex]);
-			displayArray(array, SIZE, thinBar, highlight, swapColour, COUNT-1);
+			displayArray(array, SIZE, highlight, swapColour, COUNT-1);
 			sleep_for(delay);
 		}
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }
 
 
 
 // Insertion sort the given array.
-void Sorting::insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
-	auto delay = milliseconds(ms);
+void Sorting::insertionSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
 	uint highlight[2];
 	char colour[2] = {'C', 'C'};
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Iterate starting from the second element.
 	for (size_t i = 1; i < SIZE; i++) {
 		highlight[0] = i;
-		displayArray(array, SIZE, thinBar, highlight, colour, 1);
+		displayArray(array, SIZE, highlight, colour, 1);
 		sleep_for(delay);
 
 		size_t j = i;
 		while (j > 0 && array[j] < array[j-1]) {
 			highlight[0] = j;
 			highlight[1] = j-1;
-			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			displayArray(array, SIZE, highlight, colour, 2);
 			sleep_for(delay);
 			swap(array[j], array[j-1]);
 			j--;
-			displayArray(array, SIZE, thinBar, highlight, colour, 2);
+			displayArray(array, SIZE, highlight, colour, 2);
 			sleep_for(delay);
 		}
 	}
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }
 
 
 
 // Cocktail shaker sort the given array.
-void Sorting::cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
-	auto delay = milliseconds(ms);
+void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
 	const size_t COUNT = 4;
 	uint highlight[COUNT];
 	char colour[COUNT] = {'C', 'C', 'X', 'X'};
 
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 
 	// Loop while a swap has occurred.
@@ -263,14 +270,14 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool th
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+			displayArray(array, SIZE, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+				displayArray(array, SIZE, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
@@ -289,14 +296,14 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool th
 			highlight[1] = i;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+			displayArray(array, SIZE, highlight, colour, COUNT);
 			sleep_for(delay);
 			if (array[i] < array[i-1]) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
 				// Display the swapped elements.
-				displayArray(array, SIZE, thinBar, highlight, colour, COUNT);
+				displayArray(array, SIZE, highlight, colour, COUNT);
 				sleep_for(delay);
 			}
 		}
@@ -305,6 +312,6 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool th
 	} while (swapped);
 
 	// Display the array after sorting.
-	displayArray(array, SIZE, thinBar);
+	displayArray(array, SIZE);
 	sleep_for(delay);
 }

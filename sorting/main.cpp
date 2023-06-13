@@ -19,10 +19,8 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 int main() {
 	uint answer;
 	size_t size = 20;
-	uint milliseconds = 50;
 	uint minValue = 1;
 	uint maxValue = 40;
-	bool thinBar = false;
 
 	// Initialise array.
 	uint* array = randUintArray(size, minValue, maxValue);
@@ -34,12 +32,12 @@ int main() {
 	while (true) {
 
 		// Display the array.
-		Sorting::displayArray(array, size, thinBar);
+		Sorting::displayArray(array, size);
 
 		// Show the options.
 		cout << "==============================" << endl;
 		cout << "Array size = " << size << endl;
-		cout << "Time delay = " << milliseconds << "ms\n";
+		cout << "Time delay = " << Sorting::delay << "ms\n";
 		cout << "==============================" << endl;
 		cout << "(0)  Randomise Array" << endl;
 		cout << "(1)  Resize Array" << endl;
@@ -104,7 +102,7 @@ int main() {
 
 		// Toggle the width of the vertical bars.
 		case 2:
-			thinBar = !thinBar;
+			Sorting::toggleBarWidth();
 			clearScreen();
 			break;
 
@@ -112,7 +110,7 @@ int main() {
 		// Change the milliseconds delay when sorting.
 		case 3:
 			cout << "new delay = ";
-			cin >> milliseconds;
+			cin >> Sorting::delay;
 			clearScreen();
 			break;
 
@@ -131,16 +129,16 @@ int main() {
 			// Run the requested sorting algorithm.
 			switch (answer) {
 			case 1:
-				Sorting::bubbleSort(array, size, milliseconds, thinBar);
+				Sorting::bubbleSort(array, size);
 				break;
 			case 2:
-				Sorting::selectionSort(array, size, milliseconds, thinBar);
+				Sorting::selectionSort(array, size);
 				break;
 			case 3:
-				Sorting::insertionSort(array, size, milliseconds, thinBar);
+				Sorting::insertionSort(array, size);
 				break;
 			case 4:
-				Sorting::cocktailShakerSort(array, size, milliseconds, thinBar);
+				Sorting::cocktailShakerSort(array, size);
 				break;
 			default:
 				clearScreen();

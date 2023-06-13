@@ -6,19 +6,21 @@
 class Sorting
 {
 public:
+	static uint delay;
+
+	static void toggleBarWidth();
 	static void displayArray(
-		uint array[], const uint SIZE, bool thinBar = false,
+		uint array[], const uint SIZE,
 		uint* highlight = nullptr, char* colour = nullptr,
 		const uint COUNT = 0
 	);
-	static void bubbleSort(
-		uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
-	static void selectionSort(
-		uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
-	static void insertionSort(
-		uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
-	static void cocktailShakerSort(
-		uint array[], const uint SIZE, uint ms = 500, bool thinBar = false);
+	static void bubbleSort(uint array[], const uint SIZE);
+	static void selectionSort(uint array[], const uint SIZE);
+	static void insertionSort(uint array[], const uint SIZE);
+	static void cocktailShakerSort(uint array[], const uint SIZE);
+
+private:
+	static uint barWidth;
 };
 
 
