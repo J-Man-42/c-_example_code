@@ -95,7 +95,7 @@ void LinkedList<T>::clear() {
 
 // Returns the element at the given index.
 template<class T>
-T LinkedList<T>::get(const uint index) {
+T& LinkedList<T>::get(const uint index) {
 	return (*this)[index];
 }
 
@@ -164,7 +164,7 @@ void LinkedList<T>::print() {
 
 // Removes the first instance of the given element.
 template<class T>
-T LinkedList<T>::remove(const T element) {
+void LinkedList<T>::remove(const T element) {
 	bool found = false;
 	Node<T>* nodePtr = head;
 
@@ -209,16 +209,15 @@ T LinkedList<T>::remove(const T element) {
 		delete nodePtr;
 	}
 
-	// Return the element.
+	// Decrement the length.
 	length--;
-	return element;
 }
 
 
 
 // Removes the element at the given index.
 template<class T>
-T LinkedList<T>::removeAt(const uint index) {
+T& LinkedList<T>::removeAt(const uint index) {
 
 	// Throw error if index out of bounds.
 	if (index >= length) {
@@ -227,7 +226,7 @@ T LinkedList<T>::removeAt(const uint index) {
 
 	// Find correct node and get the element.
 	Node<T>* nodePtr = findIndex(index);
-	T element = nodePtr->data;
+	T& element = nodePtr->data;
 
 	// The only element.
 	if (head == tail) {
