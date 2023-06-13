@@ -317,7 +317,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 
 	// Loop while a swap has occurred.
 	size_t start = 0, end = SIZE;
-	bool swapped;
+	bool mustSwap, swapped;
 	do {
 
 		// Iterate forwards.
@@ -329,7 +329,16 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			if (array[i] < array[i-1]) {
+
+			// Condition for swapping.
+			if (sortAscending) {
+				mustSwap = (array[i] < array[i-1]);
+			} else {
+				mustSwap = (array[i] > array[i-1]);
+			}
+
+			// Swap elements.
+			if (mustSwap) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -355,7 +364,16 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			if (array[i] < array[i-1]) {
+
+			// Condition for swapping.
+			if (sortAscending) {
+				mustSwap = (array[i] < array[i-1]);
+			} else {
+				mustSwap = (array[i] > array[i-1]);
+			}
+
+			// Swap elements.
+			if (mustSwap) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
