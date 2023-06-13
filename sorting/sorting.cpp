@@ -190,6 +190,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('R'));
+	bool newCritical;
 	
 	// Display the array before sorting.
 	clearScreen();
@@ -208,7 +209,16 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			if (array[j] < array[minIndex]) {
+
+			// Condition for swapping.
+			if (sortAscending) {
+				newCritical = array[j] < array[minIndex];
+			} else {
+				newCritical = array[j] > array[minIndex];
+			}
+
+			// New critical value.
+			if (newCritical) {
 				minIndex = j;
 				(*highlight)[2].index = minIndex;
 			}
