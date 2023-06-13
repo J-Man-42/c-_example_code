@@ -276,9 +276,16 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	for (size_t i = 1; i < SIZE; i++) {
 		swapped = false;
 
+		// Condition for swapping.
+		if (sortAscending) {
+			mustSwap = (array[i] < array[i-1]);
+		} else {
+			mustSwap = (array[i] > array[i-1]);
+		}
+
 		// Loop while swapping is needed.
 		size_t j = i;
-		while (j > 0 && array[j] < array[j-1]) {
+		while (j > 0 && mustSwap) {
 			(*highlight)[0].index = j-1;
 			(*highlight)[1].index = j;
 			displayArray(array, SIZE, highlight);
@@ -288,6 +295,13 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 			swapped = true;
 			j--;
+
+			// Condition for swapping.
+			if (sortAscending) {
+				mustSwap = (array[j] < array[j-1]);
+			} else {
+				mustSwap = (array[j] > array[j-1]);
+			}
 		}
 
 		// Only print if no swap occurred.
