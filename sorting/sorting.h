@@ -59,6 +59,7 @@ private:
 
 	// Functions.
 	static void printBorder(string symbol, const uint SIZE);
+	static bool mustSwap(uint left, uint right);
 };
 
 

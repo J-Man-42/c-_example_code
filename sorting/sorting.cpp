@@ -122,6 +122,14 @@ void Sorting::displayArray(
 }
 
 
+// Returns true if correct conditions
+// for swapping left and right.
+bool Sorting::mustSwap(uint left, uint right) {
+	if (sortAscending)
+		return left < right;
+	return left > right;
+}
+
 
 
 // Bubble sort the given array.
@@ -137,7 +145,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
-	bool mustSwap, swapped;
+	bool swapped;
 	for (size_t n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
@@ -151,15 +159,8 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 
-			// Condition for swapping.
-			if (sortAscending) {
-				mustSwap = (array[i] < array[i-1]);
-			} else {
-				mustSwap = (array[i] > array[i-1]);
-			}
-
-			// Swap elements.
-			if (mustSwap) {
+			// Swap elements if needed.
+			if (mustSwap(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -193,7 +194,6 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('R'));
-	bool newCritical;
 	
 	// Display the array before sorting.
 	clearScreen();
@@ -213,15 +213,8 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 
-			// Condition for swapping.
-			if (sortAscending) {
-				newCritical = array[j] < array[minIndex];
-			} else {
-				newCritical = array[j] > array[minIndex];
-			}
-
 			// New critical value.
-			if (newCritical) {
+			if (mustSwap(array[j], array[minIndex])) {
 				minIndex = j;
 				(*highlight)[2].index = minIndex;
 			}
@@ -265,7 +258,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
-	bool mustSwap, swapped;
+	bool swapped;
 	
 	// Display the array before sorting.
 	clearScreen();
@@ -276,16 +269,9 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	for (size_t i = 1; i < SIZE; i++) {
 		swapped = false;
 
-		// Condition for swapping.
-		if (sortAscending) {
-			mustSwap = (array[i] < array[i-1]);
-		} else {
-			mustSwap = (array[i] > array[i-1]);
-		}
-
 		// Loop while swapping is needed.
 		size_t j = i;
-		while (j > 0 && mustSwap) {
+		while (j > 0 && mustSwap(array[j], array[j-1])) {
 			(*highlight)[0].index = j-1;
 			(*highlight)[1].index = j;
 			displayArray(array, SIZE, highlight);
@@ -295,13 +281,6 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 			swapped = true;
 			j--;
-
-			// Condition for swapping.
-			if (sortAscending) {
-				mustSwap = (array[j] < array[j-1]);
-			} else {
-				mustSwap = (array[j] > array[j-1]);
-			}
 		}
 
 		// Only print if no swap occurred.
@@ -337,7 +316,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 
 	// Loop while a swap has occurred.
 	size_t start = 0, end = SIZE;
-	bool mustSwap, swapped;
+	bool swapped;
 	do {
 
 		// Iterate forwards.
@@ -350,15 +329,8 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 
-			// Condition for swapping.
-			if (sortAscending) {
-				mustSwap = (array[i] < array[i-1]);
-			} else {
-				mustSwap = (array[i] > array[i-1]);
-			}
-
-			// Swap elements.
-			if (mustSwap) {
+			// Swap elements if needed.
+			if (mustSwap(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -385,15 +357,8 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 
-			// Condition for swapping.
-			if (sortAscending) {
-				mustSwap = (array[i] < array[i-1]);
-			} else {
-				mustSwap = (array[i] > array[i-1]);
-			}
-
 			// Swap elements.
-			if (mustSwap) {
+			if (mustSwap(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
