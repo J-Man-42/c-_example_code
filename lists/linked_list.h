@@ -16,6 +16,7 @@ public:
 	void clear();
 	T& get(const uint index);
 	void insert(const uint index, const T element);
+	bool isEmpty() const;
 	void print();
 	void remove(const T element);
 	T& removeAt(const uint index);

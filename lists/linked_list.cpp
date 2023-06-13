@@ -109,11 +109,10 @@ void LinkedList<T>::insert(const uint index, const T element) {
 	// If empty list, assign as head and tail.
 	if (!head) {
 		head = tail = newNode;
-		return;
 	}
 
 	// See if element is simply appended to the end.
-	if (index >= length-1) {
+	else if (index >= length) {
 		tail->next = newNode;
 		newNode->prev = tail;
 		tail = newNode;
@@ -135,8 +134,16 @@ void LinkedList<T>::insert(const uint index, const T element) {
 		newNode->prev->next = newNode;
 	}
 
-	// Increment the list length.
+	// Increment the length.
 	length++;
+}
+
+
+
+// Returns true if head is null.
+template<class T>
+bool LinkedList<T>::isEmpty() const {
+	return head == nullptr;
 }
 
 
