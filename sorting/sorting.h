@@ -33,6 +33,7 @@ public:
 	
 	// Variables.
 	static uint delay;
+	static bool sortAscending;
 
 	// Functions.
 	static void toggleBarWidth();

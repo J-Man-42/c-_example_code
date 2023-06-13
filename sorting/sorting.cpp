@@ -17,6 +17,7 @@ uint Sorting::barWidth = 2;
 string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
 string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
 string* Sorting::bars = doubleBars;
+bool Sorting::sortAscending = true;
 
 
 // Toggles between a width of 1 and a width of 2.
@@ -133,7 +134,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	sleep_for(delay);
 
 	// Indicate update which element to sort.
-	bool swapped;
+	bool mustSwap, swapped;
 	for (size_t n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
@@ -146,7 +147,16 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			if (array[i] < array[i-1]) {
+
+			// Condition for swapping.
+			if (sortAscending) {
+				mustSwap = (array[i] < array[i-1]);
+			} else {
+				mustSwap = (array[i] > array[i-1]);
+			}
+
+			// Swap elements.
+			if (mustSwap) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 

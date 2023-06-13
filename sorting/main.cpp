@@ -36,26 +36,30 @@ int main() {
 		Sorting::displayArray(array, size);
 
 		// Show the options.
-		cout << "==============================" << endl;
+		cout << "========================================" << endl;
 		cout << "Array contents ~ Z["<<minValue<<", "<<maxValue<<"]" << endl;
 		cout << "Array size = " << size << endl;
 		cout << "Bar width = " << Sorting::getBarWidth() << endl;
 		cout << "Time delay = " << Sorting::delay << "ms\n";
-		cout << "==============================" << endl;
+		cout << "Sort ";
+		cout << (Sorting::sortAscending ? "Ascending" : "Descending");
+		cout << " Order" << endl;
+		cout << "========================================" << endl;
 		cout << "(0)  Randomise Array" << endl;
 		cout << "(1)  Alter Array" << endl;
 		cout << "(2)  Update Array Range" << endl;
 		cout << "(3)  Toggle Bar Width" << endl;
 		cout << "(4)  Change Step Delay" << endl;
-		cout << "(5)  Sort Array" << endl;
+		cout << "(5)  Toggle Ascending/Descending" << endl;
+		cout << "(6)  Sort Array" << endl;
 		cout << "(Q)  << QUIT PROGRAM >>" << endl; 
-		cout << "==============================" << endl;
+		cout << "========================================" << endl;
 		cout << "> ";
 		cin >> answer;
 		
 		// Format the answer.
 		answer = toupper(answer);
-		mustRefresh = (answer != '5');
+		mustRefresh = (answer != '6');
 
 
 		// Perform the user specified action.
@@ -175,8 +179,14 @@ int main() {
 			break;
 
 
-		// Run one of the sorting algorithms..
+		// Toggle sorting in ascending/descending order.
 		case '5':
+			Sorting::sortAscending = !Sorting::sortAscending;
+			break;
+
+
+		// Run one of the sorting algorithms..
+		case '6':
 			cout << "==============================" << endl;
 			cout << "(1)  Bubble Sort" << endl;
 			cout << "(2)  Selection Sort" << endl;
