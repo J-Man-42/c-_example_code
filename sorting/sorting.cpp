@@ -251,47 +251,55 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 // Selection sort the given array.
 void Sorting::selectionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	const size_t COUNT = 4;
-	uint highlight[COUNT];
-	char compareColour[COUNT] = {'X', 'C', 'C', 'R'};
-	char swapColour[COUNT-1] = {'X', 'R', 'R'};
-
+	LinkedList<Highlight>* blank = nullptr;
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('R'));
+	
 	// Display the array before sorting.
 	clearScreen();
-	displayArray(array, SIZE);
+	displayArray(array, SIZE, blank);
 	sleep_for(delay);
 
 	// Indicate the starting index.
 	size_t minIndex;
-	for (uint i = 0; i < SIZE; i++) {
-		highlight[0] = i-1;
+	for (size_t i = 0; i < SIZE-1; i++) {
+		(*highlight)[2].index = i;
 		minIndex = i;
-		highlight[3] = minIndex;
 		for (size_t j = i+1; j < SIZE; j++) {
-			highlight[1] = i;
-			highlight[2] = j;
+			(*highlight)[0].index = i;
+			(*highlight)[1].index = j;
 
 			// Display the current comparison.
-			displayArray(array, SIZE, highlight, compareColour, COUNT);
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			if (array[j] < array[minIndex]) {
 				minIndex = j;
-				highlight[3] = minIndex;
+				(*highlight)[2].index = minIndex;
 			}
 		}
 
+		// Alter list for swapping.
+		highlight->removeAt(0);
+		highlight->set(0, Highlight('R', minIndex));
+		(*highlight)[1].index = i;
+
 		// Display the array before and after swapping.
-		highlight[1] = minIndex;
-		highlight[2] = i;
-		displayArray(array, SIZE, highlight, swapColour, COUNT-1);
+		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
 		// Only swap if needed.
 		if (minIndex != i) {
 			swap(array[i], array[minIndex]);
-			displayArray(array, SIZE, highlight, swapColour, COUNT-1);
+			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
+
+		// Alter list for next comparison.
+		(*highlight)[0].colour = 'C';
+		highlight->insert(0, Highlight('C'));
+		highlight->add(Highlight('X', i));
 	}
 
 	// Display the array after sorting.
