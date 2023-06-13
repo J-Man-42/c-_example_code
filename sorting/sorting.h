@@ -49,6 +49,12 @@ private:
 
 	// Variables.
 	static uint barWidth;
+	static string singleBars[];
+	static string doubleBars[];
+	static string* bars;
+
+	// Functions.
+	static void printBorder(string symbol, const uint SIZE);
 };
 
 

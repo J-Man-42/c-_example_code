@@ -13,11 +13,33 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Set static member values.
 uint Sorting::delay = 50;
 uint Sorting::barWidth = 2;
+string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
+string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
+string* Sorting::bars = doubleBars;
 
 
 // Toggles between a width of 1 and a width of 2.
 void Sorting::toggleBarWidth() {
 	barWidth = barWidth % 2 + 1;
+	if (barWidth == 1) {
+		bars = singleBars;
+	} else {
+		bars = doubleBars;
+	}
+}
+
+
+// Prints either the top or bottom border.
+void Sorting::printBorder(string symbol, const uint SIZE) {
+	for (size_t i = 1; i < SIZE; i++) {
+		for (size_t j = 0; j <= barWidth; j++) {
+			cout << symbol;
+		}
+	}
+	for (size_t i = 0; i < barWidth; i++) {
+		cout << symbol;
+	}
+	cout << endl;
 }
 
 
@@ -45,23 +67,10 @@ void Sorting::displayArray(
 	moveCursorUp(N);
 
 	// Above the bars.
-	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= barWidth; j++) {
-			cout << "┴";
-		}
-	}
-	for (size_t i = 0; i < barWidth; i++) {
-		cout << "┴";
-	}
-	cout << endl;
-
-	// Setup single/double bar.
-	string singleBar[] = {"█ ", "▄ ", "  "};
-	string doubleBar[] = {"██ ", "▄▄ ", "   "};
-	string* bars = (barWidth == 1 ? singleBar : doubleBar);
-	string bar;
+	printBorder("┴", SIZE);
 
 	// Iterate through all layers.
+	string bar;
 	for (size_t n = height; n > 0; n -= 2) {
 		for (size_t i = 0; i < SIZE; i++) {
 
@@ -94,15 +103,8 @@ void Sorting::displayArray(
 	}
 
 	// Below the numbers.
-	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= barWidth; j++) {
-			cout << "┬";
-		}
-	}
-	for (size_t i = 0; i < barWidth; i++) {
-		cout << "┬";
-	}
-	cout << "\n\n";
+	printBorder("┬", SIZE);
+	cout << endl;
 }
 
 
