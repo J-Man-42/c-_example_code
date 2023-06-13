@@ -4,36 +4,16 @@
 #include <thread>
 #include "sorting.h"
 #include "../colour_text/colour_text.h"
-#include "../min_and_max/min_max.h"
+#include "../lists/linked_list.h"
+#include "../move_cursor/move_cursor.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
-// Clears the terminal screen.
-void clearScreen() {
-	cout << "\033[2J\033[1;1H";
-}
-
-
-// Generate a random integer between minValue and maxValue.
-uint randint(uint minValue, uint maxValue) {
-
-	// Configure the seed.
-	static uint long seed = 0;
-	if (seed == 0) {
-		seed = time(0);
-		srand(seed);
-	}
-
-	// Generate and return a random integer.
-	return rand() % (maxValue - minValue + 1) + minValue;
-}
-
-
 
 // Displays the array content as pillars.
-void displayArray(
+void Sorting::displayArray(
 	uint array[], const uint SIZE, bool thinBar,
 	uint* highlight, char* colour, const uint COUNT) {
 
@@ -56,7 +36,7 @@ void displayArray(
 
 	// Move the cursor up N spaces.
 	size_t N = (thinBar ? 23 : 24);
-	cout << "\033["<<N<<"A\r";
+	moveCursorUp(N);
 
 	// Above the bars.
 	for (size_t i = 1; i < SIZE; i++) {
@@ -122,7 +102,7 @@ void displayArray(
 
 
 // Bubble sort the given array.
-void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+void Sorting::bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	const size_t COUNT = 3;
 	uint highlight[COUNT];
@@ -169,7 +149,7 @@ void bubbleSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 
 
 // Selection sort the given array.
-void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+void Sorting::selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	const size_t COUNT = 4;
 	uint highlight[COUNT];
@@ -222,7 +202,7 @@ void selectionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 
 
 // Insertion sort the given array.
-void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+void Sorting::insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	uint highlight[2];
 	char colour[2] = {'C', 'C'};
@@ -259,7 +239,7 @@ void insertionSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 
 
 // Cocktail shaker sort the given array.
-void cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
+void Sorting::cocktailShakerSort(uint array[], const uint SIZE, uint ms, bool thinBar) {
 	auto delay = milliseconds(ms);
 	const size_t COUNT = 4;
 	uint highlight[COUNT];

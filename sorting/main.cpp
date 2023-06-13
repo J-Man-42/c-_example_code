@@ -4,19 +4,15 @@
 #include <thread>
 #include <ctime>
 #include "sorting.h"
+// #include "../colour_text/colour_text.h"
+// #include "../lists/linked_list.h"
+// #include "../min_and_max/min_max.h"
+#include "../move_cursor/move_cursor.h"
+#include "../random/random.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
-
-// Generates a new random array with elements from 1 to 40.
-uint* generateRandomArray(const uint SIZE) {
-	uint* array = new uint[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
-		array[i] = randint(1, 40);
-	}
-	return array;
-}
 
 
 // Main loop function.
@@ -24,19 +20,21 @@ int main() {
 	uint answer;
 	size_t size = 20;
 	uint milliseconds = 50;
+	uint minValue = 1;
+	uint maxValue = 40;
 	bool thinBar = false;
 
 	// Initialise array.
-	uint* array = generateRandomArray(size);
+	uint* array = randUintArray(size, minValue, maxValue);
 
 	// Clear the screen.
-	cout << "\033[2J\033[1;1H";
+	clearScreen();
 
 	// Main loop.
 	while (true) {
 
 		// Display the array.
-		displayArray(array, size, thinBar);
+		Sorting::displayArray(array, size, thinBar);
 
 		// Show the options.
 		cout << "==============================" << endl;
@@ -64,7 +62,7 @@ int main() {
 		// Randomise the array.
 		case 0:
 			delete [] array;
-			array = generateRandomArray(size);
+			array = randUintArray(size, minValue, maxValue);
 			clearScreen();
 			break;
 
@@ -93,7 +91,7 @@ int main() {
 					newArray[i] = array[i];
 				}
 				for (size_t i = size; i < newSize; i++) {
-					newArray[i] = randint(1, 40);
+					newArray[i] = randUint(minValue, maxValue);
 				}
 				delete [] array;
 				array = newArray;
@@ -133,16 +131,16 @@ int main() {
 			// Run the requested sorting algorithm.
 			switch (answer) {
 			case 1:
-				bubbleSort(array, size, milliseconds, thinBar);
+				Sorting::bubbleSort(array, size, milliseconds, thinBar);
 				break;
 			case 2:
-				selectionSort(array, size, milliseconds, thinBar);
+				Sorting::selectionSort(array, size, milliseconds, thinBar);
 				break;
 			case 3:
-				insertionSort(array, size, milliseconds, thinBar);
+				Sorting::insertionSort(array, size, milliseconds, thinBar);
 				break;
 			case 4:
-				cocktailShakerSort(array, size, milliseconds, thinBar);
+				Sorting::cocktailShakerSort(array, size, milliseconds, thinBar);
 				break;
 			default:
 				clearScreen();
