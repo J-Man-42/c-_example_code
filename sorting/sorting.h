@@ -36,6 +36,8 @@ public:
 
 	// Functions.
 	static void toggleBarWidth();
+	static void setBarHeight(uint height);
+	static uint getBarWidth();
 	static void displayArray(
 		uint array[], const uint SIZE,
 		LinkedList<Highlight>* highlight = nullptr
@@ -48,6 +50,7 @@ public:
 private:
 
 	// Variables.
+	static uint height;
 	static uint barWidth;
 	static string singleBars[];
 	static string doubleBars[];

@@ -12,6 +12,7 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 // Set static member values.
 uint Sorting::delay = 50;
+uint Sorting::height = 40;
 uint Sorting::barWidth = 2;
 string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
 string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
@@ -26,6 +27,18 @@ void Sorting::toggleBarWidth() {
 	} else {
 		bars = doubleBars;
 	}
+}
+
+
+// Update the display bar height.
+void Sorting::setBarHeight(uint height) {
+	Sorting::height = height;
+}
+
+
+// Returns the current bar width.
+uint Sorting::getBarWidth() {
+	return barWidth;
 }
 
 
@@ -59,11 +72,8 @@ void Sorting::displayArray(
 		}
 	}
 
-	// Specify the height of the array.
-	uint height = 40;
-
 	// Move the cursor up N spaces.
-	size_t N = (barWidth == 1 ? 23 : 24);
+	size_t N = (height / 2) + (barWidth == 1 ? 3 : 4);
 	moveCursorUp(N);
 
 	// Above the bars.
