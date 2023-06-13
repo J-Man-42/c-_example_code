@@ -252,6 +252,9 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
 
 
@@ -262,7 +265,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
-	bool swapped;
+	bool mustSwap, swapped;
 	
 	// Display the array before sorting.
 	clearScreen();
@@ -299,6 +302,9 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
 
 
@@ -390,4 +396,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }

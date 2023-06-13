@@ -210,6 +210,8 @@ int main() {
 			case '4':
 				Sorting::cocktailShakerSort(array, size);
 				break;
+			default:
+				clearScreen();
 			}
 		}
 	}
