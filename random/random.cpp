@@ -36,3 +36,36 @@ double randDouble(double minValue, double maxValue) {
 	double randValue = double(rand()) / RAND_MAX;
     return randValue * (maxValue - minValue) + minValue;
 }
+
+
+// Generates a signed integer array with random values.
+int* randIntArray(const uint SIZE, int minValue, int maxValue) {
+	updateSeed();
+	int* array = new int[SIZE];
+	for (size_t i = 0; i < SIZE; i++) {
+		array[i] = randInt(minValue, maxValue);
+	}
+	return array;
+}
+
+
+// Generates an unsigned integer array with random values.
+uint* randUintArray(const uint SIZE, uint minValue, uint maxValue) {
+	updateSeed();
+	uint* array = new uint[SIZE];
+	for (size_t i = 0; i < SIZE; i++) {
+		array[i] = randUint(minValue, maxValue);
+	}
+	return array;
+}
+
+
+// Generates double array with random values.
+double* randDoubleArray(const uint SIZE, double minValue, double maxValue) {
+	updateSeed();
+	double* array = new double[SIZE];
+	for (size_t i = 0; i < SIZE; i++) {
+		array[i] = randDouble(minValue, maxValue);
+	}
+	return array;
+}

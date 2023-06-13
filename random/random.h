@@ -6,5 +6,8 @@ void updateSeed();
 int randInt(int minValue, int maxValue);
 uint randUint(uint minValue, uint maxValue);
 double randDouble(double minValue, double maxValue);
+int* randIntArray(const uint SIZE, int minValue, int maxValue);
+uint* randUintArray(const uint SIZE, uint minValue, uint maxValue);
+double* randDoubleArray(const uint SIZE, double minValue, double maxValue);
 
 #endif

@@ -3,11 +3,46 @@
 using namespace std;
 
 
+// Main testing function.
 int main() {
+
+	// Set the minimum and maximum thresholds.
+	int minInt = -5;
+	int maxInt = 9;
+	uint minUint = 2;
+	uint maxUint = 19;
+	double minDouble = 2.0;
+	double maxDouble = 5.0;
+	const size_t SIZE = 10;
 	
 	// Generate random values.
-	cout << "randInt(-10, 9) = " << randInt(-10, 9) << endl;
-	cout << "randUint(2, 19) = " << randInt(2, 19) << endl;
-	cout << "randDouble(1.0, 2.0) = " << randDouble(1.0, 2.0) << endl;
+	cout << "\nrandInt("<<minInt<<", "<<maxInt<<") = ";
+	cout << randInt(minInt, maxInt) << endl;
+	cout << "randUint("<<minUint<<", "<<maxUint<<") = ";
+	cout << randInt(minUint, maxUint) << endl;
+	cout << "randDouble("<<minDouble<<", "<<maxDouble<<") = ";
+	cout << randDouble(minDouble, maxDouble) << endl;
+
+
+	// Generate random arrays.
+	int* intArray = randIntArray(SIZE, minInt, maxInt);
+	uint* uintArray = randUintArray(SIZE, minUint, maxUint);
+	double* doubleArray = randDoubleArray(SIZE, minDouble, maxDouble);
+
+	// Print all arrays.
+	cout << "\nrandIntArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << intArray[i] << "  ";
+	}
+	cout << "\n\nrandUintArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << uintArray[i] << "  ";
+	}
+	cout << "\n\nrandDoubleArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << doubleArray[i] << "  ";
+	}
+	cout << endl;
+
 	return 0;
 }
