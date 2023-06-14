@@ -49,6 +49,7 @@ public:
 	static void cocktailShakerSort(uint array[], const uint SIZE);
 	static void quickSort(uint array[], const uint SIZE);
 	static void quickSortV2(uint array[], const uint SIZE);
+	static void shellSort(uint array[], const uint SIZE);
 
 private:
 

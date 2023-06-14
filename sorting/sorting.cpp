@@ -623,3 +623,27 @@ int Sorting::partitionV2(
 		sleep_for(delay);
 	}
 }
+
+
+
+// Shell Sort the array.
+void Sorting::shellSort(uint array[], const uint SIZE) {
+
+	// Marcin Ciura's gap sequence.
+	uint gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
+
+	// Start with largest gap and work down to 1.
+	for (uint gap : gaps) {
+
+		// Iterate from gap to SIZE-1.
+		for (size_t i = gap; i < SIZE; i++) {
+
+			// Do the gapped insertion sort.
+			size_t j = i;
+			while (j >= gap && mustSwap(array[j], array[j-gap])) {
+				swap(array[j], array[j-gap]);
+				j -= gap;
+			}
+		}
+	}
+}

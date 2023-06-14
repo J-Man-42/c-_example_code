@@ -202,6 +202,7 @@ int main() {
 			cout << "(4)  Cocktail Shaker Sort" << endl;
 			cout << "(5)  QuickSort" << endl;
 			cout << "(6)  QuickSort V2" << endl;
+			cout << "(7)  Shell Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin >> answer;
@@ -225,6 +226,9 @@ int main() {
 				break;
 			case '6':
 				Sorting::quickSortV2(array, size);
+				break;
+			case '7':
+				Sorting::shellSort(array, size);
 				break;
 			default:
 				clearScreen();
