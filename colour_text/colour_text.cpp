@@ -5,8 +5,8 @@ using namespace std;
 
 // Returns the text provided in the given colour.
 // If no colour is provided, return text as is.
-string colourText(string text, char colour, bool isBright) {
-	string gamma = to_string(isBright);
+string colourText(string text, char colour) {
+	string gamma = islower(colour) ? "1" : "0";
 	colour = toupper(colour);
 
 	// Switch statement for each colour.

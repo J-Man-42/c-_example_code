@@ -5,7 +5,6 @@
 #include <iostream>
 
 // Function prototypes.
-std::string colourText(
-	std::string text, char colour = '\0', bool isBright = false);
+std::string colourText(std::string text, char colour = '\0');
 
 #endif

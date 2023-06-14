@@ -9,7 +9,7 @@ int main() {
 
 	// Configure the colours and titles.
 	const size_t SIZE = 8;
-	char colour[] = {'X', 'R', 'G', 'Y', 'B', 'M', 'C', 'W'};
+	char colours[] = {'X', 'R', 'G', 'Y', 'B', 'M', 'C', 'W'};
 	string title[] = {
 		"grey",
 		"red",
@@ -24,13 +24,13 @@ int main() {
 	// Loop through all titles.
 	stringstream ss;
 	string gamma;
-	bool isBright;
+	char colour;
 	for (int i = 0; i < 2; i++) {
-		gamma = (i == 0 ? "dark " : "bright ");
-		isBright = i > 0;
+		gamma = (i == 0 ? "bright " : "dark ");
 		for (uint j = 0; j < SIZE; j++) {
-			ss << colour[j] << " --> " << gamma << title[j];
-			cout << colourText(ss.str(), colour[j], isBright) << endl;
+			colour = (i == 0 ? tolower(colours[j]) : colours[j]);
+			ss << colour << " --> " << gamma << title[j];
+			cout << colourText(ss.str(), colour) << endl;
 			ss.str("");
 		}
 	}
