@@ -152,8 +152,8 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 			highlight->add(Highlight('G', n));
 		}
 		for (size_t i = 1; i < n; i++) {
-			(*highlight)[0].index = i-1;
-			(*highlight)[1].index = i;
+			highlight->get(0).index = i-1;
+			highlight->get(1).index = i;
 
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
@@ -206,8 +206,8 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 		(*highlight)[2].index = i;
 		minIndex = i;
 		for (size_t j = i+1; j < SIZE; j++) {
-			(*highlight)[0].index = i;
-			(*highlight)[1].index = j;
+			highlight->get(0).index = i;
+			highlight->get(1).index = j;
 
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
@@ -223,7 +223,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 		// Alter list for swapping.
 		highlight->removeAt(0);
 		highlight->set(0, Highlight('R', minIndex));
-		(*highlight)[1].index = i;
+		highlight->get(1).index = i;
 
 		// Display the array before and after swapping.
 		displayArray(array, SIZE, highlight);
@@ -237,7 +237,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 		}
 
 		// Alter list for next comparison.
-		(*highlight)[0].colour = 'C';
+		highlight->get(0).colour = 'C';
 		highlight->insert(0, Highlight('C'));
 		highlight->add(Highlight('G', i));
 	}
@@ -272,8 +272,8 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 		// Loop while swapping is needed.
 		size_t j = i;
 		while (j > 0 && mustSwap(array[j], array[j-1])) {
-			(*highlight)[0].index = j-1;
-			(*highlight)[1].index = j;
+			highlight->get(0).index = j-1;
+			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			swap(array[j], array[j-1]);
@@ -285,8 +285,8 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 
 		// Only print if no swap occurred.
 		if (!swapped) {
-			(*highlight)[0].index = i-1;
-			(*highlight)[1].index = i;
+			highlight->get(0).index = i-1;
+			highlight->get(1).index = i;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
@@ -322,8 +322,8 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 		// Iterate forwards.
 		swapped = false;
 		for (size_t i = start+1; i < end; i++) {
-			(*highlight)[0].index = i-1;
-			(*highlight)[1].index = i;
+			highlight->get(0).index = i-1;
+			highlight->get(1).index = i;
 
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
@@ -350,8 +350,8 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 		// Iterate backwards.
 		swapped = false;
 		for (size_t i = end-1; i > start; i--) {
-			(*highlight)[0].index = i-1;
-			(*highlight)[1].index = i;
+			highlight->get(0).index = i-1;
+			highlight->get(1).index = i;
 
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
