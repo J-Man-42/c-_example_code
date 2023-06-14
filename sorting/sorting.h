@@ -47,6 +47,7 @@ public:
 	static void selectionSort(uint array[], const uint SIZE);
 	static void insertionSort(uint array[], const uint SIZE);
 	static void cocktailShakerSort(uint array[], const uint SIZE);
+	static void quickSort(uint array[], const uint SIZE);
 
 private:
 
@@ -60,6 +61,8 @@ private:
 	// Functions.
 	static void printBorder(string symbol, const uint SIZE);
 	static bool mustSwap(uint left, uint right);
+	static void quickSort(uint array[], int low, int high);
+	static int partition(uint array[], int low, int high);
 };
 
 

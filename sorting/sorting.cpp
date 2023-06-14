@@ -379,3 +379,64 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	// Delete dynamic memory.
 	delete highlight;
 }
+
+
+// Quick Sort the array.
+void Sorting::quickSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
+	
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Sort.
+	quickSort(array, 0, SIZE-1);
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}
+
+
+// The hidden recursive Quick Sort function.
+void Sorting::quickSort(uint array[], int low, int high) {
+
+	// Stopping condition.
+	if (low > high || low < 0) {
+		return;
+	}
+
+	// Partition array and get the pivot index.
+	int pivotIndex = partition(array, low, high);
+	
+	// Sort the two partitions.
+	quickSort(array, low, pivotIndex-1);
+	quickSort(array, pivotIndex+1, high);
+}
+
+
+// The partition function for Quick Sort.
+int Sorting::partition(uint array[], int low, int high) {
+
+	// Pivot is the last element.
+	uint pivot = array[high];
+
+	// Temporary pivot index.
+	int i = low - 1;
+
+	// Iterate from low to high.
+	for (int j = low; j < high; j++) {
+ 
+		// Swap if needed.
+		if (mustSwap(array[j], pivot)) {
+			i++;
+			swap(array[i], array[j]);
+		}
+	}
+
+	// Final swap, then return pivot index.
+	i++;
+    swap(array[i], array[high]);
+    return i;
+}
