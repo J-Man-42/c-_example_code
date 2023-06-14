@@ -628,6 +628,16 @@ int Sorting::partitionV2(
 
 // Shell Sort the array.
 void Sorting::shellSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('R'));
+	highlight->add(Highlight('R'));
+	bool swapped;
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
 
 	// Marcin Ciura's gap sequence.
 	uint gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
@@ -637,13 +647,36 @@ void Sorting::shellSort(uint array[], const uint SIZE) {
 
 		// Iterate from gap to SIZE-1.
 		for (size_t i = gap; i < SIZE; i++) {
+			swapped = false;
 
 			// Do the gapped insertion sort.
 			size_t j = i;
 			while (j >= gap && mustSwap(array[j], array[j-gap])) {
+				highlight->get(0).index = j-gap;
+				highlight->get(1).index = j;
+				displayArray(array, SIZE, highlight);
+				sleep_for(delay);
 				swap(array[j], array[j-gap]);
+				displayArray(array, SIZE, highlight);
+				sleep_for(delay);
+				swapped = true;
 				j -= gap;
+			}
+
+			// Only print if no swap occurred.
+			if (!swapped) {
+				highlight->get(0).index = i-gap;
+				highlight->get(1).index = i;
+				displayArray(array, SIZE, highlight);
+				sleep_for(delay);
 			}
 		}
 	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
