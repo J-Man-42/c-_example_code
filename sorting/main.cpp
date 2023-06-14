@@ -77,8 +77,9 @@ int main() {
 		case '1':
 			cout << "========================================" << endl;
 			cout << "(1)  Change Array Size" << endl;
-			cout << "(2)  Create Sorted Ascending Array" << endl;
-			cout << "(3)  Create Sorted Descending Array" << endl;
+			cout << "(2)  Reverse Array Order" << endl;
+			cout << "(3)  Create Sorted Ascending Array" << endl;
+			cout << "(4)  Create Sorted Descending Array" << endl;
 			cout << "========================================" << endl;
 			cout << "> ";
 			cin >> answer;
@@ -118,8 +119,15 @@ int main() {
 				}
 				break;
 
-			// Array with ascending elements.
+			// Reverse the array order.
 			case '2':
+				for (size_t i = 0, j = size-1; i < j; i++, j--) {
+					swap(array[i], array[j]);
+				}
+				break;
+
+			// Array with ascending elements.
+			case '3':
 				size = maxValue - minValue + 1;
 				delete [] array;
 				array = new uint[size];
@@ -129,7 +137,7 @@ int main() {
 				break;
 
 			// Array with descending elements.
-			case '3':
+			case '4':
 				size = maxValue - minValue + 1;
 				delete [] array;
 				array = new uint[size];
