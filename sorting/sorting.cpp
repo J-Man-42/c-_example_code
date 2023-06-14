@@ -78,7 +78,7 @@ void Sorting::displayArray(
 	}
 
 	// Move the cursor up N spaces.
-	size_t N = (height / 2) + (barWidth == 1 ? 3 : 4);
+	size_t N = (height / 2) + barWidth + 2;
 	moveCursorUp(N);
 
 
@@ -120,13 +120,10 @@ void Sorting::displayArray(
 
 	// Show the numbers below the bars.
 	if (barWidth > 1) {
+		string text;
 		for (size_t i = 0; i < SIZE; i++) {
-			if (colour[i] == '\0') {
-				cout << setw(2) << array[i];
-			} else {
-				cout << setw(13) << colourText(to_string(array[i]), colour[i]);
-			}
-			cout << " ";
+			text = colourText(to_string(array[i]), colour[i]);
+			cout << setw(13) << text << " ";
 		}
 		cout << endl;
 	}
