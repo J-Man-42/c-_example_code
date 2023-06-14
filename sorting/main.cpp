@@ -52,11 +52,11 @@ int main() {
 		cout << "(4)  Change Step Delay" << endl;
 		cout << "(5)  Toggle Ascending/Descending" << endl;
 		cout << "(6)  Sort Array" << endl;
-		cout << "(Q)  << QUIT PROGRAM >>" << endl; 
+		cout << "(Q)  << QUIT PROGRAM >>" << endl;
 		cout << "========================================" << endl;
 		cout << "> ";
 		cin >> answer;
-		
+
 		// Format the answer.
 		answer = toupper(answer);
 		mustRefresh = (answer != '6');
@@ -145,7 +145,7 @@ int main() {
 					array[i] = n;
 				}
 				break;
-			
+
 			}
 			break;
 

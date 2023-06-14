@@ -30,7 +30,7 @@ public:
 class Sorting
 {
 public:
-	
+
 	// Variables.
 	static uint delay;
 	static bool sortAscending;
@@ -61,8 +61,11 @@ private:
 	// Functions.
 	static void printBorder(string symbol, const uint SIZE);
 	static bool mustSwap(uint left, uint right);
-	static void quickSort(uint array[], int low, int high);
-	static int partition(uint array[], int low, int high);
+	static void quickSort(
+		uint array[], const int SIZE, int low, int high);
+	static int partition(
+		uint array[], const int SIZE, int low, int high,
+		LinkedList<Highlight>* highlight);
 };
 
 

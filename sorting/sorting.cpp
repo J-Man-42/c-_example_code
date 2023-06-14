@@ -138,7 +138,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
-	
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -194,7 +194,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('R'));
-	
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -259,7 +259,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('C'));
 	highlight->add(Highlight('C'));
 	bool swapped;
-	
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -384,14 +384,14 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 // Quick Sort the array.
 void Sorting::quickSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
-	
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Sort.
-	quickSort(array, 0, SIZE-1);
+	// QuickSort.
+	quickSort(array, SIZE, 0, SIZE-1);
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
@@ -400,43 +400,93 @@ void Sorting::quickSort(uint array[], const uint SIZE) {
 
 
 // The hidden recursive Quick Sort function.
-void Sorting::quickSort(uint array[], int low, int high) {
+void Sorting::quickSort(
+	uint array[], const int SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low > high || low < 0) {
 		return;
 	}
 
+	// Configure all highlights.
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('C', low));
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('R', high));
+	for (int i = 0; i < low; i++) {
+		highlight->add(Highlight('X', i));
+	}
+	for (int i = high+1; i < SIZE; i++) {
+		highlight->add(Highlight('X', i));
+	}
+
 	// Partition array and get the pivot index.
-	int pivotIndex = partition(array, low, high);
-	
+	int pivotIndex = partition(array, SIZE, low, high, highlight);
+
 	// Sort the two partitions.
-	quickSort(array, low, pivotIndex-1);
-	quickSort(array, pivotIndex+1, high);
+	quickSort(array, SIZE, low, pivotIndex-1);
+	quickSort(array, SIZE, pivotIndex+1, high);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
 
 
 // The partition function for Quick Sort.
-int Sorting::partition(uint array[], int low, int high) {
+int Sorting::partition(
+	uint array[], const int SIZE, int low, int high,
+	LinkedList<Highlight>* highlight) {
+
+	// Setup the delay.
+	auto delay = milliseconds(Sorting::delay);
 
 	// Pivot is the last element.
 	uint pivot = array[high];
+	highlight->get(2).index = high;
 
 	// Temporary pivot index.
 	int i = low - 1;
+	highlight->get(0).index = i;
 
 	// Iterate from low to high.
 	for (int j = low; j < high; j++) {
- 
+
+		// Display the array.
+		highlight->get(1).index = j;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
 		// Swap if needed.
 		if (mustSwap(array[j], pivot)) {
+			highlight->add(Highlight('G', i));
 			i++;
 			swap(array[i], array[j]);
+
+			// Display array after swapping.
+			highlight->get(0).index = i;
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
 		}
 	}
 
 	// Final swap, then return pivot index.
 	i++;
-    swap(array[i], array[high]);
+	if (array[i] != array[high]) {
+
+		// Show array before swapping.
+		highlight->removeAt(0);
+		highlight->set(0, Highlight('R', i));
+		highlight->get(1).index = high;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
+		// Swap.
+	    swap(array[i], array[high]);
+
+	    // Show array after swapping.
+		highlight->get(0).index = i;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+	}
     return i;
 }
