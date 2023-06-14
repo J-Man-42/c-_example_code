@@ -81,6 +81,7 @@ void Sorting::displayArray(
 	size_t N = (height / 2) + (barWidth == 1 ? 3 : 4);
 	moveCursorUp(N);
 
+
 	// Above the bars.
 	printBorder("┴", SIZE);
 
@@ -107,10 +108,10 @@ void Sorting::displayArray(
 				if (array[i] < horizontalBar) {
 					moveCursorLeft(barWidth+1);
 					for (size_t j = 0; j <= barWidth; j++) {
-						cout << colourText(hBar, 'm');
+						cout << colourText(hBar, 'M');
 					}
 				} else {
-					cout << "\b" << colourText(hBar, 'm');
+					cout << "\b" << colourText(hBar, 'M');
 				}
 			}
 		}
@@ -163,7 +164,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	for (size_t n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
-			highlight->add(Highlight('g', n));
+			highlight->add(Highlight('G', n));
 		}
 		for (size_t i = 1; i < n; i++) {
 			highlight->get(0).index = i-1;
@@ -253,7 +254,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 		// Alter list for next comparison.
 		highlight->get(0).colour = 'b';
 		highlight->insert(0, Highlight('b'));
-		highlight->add(Highlight('g', i));
+		highlight->add(Highlight('G', i));
 	}
 
 	// Display the array after sorting.
@@ -354,7 +355,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			}
 		}
 		end--;
-		highlight->add(Highlight('g', end));
+		highlight->add(Highlight('G', end));
 
 		// Break if no swap occurred.
 		if (!swapped) {
@@ -381,7 +382,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 				sleep_for(delay);
 			}
 		}
-		highlight->add(Highlight('g', start));
+		highlight->add(Highlight('G', start));
 		start++;
 
 	} while (swapped);
@@ -474,7 +475,7 @@ int Sorting::partition(
 
 		// Swap if needed.
 		if (mustSwap(array[j], pivot)) {
-			highlight->add(Highlight('g', i));
+			highlight->add(Highlight('G', i));
 			i++;
 			swap(array[i], array[j]);
 
