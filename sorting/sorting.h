@@ -54,6 +54,7 @@ public:
 	static void insertionSort(uint array[], const uint SIZE);
 	static void cocktailShakerSort(uint array[], const uint SIZE);
 	static void quickSort(uint array[], const uint SIZE);
+	static void quickSortV2(uint array[], const uint SIZE);
 
 private:
 
@@ -70,6 +71,11 @@ private:
 	static void quickSort(
 		uint array[], const int SIZE, int low, int high);
 	static int partition(
+		uint array[], const int SIZE, int low, int high,
+		LinkedList<Highlight>* highlight);
+	static void quickSortV2(
+		uint array[], const int SIZE, int low, int high);
+	static int partitionV2(
 		uint array[], const int SIZE, int low, int high,
 		LinkedList<Highlight>* highlight);
 };

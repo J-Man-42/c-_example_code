@@ -396,6 +396,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 }
 
 
+
 // Quick Sort the array.
 void Sorting::quickSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
@@ -508,4 +509,122 @@ int Sorting::partition(
 	// Delete dynamic memory and return pivot index.
 	delete horizontalBar;
     return i;
+}
+
+
+
+// Quick Sort the array.
+void Sorting::quickSortV2(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// QuickSort.
+	quickSortV2(array, SIZE, 0, SIZE-1);
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}
+
+
+// The hidden recursive Quick Sort function.
+void Sorting::quickSortV2(
+	uint array[], const int SIZE, int low, int high) {
+
+	// Stopping condition.
+	if (low >= high || low < 0 || high < 0) {
+		return;
+	}
+
+	// Configure all highlights.
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('C', low));
+	highlight->add(Highlight('C'));
+	highlight->add(Highlight('R', high));
+	for (int i = 0; i < low; i++) {
+		highlight->add(Highlight('X', i));
+	}
+	for (int i = high+1; i < SIZE; i++) {
+		highlight->add(Highlight('X', i));
+	}
+
+	// Partition array and get the pivot index.
+	int pivotIndex = partitionV2(array, SIZE, low, high, highlight);
+
+	// Sort the two partitions.
+	quickSortV2(array, SIZE, low, pivotIndex);
+	quickSortV2(array, SIZE, pivotIndex+1, high);
+
+	// Delete dynamic memory.
+	delete highlight;
+}
+
+
+// The partition function for Quick Sort.
+int Sorting::partitionV2(
+	uint array[], const int SIZE, int low, int high,
+	LinkedList<Highlight>* highlight) {
+
+	// Setup the delay.
+	auto delay = milliseconds(Sorting::delay);
+
+	// Pivot is the middle element.
+	uint middle = ((high - low) / 2) + low;
+	uint pivot = array[middle];
+	highlight->get(2).index = middle;
+	Highlight* horizontalBar = new Highlight('M', MAX_UINT, pivot);
+
+	// Left index.
+	int i = low - 1;
+
+	// Right index.
+	int j = high + 1;
+
+	// Loop until left and right cross.
+	while (true) {
+
+		// Move left index (at least once).
+		do {
+			i++;
+			highlight->get(0).index = i;
+			displayArray(array, SIZE, highlight, horizontalBar);
+			sleep_for(delay);
+		} while (mustSwap(array[i], pivot) && i < SIZE);
+
+		// Move right index (at least once).
+		do {
+			j--;
+			highlight->get(1).index = j;
+			displayArray(array, SIZE, highlight, horizontalBar);
+			sleep_for(delay);
+		} while (mustSwap(pivot, array[j]) && j >= 0);
+
+		// If the indices crossed, return pivot index.
+		if (i >= j) {
+			delete horizontalBar;
+			return j;
+		}
+
+		// Show array before swapping.
+		displayArray(array, SIZE, highlight, horizontalBar);
+		sleep_for(delay);
+
+		// Swap left and right.
+		swap(array[i], array[j]);
+
+		// If pivot was swapped, update highlight index.
+		if (highlight->get(2).index == i) {
+			highlight->get(2).index = j;
+		} else if (highlight->get(2).index == j) {
+			highlight->get(2).index = i;
+		}
+
+		// Display array after swapping.
+		displayArray(array, SIZE, highlight, horizontalBar);
+		sleep_for(delay);
+	}
 }
