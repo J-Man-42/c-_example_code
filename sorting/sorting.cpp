@@ -63,7 +63,8 @@ void Sorting::printBorder(string symbol, const uint SIZE) {
 // Displays the array content as pillars.
 void Sorting::displayArray(
 	uint array[], const uint SIZE,
-	LinkedList<Highlight>* highlight) {
+	LinkedList<Highlight>* highlight,
+	Highlight* horizontalBar) {
 
 	// Configure the highlight colours.
 	char colour[SIZE];
@@ -119,6 +120,36 @@ void Sorting::displayArray(
 	// Below the numbers.
 	printBorder("┬", SIZE);
 	cout << endl;
+
+	// Display the horizontal bar.
+	if (horizontalBar && horizontalBar->value <= height) {
+
+		// Move the cursor to the correct position.
+		size_t M = (horizontalBar->value / 2) + barWidth;
+		M += (horizontalBar->value % 2 == 1) + 1;
+		moveCursorUp(M);
+
+		// Configure the bar shape.
+		bar = (horizontalBar->value % 2 == 0 ? "▀" : "▄");
+
+		// Write horizontal bar for all elements in the array.
+		for (size_t i = 0; i < SIZE; i++) {
+
+			// Do not overwrite existing vertical bars.
+			if (array[i] < horizontalBar->value) {
+				for (size_t j = 0; j <= barWidth; j++) {
+					cout << colourText(bar, 'M');
+				}
+			} else {
+				moveCursorRight(barWidth);
+				cout << colourText(bar, 'M');
+			}
+		}
+
+		// Mover the cursor back down.
+		cout << "\b \n";
+		moveCursorDown(M-1);
+	}
 }
 
 
@@ -443,6 +474,7 @@ int Sorting::partition(
 	// Pivot is the last element.
 	uint pivot = array[high];
 	highlight->get(2).index = high;
+	Highlight* horizontalBar = new Highlight('M', MAX_UINT, pivot);
 
 	// Temporary pivot index.
 	int i = low - 1;
@@ -453,7 +485,7 @@ int Sorting::partition(
 
 		// Display the array.
 		highlight->get(1).index = j;
-		displayArray(array, SIZE, highlight);
+		displayArray(array, SIZE, highlight, horizontalBar);
 		sleep_for(delay);
 
 		// Swap if needed.
@@ -464,7 +496,7 @@ int Sorting::partition(
 
 			// Display array after swapping.
 			highlight->get(0).index = i;
-			displayArray(array, SIZE, highlight);
+			displayArray(array, SIZE, highlight, horizontalBar);
 			sleep_for(delay);
 		}
 	}
@@ -477,7 +509,7 @@ int Sorting::partition(
 		highlight->removeAt(0);
 		highlight->set(0, Highlight('R', i));
 		highlight->get(1).index = high;
-		displayArray(array, SIZE, highlight);
+		displayArray(array, SIZE, highlight, horizontalBar);
 		sleep_for(delay);
 
 		// Swap.
@@ -485,8 +517,11 @@ int Sorting::partition(
 
 	    // Show array after swapping.
 		highlight->get(0).index = i;
-		displayArray(array, SIZE, highlight);
+		displayArray(array, SIZE, highlight, horizontalBar);
 		sleep_for(delay);
 	}
+
+	// Delete dynamic memory and return pivot index.
+	delete horizontalBar;
     return i;
 }
