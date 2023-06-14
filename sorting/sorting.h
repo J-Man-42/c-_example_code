@@ -1,8 +1,6 @@
 #ifndef SORTING_H
 #define SORTING_H
 
-#define MAX_UINT 4294967295
-
 #include "../lists/linked_list.h"
 
 
@@ -12,21 +10,17 @@ class Highlight
 public:
 	Highlight() {
 		this->colour = '\0';
-		this->value = MAX_UINT;
 		this->index = -1;
 	}
-	Highlight(char colour, int index = -1, uint value = MAX_UINT) {
+	Highlight(char colour, int index = -1) {
 		this->colour = colour;
-		this->value = value;
 		this->index = index;
 	}
 	Highlight(const Highlight& other) {
 		this->colour = other.colour;
-		this->value = other.value;
 		this->index = other.index;
 	}
 	char colour;
-	uint value;
 	int index;
 };
 
@@ -47,7 +41,7 @@ public:
 	static void displayArray(
 		uint array[], const uint SIZE,
 		LinkedList<Highlight>* highlight = nullptr,
-		Highlight* horizontalBar = nullptr
+		uint horizontalBar = 0
 	);
 	static void bubbleSort(uint array[], const uint SIZE);
 	static void selectionSort(uint array[], const uint SIZE);

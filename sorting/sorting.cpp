@@ -64,12 +64,12 @@ void Sorting::printBorder(string symbol, const uint SIZE) {
 void Sorting::displayArray(
 	uint array[], const uint SIZE,
 	LinkedList<Highlight>* highlight,
-	Highlight* horizontalBar) {
+	uint horizontalBar) {
 
 	// Configure the highlight colours.
 	char colour[SIZE];
 	for (size_t i = 0; i < SIZE; i++) {
-		colour[i] = '\0';
+		colour[i] = 'w';
 	}
 	if (highlight) {
 		for (size_t i = 0; i < highlight->size(); i++) {
@@ -86,8 +86,7 @@ void Sorting::displayArray(
 
 	// Iterate through all layers.
 	string vBar, hBar;
-	uint value = (horizontalBar ? horizontalBar->value : MAX_UINT);
-	hBar = (value % 2 == 0 ? "▀" : "▄");
+	hBar = (horizontalBar % 2 == 0 ? "▀" : "▄");
 	for (size_t n = height; n > 0; n -= 2) {
 		for (size_t i = 0; i < SIZE; i++) {
 
@@ -104,14 +103,14 @@ void Sorting::displayArray(
 			cout << colourText(vBar, colour[i]);
 
 			// Print the horizontal bar in between.
-			if (n == value || n == value+1) {
-				if (array[i] < value) {
+			if (n == horizontalBar || n == horizontalBar+1) {
+				if (array[i] < horizontalBar) {
 					moveCursorLeft(barWidth+1);
 					for (size_t j = 0; j <= barWidth; j++) {
-						cout << colourText(hBar, 'M');
+						cout << colourText(hBar, 'm');
 					}
 				} else {
-					cout << "\b" << colourText(hBar, 'M');
+					cout << "\b" << colourText(hBar, 'm');
 				}
 			}
 		}
@@ -151,8 +150,8 @@ bool Sorting::mustSwap(uint left, uint right) {
 void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C'));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b'));
+	highlight->add(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -164,7 +163,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 	for (size_t n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
-			highlight->add(Highlight('G', n));
+			highlight->add(Highlight('g', n));
 		}
 		for (size_t i = 1; i < n; i++) {
 			highlight->get(0).index = i-1;
@@ -206,8 +205,8 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 void Sorting::selectionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C'));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b'));
+	highlight->add(Highlight('b'));
 	highlight->add(Highlight('R'));
 
 	// Display the array before sorting.
@@ -218,7 +217,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	// Indicate the starting index.
 	size_t minIndex;
 	for (size_t i = 0; i < SIZE-1; i++) {
-		(*highlight)[2].index = i;
+		highlight->get(2).index = i;
 		minIndex = i;
 		for (size_t j = i+1; j < SIZE; j++) {
 			highlight->get(0).index = i;
@@ -231,7 +230,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			// New critical value.
 			if (mustSwap(array[j], array[minIndex])) {
 				minIndex = j;
-				(*highlight)[2].index = minIndex;
+				highlight->get(2).index = minIndex;
 			}
 		}
 
@@ -252,9 +251,9 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 		}
 
 		// Alter list for next comparison.
-		highlight->get(0).colour = 'C';
-		highlight->insert(0, Highlight('C'));
-		highlight->add(Highlight('G', i));
+		highlight->get(0).colour = 'b';
+		highlight->insert(0, Highlight('b'));
+		highlight->add(Highlight('g', i));
 	}
 
 	// Display the array after sorting.
@@ -271,8 +270,8 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 void Sorting::insertionSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C'));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b'));
+	highlight->add(Highlight('b'));
 	bool swapped;
 
 	// Display the array before sorting.
@@ -321,8 +320,8 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C'));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b'));
+	highlight->add(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -355,7 +354,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			}
 		}
 		end--;
-		highlight->add(Highlight('G', end));
+		highlight->add(Highlight('g', end));
 
 		// Break if no swap occurred.
 		if (!swapped) {
@@ -382,7 +381,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 				sleep_for(delay);
 			}
 		}
-		highlight->add(Highlight('G', start));
+		highlight->add(Highlight('g', start));
 		start++;
 
 	} while (swapped);
@@ -426,14 +425,14 @@ void Sorting::quickSort(
 
 	// Configure all highlights.
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C', low));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b', low));
+	highlight->add(Highlight('b'));
 	highlight->add(Highlight('R', high));
 	for (int i = 0; i < low; i++) {
-		highlight->add(Highlight('X', i));
+		highlight->add(Highlight('x', i));
 	}
 	for (int i = high+1; i < SIZE; i++) {
-		highlight->add(Highlight('X', i));
+		highlight->add(Highlight('x', i));
 	}
 
 	// Partition array and get the pivot index.
@@ -458,8 +457,8 @@ int Sorting::partition(
 
 	// Pivot is the last element.
 	uint pivot = array[high];
+	uint horizontalBar = pivot;
 	highlight->get(2).index = high;
-	Highlight* horizontalBar = new Highlight('M', MAX_UINT, pivot);
 
 	// Temporary pivot index.
 	int i = low - 1;
@@ -475,7 +474,7 @@ int Sorting::partition(
 
 		// Swap if needed.
 		if (mustSwap(array[j], pivot)) {
-			highlight->add(Highlight('G', i));
+			highlight->add(Highlight('g', i));
 			i++;
 			swap(array[i], array[j]);
 
@@ -507,7 +506,6 @@ int Sorting::partition(
 	}
 
 	// Delete dynamic memory and return pivot index.
-	delete horizontalBar;
     return i;
 }
 
@@ -542,14 +540,14 @@ void Sorting::quickSortV2(
 
 	// Configure all highlights.
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('C', low));
-	highlight->add(Highlight('C'));
+	highlight->add(Highlight('b', low));
+	highlight->add(Highlight('b'));
 	highlight->add(Highlight('R', high));
 	for (int i = 0; i < low; i++) {
-		highlight->add(Highlight('X', i));
+		highlight->add(Highlight('x', i));
 	}
 	for (int i = high+1; i < SIZE; i++) {
-		highlight->add(Highlight('X', i));
+		highlight->add(Highlight('x', i));
 	}
 
 	// Partition array and get the pivot index.
@@ -575,8 +573,8 @@ int Sorting::partitionV2(
 	// Pivot is the middle element.
 	uint middle = ((high - low) / 2) + low;
 	uint pivot = array[middle];
+	uint horizontalBar = pivot;
 	highlight->get(2).index = middle;
-	Highlight* horizontalBar = new Highlight('M', MAX_UINT, pivot);
 
 	// Left index.
 	int i = low - 1;
@@ -605,7 +603,6 @@ int Sorting::partitionV2(
 
 		// If the indices crossed, return pivot index.
 		if (i >= j) {
-			delete horizontalBar;
 			return j;
 		}
 
