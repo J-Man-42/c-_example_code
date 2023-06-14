@@ -85,23 +85,37 @@ void Sorting::displayArray(
 	printBorder("┴", SIZE);
 
 	// Iterate through all layers.
-	string bar;
+	string vBar, hBar;
+	uint value = (horizontalBar ? horizontalBar->value : MAX_UINT);
+	hBar = (value % 2 == 0 ? "▀" : "▄");
 	for (size_t n = height; n > 0; n -= 2) {
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Get the bar shape.
 			if (array[i] >= n) {
-				bar = bars[0];
+				vBar = bars[0];
 			} else if (array[i] == n-1) {
-				bar = bars[1];
+				vBar = bars[1];
 			} else {
-				bar = bars[2];
+				vBar = bars[2];
 			}
 
 			// Print text in the appropriate colour.
-			cout << colourText(bar, colour[i]);
+			cout << colourText(vBar, colour[i]);
+
+			// Print the horizontal bar in between.
+			if (n == value || n == value+1) {
+				if (array[i] < value) {
+					moveCursorLeft(barWidth+1);
+					for (size_t j = 0; j <= barWidth; j++) {
+						cout << colourText(hBar, 'M');
+					}
+				} else {
+					cout << "\b" << colourText(hBar, 'M');
+				}
+			}
 		}
-		cout << endl;
+		cout << "\b " << endl;
 	}
 
 	// Show the numbers below the bars.
@@ -120,36 +134,6 @@ void Sorting::displayArray(
 	// Below the numbers.
 	printBorder("┬", SIZE);
 	cout << endl;
-
-	// Display the horizontal bar.
-	if (horizontalBar && horizontalBar->value <= height) {
-
-		// Move the cursor to the correct position.
-		size_t M = (horizontalBar->value / 2) + barWidth;
-		M += (horizontalBar->value % 2 == 1) + 1;
-		moveCursorUp(M);
-
-		// Configure the bar shape.
-		bar = (horizontalBar->value % 2 == 0 ? "▀" : "▄");
-
-		// Write horizontal bar for all elements in the array.
-		for (size_t i = 0; i < SIZE; i++) {
-
-			// Do not overwrite existing vertical bars.
-			if (array[i] < horizontalBar->value) {
-				for (size_t j = 0; j <= barWidth; j++) {
-					cout << colourText(bar, 'M');
-				}
-			} else {
-				moveCursorRight(barWidth);
-				cout << colourText(bar, 'M');
-			}
-		}
-
-		// Mover the cursor back down.
-		cout << "\b \n";
-		moveCursorDown(M-1);
-	}
 }
 
 
