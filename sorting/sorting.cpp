@@ -713,7 +713,7 @@ void Sorting::mergeSort(uint array[], const uint SIZE) {
 
 
 // The function to recursively split the array for Merge Sort.
-void Sorting::split(uint copy[], uint start, uint end, uint array[]) {
+void Sorting::split(uint array[], uint start, uint end, uint copy[]) {
 
 	// Stopping condition.
 	if (end - start <= 1) {
@@ -726,16 +726,16 @@ void Sorting::split(uint copy[], uint start, uint end, uint array[]) {
 	split(array, middle, end, copy);
 
 	// Merge the current array.
-	merge(copy, start, middle, end, array);
+	merge(array, start, middle, end, copy);
 }
 
 
 // Merge the array again.
 void Sorting::merge(
 	uint copy[], uint start, uint middle, uint end, uint array[]) {
-	uint i = start, j = middle;
 
-	// Iterate from start to end.
+	// Merge array into copy from start to end.
+	size_t i = start, j = middle;
 	for (size_t k = start; k < end; k++) {
 		if (i < middle && (j >= end || mustSwap(array[i], array[j]))) {
 			copy[k] = array[i];
@@ -744,5 +744,10 @@ void Sorting::merge(
 			copy[k] = array[j];
 			j++;
 		}
+	}
+
+	// Copy back into original array.
+	for (size_t k = start; k < end; k++) {
+		array[k] = copy[k];
 	}
 }

@@ -74,9 +74,9 @@ private:
 	static int partitionV2(
 		uint array[], const int SIZE, int low, int high,
 		LinkedList<Highlight>* highlight);
-	static void split(uint copy[], uint start, uint end, uint array[]);
+	static void split(uint array[], uint start, uint end, uint copy[]);
 	static void merge(
-		uint copy[], uint start, uint middle, uint end, uint array[]);
+		uint array[], uint start, uint middle, uint end, uint copy[]);
 };
 
 
