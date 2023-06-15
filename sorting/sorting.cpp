@@ -786,6 +786,9 @@ void Sorting::merge(
 
 // Comb Sort the array.
 void Sorting::combSort(uint array[], const uint SIZE) {
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('R'));
+	highlight->add(Highlight('R'));
 	uint gap = SIZE;
 	bool sorted = false;
 
@@ -802,11 +805,19 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 			sorted = true;
 		}
 
-		// Bubble Sort with the current gap. 
+		// Bubble Sort with the current gap.
 		for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+
+			// Highlight indices before and after swapping.
+			highlight->get(0).index = i;
+			highlight->get(1).index = j;
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
 			if (mustSwap(array[j], array[i])) {
 				swap(array[j], array[i]);
 				sorted = false;
+				displayArray(array, SIZE, highlight);
+				sleep_for(delay);
 			}
 		}
 	}
@@ -814,4 +825,7 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
