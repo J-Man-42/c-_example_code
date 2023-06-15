@@ -206,6 +206,7 @@ int main() {
 			cout << "(6)  QuickSort V2" << endl;
 			cout << "(7)  Shell Sort" << endl;
 			cout << "(8)  Merge Sort" << endl;
+			cout << "(9)  Comb Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin >> answer;
@@ -235,6 +236,9 @@ int main() {
 				break;
 			case '8':
 				Sorting::mergeSort(array, size);
+				break;
+			case '9':
+				Sorting::combSort(array, size);
 				break;
 			default:
 				clearScreen();

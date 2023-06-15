@@ -781,3 +781,37 @@ void Sorting::merge(
 	displayArray(array, SIZE, highlight);
 	sleep_for(delay);
 }
+
+
+
+// Comb Sort the array.
+void Sorting::combSort(uint array[], const uint SIZE) {
+	uint gap = SIZE;
+	bool sorted = false;
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Loop for all gaps.
+	while (!sorted) {
+		gap = int(gap / 1.3);
+		if (gap <= 1) {
+			gap = 1;
+			sorted = true;
+		}
+
+		// Bubble Sort with the current gap. 
+		for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+			if (mustSwap(array[j], array[i])) {
+				swap(array[j], array[i]);
+				sorted = false;
+			}
+		}
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}

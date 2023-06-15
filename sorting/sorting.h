@@ -52,6 +52,7 @@ public:
 	static void quickSortV2(uint array[], const uint SIZE);
 	static void shellSort(uint array[], const uint SIZE);
 	static void mergeSort(uint array[], const uint SIZE);
+	static void combSort(uint array[], const uint SIZE);
 
 private:
 
