@@ -14,6 +14,13 @@ LinkedList<T>::LinkedList() {
 // The copy constructor.
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList<T>& other) {
+	
+	// If the same lists has been provided, do nothing.
+	if (this == &other) {
+		return;
+	}
+
+	// Set the initial parameters.
 	this->length = other.length;
 	this->head = nullptr;
 	this->tail = nullptr;
@@ -39,6 +46,36 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 template<class T>
 LinkedList<T>::~LinkedList() {
 	clear();
+}
+
+
+
+// Overload the assignment operator.
+template<class T>
+LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
+
+	// Only make changes if this and other are different lists.
+	if (this != &other) {
+		this->clear();
+		this->length = other.length;
+
+		// Copy other.head if not null.
+		if (other.head) {
+			this->head = new Node<T>(other.head->data);
+			this->tail = this->head;
+
+			// Copy all remaining elements.
+			Node<T>* otherPtr = other.head->next;
+			while (otherPtr) {
+				this->tail->next = new Node<T>(otherPtr->data);
+				this->tail->next->prev = this->tail;
+				this->tail = this->tail->next;
+				otherPtr = otherPtr->next;
+			}
+		}
+	}
+
+	return *this;
 }
 
 

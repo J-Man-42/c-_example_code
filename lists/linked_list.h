@@ -11,6 +11,7 @@ public:
 	LinkedList();
 	LinkedList(const LinkedList<T>& other);
 	~LinkedList();
+	LinkedList<T>& operator=(const LinkedList<T>& other);
 	T& operator[](const uint index);
 	void add(const T element);
 	void clear();

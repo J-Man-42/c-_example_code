@@ -5,6 +5,7 @@
 #include <cmath>
 #include "linked_list.h"
 #include "../move_cursor/move_cursor.h"
+#include "../random/random.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
@@ -73,6 +74,7 @@ int main() {
 
 	// Create the linked list.
 	LinkedList<uint> list;
+	LinkedList<uint> temp;
 
 	// Declare the array pointer.
 	uint size = 0;
@@ -109,7 +111,8 @@ int main() {
 		cout << "(13)  subList(start, end)" << endl;
 		cout << "(14)  toDynamicArray()" << endl;
 		cout << "(15)  toDynamicArray(size)" << endl;
-		cout << "(16)  operator[]" << endl;
+		cout << "(16)  operator=" << endl;
+		cout << "(17)  operator[]" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -317,8 +320,21 @@ int main() {
 			break;
 
 
-		// Work with the subscript operator.
+		// Work with the assignment operator.
 		case 16:
+			cout << "operator=" << endl;
+			cout << "> new size = ";
+			cin >> number;
+			for (size_t i = 0; i < number; i++) {
+				temp.add(randUint(10, 99));
+			}
+			list = temp;
+			temp.clear();
+			break;
+
+
+		// Work with the subscript operator.
+		case 17:
 			cout << "operator[]" << endl;
 			cout << "> set or get value (s/g):  ";
 			cin.getline(answer, 3);
@@ -329,7 +345,12 @@ int main() {
 				cin >> index;
 				cout << "> element = ";
 				cin >> element;
-				list[index] = element;
+				try {
+					list[index] = element;
+				} catch (char const* e) {
+					cout << e << endl;
+					sleep_for(seconds(2));
+				}
 			} else if (answer[0] == 'g') {
 				cout << "Getting value:" << endl;
 				cout << "> index = ";
