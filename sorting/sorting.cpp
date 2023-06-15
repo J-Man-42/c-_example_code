@@ -66,14 +66,19 @@ void Sorting::displayArray(
 	LinkedList<Highlight>* highlight,
 	uint horizontalBar) {
 
-	// Configure the highlight colours.
+	// Make all entries bright white.
 	char colour[SIZE];
 	for (size_t i = 0; i < SIZE; i++) {
 		colour[i] = 'w';
 	}
+
+	// Configure the provided highlight colours.
 	if (highlight) {
+		Highlight entry;
+		highlight->resetNext();
 		for (size_t i = 0; i < highlight->size(); i++) {
-			colour[highlight->get(i).index] = highlight->get(i).colour;
+			entry = highlight->getNext();
+			colour[entry.index] = entry.colour;
 		}
 	}
 
