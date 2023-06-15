@@ -77,7 +77,7 @@ void LinkedList<T>::clear() {
 	length = 0;
 
 	// Check if head is not null.
-	if (head) {
+	if (!isEmpty()) {
 
 		// Delete all nodes except the last.
 		while (head != tail) {
@@ -89,6 +89,21 @@ void LinkedList<T>::clear() {
 		delete head;
 		head = tail = nullptr;
 	}
+}
+
+
+
+// Returns the first element in the list.
+template<class T>
+T& LinkedList<T>::first() {
+
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// Returns the element at head.
+	return head->data;
 }
 
 
@@ -107,7 +122,7 @@ void LinkedList<T>::insert(const uint index, const T element) {
 	Node<T>* newNode = new Node<T>(element);
 
 	// If empty list, assign as head and tail.
-	if (!head) {
+	if (isEmpty()) {
 		head = tail = newNode;
 	}
 
@@ -148,12 +163,28 @@ bool LinkedList<T>::isEmpty() const {
 
 
 
+
+// Returns the last element in the list.
+template<class T>
+T& LinkedList<T>::last() {
+	
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// Returns the element at head.
+	return tail->data;
+}
+
+
+
 // Elegantly prints the contents of the list.
 template<class T>
 void LinkedList<T>::print() {
 
 	// Do nothing if empty list.
-	if (!head) {
+	if (isEmpty()) {
 		return;
 	}
 
@@ -326,7 +357,7 @@ template<class T>
 T* LinkedList<T>::toDynamicArray() {
 
 	// Throw an error if the list is empty.
-	if (!head) {
+	if (isEmpty()) {
 		throw "Error! No elements in the list";
 	}
 
