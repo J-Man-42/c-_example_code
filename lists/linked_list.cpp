@@ -46,6 +46,19 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 }
 
 
+// Construct a LinkedList from the given array.
+template<class T>
+LinkedList<T>::LinkedList(const T array[], const uint SIZE) {
+	this->head = nullptr;
+	this->tail = nullptr;
+	this->length = 0;
+	for (size_t i = 0; i < SIZE; i++) {
+		this->add(array[i]);
+	}
+	this->current = head;
+}
+
+
 // The destructor.
 template<class T>
 LinkedList<T>::~LinkedList() {

@@ -10,6 +10,7 @@ class LinkedList
 public:
 	LinkedList();
 	LinkedList(const LinkedList<T>& other);
+	LinkedList(const T array[], const uint SIZE);
 	~LinkedList();
 	LinkedList<T>& operator=(const LinkedList<T>& other);
 	T& operator[](const uint index);

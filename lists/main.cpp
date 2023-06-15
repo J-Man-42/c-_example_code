@@ -96,6 +96,7 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
+		cout << " (A)  Create List from Array" << endl;
 		cout << " (1)  add(element)" << endl;
 		cout << " (2)  clear()" << endl;
 		cout << " (3)  clone()" << endl;
@@ -126,14 +127,28 @@ int main() {
 		cin.getline(answer, 3);
 		answer[0] = toupper(answer[0]);
 
-		// Simply continue when a string is entered.
+
+		// Create list from array.
+		if (answer[0] == 'A') {
+			cout << "Create List from Array" << endl;
+			list = LinkedList(array, size);
+			continue;
+		}
+
+
+		// Any other character continues the loop.
 		if (isalpha(answer[0])) {
 			continue;
 		}
 
 
-		// Switch statement for answer.
+		// Validate the input.
 		number = atoi(answer);
+		if (number == 0 || number > 24) {
+			continue;
+		}
+
+		// Switch statement for answer.
 		switch (number) {
 
 
