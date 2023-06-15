@@ -116,6 +116,34 @@ T& LinkedList<T>::get(const uint index) {
 
 
 
+// Returns the list index of the given element.
+template<class T>
+int LinkedList<T>::indexOf(const T element) {
+	Node<T>* tailPtr = tail;
+	Node<T>* headPtr = head;
+	int tailIndex = length-1;
+	int headIndex = 0;
+
+	// Iterate until indices overlapped or element found.
+	while (headIndex <= tailIndex) {
+		if (headPtr->data == element)
+			return headIndex;
+		if (tailPtr->data == element)
+			return tailIndex;
+
+		// Update indices and node pointers.
+		headPtr = headPtr->next;
+		tailPtr = tailPtr->prev;
+		headIndex++;
+		tailIndex--;
+	}
+
+	// If not found, return -1.
+	return -1;
+}
+
+
+
 // Insert element at the specified index.
 template<class T>
 void LinkedList<T>::insert(const uint index, const T element) {
@@ -167,7 +195,7 @@ bool LinkedList<T>::isEmpty() const {
 // Returns the last element in the list.
 template<class T>
 T& LinkedList<T>::last() {
-	
+
 	// Throw an error if the list is empty.
 	if (isEmpty()) {
 		throw "Error! No elements in the list";

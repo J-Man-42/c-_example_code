@@ -16,6 +16,7 @@ public:
 	void clear();
 	T& first();
 	T& get(const uint index);
+	int indexOf(const T element);
 	void insert(const uint index, const T element);
 	bool isEmpty() const;
 	T& last();
