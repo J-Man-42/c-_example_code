@@ -11,7 +11,7 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
 // Set static member values.
-uint Sorting::delay = 50;
+duration<int, milli> Sorting::delay = milliseconds(50);
 uint Sorting::height = 40;
 uint Sorting::barWidth = 2;
 string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
@@ -43,6 +43,18 @@ void Sorting::setBarHeight(uint height) {
 // Returns the current bar width.
 uint Sorting::getBarWidth() {
 	return barWidth;
+}
+
+
+// Sets the delay in milliseconds.
+void Sorting::setDelay(uint ms) {
+	Sorting::delay = milliseconds(ms);
+}
+
+
+// Returns the delay in milliseconds.
+uint Sorting::getDelay() {
+	return delay.count();
 }
 
 
@@ -151,7 +163,6 @@ bool Sorting::mustSwap(uint left, uint right) {
 
 // Bubble sort the given array.
 void Sorting::bubbleSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -206,7 +217,6 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 
 // Selection sort the given array.
 void Sorting::selectionSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -271,7 +281,6 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 
 // Insertion sort the given array.
 void Sorting::insertionSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -321,7 +330,6 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 
 // Cocktail shaker sort the given array.
 void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -401,7 +409,6 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 
 // Quick Sort the array.
 void Sorting::quickSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 
 	// Display the array before sorting.
 	clearScreen();
@@ -454,9 +461,6 @@ void Sorting::quickSort(
 int Sorting::partition(
 	uint array[], const int SIZE, int low, int high,
 	LinkedList<Highlight>* highlight) {
-
-	// Setup the delay.
-	auto delay = milliseconds(Sorting::delay);
 
 	// Pivot is the last element.
 	uint pivot = array[high];
@@ -516,7 +520,6 @@ int Sorting::partition(
 
 // Quick Sort the array.
 void Sorting::quickSortV2(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 
 	// Display the array before sorting.
 	clearScreen();
@@ -569,9 +572,6 @@ void Sorting::quickSortV2(
 int Sorting::partitionV2(
 	uint array[], const int SIZE, int low, int high,
 	LinkedList<Highlight>* highlight) {
-
-	// Setup the delay.
-	auto delay = milliseconds(Sorting::delay);
 
 	// Pivot is the middle element.
 	uint middle = ((high - low) / 2) + low;
@@ -633,7 +633,6 @@ int Sorting::partitionV2(
 
 // Shell Sort the array.
 void Sorting::shellSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
@@ -690,7 +689,6 @@ void Sorting::shellSort(uint array[], const uint SIZE) {
 
 // Merge Sort the array.
 void Sorting::mergeSort(uint array[], const uint SIZE) {
-	auto delay = milliseconds(Sorting::delay);
 
 	// Display the array before sorting.
 	clearScreen();
@@ -718,9 +716,6 @@ void Sorting::split(
 	if (end - start <= 1) {
 		return;
 	}
-
-	// Configure delay.
-	auto delay = milliseconds(Sorting::delay);
 
 	// Grey out all entries before start and after end.
 	uint middle = (start + end) / 2;
@@ -751,9 +746,6 @@ void Sorting::merge(
 	uint array[], uint copy[], const uint& SIZE,
 	uint start, uint middle, uint end,
 	LinkedList<Highlight>* highlight) {
-
-	// Configure delay.
-	auto delay = milliseconds(Sorting::delay);
 
 	// Configure the moving indices and red highlights.
 	size_t i = start, j = middle;

@@ -40,7 +40,7 @@ int main() {
 		cout << "Array contents ~ Z["<<minValue<<", "<<maxValue<<"]" << endl;
 		cout << "Array size = " << size << endl;
 		cout << "Bar width = " << Sorting::getBarWidth() << endl;
-		cout << "Time delay = " << Sorting::delay << "ms\n";
+		cout << "Time delay = " << Sorting::getDelay() << "ms\n";
 		cout << "Sort ";
 		cout << (Sorting::sortAscending ? "Ascending" : "Descending");
 		cout << " Order" << endl;
@@ -183,7 +183,9 @@ int main() {
 		// Change the milliseconds delay when sorting.
 		case '4':
 			cout << "new delay = ";
-			cin >> Sorting::delay;
+			uint ms;
+			cin >> ms;
+			Sorting::setDelay(ms);
 			break;
 
 

@@ -31,13 +31,14 @@ class Sorting
 public:
 
 	// Variables.
-	static uint delay;
 	static bool sortAscending;
 
 	// Functions.
 	static void toggleBarWidth();
 	static void setBarHeight(uint height);
 	static uint getBarWidth();
+	static void setDelay(uint ms);
+	static uint getDelay();
 	static void displayArray(
 		uint array[], const uint SIZE,
 		LinkedList<Highlight>* highlight = nullptr,
@@ -55,6 +56,7 @@ public:
 private:
 
 	// Variables.
+	static std::chrono::duration<int, std::milli> delay;
 	static uint height;
 	static uint barWidth;
 	static string singleBars[];
