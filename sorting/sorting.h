@@ -50,6 +50,7 @@ public:
 	static void quickSort(uint array[], const uint SIZE);
 	static void quickSortV2(uint array[], const uint SIZE);
 	static void shellSort(uint array[], const uint SIZE);
+	static void mergeSort(uint array[], const uint SIZE);
 
 private:
 
@@ -73,6 +74,9 @@ private:
 	static int partitionV2(
 		uint array[], const int SIZE, int low, int high,
 		LinkedList<Highlight>* highlight);
+	static void split(uint copy[], uint start, uint end, uint array[]);
+	static void merge(
+		uint copy[], uint start, uint middle, uint end, uint array[]);
 };
 
 

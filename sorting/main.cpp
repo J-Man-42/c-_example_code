@@ -203,6 +203,7 @@ int main() {
 			cout << "(5)  QuickSort" << endl;
 			cout << "(6)  QuickSort V2" << endl;
 			cout << "(7)  Shell Sort" << endl;
+			cout << "(8)  Merge Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin >> answer;
@@ -229,6 +230,9 @@ int main() {
 				break;
 			case '7':
 				Sorting::shellSort(array, size);
+				break;
+			case '8':
+				Sorting::mergeSort(array, size);
 				break;
 			default:
 				clearScreen();

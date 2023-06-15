@@ -685,3 +685,64 @@ void Sorting::shellSort(uint array[], const uint SIZE) {
 	// Delete dynamic memory.
 	delete highlight;
 }
+
+
+
+// Merge Sort the array.
+void Sorting::mergeSort(uint array[], const uint SIZE) {
+	auto delay = milliseconds(Sorting::delay);
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Copy the array.
+	uint copy[SIZE];
+	for (size_t i = 0; i < SIZE; i++) {
+		copy[i] = array[i];
+	}
+
+	// Call the recursive split function.
+	split(array, 0, SIZE, copy);
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}
+
+
+// The function to recursively split the array for Merge Sort.
+void Sorting::split(uint copy[], uint start, uint end, uint array[]) {
+
+	// Stopping condition.
+	if (end - start <= 1) {
+		return;
+	}
+
+	// Split into left and right halves.
+	uint middle = (start + end) / 2;
+	split(array, start, middle, copy);
+	split(array, middle, end, copy);
+
+	// Merge the current array.
+	merge(copy, start, middle, end, array);
+}
+
+
+// Merge the array again.
+void Sorting::merge(
+	uint copy[], uint start, uint middle, uint end, uint array[]) {
+	uint i = start, j = middle;
+
+	// Iterate from start to end.
+	for (size_t k = start; k < end; k++) {
+		if (i < middle && (j >= end || mustSwap(array[i], array[j]))) {
+			copy[k] = array[i];
+			i++;
+		} else {
+			copy[k] = array[j];
+			j++;
+		}
+	}
+}
