@@ -14,7 +14,7 @@ LinkedList<T>::LinkedList() {
 // The copy constructor.
 template<class T>
 LinkedList<T>::LinkedList(const LinkedList<T>& other) {
-	
+
 	// If the same lists has been provided, do nothing.
 	if (this == &other) {
 		return;
@@ -88,6 +88,52 @@ T& LinkedList<T>::operator[](const uint index) {
 
 
 
+// Returns a copied list with element added to the end.
+template<class T>
+LinkedList<T> LinkedList<T>::operator+(const T element) {
+	LinkedList<T> list = this->clone();
+	list.add(element);
+	return list;
+}
+
+
+
+// Returns a copied list with the other list added to the end.
+template<class T>
+LinkedList<T> LinkedList<T>::operator+(const LinkedList<T>& other) {
+	LinkedList<T> list = this->clone();
+	Node<T>* nodePtr = other.head;
+	while (nodePtr) {
+		list.add(nodePtr->data);
+		nodePtr = nodePtr->next;
+	}
+	return list;
+}
+
+
+
+// Add the element to the end of this list.
+template<class T>
+LinkedList<T>& LinkedList<T>::operator+=(const T element) {
+	this->add(element);
+	return *this;
+}
+
+
+
+// Add the list of elements to the end of this list.
+template<class T>
+LinkedList<T>& LinkedList<T>::operator+=(const LinkedList<T>& other) {
+	Node<T>* nodePtr = other.head;
+	while (nodePtr) {
+		this->add(nodePtr->data);
+		nodePtr = nodePtr->next;
+	}
+	return *this;
+}
+
+
+
 // Add an element to the end of the list.
 template<class T>
 void LinkedList<T>::add(const T element) {
@@ -126,6 +172,14 @@ void LinkedList<T>::clear() {
 		delete head;
 		head = tail = nullptr;
 	}
+}
+
+
+
+// Returns a hard copy of this list.
+template<class T>
+LinkedList<T> LinkedList<T>::clone() {
+	return LinkedList<T>(*this);
 }
 
 

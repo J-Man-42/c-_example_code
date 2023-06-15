@@ -13,8 +13,13 @@ public:
 	~LinkedList();
 	LinkedList<T>& operator=(const LinkedList<T>& other);
 	T& operator[](const uint index);
+	LinkedList<T> operator+(const T element);
+	LinkedList<T> operator+(const LinkedList<T>& other);
+	LinkedList<T>& operator+=(const T element);
+	LinkedList<T>& operator+=(const LinkedList<T>& other);
 	void add(const T element);
 	void clear();
+	LinkedList<T> clone();
 	T& first();
 	T& get(const uint index);
 	int indexOf(const T element);
