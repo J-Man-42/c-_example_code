@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "linked_list.h"
 using namespace std;
 
@@ -298,27 +299,6 @@ T& LinkedList<T>::last() {
 
 
 
-// Elegantly prints the contents of the list.
-template<class T>
-void LinkedList<T>::print() {
-
-	// Do nothing if empty list.
-	if (isEmpty()) {
-		return;
-	}
-
-	// Iterate through all elements.
-	Node<T>* nodePtr = head;
-	cout << "(";
-	while (nodePtr->next) {
-		cout << nodePtr->data << ")──(";
-		nodePtr = nodePtr->next;
-	}
-	cout << nodePtr->data << ")" << endl;
-}
-
-
-
 // Removes the first instance of the given element.
 template<class T>
 void LinkedList<T>::remove(const T element) {
@@ -500,6 +480,29 @@ T* LinkedList<T>::toDynamicArray(const uint SIZE) {
 
 	// Return the final array.
 	return array;
+}
+
+
+
+// Returns the string representation of the list.
+template<class T>
+string LinkedList<T>::toString() {
+
+	// Return empty parenthesis if empty list.
+	if (isEmpty()) {
+		return "()";
+	}
+
+	// Iterate through all elements.
+	Node<T>* nodePtr = head;
+	stringstream ss;
+	ss << "(";
+	while (nodePtr->next) {
+		ss << nodePtr->data << ")──(";
+		nodePtr = nodePtr->next;
+	}
+	ss << nodePtr->data << ")";
+	return ss.str();
 }
 
 

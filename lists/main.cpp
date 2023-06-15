@@ -88,7 +88,7 @@ int main() {
 
 		// Print the linked list.
 		cout << "List:" << endl;
-		list.print();
+		cout << list.toString() << endl;
 
 		// Print the array.
 		cout << "\nArray:" << endl;
@@ -155,8 +155,7 @@ int main() {
 		case 3:
 			cout << "clone()" << endl;
 			temp = list.clone();
-			cout << "> cloned list:  ";
-			temp.print();
+			cout << "> cloned list:  " << temp.toString() << endl;
 			sleep_for(seconds(5));
 			break;
 
@@ -291,8 +290,7 @@ int main() {
 			cin >> end;
 			try {
 				sublist = list.subList(start, end);
-				cout << "Sublist:" << endl;
-				sublist->print();
+				cout << "Sublist:  " << sublist->toString() << endl;
 				delete sublist;
 				sublist = nullptr;
 				sleep_for(seconds(5));
@@ -388,8 +386,7 @@ int main() {
 			cout << "> element = ";
 			cin >> element;
 			temp = list + element;
-			cout << "> new list:  ";
-			temp.print();
+			cout << "> new list:  " << temp.toString() << endl;
 			sleep_for(seconds(5));
 			break;
 		
@@ -404,8 +401,7 @@ int main() {
 				temp.add(randUint(10, 99));
 			}
 			temp = list + temp;
-			cout << "> new list:  ";
-			temp.print();
+			cout << "> new list:  " << temp.toString() << endl;
 			sleep_for(seconds(5));
 			break;
 		

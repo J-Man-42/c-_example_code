@@ -26,7 +26,6 @@ public:
 	void insert(const uint index, const T element);
 	bool isEmpty() const;
 	T& last();
-	void print();
 	void remove(const T element);
 	T& removeAt(const uint index);
 	void set(const uint index, const T element);
@@ -34,6 +33,7 @@ public:
 	LinkedList<T>* subList(const uint start, const uint end);
 	T* toDynamicArray();
 	T* toDynamicArray(const uint SIZE);
+	std::string toString();
 private:
 	Node<T>* findIndex(const uint index);
 	uint length;
