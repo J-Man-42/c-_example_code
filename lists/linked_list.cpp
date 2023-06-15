@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <sstream>
 #include "linked_list.h"
@@ -7,7 +8,7 @@ using namespace std;
 // The constructor.
 template<class T>
 LinkedList<T>::LinkedList() {
-	head = tail = nullptr;
+	head = tail = current = nullptr;
 	length = 0;
 }
 
@@ -25,11 +26,13 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 	this->length = other.length;
 	this->head = nullptr;
 	this->tail = nullptr;
+	this->current = nullptr;
 
 	// Copy other.head if not null.
 	if (other.head) {
 		this->head = new Node<T>(other.head->data);
 		this->tail = this->head;
+		this->current = this->head;
 
 		// Copy all remaining elements.
 		Node<T>* otherPtr = other.head->next;
@@ -64,6 +67,7 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
 		if (other.head) {
 			this->head = new Node<T>(other.head->data);
 			this->tail = this->head;
+			this->current = this->head;
 
 			// Copy all remaining elements.
 			Node<T>* otherPtr = other.head->next;
@@ -141,8 +145,8 @@ void LinkedList<T>::add(const T element) {
 	length++;
 
 	// See if it's the first element.
-	if (!tail) {
-		head = tail = new Node<T>(element);
+	if (isEmpty()) {
+		head = tail = current = new Node<T>(element);
 	}
 
 	// Otherwise, add to the end.
@@ -171,7 +175,7 @@ void LinkedList<T>::clear() {
 
 		// Delete the final node.
 		delete head;
-		head = tail = nullptr;
+		head = tail = current = nullptr;
 	}
 }
 
@@ -208,26 +212,45 @@ T& LinkedList<T>::get(const uint index) {
 
 
 
+// Get the next element in the list.
+template<class T>
+T& LinkedList<T>::getNext() {
+
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// If only one element.
+	if (head == tail) {
+		return head->data;
+	}
+
+	// If last element in the list.
+	if (!current->next) {
+		current = head;
+		return tail->data;
+	}
+
+	// Otherwise, at least 2 in the list.
+	current = current->next;
+	return current->prev->data;
+}
+
+
+
 // Returns the list index of the given element.
 template<class T>
 int LinkedList<T>::indexOf(const T element) {
-	Node<T>* tailPtr = tail;
-	Node<T>* headPtr = head;
-	int tailIndex = length-1;
-	int headIndex = 0;
+	Node<T>* nodePtr = head;
+	int index = 0;
 
-	// Iterate until indices overlapped or element found.
-	while (headIndex <= tailIndex) {
-		if (headPtr->data == element)
-			return headIndex;
-		if (tailPtr->data == element)
-			return tailIndex;
-
-		// Update indices and node pointers.
-		headPtr = headPtr->next;
-		tailPtr = tailPtr->prev;
-		headIndex++;
-		tailIndex--;
+	// Iterate until null or element found.
+	while (nodePtr) {
+		if (nodePtr->data == element)
+			return index;
+		nodePtr = nodePtr->next;
+		index++;
 	}
 
 	// If not found, return -1.
@@ -243,7 +266,7 @@ void LinkedList<T>::insert(const uint index, const T element) {
 
 	// If empty list, assign as head and tail.
 	if (isEmpty()) {
-		head = tail = newNode;
+		head = tail = current = newNode;
 	}
 
 	// See if element is simply appended to the end.
@@ -322,11 +345,14 @@ void LinkedList<T>::remove(const T element) {
 	// The only element.
 	if (head == tail) {
 		delete head;
-		head = tail = nullptr;
+		head = tail = current = nullptr;
 	}
 
 	// The element is the first element.
 	else if (head == nodePtr) {
+		if (current == head) {
+			current = current->next;
+		}
 		head = head->next;
 		delete head->prev;
 		head->prev = nullptr;
@@ -334,6 +360,9 @@ void LinkedList<T>::remove(const T element) {
 
 	// The element is the last element.
 	else if (tail == nodePtr) {
+		if (current == tail) {
+			current = head;
+		}
 		tail = tail->prev;
 		delete tail->next;
 		tail->next = nullptr;
@@ -341,6 +370,9 @@ void LinkedList<T>::remove(const T element) {
 
 	// Otherwise, it is somewhere in the middle.
 	else {
+		if (nodePtr == current) {
+			current = current->next;
+		}
 		nodePtr->prev->next = nodePtr->next;
 		nodePtr->next->prev = nodePtr->prev;
 		delete nodePtr;
@@ -368,11 +400,14 @@ T& LinkedList<T>::removeAt(const uint index) {
 	// The only element.
 	if (head == tail) {
 		delete head;
-		head = tail = nullptr;
+		head = tail = current = nullptr;
 	}
 
 	// The element is the first element.
 	else if (head == nodePtr) {
+		if (current == head) {
+			current = current->next;
+		}
 		head = head->next;
 		delete head->prev;
 		head->prev = nullptr;
@@ -380,6 +415,9 @@ T& LinkedList<T>::removeAt(const uint index) {
 
 	// The element is the last element.
 	else if (tail == nodePtr) {
+		if (current == tail) {
+			current = head;
+		}
 		tail = tail->prev;
 		delete tail->next;
 		tail->next = nullptr;
@@ -387,6 +425,9 @@ T& LinkedList<T>::removeAt(const uint index) {
 
 	// Otherwise, it is somewhere in the middle.
 	else {
+		if (nodePtr == current) {
+			current = current->next;
+		}
 		nodePtr->prev->next = nodePtr->next;
 		nodePtr->next->prev = nodePtr->prev;
 		delete nodePtr;
@@ -395,6 +436,14 @@ T& LinkedList<T>::removeAt(const uint index) {
 	// Return the element.
 	length--;
 	return element;
+}
+
+
+
+// Reset the current pointer to head.
+template<class T>
+void LinkedList<T>::resetNext() {
+	current = head;
 }
 
 

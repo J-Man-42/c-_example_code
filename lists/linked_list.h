@@ -22,12 +22,14 @@ public:
 	LinkedList<T> clone();
 	T& first();
 	T& get(const uint index);
+	T& getNext();
 	int indexOf(const T element);
 	void insert(const uint index, const T element);
 	bool isEmpty() const;
 	T& last();
 	void remove(const T element);
 	T& removeAt(const uint index);
+	void resetNext();
 	void set(const uint index, const T element);
 	uint size() const;
 	LinkedList<T>* subList(const uint start, const uint end);
@@ -39,6 +41,7 @@ private:
 	uint length;
 	Node<T>* head;
 	Node<T>* tail;
+	Node<T>* current;
 };
 
 #include "linked_list.cpp"
