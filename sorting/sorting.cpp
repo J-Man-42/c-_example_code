@@ -697,14 +697,11 @@ void Sorting::mergeSort(uint array[], const uint SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Copy the array.
+	// Temporary array for copying.
 	uint copy[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
-		copy[i] = array[i];
-	}
 
 	// Call the recursive split function.
-	split(array, 0, SIZE, copy);
+	split(array, copy, SIZE, 0, SIZE);
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
@@ -713,41 +710,82 @@ void Sorting::mergeSort(uint array[], const uint SIZE) {
 
 
 // The function to recursively split the array for Merge Sort.
-void Sorting::split(uint array[], uint start, uint end, uint copy[]) {
+void Sorting::split(
+	uint array[], uint copy[], const uint& SIZE,
+	uint start, uint end) {
 
 	// Stopping condition.
 	if (end - start <= 1) {
 		return;
 	}
 
-	// Split into left and right halves.
+	// Configure delay.
+	auto delay = milliseconds(Sorting::delay);
+
+	// Grey out all entries before start and after end.
 	uint middle = (start + end) / 2;
-	split(array, start, middle, copy);
-	split(array, middle, end, copy);
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	for (size_t i = 0; i < start; i++)
+		highlight->add(Highlight('x', i));
+	for (size_t i = end; i < SIZE; i++)
+		highlight->add(Highlight('x', i));
+
+	// Display the array portion.
+	displayArray(array, SIZE, highlight);
+	sleep_for(delay);
+
+	// Split into left and right halves.
+	split(array, copy, SIZE, start, middle);
+	split(array, copy, SIZE, middle, end);
 
 	// Merge the current array.
-	merge(array, start, middle, end, copy);
+	merge(array, copy, SIZE, start, middle, end, highlight);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
 
 
 // Merge the array again.
 void Sorting::merge(
-	uint copy[], uint start, uint middle, uint end, uint array[]) {
+	uint array[], uint copy[], const uint& SIZE,
+	uint start, uint middle, uint end,
+	LinkedList<Highlight>* highlight) {
+
+	// Configure delay.
+	auto delay = milliseconds(Sorting::delay);
+
+	// Configure the moving indices and red highlights.
+	size_t i = start, j = middle;
+	highlight->insert(0, Highlight('R', j));
+	highlight->insert(0, Highlight('R', i));
 
 	// Merge array into copy from start to end.
-	size_t i = start, j = middle;
 	for (size_t k = start; k < end; k++) {
+
+		// Display the comparison.
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
 		if (i < middle && (j >= end || mustSwap(array[i], array[j]))) {
 			copy[k] = array[i];
 			i++;
+			highlight->get(0).index++;
 		} else {
 			copy[k] = array[j];
 			j++;
+			highlight->get(1).index++;
 		}
 	}
 
 	// Copy back into original array.
+	highlight->removeAt(0);
+	highlight->removeAt(0);
 	for (size_t k = start; k < end; k++) {
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
 		array[k] = copy[k];
+		highlight->insert(0, Highlight('G', k));
 	}
+	displayArray(array, SIZE, highlight);
+	sleep_for(delay);
 }
