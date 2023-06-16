@@ -15,7 +15,8 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 // Main loop function.
 int main() {
-	char answer = '0';
+	char answer[3];
+	uint number;
 	size_t size = 20;
 	uint minValue = 1;
 	uint maxValue = 40;
@@ -25,7 +26,7 @@ int main() {
 	uint* array = randUintArray(size, minValue, maxValue);
 
 	// Main loop.
-	while (answer != 'Q') {
+	while (answer[0] != 'Q') {
 
 		// Selectively clear the screen.
 		if (mustRefresh) {
@@ -57,15 +58,15 @@ int main() {
 		cout << "(Q)  << QUIT PROGRAM >>" << endl;
 		cout << "========================================" << endl;
 		cout << "> ";
-		cin >> answer;
+		cin.getline(answer, 3);
 
 		// Format the answer.
-		answer = toupper(answer);
-		mustRefresh = (answer != '7');
+		answer[0] = toupper(answer[0]);
+		mustRefresh = (answer[0] != '7');
 
 
 		// Perform the user specified action.
-		switch (answer) {
+		switch (answer[0]) {
 
 
 		// Randomise the array.
@@ -84,10 +85,10 @@ int main() {
 			cout << "(4)  Create Sorted Descending Array" << endl;
 			cout << "========================================" << endl;
 			cout << "> ";
-			cin >> answer;
+			cin.getline(answer, 3);
 
 			// Perform the requested array alteration.
-			switch (answer) {
+			switch (answer[0]) {
 
 			// Change array size.
 			case '1':
@@ -220,35 +221,42 @@ int main() {
 			cout << "(9)  Comb Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
-			cin >> answer;
+			cin.getline(answer, 3);
+
+			// Continue if not a number.
+			if (!isdigit(answer[0])) {
+				clearScreen();
+				continue;
+			}
 
 			// Run the requested sorting algorithm.
-			switch (answer) {
-			case '1':
+			number = atoi(answer);
+			switch (number) {
+			case 1:
 				Sorting::bubbleSort(array, size);
 				break;
-			case '2':
+			case 2:
 				Sorting::selectionSort(array, size);
 				break;
-			case '3':
+			case 3:
 				Sorting::insertionSort(array, size);
 				break;
-			case '4':
+			case 4:
 				Sorting::cocktailShakerSort(array, size);
 				break;
-			case '5':
+			case 5:
 				Sorting::quickSort(array, size);
 				break;
-			case '6':
+			case 6:
 				Sorting::quickSortV2(array, size);
 				break;
-			case '7':
+			case 7:
 				Sorting::shellSort(array, size);
 				break;
-			case '8':
+			case 8:
 				Sorting::mergeSort(array, size);
 				break;
-			case '9':
+			case 9:
 				Sorting::combSort(array, size);
 				break;
 			default:
