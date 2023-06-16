@@ -923,7 +923,7 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 		}
 
 		// Copy the sorted elements back into the original array.
-		highlight->add(Highlight('R'));
+		highlight->first().colour = 'R';
 		for (int i = SIZE-1; i >= 0; i--) {
 			
 			// Determine the current digit.
@@ -938,14 +938,13 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			array[--count[d]] = copy[i];
 
 			// Show array after copy.
-			highlight->first().index = i;
-			highlight->get(1).index = count[d];
+			highlight->first().index = count[d];
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
 		
 		// Display the array after copying all.
-		highlight->removeAt(1);
+		highlight->first().colour = 'b';
 		displayArray(array, SIZE);
 		sleep_for(delay);
 	}
