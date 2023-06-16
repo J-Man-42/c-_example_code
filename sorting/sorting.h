@@ -35,8 +35,10 @@ public:
 
 	// Functions.
 	static void toggleBarWidth();
-	static void setBarHeight(uint height);
 	static uint getBarWidth();
+	static void setBarHeight(uint height);
+	static void setVerticalScale(uint scale);
+	static uint getVerticalScale();
 	static void setDelay(uint ms);
 	static uint getDelay();
 	static void displayArray(
@@ -58,13 +60,16 @@ private:
 
 	// Variables.
 	static std::chrono::duration<int, std::milli> delay;
-	static uint height;
+	static uint barHeight;
 	static uint barWidth;
+	static uint verticalScale;
+	static uint displayHeight;
 	static string singleBars[];
 	static string doubleBars[];
 	static string* bars;
 
 	// Functions.
+	static void calibrateHeightAndScale();
 	static void printBorder(string symbol, const uint SIZE);
 	static bool mustSwap(uint left, uint right);
 	static void quickSort(

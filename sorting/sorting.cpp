@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <chrono>
 #include <thread>
+#include <cmath>
 #include "sorting.h"
 #include "../colour_text/colour_text.h"
 #include "../move_cursor/move_cursor.h"
@@ -11,13 +12,15 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
 // Set static member values.
+bool Sorting::sortAscending = true;
 duration<int, milli> Sorting::delay = milliseconds(50);
-uint Sorting::height = 40;
+uint Sorting::barHeight = 40;
 uint Sorting::barWidth = 2;
+uint Sorting::verticalScale = 1;
+uint Sorting::displayHeight = 40;
 string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
 string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
 string* Sorting::bars = doubleBars;
-bool Sorting::sortAscending = true;
 
 
 // Toggles between a width of 1 and a width of 2.
@@ -31,24 +34,43 @@ void Sorting::toggleBarWidth() {
 }
 
 
-// Update the display bar height.
-void Sorting::setBarHeight(uint height) {
-	Sorting::height = height;
-	if (height % 2 == 1) {
-		Sorting::height++;
-	}
-}
-
-
 // Returns the current bar width.
 uint Sorting::getBarWidth() {
 	return barWidth;
 }
 
 
+// Update the display bar height.
+void Sorting::setBarHeight(uint height) {
+	barHeight = height;
+	calibrateHeightAndScale();
+}
+
+
+// Sets the vertical display scale.
+void Sorting::setVerticalScale(uint scale) {
+	verticalScale = scale;
+	calibrateHeightAndScale();
+}
+
+
+// Calibrates the bar height and vertical scale.
+void Sorting::calibrateHeightAndScale() {
+	displayHeight = ceil(barHeight / (verticalScale*2.0));
+	barHeight = displayHeight * verticalScale * 2;
+	barHeight += (barHeight % verticalScale);
+}
+
+
+// Returns the vertical display scale.
+uint Sorting::getVerticalScale() {
+	return verticalScale;
+}
+
+
 // Sets the delay in milliseconds.
 void Sorting::setDelay(uint ms) {
-	Sorting::delay = milliseconds(ms);
+	delay = milliseconds(ms);
 }
 
 
@@ -60,15 +82,12 @@ uint Sorting::getDelay() {
 
 // Prints either the top or bottom border.
 void Sorting::printBorder(string symbol, const uint SIZE) {
-	for (size_t i = 1; i < SIZE; i++) {
+	for (size_t i = 0; i < SIZE; i++) {
 		for (size_t j = 0; j <= barWidth; j++) {
 			cout << symbol;
 		}
 	}
-	for (size_t i = 0; i < barWidth; i++) {
-		cout << symbol;
-	}
-	cout << endl;
+	cout << "\b \n";
 }
 
 
@@ -77,6 +96,13 @@ void Sorting::displayArray(
 	uint array[], const uint SIZE,
 	LinkedList<Highlight>* highlight,
 	uint horizontalBar) {
+
+	// Update horizontal bar for display.
+	if (horizontalBar > 0) {
+		horizontalBar = ceil(double(horizontalBar) / verticalScale);
+		horizontalBar *= verticalScale;
+		horizontalBar += (horizontalBar % verticalScale);
+	}
 
 	// Make all entries bright white.
 	char colour[SIZE];
@@ -95,23 +121,31 @@ void Sorting::displayArray(
 	}
 
 	// Move the cursor up N spaces.
-	size_t N = (height / 2) + barWidth + 2;
+	size_t N = displayHeight + barWidth + 2;
 	moveCursorUp(N);
-
 
 	// Above the bars.
 	printBorder("┴", SIZE);
 
-	// Iterate through all layers.
+	// Configure the horizontal bar shape.
 	string vBar, hBar;
-	hBar = (horizontalBar % 2 == 0 ? "▀" : "▄");
-	for (size_t n = height; n > 0; n -= 2) {
+	N = ceil(horizontalBar / double(verticalScale));
+	hBar = (N % 2 == 0 ? "▀" : "▄");
+
+	// Iterate through all layers.
+	N = verticalScale*2;
+	uint value = 0;
+	for (size_t n = barHeight; n > 0; n -= N) {
 		for (size_t i = 0; i < SIZE; i++) {
 
+			// Modify value for display.
+			value = ceil(double(array[i]) / verticalScale) * verticalScale;
+    		value += (value % verticalScale);
+
 			// Get the bar shape.
-			if (array[i] >= n) {
+			if (value >= n) {
 				vBar = bars[0];
-			} else if (array[i] == n-1) {
+			} else if (value == n-verticalScale) {
 				vBar = bars[1];
 			} else {
 				vBar = bars[2];
@@ -121,8 +155,8 @@ void Sorting::displayArray(
 			cout << colourText(vBar, colour[i]);
 
 			// Print the horizontal bar in between.
-			if (n == horizontalBar || n == horizontalBar+1) {
-				if (array[i] < horizontalBar) {
+			if (n == horizontalBar || n == horizontalBar+verticalScale) {
+				if (value < horizontalBar) {
 					moveCursorLeft(barWidth+1);
 					for (size_t j = 0; j <= barWidth; j++) {
 						cout << colourText(hBar, 'M');

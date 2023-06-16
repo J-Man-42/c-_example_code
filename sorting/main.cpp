@@ -39,6 +39,7 @@ int main() {
 		cout << "========================================" << endl;
 		cout << "Array contents ~ Z["<<minValue<<", "<<maxValue<<"]" << endl;
 		cout << "Array size = " << size << endl;
+		cout << "Vertical scale = " << Sorting::getVerticalScale() << endl;
 		cout << "Bar width = " << Sorting::getBarWidth() << endl;
 		cout << "Time delay = " << Sorting::getDelay() << "ms\n";
 		cout << "Sort ";
@@ -51,7 +52,8 @@ int main() {
 		cout << "(3)  Toggle Bar Width" << endl;
 		cout << "(4)  Change Step Delay" << endl;
 		cout << "(5)  Toggle Ascending/Descending" << endl;
-		cout << "(6)  Sort Array" << endl;
+		cout << "(6)  Change Vertical Scale" << endl;
+		cout << "(7)  Sort Array" << endl;
 		cout << "(Q)  << QUIT PROGRAM >>" << endl;
 		cout << "========================================" << endl;
 		cout << "> ";
@@ -59,7 +61,7 @@ int main() {
 
 		// Format the answer.
 		answer = toupper(answer);
-		mustRefresh = (answer != '6');
+		mustRefresh = (answer != '7');
 
 
 		// Perform the user specified action.
@@ -195,8 +197,17 @@ int main() {
 			break;
 
 
-		// Run one of the sorting algorithms..
+		// Change the value to vertical bar scale.
 		case '6':
+			cout << "new vertical scale = ";
+			uint scale;
+			cin >> scale;
+			Sorting::setVerticalScale(scale);
+			break;
+
+
+		// Run one of the sorting algorithms..
+		case '7':
 			cout << "==============================" << endl;
 			cout << "(1)  Bubble Sort" << endl;
 			cout << "(2)  Selection Sort" << endl;
