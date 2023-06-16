@@ -904,6 +904,11 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			// Determine the current digit.
 			d = (array[i] / dec) % 10;
 
+			// Invert digit if descending order.
+			if (!sortAscending) {
+				d = 9 - d;
+			}
+
 			// Increment the respective count.
 			count[d]++;
 		}
@@ -923,6 +928,11 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			
 			// Determine the current digit.
 			d = (copy[i] / dec) % 10;
+
+			// Invert digit if descending order.
+			if (!sortAscending) {
+				d = 9 - d;
+			}
 
 			// Copy to array.
 			array[--count[d]] = copy[i];
