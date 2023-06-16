@@ -24,6 +24,18 @@ string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
 string* Sorting::bars = doubleBars;
 
 
+// Resets sorting and display configuration back to default.
+void Sorting::restoreDefault() {
+	sortAscending = true;
+	delay = milliseconds(50);
+	barHeight = 40;
+	barWidth = 2;
+	verticalScale = 1;
+	displayHeight = 40;
+	bars = doubleBars;
+}
+
+
 // Toggles between a width of 1 and a width of 2.
 void Sorting::toggleBarWidth() {
 	barWidth = barWidth % 2 + 1;

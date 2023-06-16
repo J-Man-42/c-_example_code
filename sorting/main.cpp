@@ -14,8 +14,8 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 // Main loop function.
 int main() {
-	char answer[3];
 	uint number;
+	char answer[21];
 	size_t size = 20;
 	uint minValue = 1;
 	uint maxValue = 40;
@@ -46,7 +46,7 @@ int main() {
 		cout << (Sorting::sortAscending ? "Ascending" : "Descending");
 		cout << " Order" << endl;
 		cout << "========================================" << endl;
-		cout << "(0)  Randomise Array" << endl;
+		cout << "(0)  Restore Default Settings" << endl;
 		cout << "(1)  Alter Array" << endl;
 		cout << "(2)  Update Array Range" << endl;
 		cout << "(3)  Toggle Bar Width" << endl;
@@ -57,7 +57,7 @@ int main() {
 		cout << "(Q)  << QUIT PROGRAM >>" << endl;
 		cout << "========================================" << endl;
 		cout << "> ";
-		cin.getline(answer, 3);
+		cin.getline(answer, 20);
 
 		// Format the answer.
 		answer[0] = toupper(answer[0]);
@@ -68,8 +68,12 @@ int main() {
 		switch (answer[0]) {
 
 
-		// Randomise the array.
+		// Restore sorting settings back to default.
 		case '0':
+			Sorting::restoreDefault();
+			maxValue = 40;
+			minValue = 1;
+			size = 20;
 			delete [] array;
 			array  = randUintArray(size, minValue, maxValue);
 			break;
@@ -78,22 +82,18 @@ int main() {
 		// Alter the array.
 		case '1':
 			cout << "========================================" << endl;
-			cout << "(0)  Shuffle Current Array" << endl;
 			cout << "(1)  Change Array Size" << endl;
 			cout << "(2)  Reverse Array Order" << endl;
 			cout << "(3)  Create Sorted Ascending Array" << endl;
 			cout << "(4)  Create Sorted Descending Array" << endl;
+			cout << "(5)  Shuffle Current Array" << endl;
+			cout << "(6)  Randomise Array" << endl;
 			cout << "========================================" << endl;
 			cout << "> ";
-			cin.getline(answer, 3);
+			cin.getline(answer, 20);
 
 			// Perform the requested array alteration.
 			switch (answer[0]) {
-
-			// Shuffle the current array.
-			case '0':
-				shuffle(array, size);
-				break;
 
 			// Change array size.
 			case '1':
@@ -152,6 +152,17 @@ int main() {
 				for (uint i = 0, n = maxValue; i < size; i++, n--) {
 					array[i] = n;
 				}
+				break;
+
+			// Shuffle the current array.
+			case '5':
+				shuffle(array, size);
+				break;
+
+			// Randomise the array.
+			case '6':
+				delete [] array;
+				array  = randUintArray(size, minValue, maxValue);
 				break;
 
 			}
@@ -227,7 +238,7 @@ int main() {
 			cout << "(10)  Radix Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
-			cin.getline(answer, 3);
+			cin.getline(answer, 20);
 
 			// Continue if not a number.
 			if (!isdigit(answer[0])) {

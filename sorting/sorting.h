@@ -34,6 +34,7 @@ public:
 	static bool sortAscending;
 
 	// Functions.
+	static void restoreDefault();
 	static void toggleBarWidth();
 	static uint getBarWidth();
 	static void setBarHeight(uint height);
