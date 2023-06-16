@@ -921,28 +921,24 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 		}
 
 		// Copy the sorted elements back into the original array.
+		highlight->add(Highlight('R'));
 		for (int i = SIZE-1; i >= 0; i--) {
 			
 			// Determine the current digit.
 			d = (copy[i] / dec) % 10;
-			count[d]--;
-
-			// Show array before copy.
-			highlight->first().index = i;
-			displayArray(array, SIZE, highlight);
-			sleep_for(delay);
 
 			// Copy to array.
-			array[count[d]] = copy[i];
+			array[--count[d]] = copy[i];
 
 			// Show array after copy.
-			highlight->add(Highlight('R', count[d]));
+			highlight->first().index = i;
+			highlight->get(1).index = count[d];
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			highlight->removeAt(1);
 		}
 		
 		// Display the array after copying all.
+		highlight->removeAt(1);
 		displayArray(array, SIZE);
 		sleep_for(delay);
 	}
