@@ -868,6 +868,8 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 
 // Radix Sort the array.
 void Sorting::radixSort(uint array[], const uint SIZE) {
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -886,8 +888,7 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 	uint copy[SIZE];
 
 	// Iterate through all digits.
-	uint d;
-	for (size_t n = 0, dec = 1; n < digits; n++, dec *= 10) {
+	for (size_t d, n = 0, dec = 1; n < digits; n++, dec *= 10) {
 
 		// Reset the counting array.
 		for (size_t i = 0; i < 10; i++) {
@@ -898,12 +899,21 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 		for (size_t i = 0; i < SIZE; i++) {
 			copy[i] = array[i];
 
+			// Show current comparison.
+			highlight->first().index = i;
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
+
 			// Determine the current digit.
 			d = (array[i] / dec) % 10;
 
 			// Increment the respective count.
 			count[d]++;
 		}
+
+		// Display before swapping.
+		displayArray(array, SIZE);
+		sleep_for(delay);
 
 		// Increment each subsequent count.
 		for (size_t i = 1; i < 10; i++) {
@@ -915,13 +925,28 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			
 			// Determine the current digit.
 			d = (copy[i] / dec) % 10;
+			count[d]--;
+
+			// Show array before copy.
+			highlight->first().index = i;
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
 
 			// Copy to array.
-			array[--count[d]] = copy[i];
+			array[count[d]] = copy[i];
+
+			// Show array after copy.
+			highlight->add(Highlight('R', count[d]));
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
+			highlight->removeAt(1);
 		}
+		
+		// Display the array after copying all.
+		displayArray(array, SIZE);
+		sleep_for(delay);
 	}
 
-	// Display the array after sorting.
-	displayArray(array, SIZE);
-	sleep_for(delay);
+	// Delete dynamic memory.
+	delete highlight;
 }
