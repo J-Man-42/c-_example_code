@@ -580,9 +580,8 @@ void Sorting::quickSortV2(
 
 	// Configure all highlights.
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b', low));
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('R', high));
+	highlight->add(Highlight('R', low));
+	highlight->add(Highlight('R'));
 	for (int i = 0; i < low; i++) {
 		highlight->add(Highlight('x', i));
 	}
@@ -611,7 +610,6 @@ int Sorting::partitionV2(
 	uint middle = ((high - low) / 2) + low;
 	uint pivot = array[middle];
 	uint horizontalBar = pivot;
-	highlight->get(2).index = middle;
 
 	// Left index.
 	int i = low - 1;
@@ -624,6 +622,9 @@ int Sorting::partitionV2(
 
 		// Move left index (at least once).
 		do {
+			if (i >= 0) {
+				highlight->add(Highlight('G', i));
+			}
 			i++;
 			highlight->get(0).index = i;
 			displayArray(array, SIZE, highlight, horizontalBar);
@@ -632,6 +633,9 @@ int Sorting::partitionV2(
 
 		// Move right index (at least once).
 		do {
+			if (j <= high) {
+				highlight->add(Highlight('G', j));
+			}
 			j--;
 			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight, horizontalBar);
@@ -649,13 +653,6 @@ int Sorting::partitionV2(
 
 		// Swap left and right.
 		swap(array[i], array[j]);
-
-		// If pivot was swapped, update highlight index.
-		if (highlight->get(2).index == i) {
-			highlight->get(2).index = j;
-		} else if (highlight->get(2).index == j) {
-			highlight->get(2).index = i;
-		}
 
 		// Display array after swapping.
 		displayArray(array, SIZE, highlight, horizontalBar);
