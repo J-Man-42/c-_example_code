@@ -55,6 +55,7 @@ public:
 	static void shellSort(uint array[], const uint SIZE);
 	static void mergeSort(uint array[], const uint SIZE);
 	static void combSort(uint array[], const uint SIZE);
+	static void radixSort(uint array[], const uint SIZE);
 
 private:
 

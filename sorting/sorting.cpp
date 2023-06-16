@@ -5,6 +5,7 @@
 #include <cmath>
 #include "sorting.h"
 #include "../colour_text/colour_text.h"
+#include "../min_and_max/min_max.h"
 #include "../move_cursor/move_cursor.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
@@ -861,4 +862,66 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 
 	// Delete dynamic memory.
 	delete highlight;
+}
+
+
+
+// Radix Sort the array.
+void Sorting::radixSort(uint array[], const uint SIZE) {
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Get the number of digits from the maximum value.
+	uint maxValue = max(array, SIZE);
+	uint digits = 1;
+	if (maxValue >= 10) {
+		digits += log10(maxValue);
+	}
+
+	// Create counting array and copy of original array.
+	uint count[10];
+	uint copy[SIZE];
+
+	// Iterate through all digits.
+	uint d;
+	for (size_t n = 0, dec = 1; n < digits; n++, dec *= 10) {
+
+		// Reset the counting array.
+		for (size_t i = 0; i < 10; i++) {
+			count[i] = 0;
+		}
+
+		// Iterate through all elements in the array.
+		for (size_t i = 0; i < SIZE; i++) {
+			copy[i] = array[i];
+
+			// Determine the current digit.
+			d = (array[i] / dec) % 10;
+
+			// Increment the respective count.
+			count[d]++;
+		}
+
+		// Increment each subsequent count.
+		for (size_t i = 1; i < 10; i++) {
+			count[i] += count[i-1];
+		}
+
+		// Copy the sorted elements back into the original array.
+		for (int i = SIZE-1; i >= 0; i--) {
+			
+			// Determine the current digit.
+			d = (copy[i] / dec) % 10;
+
+			// Copy to array.
+			array[--count[d]] = copy[i];
+		}
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
 }

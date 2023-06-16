@@ -4,7 +4,6 @@
 #include <thread>
 #include <ctime>
 #include "sorting.h"
-#include "../min_and_max/min_max.h"
 #include "../move_cursor/move_cursor.h"
 #include "../random/random.h"
 using namespace std;
@@ -210,15 +209,16 @@ int main() {
 		// Run one of the sorting algorithms..
 		case '7':
 			cout << "==============================" << endl;
-			cout << "(1)  Bubble Sort" << endl;
-			cout << "(2)  Selection Sort" << endl;
-			cout << "(3)  Insertion Sort" << endl;
-			cout << "(4)  Cocktail Shaker Sort" << endl;
-			cout << "(5)  QuickSort" << endl;
-			cout << "(6)  QuickSort V2" << endl;
-			cout << "(7)  Shell Sort" << endl;
-			cout << "(8)  Merge Sort" << endl;
-			cout << "(9)  Comb Sort" << endl;
+			cout << " (1)  Bubble Sort" << endl;
+			cout << " (2)  Selection Sort" << endl;
+			cout << " (3)  Insertion Sort" << endl;
+			cout << " (4)  Cocktail Shaker Sort" << endl;
+			cout << " (5)  QuickSort" << endl;
+			cout << " (6)  QuickSort V2" << endl;
+			cout << " (7)  Shell Sort" << endl;
+			cout << " (8)  Merge Sort" << endl;
+			cout << " (9)  Comb Sort" << endl;
+			cout << "(10)  Radix Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 3);
@@ -258,6 +258,9 @@ int main() {
 				break;
 			case 9:
 				Sorting::combSort(array, size);
+				break;
+			case 10:
+				Sorting::radixSort(array, size);
 				break;
 			default:
 				clearScreen();
