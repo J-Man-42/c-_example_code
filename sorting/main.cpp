@@ -78,6 +78,7 @@ int main() {
 		// Alter the array.
 		case '1':
 			cout << "========================================" << endl;
+			cout << "(0)  Shuffle Current Array" << endl;
 			cout << "(1)  Change Array Size" << endl;
 			cout << "(2)  Reverse Array Order" << endl;
 			cout << "(3)  Create Sorted Ascending Array" << endl;
@@ -88,6 +89,11 @@ int main() {
 
 			// Perform the requested array alteration.
 			switch (answer[0]) {
+
+			// Shuffle the current array.
+			case '0':
+				shuffle(array, size);
+				break;
 
 			// Change array size.
 			case '1':
