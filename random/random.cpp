@@ -1,5 +1,6 @@
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // for time()
+#include <iostream>
 #include "random.h"
 
 
@@ -68,4 +69,34 @@ double* randDoubleArray(const uint SIZE, double minValue, double maxValue) {
 		array[i] = randDouble(minValue, maxValue);
 	}
 	return array;
+}
+
+
+// Shuffle the given signed integer array.
+void shuffle(int* array, const uint SIZE) {
+	updateSeed();
+	for (size_t j, i = SIZE-1; i > 0; i--) {
+		j = randInt(0, SIZE-1);
+		std::swap(array[i], array[j]);
+	}
+}
+
+
+// Shuffle the given unsigned integer array.
+void shuffle(uint* array, const uint SIZE) {
+	updateSeed();
+	for (size_t j, i = SIZE-1; i > 0; i--) {
+		j = randUint(0, SIZE-1);
+		std::swap(array[i], array[j]);
+	}
+}
+
+
+// Shuffle the given double array.
+void shuffle(double* array, const uint SIZE) {
+	updateSeed();
+	for (size_t j, i = SIZE-1; i > 0; i--) {
+		j = randDouble(0, SIZE-1);
+		std::swap(array[i], array[j]);
+	}
 }

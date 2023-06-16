@@ -44,5 +44,32 @@ int main() {
 	}
 	cout << endl;
 
+	// Shuffle all arrays.
+	shuffle(intArray, SIZE);
+	shuffle(uintArray, SIZE);
+	shuffle(doubleArray, SIZE);
+	cout << "\n\nAfter shuffling:" << endl;
+
+	// Print all arrays.
+	cout << "\nrandIntArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << intArray[i] << "  ";
+	}
+	cout << "\n\nrandUintArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << uintArray[i] << "  ";
+	}
+	cout << "\n\nrandDoubleArray():" << endl;
+	for (size_t i = 0; i < SIZE; i++) {
+		cout << doubleArray[i] << "  ";
+	}
+	cout << endl;
+
+	// Delete dynamic arrays.
+	delete [] intArray;
+	delete [] uintArray;
+	delete [] doubleArray;
+
+	// Return.
 	return 0;
 }
