@@ -87,7 +87,7 @@ void Sorting::printBorder(string symbol, const uint SIZE) {
 			cout << symbol;
 		}
 	}
-	cout << "\b \n";
+	cout << "\b " << endl;
 }
 
 
@@ -187,7 +187,7 @@ void Sorting::displayArray(
 
 // Returns true if correct conditions
 // for swapping left and right.
-bool Sorting::mustSwap(uint left, uint right) {
+bool Sorting::compare(uint left, uint right) {
 	if (sortAscending)
 		return left < right;
 	return left > right;
@@ -222,7 +222,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 
 			// Swap elements if needed.
-			if (mustSwap(array[i], array[i-1])) {
+			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -244,7 +244,6 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 
 	// Delete dynamic memory.
 	delete highlight;
-
 }
 
 
@@ -275,7 +274,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 
 			// New critical value.
-			if (mustSwap(array[j], array[minIndex])) {
+			if (compare(array[j], array[minIndex])) {
 				minIndex = j;
 				highlight->get(2).index = minIndex;
 			}
@@ -331,7 +330,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 
 		// Loop while swapping is needed.
 		size_t j = i;
-		while (j > 0 && mustSwap(array[j], array[j-1])) {
+		while (j > 0 && compare(array[j], array[j-1])) {
 			highlight->get(0).index = j-1;
 			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight);
@@ -389,7 +388,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 
 			// Swap elements if needed.
-			if (mustSwap(array[i], array[i-1])) {
+			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -417,7 +416,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 
 			// Swap elements.
-			if (mustSwap(array[i], array[i-1])) {
+			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
@@ -514,7 +513,7 @@ int Sorting::partition(
 		sleep_for(delay);
 
 		// Swap if needed.
-		if (mustSwap(array[j], pivot)) {
+		if (compare(array[j], pivot)) {
 			highlight->add(Highlight('G', i));
 			i++;
 			swap(array[i], array[j]);
@@ -628,7 +627,7 @@ int Sorting::partitionV2(
 			highlight->get(0).index = i;
 			displayArray(array, SIZE, highlight, horizontalBar);
 			sleep_for(delay);
-		} while (mustSwap(array[i], pivot) && i < SIZE);
+		} while (compare(array[i], pivot) && i < SIZE);
 
 		// Move right index (at least once).
 		do {
@@ -636,7 +635,7 @@ int Sorting::partitionV2(
 			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight, horizontalBar);
 			sleep_for(delay);
-		} while (mustSwap(pivot, array[j]) && j >= 0);
+		} while (compare(pivot, array[j]) && j >= 0);
 
 		// If the indices crossed, return pivot index.
 		if (i >= j) {
@@ -689,7 +688,7 @@ void Sorting::shellSort(uint array[], const uint SIZE) {
 
 			// Do the gapped insertion sort.
 			size_t j = i;
-			while (j >= gap && mustSwap(array[j], array[j-gap])) {
+			while (j >= gap && compare(array[j], array[j-gap])) {
 				highlight->get(0).index = j-gap;
 				highlight->get(1).index = j;
 				displayArray(array, SIZE, highlight);
@@ -792,7 +791,7 @@ void Sorting::merge(
 		// Display the comparison.
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
-		if (i < middle && (j >= end || mustSwap(array[i], array[j]))) {
+		if (i < middle && (j >= end || compare(array[i], array[j]))) {
 			copy[k] = array[i];
 			i++;
 			highlight->get(0).index++;
@@ -847,7 +846,7 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-			if (mustSwap(array[j], array[i])) {
+			if (compare(array[j], array[i])) {
 				swap(array[j], array[i]);
 				sorted = false;
 				displayArray(array, SIZE, highlight);

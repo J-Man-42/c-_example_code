@@ -71,7 +71,7 @@ private:
 	// Functions.
 	static void calibrateHeightAndScale();
 	static void printBorder(string symbol, const uint SIZE);
-	static bool mustSwap(uint left, uint right);
+	static bool compare(uint left, uint right);
 	static void quickSort(
 		uint array[], const int SIZE, int low, int high);
 	static int partition(
