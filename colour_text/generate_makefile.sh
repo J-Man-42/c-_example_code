@@ -51,55 +51,63 @@ for (( i = 0; i < 70; i++ )); do
 	printf "#" >> makefile
 done
 
-# HEADERS.
-printf "\nHEADERS :=" >> makefile
-for path in ${headers[@]}; do
-	printf " \\" >> makefile
-	printf "\n\t$path.h" >> makefile
-done
-for path in ${includes[@]}; do
-	printf " \\" >> makefile
-	printf "\n\t$path.h" >> makefile
-done
+# HEADERS, SOURCES, & OBJECTS.
+if [[ "${headers[@]}" || "${includes[@]}" ]]; then
 
-# SOURCES.
-printf "\nSOURCES :=" >> makefile
-for path in ${headers[@]}; do
-	printf " \\" >> makefile
-	printf "\n\t$path.cpp" >> makefile
-done
-for path in ${includes[@]}; do
-	printf " \\" >> makefile
-	printf "\n\t$path.cpp" >> makefile
-done
+	# HEADERS.
+	printf "\nHEADERS :=" >> makefile
+	for path in ${headers[@]}; do
+		printf " \\" >> makefile
+		printf "\n\t$path.h" >> makefile
+	done
+	for path in ${includes[@]}; do
+		printf " \\" >> makefile
+		printf "\n\t$path.h" >> makefile
+	done
 
-# OBJECTS.
-printf "\nOBJECTS :=" >> makefile
-for title in ${headers[@]}; do
-	if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
-		continue
-	fi
-	printf " \\" >> makefile
-	printf "\n\tout/$title.o" >> makefile
-done
-for title in ${titles[@]}; do
-	printf " \\" >> makefile
-	printf "\n\tout/$title.o" >> makefile
-done
+	# SOURCES.
+	printf "\nSOURCES :=" >> makefile
+	for path in ${headers[@]}; do
+		printf " \\" >> makefile
+		printf "\n\t$path.cpp" >> makefile
+	done
+	for path in ${includes[@]}; do
+		printf " \\" >> makefile
+		printf "\n\t$path.cpp" >> makefile
+	done
+
+	# OBJECTS.
+	printf "\nOBJECTS :=" >> makefile
+	for title in ${headers[@]}; do
+		if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
+			continue
+		fi
+		printf " \\" >> makefile
+		printf "\n\tout/$title.o" >> makefile
+	done
+	for title in ${titles[@]}; do
+		printf " \\" >> makefile
+		printf "\n\tout/$title.o" >> makefile
+	done
+
+fi
 
 # TEMPLATES.
 if [[ "${templates[@]}" ]]; then
 	printf "\nTEMPLATES :=" >> makefile
+	for title in ${templates[@]}; do
+		printf " \\" >> makefile
+		printf "\n\t$title.cpp" >> makefile
+		printf " \\" >> makefile
+		printf "\n\t$title.h" >> makefile
+	done
 fi
-for title in ${templates[@]}; do
-	printf " \\" >> makefile
-	printf "\n\t$title.cpp" >> makefile
-	printf " \\" >> makefile
-	printf "\n\t$title.h" >> makefile
-done
 
 # UPDATES.
-printf "\nUPDATES := out/ out/main.o \$(OBJECTS) \$(HEADERS)" >> makefile
+printf "\nUPDATES := out/ out/main.o" >> makefile
+if [[ "${headers[@]}" || "${includes[@]}" ]]; then
+	printf " \$(OBJECTS) \$(HEADERS)" >> makefile
+fi
 
 
 # Print the commands section.
@@ -110,7 +118,11 @@ done
 
 # Start with main
 printf "\nmain:  \$(UPDATES)\n" >> makefile
-printf "\tg++ -Wall out/main.o \$(OBJECTS) -o main\n" >> makefile
+printf "\tg++ -Wall out/main.o" >> makefile
+if [[ "${headers[@]}" || "${includes[@]}" ]]; then
+	printf " \$(OBJECTS)" >> makefile
+fi
+printf " -o main\n" >> makefile
 
 # Continue with main.o
 printf "\nout/main.o:  main.cpp" >> makefile
