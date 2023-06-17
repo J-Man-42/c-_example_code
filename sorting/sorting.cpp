@@ -4,9 +4,9 @@
 #include <thread>
 #include <cmath>
 #include "sorting.h"
-#include "../colour_text/colour_text.h"
-#include "../min_and_max/min_max.h"
+#include "../math/math.h"
 #include "../move_cursor/move_cursor.h"
+#include "../colour_text/colour_text.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
