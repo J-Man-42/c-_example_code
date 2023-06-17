@@ -426,7 +426,7 @@ int main() {
 			cout << "> new list:  " << temp.toString() << endl;
 			sleep_for(seconds(5));
 			break;
-		
+
 
 		// Work with list + other list.
 		case 22:
@@ -441,7 +441,7 @@ int main() {
 			cout << "> new list:  " << temp.toString() << endl;
 			sleep_for(seconds(5));
 			break;
-		
+
 
 		// Work with list += element.
 		case 23:
@@ -450,7 +450,7 @@ int main() {
 			cin >> element;
 			list += element;
 			break;
-		
+
 
 		// Work with list += other list.
 		case 24:
