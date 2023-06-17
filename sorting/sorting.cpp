@@ -879,7 +879,6 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 // Radix Sort the array.
 void Sorting::radixSort(uint array[], const uint SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -899,6 +898,7 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 
 	// Iterate through all digits.
 	for (size_t d, n = 0, dec = 1; n < digits; n++, dec *= 10) {
+		highlight->add(Highlight('b'));
 
 		// Reset the counting array.
 		for (size_t i = 0; i < 10; i++) {
@@ -936,7 +936,7 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 		}
 
 		// Copy the sorted elements back into the original array.
-		highlight->first().colour = 'R';
+		highlight->clear();
 		for (int i = SIZE-1; i >= 0; i--) {
 			
 			// Determine the current digit.
@@ -948,16 +948,17 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			}
 
 			// Copy to array.
-			array[--count[d]] = copy[i];
+			count[d]--;
+			array[count[d]] = copy[i];
 
 			// Show array after copy.
-			highlight->first().index = count[d];
+			highlight->add(Highlight('G', count[d]));
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
 		
 		// Display the array after copying all.
-		highlight->first().colour = 'b';
+		highlight->clear();
 		displayArray(array, SIZE);
 		sleep_for(delay);
 	}
