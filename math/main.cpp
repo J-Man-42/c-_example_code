@@ -1,5 +1,5 @@
 #include <iostream>
-#include "min_max.h"
+#include "math.h"
 using namespace std;
 
 
