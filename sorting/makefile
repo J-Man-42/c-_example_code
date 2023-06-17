@@ -1,10 +1,41 @@
-main:  out/ out/main.o out/sorting.o sorting.h out/colour_text.o ../colour_text/colour_text.h out/min_max.o ../min_and_max/min_max.h out/move_cursor.o ../move_cursor/move_cursor.h out/random.o ../random/random.h
-	g++ -Wall out/main.o out/sorting.o out/colour_text.o out/min_max.o out/move_cursor.o out/random.o -o main
+# Variables and lists.
+################################################################################
+HEADERS := \
+	sorting.h \
+	../colour_text/colour_text.h \
+	../min_and_max/min_max.h \
+	../move_cursor/move_cursor.h \
+	../random/random.h
+SOURCES := \
+	main.cpp \
+	sorting.cpp \
+	../colour_text/colour_text.cpp \
+	../min_and_max/min_max.cpp \
+	../move_cursor/move_cursor.cpp \
+	../random/random.cpp
+OBJECTS := \
+	out/main.o \
+	out/sorting.o \
+	out/colour_text.o \
+	out/min_max.o \
+	out/move_cursor.o \
+	out/random.o
+TEMPLATES := \
+	../lists/linked_list.cpp \
+	../lists/linked_list.h
+UPDATES := out/ $(OBJECTS) $(HEADERS)
+
+
+
+# Commands.
+################################################################################
+main:  $(UPDATES)
+	g++ -Wall $(OBJECTS) -o main
 
 out/:
 	mkdir -p out
 
-out/main.o:  main.cpp ../lists/linked_list.cpp ../lists/linked_list.h
+out/main.o:  main.cpp $(TEMPLATES)
 	g++ -Wall -c main.cpp -o out/main.o
 
 out/sorting.o:  sorting.cpp sorting.h
