@@ -1,11 +1,28 @@
-main:  main.o colour_text.o colour_text.h
-	g++ -Wall main.o colour_text.o -o main
+# Variables and lists.
+######################################################################
+HEADERS := \
+	colour_text.h
+SOURCES := \
+	colour_text.cpp
+OBJECTS := \
+	out/colour_text.o
+UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
-main.o:  main.cpp
-	g++ -Wall -c main.cpp
 
-colour_text.o:  colour_text.cpp colour_text.h
-	g++ -Wall -c colour_text.cpp
+
+# Commands.
+######################################################################
+main:  $(UPDATES)
+	g++ -Wall out/main.o $(OBJECTS) -o main
+
+out/main.o:  main.cpp
+	g++ -Wall -c main.cpp -o out/main.o
+
+out/colour_text.o:  colour_text.cpp colour_text.h
+	g++ -Wall -c colour_text.cpp -o out/colour_text.o
+
+out/:
+	mkdir -p out
 
 run:  main
 	./main
@@ -14,4 +31,4 @@ output:  main
 	./main > output.txt
 
 clean:
-	rm -f *.o main output.txt
+	rm -rf out main output.txt
