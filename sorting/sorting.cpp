@@ -198,8 +198,9 @@ void Sorting::displayArray(
 }
 
 
-// Returns true if correct conditions
-// for swapping left and right.
+
+// Ascending order:   returns status of left < right.
+// Descending order:  returns status of left > right.
 bool Sorting::compare(uint left, uint right) {
 	if (sortAscending)
 		return left < right;
