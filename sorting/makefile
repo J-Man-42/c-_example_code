@@ -30,9 +30,6 @@ UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 main:  $(UPDATES)
 	g++ -Wall out/main.o $(OBJECTS) -o main
 
-out/:
-	mkdir -p out
-
 out/main.o:  main.cpp $(TEMPLATES)
 	g++ -Wall -c main.cpp -o out/main.o
 
@@ -50,6 +47,9 @@ out/move_cursor.o:  ../move_cursor/move_cursor.cpp ../move_cursor/move_cursor.h
 
 out/random.o:  ../random/random.cpp ../random/random.h
 	g++ -Wall -c ../random/random.cpp -o out/random.o
+
+out/:
+	mkdir -p out
 
 run:  main
 	./main

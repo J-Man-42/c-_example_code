@@ -76,6 +76,9 @@ done
 # OBJECTS.
 printf "\nOBJECTS :=" >> makefile
 for title in ${headers[@]}; do
+	if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
+		continue
+	fi
 	printf " \\" >> makefile
 	printf "\n\tout/$title.o" >> makefile
 done
@@ -85,7 +88,9 @@ for title in ${titles[@]}; do
 done
 
 # TEMPLATES.
-printf "\nTEMPLATES :=" >> makefile
+if [[ "${templates[@]}" ]]; then
+	printf "\nTEMPLATES :=" >> makefile
+fi
 for title in ${templates[@]}; do
 	printf " \\" >> makefile
 	printf "\n\t$title.cpp" >> makefile
@@ -107,12 +112,11 @@ done
 printf "\nmain:  \$(UPDATES)\n" >> makefile
 printf "\tg++ -Wall out/main.o \$(OBJECTS) -o main\n" >> makefile
 
-# Create output folder.
-printf "\nout/:\n" >> makefile
-printf "\tmkdir -p out\n" >> makefile
-
 # Continue with main.o
-printf "\nout/main.o:  main.cpp \$(TEMPLATES)" >> makefile
+printf "\nout/main.o:  main.cpp" >> makefile
+if [[ "${templates[@]}" ]]; then
+	printf " \$(TEMPLATES)" >> makefile
+fi
 printf "\n\tg++ -Wall -c main.cpp -o out/main.o\n" >> makefile
 
 
@@ -131,6 +135,11 @@ for (( i = 0; i < ${#titles[@]}; i++ )); do
 	printf "\nout/${titles[i]}.o:  ${includes[i]}.cpp ${includes[i]}.h\n" >> makefile
 	printf "\tg++ -Wall -c ${includes[i]}.cpp -o out/${titles[i]}.o\n" >> makefile
 done
+
+
+# Generate the output folder creation command.
+printf "\nout/:\n" >> makefile
+printf "\tmkdir -p out\n" >> makefile
 
 
 # Generate the make run command.
