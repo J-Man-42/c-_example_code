@@ -84,8 +84,13 @@ echo " -o main" >> makefile
 # Continue with main.o
 printf "\nmain.o:  main.cpp" >> makefile
 for path in ${paths[@]}; do
-	if [[ "${template[@]}" &&  "$path" == *"${template[@]}"* ]]; then
+	if [[ "${template[@]}" && "$path" == *"${template[@]}"* ]]; then
 		printf " $path.cpp $path.h" >> makefile
+	fi
+done
+for title in ${headers[@]}; do
+	if [[ "${template[@]}" && "${template[@]}" == *"$title"* ]]; then
+		printf " $title.cpp $title.h" >> makefile
 	fi
 done
 printf "\n\tg++ -Wall -c main.cpp\n" >> makefile
