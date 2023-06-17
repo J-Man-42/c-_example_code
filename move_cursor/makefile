@@ -1,11 +1,28 @@
-main:  main.o move_cursor.o move_cursor.h
-	g++ -Wall main.o move_cursor.o -o main
+# Variables and lists.
+######################################################################
+HEADERS := \
+	move_cursor.h
+SOURCES := \
+	move_cursor.cpp
+OBJECTS := \
+	out/move_cursor.o
+UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
-main.o:  main.cpp
-	g++ -Wall -c main.cpp
 
-move_cursor.o:  move_cursor.cpp move_cursor.h
-	g++ -Wall -c move_cursor.cpp
+
+# Commands.
+######################################################################
+main:  $(UPDATES)
+	g++ -Wall out/main.o $(OBJECTS) -o main
+
+out/main.o:  main.cpp
+	g++ -Wall -c main.cpp -o out/main.o
+
+out/move_cursor.o:  move_cursor.cpp move_cursor.h
+	g++ -Wall -c move_cursor.cpp -o out/move_cursor.o
+
+out/:
+	mkdir -p out
 
 run:  main
 	./main
@@ -14,4 +31,4 @@ output:  main
 	./main > output.txt
 
 clean:
-	rm -f *.o main output.txt
+	rm -rf out main output.txt
