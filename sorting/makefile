@@ -7,14 +7,12 @@ HEADERS := \
 	../move_cursor/move_cursor.h \
 	../random/random.h
 SOURCES := \
-	main.cpp \
 	sorting.cpp \
 	../colour_text/colour_text.cpp \
 	../min_and_max/min_max.cpp \
 	../move_cursor/move_cursor.cpp \
 	../random/random.cpp
 OBJECTS := \
-	out/main.o \
 	out/sorting.o \
 	out/colour_text.o \
 	out/min_max.o \
@@ -23,14 +21,14 @@ OBJECTS := \
 TEMPLATES := \
 	../lists/linked_list.cpp \
 	../lists/linked_list.h
-UPDATES := out/ $(OBJECTS) $(HEADERS)
+UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
 
 
 # Commands.
 ################################################################################
 main:  $(UPDATES)
-	g++ -Wall $(OBJECTS) -o main
+	g++ -Wall out/main.o $(OBJECTS) -o main
 
 out/:
 	mkdir -p out
