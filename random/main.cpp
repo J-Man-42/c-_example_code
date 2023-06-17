@@ -14,7 +14,7 @@ int main() {
 	double minDouble = 2.0;
 	double maxDouble = 5.0;
 	const size_t SIZE = 10;
-	
+
 	// Generate random values.
 	cout << "\nrandInt("<<minInt<<", "<<maxInt<<") = ";
 	cout << randInt(minInt, maxInt) << endl;

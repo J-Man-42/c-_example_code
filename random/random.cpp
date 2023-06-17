@@ -1,5 +1,5 @@
 #include <cstdlib> // For rand() and srand()
-#include <ctime>   // for time()
+#include <ctime>   // For time()
 #include <iostream>
 #include "random.h"
 
