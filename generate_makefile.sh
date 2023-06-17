@@ -76,6 +76,9 @@ done
 # OBJECTS.
 printf "\nOBJECTS :=" >> makefile
 for title in ${headers[@]}; do
+	if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
+		continue
+	fi
 	printf " \\" >> makefile
 	printf "\n\tout/$title.o" >> makefile
 done

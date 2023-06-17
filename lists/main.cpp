@@ -131,7 +131,7 @@ int main() {
 		// Create list from array.
 		if (answer[0] == 'A') {
 			cout << "Create List from Array" << endl;
-			list = LinkedList(array, size);
+			list = LinkedList<uint>(array, size);
 			continue;
 		}
 
