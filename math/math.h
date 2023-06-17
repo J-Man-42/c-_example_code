@@ -1,6 +1,8 @@
 #ifndef MIN_MAX_H
 #define MIN_MAX_H
 
+// A collection of math functions not included in <cmath>.
+
 // All minimum in array prototypes.
 uint min(uint arr[], const uint SIZE);
 int min(int arr[], const uint SIZE);
@@ -20,5 +22,8 @@ double max(double arr[], const uint SIZE);
 uint max(uint a, uint b);
 int max(int a, int b);
 double max(double a, double b);
+
+// Log base n of x.
+double log(double n, double x);
 
 #endif

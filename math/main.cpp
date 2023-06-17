@@ -24,5 +24,13 @@ int main() {
 	cout << "\nmin("<<a<<", "<<b<<") = " << min(a, b) << endl;
 	cout << "max("<<a<<", "<<b<<") = " << max(a, b) << endl;
 
+	// Log of custom base.
+	cout << endl;
+	uint base = 3;
+	for (uint number = 1; number <= 10; number++) {
+		cout << "log("<<base<<", "<<number<<") = ";
+		cout << log(base, number) << endl;
+	}
+
 	return 0;
 }

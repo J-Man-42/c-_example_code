@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "math.h"
 using namespace std;
 
@@ -126,4 +127,10 @@ int max(int a, int b) {
 }
 double max(double a, double b) {
 	return (a > b ? a : b);
+}
+
+
+// Log base n of x.
+double log(double n, double x) {
+	return log2(x) / log2(n);
 }
