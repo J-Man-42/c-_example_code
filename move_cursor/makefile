@@ -2,8 +2,6 @@
 ######################################################################
 HEADERS := \
 	move_cursor.h
-SOURCES := \
-	move_cursor.cpp
 OBJECTS := \
 	out/move_cursor.o
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)

@@ -6,12 +6,6 @@ HEADERS := \
 	../math/math.h \
 	../move_cursor/move_cursor.h \
 	../random/random.h
-SOURCES := \
-	sorting.cpp \
-	../colour_text/colour_text.cpp \
-	../math/math.cpp \
-	../move_cursor/move_cursor.cpp \
-	../random/random.cpp
 OBJECTS := \
 	out/sorting.o \
 	out/colour_text.o \

@@ -2,8 +2,6 @@
 ######################################################################
 HEADERS := \
 	random.h
-SOURCES := \
-	random.cpp
 OBJECTS := \
 	out/random.o
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)

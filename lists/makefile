@@ -5,11 +5,6 @@ HEADERS := \
 	node.h \
 	../move_cursor/move_cursor.h \
 	../random/random.h
-SOURCES := \
-	linked_list.cpp \
-	node.cpp \
-	../move_cursor/move_cursor.cpp \
-	../random/random.cpp
 OBJECTS := \
 	out/move_cursor.o \
 	out/random.o

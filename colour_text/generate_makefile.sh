@@ -51,7 +51,7 @@ for (( i = 0; i < 70; i++ )); do
 	printf "#" >> makefile
 done
 
-# HEADERS, SOURCES, & OBJECTS.
+# HEADERS & OBJECTS.
 if [[ "${headers[@]}" || "${includes[@]}" ]]; then
 
 	# HEADERS.
@@ -63,17 +63,6 @@ if [[ "${headers[@]}" || "${includes[@]}" ]]; then
 	for path in ${includes[@]}; do
 		printf " \\" >> makefile
 		printf "\n\t$path.h" >> makefile
-	done
-
-	# SOURCES.
-	printf "\nSOURCES :=" >> makefile
-	for path in ${headers[@]}; do
-		printf " \\" >> makefile
-		printf "\n\t$path.cpp" >> makefile
-	done
-	for path in ${includes[@]}; do
-		printf " \\" >> makefile
-		printf "\n\t$path.cpp" >> makefile
 	done
 
 	# OBJECTS.

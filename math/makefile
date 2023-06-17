@@ -2,8 +2,6 @@
 ######################################################################
 HEADERS := \
 	math.h
-SOURCES := \
-	math.cpp
 OBJECTS := \
 	out/math.o
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
