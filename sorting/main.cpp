@@ -1,15 +1,8 @@
 #include <iostream>
-#include <cstdlib>
-#include <chrono>
-#include <thread>
-#include <ctime>
 #include "sorting.h"
 #include "../move_cursor/move_cursor.h"
 #include "../random/random.h"
 using namespace std;
-using namespace std::this_thread;	// sleep_for, sleep_until
-using namespace std::chrono;		// nanoseconds, system_clock, seconds.
-
 
 
 // Main loop function.
@@ -167,7 +160,7 @@ int main() {
 			// Randomise the array.
 			case '6':
 				delete [] array;
-				array  = randUintArray(size, minValue, maxValue);
+				array = randUintArray(size, minValue, maxValue);
 				break;
 
 			}
@@ -240,7 +233,8 @@ int main() {
 			cout << " (7)  Shell Sort" << endl;
 			cout << " (8)  Merge Sort" << endl;
 			cout << " (9)  Comb Sort" << endl;
-			cout << "(10)  Radix Sort" << endl;
+			cout << "(10)  Radix Sort (base 10)" << endl;
+			cout << "(11)  Radix Sort (custom base)" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -283,6 +277,12 @@ int main() {
 				break;
 			case 10:
 				Sorting::radixSort(array, size);
+				break;
+			case 11:
+				cout << "base = ";
+				uint base;
+				cin >> base;
+				Sorting::radixSort(array, size, base);
 				break;
 			default:
 				clearScreen();

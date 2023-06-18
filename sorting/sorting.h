@@ -1,7 +1,14 @@
 #ifndef SORTING_H
 #define SORTING_H
 
+#include <thread>
+#include <ctime>
 #include "../lists/linked_list.h"
+using namespace std::this_thread;	// sleep_for, sleep_until
+using namespace std::chrono;		// nanoseconds, system_clock, seconds.
+
+// Simplify duration type.
+typedef std::chrono::duration<int, std::milli> Duration;
 
 
 // The class for housing a highlight colour, value, and index.
@@ -55,12 +62,13 @@ public:
 	static void shellSort(uint array[], const uint SIZE);
 	static void mergeSort(uint array[], const uint SIZE);
 	static void combSort(uint array[], const uint SIZE);
-	static void radixSort(uint array[], const uint SIZE);
+	static void radixSort(
+		uint array[], const uint SIZE, const uint BASE = 10);
 
 private:
 
 	// Variables.
-	static std::chrono::duration<int, std::milli> delay;
+	static Duration delay;
 	static uint barHeight;
 	static uint barWidth;
 	static uint verticalScale;

@@ -1,20 +1,16 @@
 #include <iostream>
 #include <iomanip>
-#include <chrono>
-#include <thread>
 #include <cmath>
 #include "sorting.h"
 #include "../math/math.h"
 #include "../move_cursor/move_cursor.h"
 #include "../colour_text/colour_text.h"
 using namespace std;
-using namespace std::this_thread;	// sleep_for, sleep_until
-using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 
 // Set static member values.
 bool Sorting::sortAscending = true;
-duration<int, milli> Sorting::delay = milliseconds(50);
+Duration Sorting::delay = milliseconds(50);
 uint Sorting::barHeight = 40;
 uint Sorting::barWidth = 2;
 uint Sorting::verticalScale = 1;
@@ -880,8 +876,8 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 
 
 
-// Radix Sort the array.
-void Sorting::radixSort(uint array[], const uint SIZE) {
+// Radix Sort the array using the specified base.
+void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 
 	// Display the array before sorting.
@@ -891,21 +887,21 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 
 	// Get the number of digits from the maximum value.
 	uint maxValue = max(array, SIZE);
-	uint digits = 1;
-	if (maxValue >= 10) {
-		digits += log10(maxValue);
+	uint numDigits = 1;
+	if (maxValue >= BASE) {
+		numDigits += log(BASE, maxValue);
 	}
 
 	// Create counting array and copy of original array.
-	uint count[10];
+	uint count[BASE];
 	uint copy[SIZE];
 
 	// Iterate through all digits.
-	for (size_t d, n = 0, dec = 1; n < digits; n++, dec *= 10) {
+	for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
 		highlight->add(Highlight('b'));
 
 		// Reset the counting array.
-		for (size_t i = 0; i < 10; i++) {
+		for (size_t i = 0; i < BASE; i++) {
 			count[i] = 0;
 		}
 
@@ -919,11 +915,11 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			sleep_for(delay);
 
 			// Determine the current digit.
-			d = (array[i] / dec) % 10;
+			d = (array[i] / digit) % BASE;
 
 			// Invert digit if descending order.
 			if (!sortAscending) {
-				d = 9 - d;
+				d = BASE - 1 - d;
 			}
 
 			// Increment the respective count.
@@ -935,20 +931,20 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 		sleep_for(delay);
 
 		// Increment each subsequent count.
-		for (size_t i = 1; i < 10; i++) {
+		for (size_t i = 1; i < BASE; i++) {
 			count[i] += count[i-1];
 		}
 
 		// Copy the sorted elements back into the original array.
 		highlight->clear();
 		for (int i = SIZE-1; i >= 0; i--) {
-			
+
 			// Determine the current digit.
-			d = (copy[i] / dec) % 10;
+			d = (copy[i] / digit) % BASE;
 
 			// Invert digit if descending order.
 			if (!sortAscending) {
-				d = 9 - d;
+				d = BASE - 1 - d;
 			}
 
 			// Copy to array.
@@ -960,7 +956,7 @@ void Sorting::radixSort(uint array[], const uint SIZE) {
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
-		
+
 		// Display the array after copying all.
 		highlight->clear();
 		displayArray(array, SIZE);
