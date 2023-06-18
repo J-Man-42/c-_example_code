@@ -63,6 +63,11 @@ int main() {
 		answer[0] = toupper(answer[0]);
 		mustRefresh = (answer[0] != '7');
 
+		// Safety for number higher than 7.
+		if (isdigit(answer[0]) && atoi(answer) > 7) {
+			continue;
+		}
+
 
 		// Perform the user specified action.
 		switch (answer[0]) {

@@ -45,8 +45,7 @@ public:
 	static void displayArray(
 		uint array[], const uint SIZE,
 		LinkedList<Highlight>* highlight = nullptr,
-		uint horizontalBar = 0
-	);
+		uint horizontalBar = 0);
 	static void bubbleSort(uint array[], const uint SIZE);
 	static void selectionSort(uint array[], const uint SIZE);
 	static void insertionSort(uint array[], const uint SIZE);

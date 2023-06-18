@@ -139,16 +139,15 @@ void Sorting::displayArray(
 		}
 	}
 
-	// Move the cursor up N spaces.
-	size_t N = displayHeight + barWidth + 2;
-	moveCursorUp(N);
+	// Move the cursor back to top left.
+	positionCursor(0, 0);
 
 	// Above the bars.
 	printBorder("┴", SIZE);
 
 	// Configure the horizontal bar shape.
 	string vBar, hBar;
-	N = ceil(horizontalBar / double(verticalScale));
+	size_t N = ceil(horizontalBar / double(verticalScale));
 	hBar = (N % 2 == 0 ? "▀" : "▄");
 
 	// Iterate through all layers.
