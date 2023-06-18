@@ -72,6 +72,7 @@ private:
 
 	// Functions.
 	static void calibrateHeightAndScale();
+	static uint scaleVertically(uint value);
 	static void printBorder(string symbol, const uint SIZE);
 	static bool compare(uint left, uint right);
 	static void quickSort(

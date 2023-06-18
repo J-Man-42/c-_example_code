@@ -104,6 +104,14 @@ void Sorting::printBorder(string symbol, const uint SIZE) {
 }
 
 
+// Update the given value according to the vertical scale.
+uint Sorting::scaleVertically(uint value) {
+	value = ceil(double(value) / verticalScale);
+	value *= verticalScale;
+	return value + (value % verticalScale);
+}
+
+
 // Displays the array content as pillars.
 void Sorting::displayArray(
 	uint array[], const uint SIZE,
@@ -112,9 +120,7 @@ void Sorting::displayArray(
 
 	// Update horizontal bar for display.
 	if (horizontalBar > 0) {
-		horizontalBar = ceil(double(horizontalBar) / verticalScale);
-		horizontalBar *= verticalScale;
-		horizontalBar += (horizontalBar % verticalScale);
+		horizontalBar = scaleVertically(horizontalBar);
 	}
 
 	// Make all entries bright white.
@@ -152,8 +158,7 @@ void Sorting::displayArray(
 		for (size_t i = 0; i < SIZE; i++) {
 
 			// Modify value for display.
-			value = ceil(double(array[i]) / verticalScale) * verticalScale;
-    		value += (value % verticalScale);
+			value = scaleVertically(array[i]);
 
 			// Get the bar shape.
 			if (value >= n) {
