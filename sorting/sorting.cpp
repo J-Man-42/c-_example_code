@@ -13,11 +13,10 @@ bool Sorting::sortAscending = true;
 Duration Sorting::delay = milliseconds(50);
 uint Sorting::barHeight = 40;
 uint Sorting::barWidth = 2;
+uint Sorting::wideBarWidth = 2;
 uint Sorting::verticalScale = 1;
 uint Sorting::displayHeight = 40;
-string Sorting::singleBars[] = {"█ ", "▄ ", "  "};
-string Sorting::doubleBars[] = {"██ ", "▄▄ ", "   "};
-string* Sorting::bars = doubleBars;
+string Sorting::bars[] = {"██ ", "▄▄ ", "   "};
 
 
 // Resets sorting and display configuration back to default.
@@ -26,26 +25,53 @@ void Sorting::restoreDefault() {
 	delay = milliseconds(50);
 	barHeight = 40;
 	barWidth = 2;
+	wideBarWidth = 2;
 	verticalScale = 1;
 	displayHeight = 40;
-	bars = doubleBars;
+	bars[0] = "██ ";
+	bars[1] = "▄▄ ";
+	bars[2] = "   ";
 }
 
 
-// Toggles between a width of 1 and a width of 2.
-void Sorting::toggleBarWidth() {
-	barWidth = barWidth % 2 + 1;
-	if (barWidth == 1) {
-		bars = singleBars;
-	} else {
-		bars = doubleBars;
+// Generates the vertical bars with correct widths.
+void Sorting::generateBars() {
+	bars[0] = " ";
+	bars[1] = " ";
+	bars[2] = " ";
+	for (size_t i = 0; i < barWidth; i++) {
+		bars[0] = "█" + bars[0];
+		bars[1] = "▄" + bars[1];
+		bars[2] = " " + bars[2];
 	}
 }
 
 
-// Returns the current bar width.
-uint Sorting::getBarWidth() {
-	return barWidth;
+// Toggles between a width of 1 and a width of 2.
+void Sorting::toggleWideBar() {
+	barWidth = (barWidth == 1 ? wideBarWidth : 1);
+	generateBars();
+}
+
+
+// Calibrates the bar height and vertical scale.
+void Sorting::calibrateHeightAndScale() {
+	displayHeight = ceil(barHeight / (verticalScale*2.0));
+	barHeight = displayHeight * verticalScale * 2;
+	barHeight += (barHeight % verticalScale);
+}
+
+
+// Updates the current bar width.
+void Sorting::setBarWidth(uint maxValue) {
+	wideBarWidth = 1;
+	if (maxValue >= 10) {
+		wideBarWidth += log10(maxValue);
+	}
+	if (barWidth > 1) {
+		barWidth = wideBarWidth;
+		generateBars();
+	}
 }
 
 
@@ -63,23 +89,21 @@ void Sorting::setVerticalScale(uint scale) {
 }
 
 
-// Calibrates the bar height and vertical scale.
-void Sorting::calibrateHeightAndScale() {
-	displayHeight = ceil(barHeight / (verticalScale*2.0));
-	barHeight = displayHeight * verticalScale * 2;
-	barHeight += (barHeight % verticalScale);
+// Sets the delay in milliseconds.
+void Sorting::setDelay(uint ms) {
+	delay = milliseconds(ms);
+}
+
+
+// Returns the current bar width.
+uint Sorting::getBarWidth() {
+	return barWidth;
 }
 
 
 // Returns the vertical display scale.
 uint Sorting::getVerticalScale() {
 	return verticalScale;
-}
-
-
-// Sets the delay in milliseconds.
-void Sorting::setDelay(uint ms) {
-	delay = milliseconds(ms);
 }
 
 
@@ -187,7 +211,7 @@ void Sorting::displayArray(
 		string text;
 		for (size_t i = 0; i < SIZE; i++) {
 			text = colourText(to_string(array[i]), colour[i]);
-			cout << setw(13) << text << " ";
+			cout << setw(11+barWidth) << text << " ";
 		}
 		cout << endl;
 	}

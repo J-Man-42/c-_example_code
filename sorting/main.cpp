@@ -185,15 +185,16 @@ int main() {
 				array[i] = min(maxValue, array[i]);
 			}
 
-			// Update bar height.
+			// Update bar height and width.
 			Sorting::setBarHeight(maxValue);
+			Sorting::setBarWidth(maxValue);
 
 			break;
 
 
 		// Toggle the width of the vertical bars.
 		case '3':
-			Sorting::toggleBarWidth();
+			Sorting::toggleWideBar();
 			break;
 
 

@@ -42,12 +42,13 @@ public:
 
 	// Functions.
 	static void restoreDefault();
-	static void toggleBarWidth();
-	static uint getBarWidth();
+	static void toggleWideBar();
+	static void setBarWidth(uint maxValue);
 	static void setBarHeight(uint height);
 	static void setVerticalScale(uint scale);
-	static uint getVerticalScale();
 	static void setDelay(uint ms);
+	static uint getBarWidth();
+	static uint getVerticalScale();
 	static uint getDelay();
 	static void displayArray(
 		uint array[], const uint SIZE,
@@ -71,13 +72,13 @@ private:
 	static Duration delay;
 	static uint barHeight;
 	static uint barWidth;
+	static uint wideBarWidth;
 	static uint verticalScale;
 	static uint displayHeight;
-	static string singleBars[];
-	static string doubleBars[];
-	static string* bars;
+	static string bars[];
 
 	// Functions.
+	static void generateBars();
 	static void calibrateHeightAndScale();
 	static uint scaleVertically(uint value);
 	static void printBorder(string symbol, const uint SIZE);
