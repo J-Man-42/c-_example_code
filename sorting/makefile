@@ -13,8 +13,8 @@ OBJECTS := \
 	out/move_cursor.o \
 	out/random.o
 TEMPLATES := \
-	../lists/linked_list.cpp \
-	../lists/linked_list.h
+	../linked_list/linked_list.cpp \
+	../linked_list/linked_list.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
 
