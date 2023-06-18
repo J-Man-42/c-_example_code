@@ -119,6 +119,7 @@ function deleteBranch() {
 	# If neither exists, show error message.
 	if echo ${remote[@]} | grep -qw $branch; then
 		git push origin --delete $branch
+		rm -f .git/refs/remotes/origin/$branch
 		missing=false
 	fi
 
@@ -168,3 +169,4 @@ fi
 if [[ $delete ]]; then
 	deleteBranch $delete
 fi
+
