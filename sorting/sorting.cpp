@@ -1048,6 +1048,12 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 		heapify(array, SIZE, i);
 	}
 
+	// Sort by continuously popping from the heap.
+	for (size_t i = SIZE-1; i > 0; i--) {
+		swap(array[0], array[i]);
+		heapify(array, i, 0);
+	}
+
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
