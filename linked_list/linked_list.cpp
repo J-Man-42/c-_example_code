@@ -210,9 +210,17 @@ LinkedList<T> LinkedList<T>::clone() {
 
 
 
+// Returns the element at the given index.
+template<class T>
+T& LinkedList<T>::get(const uint index) {
+	return (*this)[index];
+}
+
+
+
 // Returns the first element in the list.
 template<class T>
-T& LinkedList<T>::first() {
+T& LinkedList<T>::getFirst() {
 
 	// Throw an error if the list is empty.
 	if (isEmpty()) {
@@ -225,10 +233,17 @@ T& LinkedList<T>::first() {
 
 
 
-// Returns the element at the given index.
+// Returns the last element in the list.
 template<class T>
-T& LinkedList<T>::get(const uint index) {
-	return (*this)[index];
+T& LinkedList<T>::getLast() {
+
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// Returns the element at head.
+	return tail->data;
 }
 
 
@@ -323,22 +338,6 @@ void LinkedList<T>::insert(const uint index, const T element) {
 template<class T>
 bool LinkedList<T>::isEmpty() const {
 	return head == nullptr;
-}
-
-
-
-
-// Returns the last element in the list.
-template<class T>
-T& LinkedList<T>::last() {
-
-	// Throw an error if the list is empty.
-	if (isEmpty()) {
-		throw "Error! No elements in the list";
-	}
-
-	// Returns the element at head.
-	return tail->data;
 }
 
 

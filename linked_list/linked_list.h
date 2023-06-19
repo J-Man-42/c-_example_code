@@ -27,13 +27,13 @@ public:
 	void add(const T element);
 	void clear();
 	LinkedList<T> clone();
-	T& first();
+	T& getFirst();
 	T& get(const uint index);
+	T& getLast();
 	T& getNext();
 	int indexOf(const T element);
 	void insert(const uint index, const T element);
 	bool isEmpty() const;
-	T& last();
 	void remove(const T element);
 	T removeAt(const uint index);
 	void resetNext();

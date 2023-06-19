@@ -100,13 +100,13 @@ int main() {
 		cout << " (1)  add(element)" << endl;
 		cout << " (2)  clear()" << endl;
 		cout << " (3)  clone()" << endl;
-		cout << " (4)  first()" << endl;
-		cout << " (5)  get(index)" << endl;
-		cout << " (6)  getNext()" << endl;
-		cout << " (7)  indexOf(element)" << endl;
-		cout << " (8)  insert(index, element)" << endl;
-		cout << " (9)  isEmpty()" << endl;
-		cout << "(10)  last()" << endl;
+		cout << " (4)  get(index)" << endl;
+		cout << " (5)  getFirst()" << endl;
+		cout << " (6)  getLast()" << endl;
+		cout << " (7)  getNext()" << endl;
+		cout << " (8)  indexOf(element)" << endl;
+		cout << " (9)  insert(index, element)" << endl;
+		cout << "(10)  isEmpty()" << endl;
 		cout << "(11)  remove(element)" << endl;
 		cout << "(12)  removeAt(index)" << endl;
 		cout << "(13)  resetNext()" << endl;
@@ -177,21 +177,8 @@ int main() {
 			break;
 
 
-		// Get the first element in the list.
-		case 4:
-			cout << "first()" << endl;
-			try {
-				element = list.first();
-				cout << "> first element:  " << element << endl;
-			} catch (char const* e) {
-				cout << e << endl;
-			}
-			sleep_for(seconds(2));
-			break;
-
-
 		// Get element at index.
-		case 5:
+		case 4:
 			cout << "get(index)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -205,8 +192,34 @@ int main() {
 			break;
 
 
-		// Get the next element in the list.
+		// Get the first element in the list.
+		case 5:
+			cout << "getFirst()" << endl;
+			try {
+				element = list.getFirst();
+				cout << "> first element:  " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Get the last element in the list.
 		case 6:
+			cout << "getLast()" << endl;
+			try {
+				element = list.getLast();
+				cout << "> last element:  " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Get the next element in the list.
+		case 7:
 			cout << "getNext()" << endl;
 			try {
 				element = list.getNext();
@@ -219,7 +232,7 @@ int main() {
 
 
 		// Find the index of the given element.
-		case 7:
+		case 8:
 			cout << "indexOf(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -229,7 +242,7 @@ int main() {
 
 
 		// Insert an element.
-		case 8:
+		case 9:
 			cout << "insert(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -240,25 +253,12 @@ int main() {
 
 
 		// Check if empty.
-		case 9:
+		case 10:
 			cout << "isEmpty()" << endl;
 			if (list.isEmpty()) {
 				cout << "The list is empty" << endl;
 			} else {
 				cout << "The list contains elements" << endl;
-			}
-			sleep_for(seconds(2));
-			break;
-
-
-		// Get the last element in the list.
-		case 10:
-			cout << "last()" << endl;
-			try {
-				element = list.last();
-				cout << "> last element:  " << element << endl;
-			} catch (char const* e) {
-				cout << e << endl;
 			}
 			sleep_for(seconds(2));
 			break;
