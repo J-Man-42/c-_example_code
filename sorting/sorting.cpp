@@ -946,7 +946,7 @@ void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
 			copy[i] = array[i];
 
 			// Show current comparison.
-			highlight->first().index = i;
+			highlight->getFirst().index = i;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 
@@ -1003,30 +1003,6 @@ void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
 	delete highlight;
 }
 
-
-/*
-Min Heap
-****************************
-      ┌───────1───────┐
-      │               │
-  ┌───3───┐       ┌───5───┐
-  │       │       │       │
-┌─4─┐   ┌─6─┐    13      10
-│   │   │   │
-9   8  15  17
-****************************
-
-Max Heap
-****************************
-      ┌──────17───────┐
-      │               │
-  ┌──15───┐       ┌──13───┐
-  │       │       │       │
-┌─9─┐   ┌─6─┐     5      10
-│   │   │   │
-4   8   3   1
-****************************
-*/
 
 
 // Heap Sort the array.
