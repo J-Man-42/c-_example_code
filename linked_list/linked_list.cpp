@@ -108,8 +108,8 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
 
 // Overload the subscript operator.
 template<class T>
-T& LinkedList<T>::operator[](const uint index) {
-	return findIndex(index)->data;
+T& LinkedList<T>::operator[](const int index) {
+	return findIndex(handleNegativeIndex(index))->data;
 }
 
 
@@ -212,7 +212,7 @@ LinkedList<T> LinkedList<T>::clone() {
 
 // Returns the element at the given index.
 template<class T>
-T& LinkedList<T>::get(const uint index) {
+T& LinkedList<T>::get(const int index) {
 	return (*this)[index];
 }
 
@@ -297,8 +297,11 @@ int LinkedList<T>::indexOf(const T element) {
 
 // Insert element at the specified index.
 template<class T>
-void LinkedList<T>::insert(const uint index, const T element) {
+void LinkedList<T>::insert(const int signedIndex, const T element) {
 	Node<T>* newNode = new Node<T>(element);
+
+	// Accommodate negative indices.
+	uint index = handleNegativeIndex(signedIndex);
 
 	// If empty list, assign as head and tail.
 	if (isEmpty()) {
@@ -406,7 +409,10 @@ void LinkedList<T>::remove(const T element) {
 
 // Removes the element at the given index.
 template<class T>
-T LinkedList<T>::removeAt(const uint index) {
+T LinkedList<T>::removeAt(const int signedIndex) {
+
+	// Accommodate negative indices.
+	uint index = handleNegativeIndex(signedIndex);
 
 	// Throw error if index out of bounds.
 	if (index >= length) {
@@ -470,7 +476,10 @@ void LinkedList<T>::resetNext() {
 
 // Set the element at the given index.
 template<class T>
-void LinkedList<T>::set(const uint index, const T element) {
+void LinkedList<T>::set(const int signedIndex, const T element) {
+
+	// Accommodate negative indices.
+	uint index = handleNegativeIndex(signedIndex);
 
 	// If index out of bounds, add to the end.
 	if (index >= length) {
@@ -636,4 +645,14 @@ Node<T>* LinkedList<T>::findIndex(const uint index) {
 
 	// Return the element.
 	return nodePtr;
+}
+
+
+
+// Return the positive index equivalent.
+template<class T>
+uint LinkedList<T>::handleNegativeIndex(const int index) {
+	if (index < 0)
+		return length + index;
+	return index;
 }

@@ -19,7 +19,7 @@ public:
 		std::ostream& out, LinkedList<U>& list);
 	
 	LinkedList<T>& operator=(const LinkedList<T>& other);
-	T& operator[](const uint index);
+	T& operator[](const int index);
 	LinkedList<T> operator+(const T element);
 	LinkedList<T> operator+(const LinkedList<T>& other);
 	LinkedList<T>& operator+=(const T element);
@@ -27,17 +27,17 @@ public:
 	void add(const T element);
 	void clear();
 	LinkedList<T> clone();
-	T& get(const uint index);
+	T& get(const int index);
 	T& getFirst();
 	T& getLast();
 	T& getNext();
 	int indexOf(const T element);
-	void insert(const uint index, const T element);
+	void insert(const int signedIndex, const T element);
 	bool isEmpty() const;
 	void remove(const T element);
-	T removeAt(const uint index);
+	T removeAt(const int signedIndex);
 	void resetNext();
-	void set(const uint index, const T element);
+	void set(const int signedIndex, const T element);
 	void setFirst(const T element);
 	void setLast(const T element);
 	uint size() const;
@@ -47,6 +47,7 @@ public:
 	std::string toString();
 private:
 	Node<T>* findIndex(const uint index);
+	uint handleNegativeIndex(const int index);
 	uint length;
 	Node<T>* head;
 	Node<T>* tail;

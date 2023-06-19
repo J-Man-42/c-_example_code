@@ -69,7 +69,7 @@ int main() {
 	uint start, end;
 	uint number;
 	uint element;
-	size_t index;
+	int index;
 	LinkedList<uint>* sublist = nullptr;
 
 	// Create the linked list.
