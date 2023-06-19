@@ -1071,39 +1071,54 @@ void Sorting::heapify(
 	uint array[], const uint SIZE, uint end,
 	uint parentIndex, LinkedList<Highlight>* highlight) {
 
-	// Depending on sorting order is index of either max or min value.
-	uint criticalIndex = parentIndex;
+	// The index of the lowest non-leaf node.
+	uint lowestNoneLeaf = end / 2 - 1;
 
-	// Calculate left and right child indices.
-	uint left = 2*parentIndex + 1;
-	uint right = 2*parentIndex + 2;
+	// Iterate for all children.
+	uint left, right, criticalIndex;
+	while (parentIndex <= lowestNoneLeaf) {
 
-	// Check if right must be swapped.
-	if (right < end && compare(array[criticalIndex], array[right])) {
-		criticalIndex = right;
-	}
+		// Depending on sorting order is index of either
+		// max or min value.
+		criticalIndex = parentIndex;
 
-	// Check if left must be swapped.
-	if (left < end && compare(array[criticalIndex], array[left])) {
-		criticalIndex = left;
-	}
+		// Calculate left and right child indices.
+		left = 2*parentIndex + 1;
+		right = 2*parentIndex + 2;
 
-	// Display the array before swapping.
-	highlight->get(-1).index = criticalIndex;
-	highlight->get(-2).index = parentIndex;
-	displayArray(array, SIZE, highlight);
-	sleep_for(delay);
+		// Check if right must be swapped.
+		if (right < end &&
+			compare(array[criticalIndex], array[right])) {
+			criticalIndex = right;
+		}
 
-	// Only swap and trickle down heap
-	// if parent is not the critical value.
-	if (criticalIndex != parentIndex) {
+		// Check if left must be swapped.
+		if (left < end &&
+			compare(array[criticalIndex], array[left])) {
+			criticalIndex = left;
+		}
 
-		// Display the array after swapping.
-		swap(array[criticalIndex], array[parentIndex]);
+		// Display the array before swapping.
+		highlight->get(-1).index = criticalIndex;
+		highlight->get(-2).index = parentIndex;
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
-		// Call heapify on the critical child.
-		heapify(array, SIZE, end, criticalIndex, highlight);
+		// Only swap and trickle down heap
+		// if parent is not the critical value.
+		if (criticalIndex != parentIndex) {
+
+			// Display the array after swapping.
+			swap(array[criticalIndex], array[parentIndex]);
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
+
+			// Update parent index.
+			parentIndex = criticalIndex;
+		}
+
+		// Break loop otherwise.
+		else break;
+
 	}
 }
