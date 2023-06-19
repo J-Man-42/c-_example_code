@@ -284,11 +284,12 @@ int main() {
 			cout << "> index = ";
 			cin >> index;
 			try {
-				list.removeAt(index);
+				element = list.removeAt(index);
+				cout << "removed element " << element << endl;
 			} catch (char const* e) {
 				cout << e << endl;
-				sleep_for(seconds(2));
 			}
+			sleep_for(seconds(2));
 			break;
 
 

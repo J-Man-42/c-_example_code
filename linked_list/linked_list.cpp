@@ -398,7 +398,7 @@ void LinkedList<T>::remove(const T element) {
 
 // Removes the element at the given index.
 template<class T>
-T& LinkedList<T>::removeAt(const uint index) {
+T LinkedList<T>::removeAt(const uint index) {
 
 	// Throw error if index out of bounds.
 	if (index >= length) {
@@ -407,7 +407,7 @@ T& LinkedList<T>::removeAt(const uint index) {
 
 	// Find correct node and get the element.
 	Node<T>* nodePtr = findIndex(index);
-	T& element = nodePtr->data;
+	T element = nodePtr->data;
 
 	// The only element.
 	if (head == tail) {

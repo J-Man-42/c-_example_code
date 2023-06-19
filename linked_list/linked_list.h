@@ -29,7 +29,7 @@ public:
 	bool isEmpty() const;
 	T& last();
 	void remove(const T element);
-	T& removeAt(const uint index);
+	T removeAt(const uint index);
 	void resetNext();
 	void set(const uint index, const T element);
 	uint size() const;
