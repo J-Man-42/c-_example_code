@@ -1021,7 +1021,9 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 
 	// Highlight all entries after node.
 	for (int i = SIZE-1; i > node; i--) {
-		highlight->add(Highlight('c', i));
+		highlight->insert(0, Highlight('c', i));
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
 	}
 
 	// Heapify the whole array.
@@ -1029,7 +1031,7 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 		heapify(array, SIZE, SIZE, i, highlight);
 
 		// Highlight parents already considered.
-		highlight->add(Highlight('c', i));
+		highlight->insert(0, Highlight('c', i));
 	}
 
 	// Sort by continuously popping from the heap.
@@ -1037,16 +1039,18 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
 	for (size_t i = SIZE-1; i > 0; i--) {
-		swap(array[0], array[i]);
 
-		// Show after swapping.
-		highlight->get(0).index = 0;
-		highlight->get(1).index = i;
+		// Show the array before and after swapping.
+		highlight->get(-1).index = i;
+		highlight->get(-2).index = 0;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+		swap(array[0], array[i]);
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
 		// Call heapify for up to i elements.
-		highlight->add(Highlight('G', i));
+		highlight->insert(0, Highlight('G', i));
 		heapify(array, SIZE, i, 0, highlight);
 	}
 
@@ -1081,14 +1085,18 @@ void Sorting::heapify(
 		criticalIndex = left;
 	}
 
+	// Display the array before swapping.
+	highlight->get(-1).index = criticalIndex;
+	highlight->get(-2).index = parentIndex;
+	displayArray(array, SIZE, highlight);
+	sleep_for(delay);
+
 	// Only swap and trickle down heap
 	// if parent is not the critical value.
 	if (criticalIndex != parentIndex) {
-		swap(array[criticalIndex], array[parentIndex]);
 
 		// Display the array after swapping.
-		highlight->get(0).index = parentIndex;
-		highlight->get(1).index = criticalIndex;
+		swap(array[criticalIndex], array[parentIndex]);
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
