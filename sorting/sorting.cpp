@@ -299,10 +299,12 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 	sleep_for(delay);
 
 	// Indicate the starting index.
+	bool isSorted;
 	size_t minIndex;
 	for (size_t i = 0; i < SIZE-1; i++) {
 		highlight->get(2).index = i;
 		minIndex = i;
+		isSorted = true;
 		for (size_t j = i+1; j < SIZE; j++) {
 			highlight->get(0).index = i;
 			highlight->get(1).index = j;
@@ -315,6 +317,11 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			if (compare(array[j], array[minIndex])) {
 				minIndex = j;
 				highlight->get(2).index = minIndex;
+			}
+
+			// Update is sorted status.
+			if (compare(array[j], array[j-1])) {
+				isSorted = false;
 			}
 		}
 
@@ -332,6 +339,11 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 			swap(array[i], array[minIndex]);
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
+		}
+
+		// Break loop if already sorted.
+		if (isSorted) {
+			break;
 		}
 
 		// Alter list for next comparison.
