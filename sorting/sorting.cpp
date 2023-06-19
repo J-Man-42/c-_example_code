@@ -1011,6 +1011,10 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
 
+	// The colours for various heap heights.
+	char colours[] = {'m', 'y', 'c', 'M', 'b'};
+	uint index;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -1021,7 +1025,8 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 
 	// Highlight all entries after node.
 	for (int i = SIZE-1; i > node; i--) {
-		highlight->insert(0, Highlight('c', i));
+		index = int(log2(i+1)) % 5;
+		highlight->insert(0, Highlight(colours[index], i));
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 	}
@@ -1031,14 +1036,12 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 		heapify(array, SIZE, SIZE, i, highlight);
 
 		// Highlight parents already considered.
-		highlight->insert(0, Highlight('c', i));
+		index = int(log2(i+1)) % 5;
+		highlight->insert(0, Highlight(colours[index], i));
 	}
 
 	// Sort by continuously popping from the heap.
-	highlight->clear();
-	highlight->add(Highlight('R'));
-	highlight->add(Highlight('R'));
-	for (size_t i = SIZE-1; i > 0; i--) {
+	for (size_t i = SIZE-1, j = 0; i > 0; i--, j++) {
 
 		// Show the array before and after swapping.
 		highlight->get(-1).index = i;
@@ -1050,7 +1053,7 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 		sleep_for(delay);
 
 		// Call heapify for up to i elements.
-		highlight->insert(0, Highlight('G', i));
+		highlight->get(i).colour = 'G';
 		heapify(array, SIZE, i, 0, highlight);
 	}
 
