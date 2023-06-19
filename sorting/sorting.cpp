@@ -1002,3 +1002,85 @@ void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
 	// Delete dynamic memory.
 	delete highlight;
 }
+
+
+/*
+Min Heap
+****************************
+      ┌───────1───────┐
+      │               │
+  ┌───3───┐       ┌───5───┐
+  │       │       │       │
+┌─4─┐   ┌─6─┐    13      10
+│   │   │   │
+9   8  15  17
+****************************
+
+Max Heap
+****************************
+      ┌──────17───────┐
+      │               │
+  ┌──15───┐       ┌──13───┐
+  │       │       │       │
+┌─9─┐   ┌─6─┐     5      10
+│   │   │   │
+4   8   3   1
+****************************
+*/
+
+
+// Heap Sort the array.
+void Sorting::heapSort(uint array[], const uint SIZE) {
+	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
+	highlight->add(Highlight('R'));
+	highlight->add(Highlight('R'));
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Get index of last non-leaf node.
+	int node = SIZE / 2 - 1;
+
+	// Heapify the whole array.
+	for (int i = node; i >= 0; i--) {
+		heapify(array, SIZE, i);
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
+}
+
+
+// Recursively heapify the array at the given index.
+void Sorting::heapify(uint array[], const uint SIZE, uint parentIndex) {
+
+	// Depending on sorting order is index of either max or min value.
+	uint criticalIndex = parentIndex;
+
+	// Calculate left and right child indices.
+	uint left = 2*parentIndex + 1;
+	uint right = 2*parentIndex + 2;
+
+	// Check if right must be swapped.
+	if (right < SIZE && compare(array[criticalIndex], array[right])) {
+		criticalIndex = right;
+	}
+
+	// Check if left must be swapped.
+	if (left < SIZE && compare(array[criticalIndex], array[left])) {
+		criticalIndex = left;
+	}
+
+	// Only swap and trickle down heap
+	// if parent is not the critical value.
+	if (criticalIndex != parentIndex) {
+		swap(array[criticalIndex], array[parentIndex]);
+		heapify(array, SIZE, criticalIndex);
+	}
+}

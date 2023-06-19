@@ -236,6 +236,7 @@ int main() {
 			cout << " (9)  Comb Sort" << endl;
 			cout << "(10)  Radix Sort (base 10)" << endl;
 			cout << "(11)  Radix Sort (custom base)" << endl;
+			cout << "(12)  Heap Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -284,6 +285,9 @@ int main() {
 				uint base;
 				cin >> base;
 				Sorting::radixSort(array, size, base);
+				break;
+			case 12:
+				Sorting::heapSort(array, size);
 				break;
 			default:
 				clearScreen();

@@ -65,6 +65,7 @@ public:
 	static void combSort(uint array[], const uint SIZE);
 	static void radixSort(
 		uint array[], const uint SIZE, const uint BASE = 10);
+	static void heapSort(uint array[], const uint SIZE);
 
 private:
 
@@ -100,6 +101,7 @@ private:
 		uint array[], uint copy[], const uint& SIZE,
 		uint start, uint middle, uint end,
 		LinkedList<Highlight>* highlight);
+	static void heapify(uint array[], const uint SIZE, uint parentIndex);
 };
 
 
