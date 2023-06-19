@@ -66,6 +66,15 @@ LinkedList<T>::~LinkedList() {
 
 
 
+// Output stream the list to string.
+template<class T>
+ostream& operator<<(ostream& out, LinkedList<T>& list) {
+	out << list.toString();
+	return out;
+}
+
+
+
 // Overload the assignment operator.
 template<class T>
 LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {

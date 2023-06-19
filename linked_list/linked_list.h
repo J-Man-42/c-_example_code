@@ -1,6 +1,7 @@
 #ifndef LINKED_LIST_H
 #define LINKED_LIST_H
 
+#include <iostream>
 #include "node.h"
 
 // The doubly linked list class.
@@ -12,6 +13,11 @@ public:
 	LinkedList(const LinkedList<T>& other);
 	LinkedList(const T array[], const uint SIZE);
 	~LinkedList();
+
+	template<class U>
+	friend std::ostream& operator<<(
+		std::ostream& out, LinkedList<U>& list);
+	
 	LinkedList<T>& operator=(const LinkedList<T>& other);
 	T& operator[](const uint index);
 	LinkedList<T> operator+(const T element);

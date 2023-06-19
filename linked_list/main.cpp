@@ -88,7 +88,7 @@ int main() {
 
 		// Print the linked list.
 		cout << "List:" << endl;
-		cout << list.toString() << endl;
+		cout << list << endl;
 
 		// Print the array.
 		cout << "\nArray:" << endl;
