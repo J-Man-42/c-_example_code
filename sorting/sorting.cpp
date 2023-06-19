@@ -1043,15 +1043,35 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 	// Get index of last non-leaf node.
 	int node = SIZE / 2 - 1;
 
+	// Highlight all entries after node.
+	for (int i = SIZE-1; i > node; i--) {
+		highlight->add(Highlight('c', i));
+	}
+
 	// Heapify the whole array.
 	for (int i = node; i >= 0; i--) {
-		heapify(array, SIZE, i);
+		heapify(array, SIZE, SIZE, i, highlight);
+
+		// Highlight parents already considered.
+		highlight->add(Highlight('c', i));
 	}
 
 	// Sort by continuously popping from the heap.
+	highlight->clear();
+	highlight->add(Highlight('R'));
+	highlight->add(Highlight('R'));
 	for (size_t i = SIZE-1; i > 0; i--) {
 		swap(array[0], array[i]);
-		heapify(array, i, 0);
+
+		// Show after swapping.
+		highlight->get(0).index = 0;
+		highlight->get(1).index = i;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
+		// Call heapify for up to i elements.
+		highlight->add(Highlight('G', i));
+		heapify(array, SIZE, i, 0, highlight);
 	}
 
 	// Display the array after sorting.
@@ -1064,7 +1084,9 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 
 
 // Recursively heapify the array at the given index.
-void Sorting::heapify(uint array[], const uint SIZE, uint parentIndex) {
+void Sorting::heapify(
+	uint array[], const uint SIZE, uint end,
+	uint parentIndex, LinkedList<Highlight>* highlight) {
 
 	// Depending on sorting order is index of either max or min value.
 	uint criticalIndex = parentIndex;
@@ -1074,12 +1096,12 @@ void Sorting::heapify(uint array[], const uint SIZE, uint parentIndex) {
 	uint right = 2*parentIndex + 2;
 
 	// Check if right must be swapped.
-	if (right < SIZE && compare(array[criticalIndex], array[right])) {
+	if (right < end && compare(array[criticalIndex], array[right])) {
 		criticalIndex = right;
 	}
 
 	// Check if left must be swapped.
-	if (left < SIZE && compare(array[criticalIndex], array[left])) {
+	if (left < end && compare(array[criticalIndex], array[left])) {
 		criticalIndex = left;
 	}
 
@@ -1087,6 +1109,14 @@ void Sorting::heapify(uint array[], const uint SIZE, uint parentIndex) {
 	// if parent is not the critical value.
 	if (criticalIndex != parentIndex) {
 		swap(array[criticalIndex], array[parentIndex]);
-		heapify(array, SIZE, criticalIndex);
+
+		// Display the array after swapping.
+		highlight->get(0).index = parentIndex;
+		highlight->get(1).index = criticalIndex;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
+		// Call heapify on the critical child.
+		heapify(array, SIZE, end, criticalIndex, highlight);
 	}
 }

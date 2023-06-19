@@ -101,7 +101,9 @@ private:
 		uint array[], uint copy[], const uint& SIZE,
 		uint start, uint middle, uint end,
 		LinkedList<Highlight>* highlight);
-	static void heapify(uint array[], const uint SIZE, uint parentIndex);
+	static void heapify(
+		uint array[], const uint SIZE, uint end,
+		uint parentIndex, LinkedList<Highlight>* highlight);
 };
 
 
