@@ -485,6 +485,38 @@ void LinkedList<T>::set(const uint index, const T element) {
 
 
 
+// Set the element at head.
+template<class T>
+void LinkedList<T>::setFirst(const T element) {
+
+	// If empty list, simply add element.
+	if (!head) {
+		add(element);
+		return;
+	}
+
+	// Set the element at head.
+	head->data = element;
+}
+
+
+
+// Set the element at tail.
+template<class T>
+void LinkedList<T>::setLast(const T element) {
+
+	// If empty list, simply add element.
+	if (!tail) {
+		add(element);
+		return;
+	}
+
+	// Set the element at head.
+	tail->data = element;
+}
+
+
+
 // Get the number of elements in the list.
 template<class T>
 uint LinkedList<T>::size() const {

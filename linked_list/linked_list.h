@@ -27,8 +27,8 @@ public:
 	void add(const T element);
 	void clear();
 	LinkedList<T> clone();
-	T& getFirst();
 	T& get(const uint index);
+	T& getFirst();
 	T& getLast();
 	T& getNext();
 	int indexOf(const T element);
@@ -38,6 +38,8 @@ public:
 	T removeAt(const uint index);
 	void resetNext();
 	void set(const uint index, const T element);
+	void setFirst(const T element);
+	void setLast(const T element);
 	uint size() const;
 	LinkedList<T>* subList(const uint start, const uint end);
 	T* toDynamicArray();
