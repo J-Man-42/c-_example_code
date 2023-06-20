@@ -51,21 +51,21 @@ public:
 	static uint getVerticalScale();
 	static uint getDelay();
 	static void displayArray(
-		uint array[], const uint SIZE,
+		uint array[], const uint& SIZE,
 		LinkedList<Highlight>* highlight = nullptr,
 		uint horizontalBar = 0);
-	static void bubbleSort(uint array[], const uint SIZE);
-	static void selectionSort(uint array[], const uint SIZE);
-	static void insertionSort(uint array[], const uint SIZE);
-	static void cocktailShakerSort(uint array[], const uint SIZE);
-	static void quickSort(uint array[], const uint SIZE);
-	static void quickSortV2(uint array[], const uint SIZE);
-	static void shellSort(uint array[], const uint SIZE);
-	static void mergeSort(uint array[], const uint SIZE);
-	static void combSort(uint array[], const uint SIZE);
+	static void bubbleSort(uint array[], const uint& SIZE);
+	static void selectionSort(uint array[], const uint& SIZE);
+	static void insertionSort(uint array[], const uint& SIZE);
+	static void cocktailShakerSort(uint array[], const uint& SIZE);
+	static void quickSort(uint array[], const uint& SIZE);
+	static void quickSortV2(uint array[], const uint& SIZE);
+	static void shellSort(uint array[], const uint& SIZE);
+	static void mergeSort(uint array[], const uint& SIZE);
+	static void combSort(uint array[], const uint& SIZE);
 	static void radixSort(
-		uint array[], const uint SIZE, const uint BASE = 10);
-	static void heapSort(uint array[], const uint SIZE);
+		uint array[], const uint& SIZE, const uint BASE = 10);
+	static void heapSort(uint array[], const uint& SIZE);
 
 private:
 
@@ -82,17 +82,17 @@ private:
 	static void generateBars();
 	static void calibrateHeightAndScale();
 	static uint scaleVertically(uint value);
-	static void printBorder(string symbol, const uint SIZE);
+	static void printBorder(string symbol, const uint& SIZE);
 	static bool compare(uint left, uint right);
 	static void quickSort(
-		uint array[], const int SIZE, int low, int high);
+		uint array[], const int& SIZE, int low, int high);
 	static int partition(
-		uint array[], const int SIZE, int low, int high,
+		uint array[], const int& SIZE, int low, int high,
 		LinkedList<Highlight>* highlight);
 	static void quickSortV2(
-		uint array[], const int SIZE, int low, int high);
+		uint array[], const int& SIZE, int low, int high);
 	static int partitionV2(
-		uint array[], const int SIZE, int low, int high,
+		uint array[], const int& SIZE, int low, int high,
 		LinkedList<Highlight>* highlight);
 	static void split(
 		uint array[], uint copy[], const uint& SIZE,
@@ -102,7 +102,7 @@ private:
 		uint start, uint middle, uint end,
 		LinkedList<Highlight>* highlight);
 	static void heapify(
-		uint array[], const uint SIZE, uint end,
+		uint array[], const uint& SIZE, uint end,
 		uint parentIndex, LinkedList<Highlight>* highlight);
 };
 

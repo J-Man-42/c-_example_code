@@ -114,7 +114,7 @@ uint Sorting::getDelay() {
 
 
 // Prints either the top or bottom border.
-void Sorting::printBorder(string symbol, const uint SIZE) {
+void Sorting::printBorder(string symbol, const uint& SIZE) {
 	for (size_t i = 0; i < SIZE; i++) {
 		for (size_t j = 0; j <= barWidth; j++) {
 			cout << symbol;
@@ -134,7 +134,7 @@ uint Sorting::scaleVertically(uint value) {
 
 // Displays the array content as pillars.
 void Sorting::displayArray(
-	uint array[], const uint SIZE,
+	uint array[], const uint& SIZE,
 	LinkedList<Highlight>* highlight,
 	uint horizontalBar) {
 
@@ -234,7 +234,7 @@ bool Sorting::compare(uint left, uint right) {
 
 
 // Bubble sort the given array.
-void Sorting::bubbleSort(uint array[], const uint SIZE) {
+void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -287,7 +287,7 @@ void Sorting::bubbleSort(uint array[], const uint SIZE) {
 
 
 // Selection sort the given array.
-void Sorting::selectionSort(uint array[], const uint SIZE) {
+void Sorting::selectionSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -363,7 +363,7 @@ void Sorting::selectionSort(uint array[], const uint SIZE) {
 
 
 // Insertion sort the given array.
-void Sorting::insertionSort(uint array[], const uint SIZE) {
+void Sorting::insertionSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -412,7 +412,7 @@ void Sorting::insertionSort(uint array[], const uint SIZE) {
 
 
 // Cocktail shaker sort the given array.
-void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
+void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('b'));
 	highlight->add(Highlight('b'));
@@ -491,7 +491,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint SIZE) {
 
 
 // Quick Sort the array.
-void Sorting::quickSort(uint array[], const uint SIZE) {
+void Sorting::quickSort(uint array[], const uint& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -509,7 +509,7 @@ void Sorting::quickSort(uint array[], const uint SIZE) {
 
 // The hidden recursive Quick Sort function.
 void Sorting::quickSort(
-	uint array[], const int SIZE, int low, int high) {
+	uint array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low > high || low < 0) {
@@ -542,7 +542,7 @@ void Sorting::quickSort(
 
 // The partition function for Quick Sort.
 int Sorting::partition(
-	uint array[], const int SIZE, int low, int high,
+	uint array[], const int& SIZE, int low, int high,
 	LinkedList<Highlight>* highlight) {
 
 	// Pivot is the last element.
@@ -602,7 +602,7 @@ int Sorting::partition(
 
 
 // Quick Sort the array.
-void Sorting::quickSortV2(uint array[], const uint SIZE) {
+void Sorting::quickSortV2(uint array[], const uint& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -620,7 +620,7 @@ void Sorting::quickSortV2(uint array[], const uint SIZE) {
 
 // The hidden recursive Quick Sort function.
 void Sorting::quickSortV2(
-	uint array[], const int SIZE, int low, int high) {
+	uint array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low >= high || low < 0 || high < 0) {
@@ -652,7 +652,7 @@ void Sorting::quickSortV2(
 
 // The partition function for Quick Sort.
 int Sorting::partitionV2(
-	uint array[], const int SIZE, int low, int high,
+	uint array[], const int& SIZE, int low, int high,
 	LinkedList<Highlight>* highlight) {
 
 	// Pivot is the middle element.
@@ -712,7 +712,7 @@ int Sorting::partitionV2(
 
 
 // Shell Sort the array.
-void Sorting::shellSort(uint array[], const uint SIZE) {
+void Sorting::shellSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
@@ -768,7 +768,7 @@ void Sorting::shellSort(uint array[], const uint SIZE) {
 
 
 // Merge Sort the array.
-void Sorting::mergeSort(uint array[], const uint SIZE) {
+void Sorting::mergeSort(uint array[], const uint& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -865,7 +865,7 @@ void Sorting::merge(
 
 
 // Comb Sort the array.
-void Sorting::combSort(uint array[], const uint SIZE) {
+void Sorting::combSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
@@ -913,7 +913,7 @@ void Sorting::combSort(uint array[], const uint SIZE) {
 
 
 // Radix Sort the array using the specified base.
-void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
+void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 
 	// Display the array before sorting.
@@ -1006,7 +1006,7 @@ void Sorting::radixSort(uint array[], const uint SIZE, const uint BASE) {
 
 
 // Heap Sort the array.
-void Sorting::heapSort(uint array[], const uint SIZE) {
+void Sorting::heapSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	highlight->add(Highlight('R'));
 	highlight->add(Highlight('R'));
@@ -1068,7 +1068,7 @@ void Sorting::heapSort(uint array[], const uint SIZE) {
 
 // Recursively heapify the array at the given index.
 void Sorting::heapify(
-	uint array[], const uint SIZE, uint end,
+	uint array[], const uint& SIZE, uint end,
 	uint parentIndex, LinkedList<Highlight>* highlight) {
 
 	// The index of the lowest non-leaf node.
