@@ -1012,7 +1012,7 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 	highlight->add(Highlight('R'));
 
 	// The colours for various heap heights.
-	char colours[] = {'m', 'y', 'c', 'M', 'b'};
+	char colours[] = {'m', 'y', 'c', 'M', 'C'};
 	uint index;
 
 	// Display the array before sorting.
