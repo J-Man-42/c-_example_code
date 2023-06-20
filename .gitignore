@@ -2,3 +2,6 @@
 *.o
 main
 output.txt
+
+# Ignore everything inside the playground folder.
+playground/*
