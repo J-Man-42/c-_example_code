@@ -9,9 +9,10 @@ if ls main.cpp 2>/dev/null; then
 fi
 
 
-# Create the standard main.cpp that prints Hello world.
-printf "Creating new main.cpp"
+# Indicate to the user that main.cpp is being generated.
+printf "Generating main.cpp file...\n"
 
+# Create the standard main.cpp that prints Hello world.
 printf "#include <iostream>\n" > main.cpp
 printf "using namespace std;\n" >> main.cpp
 printf "\n\n" >> main.cpp
