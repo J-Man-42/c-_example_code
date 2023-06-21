@@ -80,6 +80,36 @@ bool search(LinkedList& list, int element) {
 
 
 
+// The remove the given element from the list.
+bool remove(LinkedList& list, int element) {
+	if (!list.head) {
+		return false;
+	}
+
+	if (list.head->data == element) {
+		Node* nodePtr = list.head->next;
+		delete list.head;
+		list.head = nodePtr;
+		return true;
+	}
+
+	Node* prevPtr = list.head;
+	Node* nodePtr = prevPtr->next;
+	while (nodePtr) {
+		if (nodePtr->data == element) {
+			prevPtr->next = nodePtr->next;
+			delete nodePtr;
+			return true;
+		}
+		prevPtr = nodePtr;
+		nodePtr = nodePtr->next;
+	}
+
+	return false;
+}
+
+
+
 
 // Main function starts here.
 int main() {
