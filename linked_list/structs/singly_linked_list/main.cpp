@@ -128,6 +128,7 @@ int main() {
 		cout << "(2)  insert(element)" << endl;
 		cout << "(3)  search(element)" << endl;
 		cout << "(4)  remove(element)" << endl;
+		cout << "(Q)  QUIT PROGRAM" << endl;
 		cout << "====================" << endl;
 		cout << "> ";
 		cin >> answer;
