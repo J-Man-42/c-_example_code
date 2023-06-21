@@ -32,7 +32,8 @@ public:
 	T& getLast();
 	T& getNext();
 	int indexOf(const T element);
-	void insert(const int signedIndex, const T element);
+	void insert(const T element);
+	void insertAt(const int signedIndex, const T element);
 	bool isEmpty() const;
 	void remove(const T element);
 	T removeAt(const int signedIndex);

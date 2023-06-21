@@ -105,26 +105,27 @@ int main() {
 		cout << " (6)  getLast()" << endl;
 		cout << " (7)  getNext()" << endl;
 		cout << " (8)  indexOf(element)" << endl;
-		cout << " (9)  insert(index, element)" << endl;
-		cout << "(10)  isEmpty()" << endl;
-		cout << "(11)  remove(element)" << endl;
-		cout << "(12)  removeAt(index)" << endl;
-		cout << "(13)  removeFirst()" << endl;
-		cout << "(14)  removeLast()" << endl;
-		cout << "(15)  resetNext()" << endl;
-		cout << "(16)  set(index, element)" << endl;
-		cout << "(17)  setFirst(element)" << endl;
-		cout << "(18)  setLast(element)" << endl;
-		cout << "(19)  size()" << endl;
-		cout << "(20)  subList(start, end)" << endl;
-		cout << "(21)  toDynamicArray()" << endl;
-		cout << "(22)  toDynamicArray(size)" << endl;
-		cout << "(23)  operator=" << endl;
-		cout << "(24)  operator[]" << endl;
-		cout << "(25)  operator+(element)" << endl;
-		cout << "(26)  operator+(list)" << endl;
-		cout << "(27)  operator+=(element)" << endl;
-		cout << "(28)  operator+=(list)" << endl;
+		cout << " (9)  insert(element)" << endl;
+		cout << "(10)  insertAt(index, element)" << endl;
+		cout << "(11)  isEmpty()" << endl;
+		cout << "(12)  remove(element)" << endl;
+		cout << "(13)  removeAt(index)" << endl;
+		cout << "(14)  removeFirst()" << endl;
+		cout << "(15)  removeLast()" << endl;
+		cout << "(16)  resetNext()" << endl;
+		cout << "(17)  set(index, element)" << endl;
+		cout << "(18)  setFirst(element)" << endl;
+		cout << "(19)  setLast(element)" << endl;
+		cout << "(20)  size()" << endl;
+		cout << "(21)  subList(start, end)" << endl;
+		cout << "(22)  toDynamicArray()" << endl;
+		cout << "(23)  toDynamicArray(size)" << endl;
+		cout << "(24)  operator=" << endl;
+		cout << "(25)  operator[]" << endl;
+		cout << "(26)  operator+(element)" << endl;
+		cout << "(27)  operator+(list)" << endl;
+		cout << "(28)  operator+=(element)" << endl;
+		cout << "(29)  operator+=(list)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -245,19 +246,28 @@ int main() {
 			break;
 
 
-		// Insert an element.
+		// Insert an element at the beginning of the list.
 		case 9:
-			cout << "insert(index, element)" << endl;
+			cout << "insert(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			list.insert(element);
+			break;
+
+
+		// Insert an element at the given index.
+		case 10:
+			cout << "insertAt(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
 			cout << "> element = ";
 			cin >> element;
-			list.insert(index, element);
+			list.insertAt(index, element);
 			break;
 
 
 		// Check if empty.
-		case 10:
+		case 11:
 			cout << "isEmpty()" << endl;
 			if (list.isEmpty()) {
 				cout << "The list is empty" << endl;
@@ -269,7 +279,7 @@ int main() {
 
 
 		// Remove the specified element.
-		case 11:
+		case 12:
 			cout << "remove(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -283,7 +293,7 @@ int main() {
 
 
 		// Remove element at the given index.
-		case 12:
+		case 13:
 			cout << "removeAt(index)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -298,7 +308,7 @@ int main() {
 
 
 		// Remove the first element in the list.
-		case 13:
+		case 14:
 			cout << "removeFirst()" << endl;
 			try {
 				element = list.removeFirst();
@@ -311,7 +321,7 @@ int main() {
 
 
 		// Remove the last element in the list.
-		case 14:
+		case 15:
 			cout << "removeLast()" << endl;
 			try {
 				element = list.removeLast();
@@ -324,14 +334,14 @@ int main() {
 
 
 		// Reset the current pointer.
-		case 15:
+		case 16:
 			cout << "resetNext()" << endl;
 			list.resetNext();
 			break;
 
 
 		// Set element at given index.
-		case 16:
+		case 17:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -342,7 +352,7 @@ int main() {
 
 
 		// Set the first element in the list.
-		case 17:
+		case 18:
 			cout << "setFirst(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -351,7 +361,7 @@ int main() {
 
 
 		// Set the last element in the list.
-		case 18:
+		case 19:
 			cout << "setLast(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -360,7 +370,7 @@ int main() {
 
 
 		// Display the number of elements.
-		case 19:
+		case 20:
 			cout << "size()" << endl;
 			cout << "List size:  " << list.size() << endl;
 			sleep_for(seconds(2));
@@ -368,7 +378,7 @@ int main() {
 
 
 		// Creates sub list from start to end.
-		case 20:
+		case 21:
 			cout << "subList(start, end)" << endl;
 			cout << "> start = ";
 			cin >> start;
@@ -388,7 +398,7 @@ int main() {
 
 
 		// Convert to a dynamic array.
-		case 21:
+		case 22:
 			cout << "toDynamicArray()" << endl;
 			delete array;
 			try {
@@ -404,7 +414,7 @@ int main() {
 
 
 		// Convert to a dynamic array of specified size.
-		case 22:
+		case 23:
 			cout << "toDynamicArray(size)" << endl;
 			cout << "> size = ";
 			cin >> size;
@@ -421,7 +431,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 23:
+		case 24:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -434,7 +444,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 24:
+		case 25:
 			cout << "operator[]" << endl;
 			cout << "> set or get value (s/g):  ";
 			cin.getline(answer, 3);
@@ -467,7 +477,7 @@ int main() {
 
 
 		// Work with list + element.
-		case 25:
+		case 26:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -478,7 +488,7 @@ int main() {
 
 
 		// Work with list + other list.
-		case 26:
+		case 27:
 			cout << "operator+(list)" << endl;
 			cout << "> other list size = ";
 			cin >> number;
@@ -493,7 +503,7 @@ int main() {
 
 
 		// Work with list += element.
-		case 27:
+		case 28:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -502,7 +512,7 @@ int main() {
 
 
 		// Work with list += other list.
-		case 28:
+		case 29:
 			cout << "operator+=(list)" << endl;
 			cout << "> other list size = ";
 			cin >> number;

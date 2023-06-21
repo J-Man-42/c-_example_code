@@ -295,9 +295,29 @@ int LinkedList<T>::indexOf(const T element) {
 
 
 
+// Insert element at head.
+template<class T>
+void LinkedList<T>::insert(const T element) {
+	length++;
+
+	// See if it's the first element.
+	if (isEmpty()) {
+		head = tail = current = new Node<T>(element);
+	}
+
+	// Otherwise, insert at the beginning.
+	else {
+		head->prev = new Node<T>(element);
+		head->prev->next = head;
+		head = head->prev;
+	}
+}
+
+
+
 // Insert element at the specified index.
 template<class T>
-void LinkedList<T>::insert(const int signedIndex, const T element) {
+void LinkedList<T>::insertAt(const int signedIndex, const T element) {
 	Node<T>* newNode = new Node<T>(element);
 
 	// Accommodate negative indices.
