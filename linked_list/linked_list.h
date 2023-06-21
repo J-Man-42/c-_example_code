@@ -36,6 +36,8 @@ public:
 	bool isEmpty() const;
 	void remove(const T element);
 	T removeAt(const int signedIndex);
+	T removeFirst();
+	T removeLast();
 	void resetNext();
 	void set(const int signedIndex, const T element);
 	void setFirst(const T element);

@@ -109,20 +109,22 @@ int main() {
 		cout << "(10)  isEmpty()" << endl;
 		cout << "(11)  remove(element)" << endl;
 		cout << "(12)  removeAt(index)" << endl;
-		cout << "(13)  resetNext()" << endl;
-		cout << "(14)  set(index, element)" << endl;
-		cout << "(15)  setFirst(element)" << endl;
-		cout << "(16)  setLast(element)" << endl;
-		cout << "(17)  size()" << endl;
-		cout << "(18)  subList(start, end)" << endl;
-		cout << "(19)  toDynamicArray()" << endl;
-		cout << "(20)  toDynamicArray(size)" << endl;
-		cout << "(21)  operator=" << endl;
-		cout << "(22)  operator[]" << endl;
-		cout << "(23)  operator+(element)" << endl;
-		cout << "(24)  operator+(list)" << endl;
-		cout << "(25)  operator+=(element)" << endl;
-		cout << "(26)  operator+=(list)" << endl;
+		cout << "(13)  removeFirst()" << endl;
+		cout << "(14)  removeLast()" << endl;
+		cout << "(15)  resetNext()" << endl;
+		cout << "(16)  set(index, element)" << endl;
+		cout << "(17)  setFirst(element)" << endl;
+		cout << "(18)  setLast(element)" << endl;
+		cout << "(19)  size()" << endl;
+		cout << "(20)  subList(start, end)" << endl;
+		cout << "(21)  toDynamicArray()" << endl;
+		cout << "(22)  toDynamicArray(size)" << endl;
+		cout << "(23)  operator=" << endl;
+		cout << "(24)  operator[]" << endl;
+		cout << "(25)  operator+(element)" << endl;
+		cout << "(26)  operator+(list)" << endl;
+		cout << "(27)  operator+=(element)" << endl;
+		cout << "(28)  operator+=(list)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -295,15 +297,41 @@ int main() {
 			break;
 
 
-		// Reset the current pointer.
+		// Remove the first element in the list.
 		case 13:
+			cout << "removeFirst()" << endl;
+			try {
+				element = list.removeFirst();
+				cout << "removed element " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Remove the last element in the list.
+		case 14:
+			cout << "removeLast()" << endl;
+			try {
+				element = list.removeLast();
+				cout << "removed element " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Reset the current pointer.
+		case 15:
 			cout << "resetNext()" << endl;
 			list.resetNext();
 			break;
 
 
 		// Set element at given index.
-		case 14:
+		case 16:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -314,7 +342,7 @@ int main() {
 
 
 		// Set the first element in the list.
-		case 15:
+		case 17:
 			cout << "setFirst(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -323,7 +351,7 @@ int main() {
 
 
 		// Set the last element in the list.
-		case 16:
+		case 18:
 			cout << "setLast(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -332,7 +360,7 @@ int main() {
 
 
 		// Display the number of elements.
-		case 17:
+		case 19:
 			cout << "size()" << endl;
 			cout << "List size:  " << list.size() << endl;
 			sleep_for(seconds(2));
@@ -340,7 +368,7 @@ int main() {
 
 
 		// Creates sub list from start to end.
-		case 18:
+		case 20:
 			cout << "subList(start, end)" << endl;
 			cout << "> start = ";
 			cin >> start;
@@ -360,7 +388,7 @@ int main() {
 
 
 		// Convert to a dynamic array.
-		case 19:
+		case 21:
 			cout << "toDynamicArray()" << endl;
 			delete array;
 			try {
@@ -376,7 +404,7 @@ int main() {
 
 
 		// Convert to a dynamic array of specified size.
-		case 20:
+		case 22:
 			cout << "toDynamicArray(size)" << endl;
 			cout << "> size = ";
 			cin >> size;
@@ -393,7 +421,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 21:
+		case 23:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -406,7 +434,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 22:
+		case 24:
 			cout << "operator[]" << endl;
 			cout << "> set or get value (s/g):  ";
 			cin.getline(answer, 3);
@@ -439,7 +467,7 @@ int main() {
 
 
 		// Work with list + element.
-		case 23:
+		case 25:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -450,7 +478,7 @@ int main() {
 
 
 		// Work with list + other list.
-		case 24:
+		case 26:
 			cout << "operator+(list)" << endl;
 			cout << "> other list size = ";
 			cin >> number;
@@ -465,7 +493,7 @@ int main() {
 
 
 		// Work with list += element.
-		case 25:
+		case 27:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -474,7 +502,7 @@ int main() {
 
 
 		// Work with list += other list.
-		case 26:
+		case 28:
 			cout << "operator+=(list)" << endl;
 			cout << "> other list size = ";
 			cin >> number;

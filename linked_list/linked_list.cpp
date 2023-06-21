@@ -466,6 +466,76 @@ T LinkedList<T>::removeAt(const int signedIndex) {
 
 
 
+// Remove the element at head.
+template<class T>
+T LinkedList<T>::removeFirst() {
+
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// Update length and extract the element.
+	T element = head->data;
+	length--;
+
+	// Only one element in the list.
+	if (head == tail) {
+		delete head;
+		head = tail = current = nullptr;
+	}
+
+	// Otherwise, at least two elements in the list.
+	else {
+		if (current == head) {
+			current = current->next;
+		}
+		head = head->next;
+		delete head->prev;
+		head->prev = nullptr;
+	}
+
+	// Return the element.
+	return element;
+}
+
+
+
+// Remove the element at tail.
+template<class T>
+T LinkedList<T>::removeLast() {
+
+	// Throw an error if the list is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the list";
+	}
+
+	// Update length and extract the element.
+	T element = tail->data;
+	length--;
+
+	// Only one element in the list.
+	if (head == tail) {
+		delete head;
+		head = tail = current = nullptr;
+	}
+
+	// Otherwise, at least two elements in the list.
+	else {
+		if (current == tail) {
+			current = head;
+		}
+		tail = tail->prev;
+		delete tail->next;
+		tail->next = nullptr;
+	}
+
+	// Return the element.
+	return element;
+}
+
+
+
 // Reset the current pointer to head.
 template<class T>
 void LinkedList<T>::resetNext() {
@@ -499,7 +569,7 @@ template<class T>
 void LinkedList<T>::setFirst(const T element) {
 
 	// If empty list, simply add element.
-	if (!head) {
+	if (isEmpty()) {
 		add(element);
 		return;
 	}
@@ -515,7 +585,7 @@ template<class T>
 void LinkedList<T>::setLast(const T element) {
 
 	// If empty list, simply add element.
-	if (!tail) {
+	if (isEmpty()) {
 		add(element);
 		return;
 	}
