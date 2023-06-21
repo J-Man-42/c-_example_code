@@ -52,7 +52,7 @@ LinkedList<T>::LinkedList(const T array[], const uint SIZE) {
 	this->tail = nullptr;
 	this->length = 0;
 	for (size_t i = 0; i < SIZE; i++) {
-		this->add(array[i]);
+		this->append(array[i]);
 	}
 	this->current = head;
 }
@@ -118,7 +118,7 @@ T& LinkedList<T>::operator[](const int index) {
 template<class T>
 LinkedList<T> LinkedList<T>::operator+(const T element) {
 	LinkedList<T> list = this->clone();
-	list.add(element);
+	list.append(element);
 	return list;
 }
 
@@ -130,7 +130,7 @@ LinkedList<T> LinkedList<T>::operator+(const LinkedList<T>& other) {
 	LinkedList<T> list = this->clone();
 	Node<T>* nodePtr = other.head;
 	while (nodePtr) {
-		list.add(nodePtr->data);
+		list.append(nodePtr->data);
 		nodePtr = nodePtr->next;
 	}
 	return list;
@@ -141,7 +141,7 @@ LinkedList<T> LinkedList<T>::operator+(const LinkedList<T>& other) {
 // Add the element to the end of this list.
 template<class T>
 LinkedList<T>& LinkedList<T>::operator+=(const T element) {
-	this->add(element);
+	this->append(element);
 	return *this;
 }
 
@@ -152,7 +152,7 @@ template<class T>
 LinkedList<T>& LinkedList<T>::operator+=(const LinkedList<T>& other) {
 	Node<T>* nodePtr = other.head;
 	while (nodePtr) {
-		this->add(nodePtr->data);
+		this->append(nodePtr->data);
 		nodePtr = nodePtr->next;
 	}
 	return *this;
@@ -162,7 +162,7 @@ LinkedList<T>& LinkedList<T>::operator+=(const LinkedList<T>& other) {
 
 // Add an element to the end of the list.
 template<class T>
-void LinkedList<T>::add(const T element) {
+void LinkedList<T>::append(const T element) {
 	length++;
 
 	// See if it's the first element.
@@ -553,7 +553,7 @@ void LinkedList<T>::set(const int signedIndex, const T element) {
 
 	// If index out of bounds, add to the end.
 	if (index >= length) {
-		add(element);
+		append(element);
 		return;
 	}
 
@@ -570,7 +570,7 @@ void LinkedList<T>::setFirst(const T element) {
 
 	// If empty list, simply add element.
 	if (isEmpty()) {
-		add(element);
+		append(element);
 		return;
 	}
 
@@ -586,7 +586,7 @@ void LinkedList<T>::setLast(const T element) {
 
 	// If empty list, simply add element.
 	if (isEmpty()) {
-		add(element);
+		append(element);
 		return;
 	}
 
@@ -621,7 +621,7 @@ LinkedList<T>* LinkedList<T>::subList(const uint start, const uint end) {
 
 	// Copy elements from start to end.
 	for (size_t i = start; i < end; i++) {
-		list->add(nodePtr->data);
+		list->append(nodePtr->data);
 		nodePtr = nodePtr->next;
 	}
 

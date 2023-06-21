@@ -24,7 +24,7 @@ public:
 	LinkedList<T> operator+(const LinkedList<T>& other);
 	LinkedList<T>& operator+=(const T element);
 	LinkedList<T>& operator+=(const LinkedList<T>& other);
-	void add(const T element);
+	void append(const T element);
 	void clear();
 	LinkedList<T> clone();
 	T& get(const int index);

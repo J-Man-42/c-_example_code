@@ -97,7 +97,7 @@ int main() {
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
 		cout << " (A)  Create List from Array" << endl;
-		cout << " (1)  add(element)" << endl;
+		cout << " (1)  append(element)" << endl;
 		cout << " (2)  clear()" << endl;
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  get(index)" << endl;
@@ -156,12 +156,12 @@ int main() {
 		switch (number) {
 
 
-		// Add an element.
+		// Append an element to the list.
 		case 1:
-			cout << "add(element)" << endl;
+			cout << "append(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
-			list.add(element);
+			list.append(element);
 			break;
 
 
@@ -427,7 +427,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (size_t i = 0; i < number; i++) {
-				temp.add(randUint(10, 99));
+				temp.append(randUint(10, 99));
 			}
 			list = temp;
 			break;
@@ -484,7 +484,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (size_t i = 0; i < number; i++) {
-				temp.add(randUint(10, 99));
+				temp.append(randUint(10, 99));
 			}
 			temp = list + temp;
 			cout << "> new list:  " << temp.toString() << endl;
@@ -508,7 +508,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (size_t i = 0; i < number; i++) {
-				temp.add(randUint(10, 99));
+				temp.append(randUint(10, 99));
 			}
 			list += temp;
 			break;
