@@ -2,7 +2,7 @@
 using namespace std;
 
 
-// The node struct for linked lists.
+// The node struct for linked list.
 struct Node
 {
 	int data;
@@ -28,8 +28,10 @@ bool remove(LinkedList& list, int element);
 
 // Append element to the end of the list.
 void append(LinkedList& list, int element) {
-	if (!list.head) {
-		list.head = new Node{element, nullptr};
+	if (list.head == nullptr) {
+		list.head = new Node;
+		list.head->data = element;
+		list.head->next = nullptr;
 	} else {
 		Node* nodePtr = list.head;
 		while (nodePtr->next) {
@@ -113,6 +115,61 @@ bool remove(LinkedList& list, int element) {
 
 // Main function starts here.
 int main() {
-	cout << "Hello world!" << endl;
+	char answer;
+	int element;
+	LinkedList* list = new LinkedList;
+
+	do {
+		cout << "\n\nList:  ";
+		print(*list);
+
+		cout << "\n====================" << endl;
+		cout << "(1)  append(element)" << endl;
+		cout << "(2)  insert(element)" << endl;
+		cout << "(3)  search(element)" << endl;
+		cout << "(4)  remove(element)" << endl;
+		cout << "====================" << endl;
+		cout << "> ";
+		cin >> answer;
+		answer = toupper(answer);
+
+		switch (answer) {
+		case '1':
+			cout << "append(element)" << endl;
+			cout << "element = ";
+			cin >> element;
+			append(*list, element);
+			break;
+		case '2':
+			cout << "insert(element)" << endl;
+			cout << "element = ";
+			cin >> element;
+			insert(*list, element);
+			break;
+		case '3':
+			cout << "search(element)" << endl;
+			cout << "element = ";
+			cin >> element;
+			cout << "element found:  ";
+			if (search(*list, element)) {
+				cout << "true" << endl;
+			} else {
+				cout << "false" << endl;
+			}
+			break;
+		case '4':
+			cout << "remove(element)" << endl;
+			cout << "element = ";
+			cin >> element;
+			cout << "element removed:  ";
+			if (remove(*list, element)) {
+				cout << "true" << endl;
+			} else {
+				cout << "false" << endl;
+			}
+			break;
+		}
+
+	} while (answer != 'Q');
 	return 0;
 }
