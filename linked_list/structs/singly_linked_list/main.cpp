@@ -28,7 +28,7 @@ bool remove(LinkedList& list, int element);
 
 // Append element to the end of the list.
 void append(LinkedList& list, int element) {
-	if (list.head == nullptr) {
+	if (!list.head) {
 		list.head = new Node;
 		list.head->data = element;
 		list.head->next = nullptr;
@@ -37,7 +37,10 @@ void append(LinkedList& list, int element) {
 		while (nodePtr->next) {
 			nodePtr = nodePtr->next;
 		}
-		nodePtr->next = new Node{element, nullptr};
+		nodePtr->next = new Node;
+		nodePtr = nodePtr->next;
+		nodePtr->data = element;
+		nodePtr->next = nullptr;
 	}
 }
 
@@ -46,9 +49,12 @@ void append(LinkedList& list, int element) {
 // Insert element at the beginning of the list.
 void insert(LinkedList& list, int element) {
 	if (!list.head) {
-		list.head = new Node{element, nullptr};
+		list.head = new Node;
+		list.head->data = element;
+		list.head->next = nullptr;
 	} else {
-		Node* newNode = new Node{element, nullptr};
+		Node* newNode = new Node;
+		newNode->data = element;
 		newNode->next = list.head;
 		list.head = newNode;
 	}
