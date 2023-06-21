@@ -10,41 +10,24 @@ struct Node
 };
 
 
-// Linked List with only head.
-struct LinkedListV1
+// Linked List structure.
+struct LinkedList
 {
 	Node* head;
-};
-
-
-// Linked List with both head and tail.
-struct LinkedListV2
-{
-	Node* head;
-	Node* tail;
 };
 
 
 // Function prototypes.
-
-// Linked List with only head.
-void append(LinkedListV1& list, int element);
-void insert(LinkedListV1& list, int element);
-void print(LinkedListV1& list);
-void search(LinkedListV1& list, int element);
-void remove(LinkedListV1& list, int element);
-
-// Linked List with both head and tail.
-void append(LinkedListV2& list, int element);
-void insert(LinkedListV2& list, int element);
-void print(LinkedListV2& list);
-void search(LinkedListV2& list, int element);
-void remove(LinkedListV2& list, int element);
+void append(LinkedList& list, int element);
+void insert(LinkedList& list, int element);
+void print(LinkedList& list);
+bool search(LinkedList& list, int element);
+bool remove(LinkedList& list, int element);
 
 
 
 // Append element to the end of the list.
-void append(LinkedListV1& list, int element) {
+void append(LinkedList& list, int element) {
 	if (!list.head) {
 		list.head = new Node{element, nullptr};
 	} else {
@@ -56,31 +39,12 @@ void append(LinkedListV1& list, int element) {
 	}
 }
 
-void append(LinkedListV2& list, int element) {
-	if (!list.head) {
-		list.head = list.tail = new Node{element, nullptr};
-	} else {
-		list.tail->next = new Node{element, nullptr};
-		list.tail = list.tail->next;
-	}
-}
-
 
 
 // Insert element at the beginning of the list.
-void insert(LinkedListV1& list, int element) {
+void insert(LinkedList& list, int element) {
 	if (!list.head) {
 		list.head = new Node{element, nullptr};
-	} else {
-		Node* newNode = new Node{element, nullptr};
-		newNode->next = list.head;
-		list.head = newNode;
-	}
-}
-
-void insert(LinkedListV2& list, int element) {
-	if (!list.head) {
-		list.head = list.tail = new Node{element, nullptr};
 	} else {
 		Node* newNode = new Node{element, nullptr};
 		newNode->next = list.head;
@@ -91,7 +55,7 @@ void insert(LinkedListV2& list, int element) {
 
 
 // Print all entries of the linked list.
-void print(LinkedListV1& list) {
+void print(LinkedList& list) {
 	Node* nodePtr = list.head;
 	while (nodePtr) {
 		cout << nodePtr->data << " ";
@@ -99,13 +63,19 @@ void print(LinkedListV1& list) {
 	}
 	cout << endl;
 }
-void print(LinkedListV2& list) {
+
+
+
+// Search the linked list for the given element.
+bool search(LinkedList& list, int element) {
 	Node* nodePtr = list.head;
 	while (nodePtr) {
-		cout << nodePtr->data << " ";
+		if (nodePtr->data == element) {
+			return true;
+		}
 		nodePtr = nodePtr->next;
 	}
-	cout << endl;
+	return false;
 }
 
 
