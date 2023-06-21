@@ -120,7 +120,7 @@ int main() {
 	LinkedList* list = new LinkedList;
 
 	do {
-		cout << "\n\nList:  ";
+		cout << "\n\nList:\n";
 		print(*list);
 
 		cout << "\n====================" << endl;

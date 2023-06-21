@@ -1,6 +1,7 @@
 # Ignore all compiled and output files.
 *.o
 main
+main.out
 output.txt
 
 # Ignore everything inside the playground folder.
