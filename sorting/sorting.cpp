@@ -115,12 +115,15 @@ uint Sorting::getDelay() {
 
 // Prints either the top or bottom border.
 void Sorting::printBorder(string symbol, const uint& SIZE) {
-	for (size_t i = 0; i < SIZE; i++) {
+	for (size_t i = 1; i < SIZE; i++) {
 		for (size_t j = 0; j <= barWidth; j++) {
 			cout << symbol;
 		}
 	}
-	cout << "\b " << endl;
+	for (size_t i = 0; i < barWidth; i++) {
+		cout << symbol;
+	}
+	cout << endl;
 }
 
 
@@ -1041,20 +1044,20 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 	}
 
 	// Sort by continuously popping from the heap.
-	for (size_t i = SIZE-1, j = 0; i > 0; i--, j++) {
+	for (size_t end = SIZE-1; end > 0; end--) {
 
 		// Show the array before and after swapping.
-		highlight->get(-1).index = i;
+		highlight->get(-1).index = end;
 		highlight->get(-2).index = 0;
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
-		swap(array[0], array[i]);
+		swap(array[0], array[end]);
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
-		// Call heapify for up to i elements.
-		highlight->get(i).colour = 'G';
-		heapify(array, SIZE, i, 0, highlight);
+		// Call heapify for up to end elements.
+		highlight->get(end).colour = 'G';
+		heapify(array, SIZE, end, 0, highlight);
 	}
 
 	// Display the array after sorting.
