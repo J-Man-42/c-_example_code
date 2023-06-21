@@ -1,7 +1,7 @@
 # C++ Example Code
 A collection of example code written in C++.
 
-### Table of Content:
+## Table of Content:
 ---
 ### Colour Text
 - [colour_text.cpp](colour_text/colour_text.cpp)
@@ -17,9 +17,17 @@ A collection of example code written in C++.
     * [Circular Linked List](linked_list/structs/circular_linked_list/main.cpp)
 
 ### Math
+- [math.cpp](math/math.cpp)
+- [math.h](math/math.h)
 
 ### Move Cursor
+- [move_cursor.cpp](move_cursor/move_cursor.cpp)
+- [move_cursor.h](move_cursor/move_cursor.h)
 
 ### Random
+- [random.cpp](random/random.cpp)
+- [random.h](random/random.h)
 
 ### Sorting
+- [sorting.cpp](sorting/sorting.cpp)
+- [sorting.h](sorting/sorting.h)
