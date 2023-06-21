@@ -67,6 +67,30 @@ void append(LinkedListV2& list, int element) {
 
 
 
+// Insert element at the beginning of the list.
+void insert(LinkedListV1& list, int element) {
+	if (!list.head) {
+		list.head = new Node{element, nullptr};
+	} else {
+		Node* newNode = new Node{element, nullptr};
+		newNode->next = list.head;
+		list.head = newNode;
+	}
+}
+
+void insert(LinkedListV2& list, int element) {
+	if (!list.head) {
+		list.head = list.tail = new Node{element, nullptr};
+	} else {
+		Node* newNode = new Node{element, nullptr};
+		newNode->next = list.head;
+		list.head = newNode;
+	}
+}
+
+
+
+
 // Main function starts here.
 int main() {
 	cout << "Hello world!" << endl;
