@@ -239,8 +239,8 @@ bool Sorting::compare(uint left, uint right) {
 // Bubble sort the given array.
 void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('b'));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -252,7 +252,7 @@ void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 	for (size_t n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
-			highlight->add(Highlight('G', n));
+			highlight->append(Highlight('G', n));
 		}
 		for (size_t i = 1; i < n; i++) {
 			highlight->get(0).index = i-1;
@@ -292,9 +292,9 @@ void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 // Selection sort the given array.
 void Sorting::selectionSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('R'));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('R'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -351,8 +351,8 @@ void Sorting::selectionSort(uint array[], const uint& SIZE) {
 
 		// Alter list for next comparison.
 		highlight->get(0).colour = 'b';
-		highlight->insert(0, Highlight('b'));
-		highlight->add(Highlight('G', i));
+		highlight->insert(Highlight('b'));
+		highlight->append(Highlight('G', i));
 	}
 
 	// Display the array after sorting.
@@ -368,8 +368,8 @@ void Sorting::selectionSort(uint array[], const uint& SIZE) {
 // Insertion sort the given array.
 void Sorting::insertionSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('b'));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('b'));
 	bool swapped;
 
 	// Display the array before sorting.
@@ -417,8 +417,8 @@ void Sorting::insertionSort(uint array[], const uint& SIZE) {
 // Cocktail shaker sort the given array.
 void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('b'));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -451,7 +451,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 			}
 		}
 		end--;
-		highlight->add(Highlight('G', end));
+		highlight->append(Highlight('G', end));
 
 		// Break if no swap occurred.
 		if (!swapped) {
@@ -478,7 +478,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 				sleep_for(delay);
 			}
 		}
-		highlight->add(Highlight('G', start));
+		highlight->append(Highlight('G', start));
 		start++;
 
 	} while (swapped);
@@ -521,14 +521,14 @@ void Sorting::quickSort(
 
 	// Configure all highlights.
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('b', low));
-	highlight->add(Highlight('b'));
-	highlight->add(Highlight('R', high));
+	highlight->append(Highlight('b', low));
+	highlight->append(Highlight('b'));
+	highlight->append(Highlight('R', high));
 	for (int i = 0; i < low; i++) {
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 	}
 	for (int i = high+1; i < SIZE; i++) {
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 	}
 
 	// Partition array and get the pivot index.
@@ -567,7 +567,7 @@ int Sorting::partition(
 
 		// Swap if needed.
 		if (compare(array[j], pivot)) {
-			highlight->add(Highlight('G', i));
+			highlight->append(Highlight('G', i));
 			i++;
 			swap(array[i], array[j]);
 
@@ -632,13 +632,13 @@ void Sorting::quickSortV2(
 
 	// Configure all highlights.
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('R', low));
-	highlight->add(Highlight('R'));
+	highlight->append(Highlight('R', low));
+	highlight->append(Highlight('R'));
 	for (int i = 0; i < low; i++) {
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 	}
 	for (int i = high+1; i < SIZE; i++) {
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 	}
 
 	// Partition array and get the pivot index.
@@ -675,7 +675,7 @@ int Sorting::partitionV2(
 		// Move left index (at least once).
 		do {
 			if (i >= 0) {
-				highlight->add(Highlight('G', i));
+				highlight->append(Highlight('G', i));
 			}
 			i++;
 			highlight->get(0).index = i;
@@ -686,7 +686,7 @@ int Sorting::partitionV2(
 		// Move right index (at least once).
 		do {
 			if (j <= high) {
-				highlight->add(Highlight('G', j));
+				highlight->append(Highlight('G', j));
 			}
 			j--;
 			highlight->get(1).index = j;
@@ -717,8 +717,8 @@ int Sorting::partitionV2(
 // Shell Sort the array.
 void Sorting::shellSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('R'));
-	highlight->add(Highlight('R'));
+	highlight->append(Highlight('R'));
+	highlight->append(Highlight('R'));
 	bool swapped;
 
 	// Display the array before sorting.
@@ -804,9 +804,9 @@ void Sorting::split(
 	uint middle = (start + end) / 2;
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
 	for (size_t i = 0; i < start; i++)
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 	for (size_t i = end; i < SIZE; i++)
-		highlight->add(Highlight('x', i));
+		highlight->append(Highlight('x', i));
 
 	// Display the array portion.
 	displayArray(array, SIZE, highlight);
@@ -832,8 +832,8 @@ void Sorting::merge(
 
 	// Configure the moving indices and red highlights.
 	size_t i = start, j = middle;
-	highlight->insert(0, Highlight('R', j));
-	highlight->insert(0, Highlight('R', i));
+	highlight->insert(Highlight('R', j));
+	highlight->insert(Highlight('R', i));
 
 	// Merge array into copy from start to end.
 	for (size_t k = start; k < end; k++) {
@@ -859,7 +859,7 @@ void Sorting::merge(
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 		array[k] = copy[k];
-		highlight->insert(0, Highlight('G', k));
+		highlight->insert(Highlight('G', k));
 	}
 	displayArray(array, SIZE, highlight);
 	sleep_for(delay);
@@ -870,8 +870,8 @@ void Sorting::merge(
 // Comb Sort the array.
 void Sorting::combSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('R'));
-	highlight->add(Highlight('R'));
+	highlight->append(Highlight('R'));
+	highlight->append(Highlight('R'));
 	uint gap = SIZE;
 	bool sorted = false;
 
@@ -937,7 +937,7 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 
 	// Iterate through all digits.
 	for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
-		highlight->add(Highlight('b'));
+		highlight->append(Highlight('b'));
 
 		// Reset the counting array.
 		for (size_t i = 0; i < BASE; i++) {
@@ -991,7 +991,7 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 			array[count[d]] = copy[i];
 
 			// Show array after copy.
-			highlight->add(Highlight('G', count[d]));
+			highlight->append(Highlight('G', count[d]));
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
@@ -1011,8 +1011,8 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 // Heap Sort the array.
 void Sorting::heapSort(uint array[], const uint& SIZE) {
 	LinkedList<Highlight>* highlight = new LinkedList<Highlight>();
-	highlight->add(Highlight('R'));
-	highlight->add(Highlight('R'));
+	highlight->append(Highlight('R'));
+	highlight->append(Highlight('R'));
 
 	// The colours for various heap heights.
 	char colours[] = {'m', 'y', 'c', 'M', 'C'};
@@ -1029,7 +1029,7 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 	// Highlight all entries after node.
 	for (int i = SIZE-1; i > node; i--) {
 		index = int(log2(i+1)) % 5;
-		highlight->insert(0, Highlight(colours[index], i));
+		highlight->insert(Highlight(colours[index], i));
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 	}
@@ -1040,7 +1040,7 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 
 		// Highlight parents already considered.
 		index = int(log2(i+1)) % 5;
-		highlight->insert(0, Highlight(colours[index], i));
+		highlight->insert(Highlight(colours[index], i));
 	}
 
 	// Sort by continuously popping from the heap.
