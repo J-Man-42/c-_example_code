@@ -99,29 +99,30 @@ bool remove(LinkedList& list, int element) {
 		return false;
 	}
 
-	// if (list.head->data == element && list.head->next == list.head) {
-	// 	delete list.head;
-	// 	list.head = nullptr;
-	// 	return true;
-	// }
+	if (list.head->data == element && list.head->next == list.head) {
+		delete list.head;
+		list.head = nullptr;
+		return true;
+	}
 
-	// Node* prevPtr = list.head;
-	// Node* nodePtr = prevPtr->next;
-	// while (nodePtr != list.head) {
-	// 	if (nodePtr->data == element) {
-	// 		prevPtr->next = nodePtr->next;
-	// 		delete nodePtr;
-	// 		return true;
-	// 	}
-	// 	prevPtr = nodePtr;
-	// 	nodePtr = nodePtr->next;
-	// }
+	Node* prevPtr = list.head;
+	Node* nodePtr = prevPtr->next;
+	while (nodePtr != list.head) {
+		if (nodePtr->data == element) {
+			prevPtr->next = nodePtr->next;
+			delete nodePtr;
+			return true;
+		}
+		prevPtr = nodePtr;
+		nodePtr = nodePtr->next;
+	}
 
-	// if (nodePtr == prevPtr) {
-	// 	delete list.head;
-	// 	list.head = nullptr;
-	// 	return true;
-	// }
+	if (nodePtr->data == element && nodePtr == list.head) {
+		prevPtr->next = nodePtr->next;
+		list.head = list.head->next;
+		delete nodePtr;
+		return true;
+	}
 
 	return false;
 }
@@ -136,7 +137,7 @@ int main() {
 	LinkedList* list = new LinkedList;
 
 	do {
-		cout << "\n\nList:  ";
+		cout << "\n\nList:\n";
 		print(*list);
 
 		cout << "\n====================" << endl;
