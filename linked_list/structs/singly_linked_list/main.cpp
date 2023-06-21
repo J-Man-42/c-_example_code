@@ -90,6 +90,26 @@ void insert(LinkedListV2& list, int element) {
 
 
 
+// Print all entries of the linked list.
+void print(LinkedListV1& list) {
+	Node* nodePtr = list.head;
+	while (nodePtr) {
+		cout << nodePtr->data << " ";
+		nodePtr = nodePtr->next;
+	}
+	cout << endl;
+}
+void print(LinkedListV2& list) {
+	Node* nodePtr = list.head;
+	while (nodePtr) {
+		cout << nodePtr->data << " ";
+		nodePtr = nodePtr->next;
+	}
+	cout << endl;
+}
+
+
+
 
 // Main function starts here.
 int main() {
