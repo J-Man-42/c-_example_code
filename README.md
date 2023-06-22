@@ -16,6 +16,7 @@ A collection of example code written in C++.
     * [Singly Linked List](linked_list/structs/singly_linked_list/main.cpp)
     * [Circular Linked List](linked_list/structs/circular_linked_list/main.cpp)
     * [Doubly Linked List](linked_list/structs/doubly_linked_list/main.cpp)
+    * [Circular Doubly Linked List](linked_list/structs/circular_doubly_linked_list/main.cpp)
 
 ### Math
 - [math.cpp](math/math.cpp)
