@@ -7,6 +7,7 @@ struct Node
 {
 	int data;
 	Node* next;
+	Node* prev;
 };
 
 
@@ -20,10 +21,9 @@ struct LinkedList
 // Function prototypes.
 void append(LinkedList& list, int element);
 void insert(LinkedList& list, int element);
-void print(LinkedList& list);
+void print(LinkedList& list, bool ascending = true);
 bool search(LinkedList& list, int element);
 bool remove(LinkedList& list, int element);
-
 
 
 // Append element to the end of the list.
@@ -32,18 +32,16 @@ void append(LinkedList& list, int element) {
 		list.head = new Node;
 		list.head->data = element;
 		list.head->next = list.head;
+		list.head->prev = list.head;
 	} else {
-		Node* nodePtr = list.head;
-		while (nodePtr->next != list.head) {
-			nodePtr = nodePtr->next;
-		}
-		nodePtr->next = new Node;
-		nodePtr = nodePtr->next;
-		nodePtr->data = element;
-		nodePtr->next = list.head;
+		Node* newNode = new Node;
+		newNode->data = element;
+		newNode->next = list.head;
+		newNode->prev = list.head->prev;
+		newNode->next->prev = newNode;
+		newNode->prev->next = newNode;
 	}
 }
-
 
 
 // Insert element at the beginning of the list.
@@ -52,35 +50,39 @@ void insert(LinkedList& list, int element) {
 		list.head = new Node;
 		list.head->data = element;
 		list.head->next = list.head;
+		list.head->prev = list.head;
 	} else {
-		Node* nodePtr = list.head;
-		while (nodePtr->next != list.head) {
-			nodePtr = nodePtr->next;
-		}
-		nodePtr->next = new Node;
-		nodePtr = nodePtr->next;
-		nodePtr->data = element;
-		nodePtr->next = list.head;
-		list.head = nodePtr;
+		Node* newNode = new Node;
+		newNode->data = element;
+		newNode->next = list.head;
+		newNode->prev = list.head->prev;
+		newNode->next->prev = newNode;
+		newNode->prev->next = newNode;
+		list.head = newNode;
 	}
 }
 
 
-
 // Print all entries of the linked list.
-void print(LinkedList& list) {
+void print(LinkedList& list, bool ascending) {
 	if (!list.head) {
 		cout << endl;
 		return;
 	}
 	Node* nodePtr = list.head;
-	do {
-		cout << nodePtr->data << " ";
-		nodePtr = nodePtr->next;
-	} while (nodePtr != list.head);
+	if (ascending) {
+		do {
+			cout << nodePtr->data << " ";
+			nodePtr = nodePtr->next;
+		} while (nodePtr != list.head);
+	} else {
+		do {
+			nodePtr = nodePtr->prev;
+			cout << nodePtr->data << " ";
+		} while (nodePtr != list.head);
+	}
 	cout << endl;
 }
-
 
 
 // Search the linked list for the given element.
@@ -99,41 +101,39 @@ bool search(LinkedList& list, int element) {
 }
 
 
-
 // The remove the given element from the list.
 bool remove(LinkedList& list, int element) {
 	if (!list.head) {
 		return false;
 	}
 
-	if (list.head->data == element && list.head->next == list.head) {
-		delete list.head;
-		list.head = nullptr;
+	if (list.head->data == element) {
+		if (list.head->next == list.head) {
+			delete list.head;
+			list.head = nullptr;
+		} else {
+			Node* nodePtr = list.head;
+			list.head = nodePtr->next;
+			nodePtr->prev->next = nodePtr->next;
+			nodePtr->next->prev = nodePtr->prev;
+			delete nodePtr;
+		}
 		return true;
 	}
 
-	Node* prevPtr = list.head;
-	Node* nodePtr = prevPtr->next;
+	Node* nodePtr = list.head->next;
 	while (nodePtr != list.head) {
 		if (nodePtr->data == element) {
-			prevPtr->next = nodePtr->next;
+			nodePtr->prev->next = nodePtr->next;
+			nodePtr->next->prev = nodePtr->prev;
 			delete nodePtr;
 			return true;
 		}
-		prevPtr = nodePtr;
 		nodePtr = nodePtr->next;
-	}
-
-	if (nodePtr->data == element && nodePtr == list.head) {
-		prevPtr->next = nodePtr->next;
-		list.head = list.head->next;
-		delete nodePtr;
-		return true;
 	}
 
 	return false;
 }
-
 
 
 
@@ -145,7 +145,10 @@ int main() {
 
 	do {
 		cout << "\n\nList:\n";
+		cout << "Forward:   ";
 		print(*list);
+		cout << "Backward:  ";
+		print(*list, false);
 
 		cout << "\n====================" << endl;
 		cout << "(1)  append(element)" << endl;
