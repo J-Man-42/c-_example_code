@@ -7,9 +7,6 @@
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
-// Simplify duration type.
-typedef std::chrono::duration<int, std::milli> Duration;
-
 
 // The class for housing a highlight colour, value, and index.
 class Highlight
@@ -30,6 +27,10 @@ public:
 	char colour;
 	int index;
 };
+
+// Simplify multiple types.
+typedef LinkedList<Highlight> Highlights;
+typedef std::chrono::duration<int, std::milli> Duration;
 
 
 // The static class for various sorting algorithms.
@@ -52,7 +53,7 @@ public:
 	static uint getDelay();
 	static void displayArray(
 		uint array[], const uint& SIZE,
-		LinkedList<Highlight>* highlight = nullptr,
+		Highlights* highlight = nullptr,
 		uint horizontalBar = 0);
 	static void bubbleSort(uint array[], const uint& SIZE);
 	static void selectionSort(uint array[], const uint& SIZE);
@@ -88,22 +89,22 @@ private:
 		uint array[], const int& SIZE, int low, int high);
 	static int partition(
 		uint array[], const int& SIZE, int low, int high,
-		LinkedList<Highlight>* highlight);
+		Highlights* highlight);
 	static void quickSortV2(
 		uint array[], const int& SIZE, int low, int high);
 	static int partitionV2(
 		uint array[], const int& SIZE, int low, int high,
-		LinkedList<Highlight>* highlight);
+		Highlights* highlight);
 	static void split(
 		uint array[], uint copy[], const uint& SIZE,
 		uint start, uint end);
 	static void merge(
 		uint array[], uint copy[], const uint& SIZE,
 		uint start, uint middle, uint end,
-		LinkedList<Highlight>* highlight);
+		Highlights* highlight);
 	static void heapify(
 		uint array[], const uint& SIZE, uint end,
-		uint parentIndex, LinkedList<Highlight>* highlight);
+		uint parentIndex, Highlights* highlight);
 };
 
 
