@@ -233,9 +233,9 @@ int main() {
 				break;
 			case 11:
 				cout << "base = ";
-				uint base;
-				cin >> base;
-				Sorting<uint>::radixSort(array, size, base);
+				cin.getline(answer, 20);
+				number = atoi(answer);
+				Sorting<uint>::radixSort(array, size, number);
 				break;
 			case 12:
 				Sorting<uint>::heapSort(array, size);

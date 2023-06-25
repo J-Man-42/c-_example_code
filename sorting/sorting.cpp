@@ -498,93 +498,74 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 // Radix Sort the array using the specified base.
 template <class T>
 void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
-	// Highlights* highlight = new Highlights();
+	clearScreen();
+	cout << "Performing Radix Sort (base "<<BASE<<")..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Get the number of digits from the maximum value.
-	// uint maxValue = max(array, SIZE);
-	// uint numDigits = 1;
-	// if (maxValue >= BASE) {
-	// 	numDigits += log(BASE, maxValue);
-	// }
+	// Get the number of digits from the maximum value.
+	uint maxValue = max(array, SIZE);
+	uint numDigits = 1;
+	if (maxValue >= BASE) {
+		numDigits += log(BASE, maxValue);
+	}
 
-	// // Create counting array and copy of original array.
-	// uint count[BASE];
-	// uint copy[SIZE];
+	// Create counting array and copy of original array.
+	uint count[BASE];
+	uint copy[SIZE];
 
-	// // Iterate through all digits.
-	// for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
-	// 	highlight->append(Highlight('b'));
+	// Iterate through all digits.
+	for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
 
-	// 	// Reset the counting array.
-	// 	for (size_t i = 0; i < BASE; i++) {
-	// 		count[i] = 0;
-	// 	}
+		// Reset the counting array.
+		for (size_t i = 0; i < BASE; i++) {
+			count[i] = 0;
+		}
 
-	// 	// Iterate through all elements in the array.
-	// 	for (size_t i = 0; i < SIZE; i++) {
-	// 		copy[i] = array[i];
+		// Iterate through all elements in the array.
+		for (size_t i = 0; i < SIZE; i++) {
+			copy[i] = array[i];
 
-	// 		// Show current comparison.
-	// 		highlight->getFirst().index = i;
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
+			// Determine the current digit.
+			d = (array[i] / digit) % BASE;
 
-	// 		// Determine the current digit.
-	// 		d = (array[i] / digit) % BASE;
+			// Invert digit if descending order.
+			if (!sortAscending) {
+				d = BASE - 1 - d;
+			}
 
-	// 		// Invert digit if descending order.
-	// 		if (!sortAscending) {
-	// 			d = BASE - 1 - d;
-	// 		}
+			// Increment the respective count.
+			count[d]++;
+		}
 
-	// 		// Increment the respective count.
-	// 		count[d]++;
-	// 	}
+		// Increment each subsequent count.
+		for (size_t i = 1; i < BASE; i++) {
+			count[i] += count[i-1];
+		}
 
-	// 	// Display before swapping.
-	// 	displayArray(array, SIZE);
-	// 	sleep_for(delay);
+		// Copy the sorted elements back into the original array.
+		for (int i = SIZE-1; i >= 0; i--) {
 
-	// 	// Increment each subsequent count.
-	// 	for (size_t i = 1; i < BASE; i++) {
-	// 		count[i] += count[i-1];
-	// 	}
+			// Determine the current digit.
+			d = (copy[i] / digit) % BASE;
 
-	// 	// Copy the sorted elements back into the original array.
-	// 	highlight->clear();
-	// 	for (int i = SIZE-1; i >= 0; i--) {
+			// Invert digit if descending order.
+			if (!sortAscending) {
+				d = BASE - 1 - d;
+			}
 
-	// 		// Determine the current digit.
-	// 		d = (copy[i] / digit) % BASE;
+			// Copy to array.
+			count[d]--;
+			array[count[d]] = copy[i];
+		}
+	}
 
-	// 		// Invert digit if descending order.
-	// 		if (!sortAscending) {
-	// 			d = BASE - 1 - d;
-	// 		}
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// 		// Copy to array.
-	// 		count[d]--;
-	// 		array[count[d]] = copy[i];
-
-	// 		// Show array after copy.
-	// 		highlight->append(Highlight('G', count[d]));
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 	}
-
-	// 	// Display the array after copying all.
-	// 	highlight->clear();
-	// 	displayArray(array, SIZE);
-	// 	sleep_for(delay);
-	// }
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
