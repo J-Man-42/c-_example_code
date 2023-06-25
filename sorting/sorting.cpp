@@ -573,118 +573,74 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
 // Heap Sort the array.
 template <class T>
 void Sorting<T>::heapSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('R'));
-	// highlight->append(Highlight('R'));
+	clearScreen();
+	cout << "Performing Heap Sort..." << endl;
 
-	// // The colours for various heap heights.
-	// char colours[] = {'m', 'y', 'c', 'M', 'C'};
-	// uint index;
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Get index of last non-leaf node.
+	int node = SIZE / 2 - 1;
 
-	// // Get index of last non-leaf node.
-	// int node = SIZE / 2 - 1;
+	// Heapify the whole array.
+	for (int i = node; i >= 0; i--) {
+		heapify(array, SIZE, i);
+	}
 
-	// // Highlight all entries after node.
-	// for (int i = SIZE-1; i > node; i--) {
-	// 	index = int(log2(i+1)) % 5;
-	// 	highlight->insert(Highlight(colours[index], i));
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
-	// }
+	// Sort by continuously popping from the heap.
+	for (size_t end = SIZE-1; end > 0; end--) {
+		swap(array[0], array[end]);
+		heapify(array, end, 0);
+	}
 
-	// // Heapify the whole array.
-	// for (int i = node; i >= 0; i--) {
-	// 	heapify(array, SIZE, SIZE, i, highlight);
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// 	// Highlight parents already considered.
-	// 	index = int(log2(i+1)) % 5;
-	// 	highlight->insert(Highlight(colours[index], i));
-	// }
-
-	// // Sort by continuously popping from the heap.
-	// for (size_t end = SIZE-1; end > 0; end--) {
-
-	// 	// Show the array before and after swapping.
-	// 	highlight->get(-1).index = end;
-	// 	highlight->get(-2).index = 0;
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
-	// 	swap(array[0], array[end]);
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
-
-	// 	// Call heapify for up to end elements.
-	// 	highlight->get(end).colour = 'G';
-	// 	heapify(array, SIZE, end, 0, highlight);
-	// }
-
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
 // Recursively heapify the array at the given index.
 template <class T>
-void Sorting<T>::heapify(
-	T array[], const uint& SIZE, uint end, uint parentIndex) {
+void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
 
-	// // The index of the lowest non-leaf node.
-	// uint lowestNoneLeaf = end / 2 - 1;
+	// The index of the lowest non-leaf node.
+	uint lowestNoneLeaf = end / 2 - 1;
 
-	// // Iterate for all children.
-	// uint left, right, criticalIndex;
-	// while (parentIndex <= lowestNoneLeaf) {
+	// Iterate for all children.
+	uint left, right, criticalIndex;
+	while (parentIndex <= lowestNoneLeaf) {
 
-	// 	// Depending on sorting order is index of either
-	// 	// max or min value.
-	// 	criticalIndex = parentIndex;
+		// Depending on sorting order is index of either
+		// max or min value.
+		criticalIndex = parentIndex;
 
-	// 	// Calculate left and right child indices.
-	// 	left = 2*parentIndex + 1;
-	// 	right = 2*parentIndex + 2;
+		// Calculate left and right child indices.
+		left = 2*parentIndex + 1;
+		right = 2*parentIndex + 2;
 
-	// 	// Check if right must be swapped.
-	// 	if (right < end &&
-	// 		compare(array[criticalIndex], array[right])) {
-	// 		criticalIndex = right;
-	// 	}
+		// Check if right must be swapped.
+		if (right < end &&
+			compare(array[criticalIndex], array[right])) {
+			criticalIndex = right;
+		}
 
-	// 	// Check if left must be swapped.
-	// 	if (left < end &&
-	// 		compare(array[criticalIndex], array[left])) {
-	// 		criticalIndex = left;
-	// 	}
+		// Check if left must be swapped.
+		if (left < end &&
+			compare(array[criticalIndex], array[left])) {
+			criticalIndex = left;
+		}
 
-	// 	// Display the array before swapping.
-	// 	highlight->get(-1).index = criticalIndex;
-	// 	highlight->get(-2).index = parentIndex;
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
+		// Only swap and trickle down heap
+		// if parent is not the critical value.
+		if (criticalIndex != parentIndex) {
+			swap(array[criticalIndex], array[parentIndex]);
+			parentIndex = criticalIndex;
+		}
 
-	// 	// Only swap and trickle down heap
-	// 	// if parent is not the critical value.
-	// 	if (criticalIndex != parentIndex) {
+		// Break loop otherwise.
+		else break;
 
-	// 		// Display the array after swapping.
-	// 		swap(array[criticalIndex], array[parentIndex]);
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-
-	// 		// Update parent index.
-	// 		parentIndex = criticalIndex;
-	// 	}
-
-	// 	// Break loop otherwise.
-	// 	else break;
-
-	// }
+	}
 }

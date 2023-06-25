@@ -45,8 +45,7 @@ private:
 	static void split(T array[], T copy[], uint start, uint end);
 	static void merge(
 		T array[], T copy[], uint start, uint middle, uint end);
-	static void heapify(
-		T array[], const uint& SIZE, uint end, uint parentIndex);
+	static void heapify(T array[], uint end, uint parentIndex);
 };
 
 #include "sorting.cpp"
