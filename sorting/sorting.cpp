@@ -391,98 +391,70 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 // Merge Sort the array.
 template <class T>
 void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
+	clearScreen();
+	cout << "Performing Merge Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Temporary array for copying.
-	// uint copy[SIZE];
+	// Temporary array for copying.
+	uint copy[SIZE];
 
-	// // Call the recursive split function.
-	// split(array, copy, SIZE, 0, SIZE);
+	// Call the recursive split function.
+	split(array, copy, 0, SIZE);
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
+
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
 // The function to recursively split the array for Merge Sort.
 template <class T>
-void Sorting<T>::split(
-	T array[], T copy[], const uint& SIZE,
-	uint start, uint end) {
+void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
 
-	// // Stopping condition.
-	// if (end - start <= 1) {
-	// 	return;
-	// }
+	// Stopping condition.
+	if (end - start <= 1) {
+		return;
+	}
 
-	// // Grey out all entries before start and after end.
-	// uint middle = (start + end) / 2;
-	// Highlights* highlight = new Highlights();
-	// for (size_t i = 0; i < start; i++)
-	// 	highlight->append(Highlight('x', i));
-	// for (size_t i = end; i < SIZE; i++)
-	// 	highlight->append(Highlight('x', i));
+	// Get midpoint of start and end.
+	uint middle = (start + end) / 2;
 
-	// // Display the array portion.
-	// displayArray(array, SIZE, highlight);
-	// sleep_for(delay);
+	// Split into left and right halves.
+	split(array, copy, start, middle);
+	split(array, copy, middle, end);
 
-	// // Split into left and right halves.
-	// split(array, copy, SIZE, start, middle);
-	// split(array, copy, SIZE, middle, end);
-
-	// // Merge the current array.
-	// merge(array, copy, SIZE, start, middle, end, highlight);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Merge the current array.
+	merge(array, copy, start, middle, end);
 }
 
 
 // Merge the array again.
 template <class T>
 void Sorting<T>::merge(
-	T array[], T copy[], const uint& SIZE,
-	uint start, uint middle, uint end) {
+	T array[], T copy[], uint start, uint middle, uint end) {
 
-	// // Configure the moving indices and red highlights.
-	// size_t i = start, j = middle;
-	// highlight->insert(Highlight('R', j));
-	// highlight->insert(Highlight('R', i));
+	// Configure the moving indices.
+	size_t i = start, j = middle;
 
-	// // Merge array into copy from start to end.
-	// for (size_t k = start; k < end; k++) {
+	// Merge array into copy from start to end.
+	for (size_t k = start; k < end; k++) {
+		if (i < middle && (j >= end || compare(array[i], array[j]))) {
+			copy[k] = array[i];
+			i++;
+		} else {
+			copy[k] = array[j];
+			j++;
+		}
+	}
 
-	// 	// Display the comparison.
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
-	// 	if (i < middle && (j >= end || compare(array[i], array[j]))) {
-	// 		copy[k] = array[i];
-	// 		i++;
-	// 		highlight->get(0).index++;
-	// 	} else {
-	// 		copy[k] = array[j];
-	// 		j++;
-	// 		highlight->get(1).index++;
-	// 	}
-	// }
-
-	// // Copy back into original array.
-	// highlight->removeAt(0);
-	// highlight->removeAt(0);
-	// for (size_t k = start; k < end; k++) {
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
-	// 	array[k] = copy[k];
-	// 	highlight->insert(Highlight('G', k));
-	// }
-	// displayArray(array, SIZE, highlight);
-	// sleep_for(delay);
+	// Copy back into original array.
+	for (size_t k = start; k < end; k++) {
+		array[k] = copy[k];
+	}
 }
 
 

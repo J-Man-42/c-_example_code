@@ -42,12 +42,9 @@ private:
 	static int partition(T array[], int low, int high);
 	static void quickSortV2(T array[], int low, int high);
 	static int partitionV2(T array[], int low, int high);
-	static void split(
-		T array[], T copy[], const uint& SIZE,
-		uint start, uint end);
+	static void split(T array[], T copy[], uint start, uint end);
 	static void merge(
-		T array[], T copy[], const uint& SIZE,
-		uint start, uint middle, uint end);
+		T array[], T copy[], uint start, uint middle, uint end);
 	static void heapify(
 		T array[], const uint& SIZE, uint end, uint parentIndex);
 };
