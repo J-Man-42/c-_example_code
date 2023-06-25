@@ -82,76 +82,46 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 // Selection sort the given array.
 template <class T>
 void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('b'));
-	// highlight->append(Highlight('b'));
-	// highlight->append(Highlight('R'));
+	cout << "Performing Selection Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Indicate the starting index.
-	// bool isSorted;
-	// size_t minIndex;
-	// for (size_t i = 0; i < SIZE-1; i++) {
-	// 	highlight->get(2).index = i;
-	// 	minIndex = i;
-	// 	isSorted = true;
-	// 	for (size_t j = i+1; j < SIZE; j++) {
-	// 		highlight->get(0).index = i;
-	// 		highlight->get(1).index = j;
+	// Indicate the starting index.
+	bool isSorted;
+	size_t minIndex;
+	for (size_t i = 0; i < SIZE-1; i++) {
+		minIndex = i;
+		isSorted = true;
+		for (size_t j = i+1; j < SIZE; j++) {
 
-	// 		// Display the current comparison.
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
+			// New critical value.
+			if (compare(array[j], array[minIndex])) {
+				minIndex = j;
+			}
 
-	// 		// New critical value.
-	// 		if (compare(array[j], array[minIndex])) {
-	// 			minIndex = j;
-	// 			highlight->get(2).index = minIndex;
-	// 		}
+			// Update is sorted status.
+			if (compare(array[j], array[j-1])) {
+				isSorted = false;
+			}
+		}
 
-	// 		// Update is sorted status.
-	// 		if (compare(array[j], array[j-1])) {
-	// 			isSorted = false;
-	// 		}
-	// 	}
+		// Only swap if needed.
+		if (minIndex != i) {
+			swap(array[i], array[minIndex]);
+		}
 
-	// 	// Alter list for swapping.
-	// 	highlight->removeAt(0);
-	// 	highlight->set(0, Highlight('R', minIndex));
-	// 	highlight->get(1).index = i;
+		// Break loop if already sorted.
+		if (isSorted) {
+			break;
+		}
+	}
 
-	// 	// Display the array before and after swapping.
-	// 	displayArray(array, SIZE, highlight);
-	// 	sleep_for(delay);
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// 	// Only swap if needed.
-	// 	if (minIndex != i) {
-	// 		swap(array[i], array[minIndex]);
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 	}
-
-	// 	// Break loop if already sorted.
-	// 	if (isSorted) {
-	// 		break;
-	// 	}
-
-	// 	// Alter list for next comparison.
-	// 	highlight->get(0).colour = 'b';
-	// 	highlight->insert(Highlight('b'));
-	// 	highlight->append(Highlight('G', i));
-	// }
-
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 

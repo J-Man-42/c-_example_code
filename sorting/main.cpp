@@ -9,9 +9,9 @@ using namespace std;
 int main() {
 	uint number;
 	char answer[21];
-	size_t size = 20;
+	size_t size = 10000;
 	uint minValue = 1;
-	uint maxValue = 40;
+	uint maxValue = 10000;
 	bool mustRefresh = true;
 
 	// Initialise array.
