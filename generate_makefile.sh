@@ -46,13 +46,20 @@ templates=( $(echo "${templates[@]%.*}")  )
 
 
 # Indicate to user that the makefile is being generated.
-printf "Generating makefile...\n"
+printf "Generating makefile..."
 if [[ $includes ]]; then
-	printf "> includes:   ${includes[@]}\n"
+	printf "\n> includes: "
+	for item in ${includes[@]}; do
+		printf "  $item.h"
+	done
 fi
 if [[ $templates ]]; then
-	printf "> templates:  ${templates[@]}\n"
+	printf "\n> templates:"
+	for item in ${templates[@]}; do
+		printf "  $item.h"
+	done
 fi
+printf "\n"
 
 
 # Print the variables and lists section.
