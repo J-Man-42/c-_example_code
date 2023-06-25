@@ -1,0 +1,245 @@
+#include <iostream>
+#include "sorting.h"
+#include "../move_cursor/move_cursor.h"
+#include "../random/random.h"
+using namespace std;
+
+
+// Main loop function.
+int main() {
+	uint number;
+	char answer[21];
+	size_t size = 20;
+	uint minValue = 1;
+	uint maxValue = 40;
+	bool mustRefresh = true;
+
+	// Initialise array.
+	uint* array = randUintArray(size, minValue, maxValue);
+
+	// Main loop.
+	while (answer[0] != 'Q') {
+
+		// Show the options.
+		cout << "========================================" << endl;
+		cout << "Array contents ~ Z["<<minValue<<", "<<maxValue<<"]" << endl;
+		cout << "Array size = " << size << endl;
+		cout << "Sort ";
+		cout << (Sorting<uint>::sortAscending ? "Ascending" : "Descending");
+		cout << " Order" << endl;
+		cout << "========================================" << endl;
+		cout << "(1)  Alter Array" << endl;
+		cout << "(2)  Update Array Range" << endl;
+		cout << "(3)  Toggle Ascending/Descending" << endl;
+		cout << "(4)  Sort Array" << endl;
+		cout << "(Q)  << QUIT PROGRAM >>" << endl;
+		cout << "========================================" << endl;
+		cout << "> ";
+		cin.getline(answer, 20);
+
+		// Format the answer.
+		answer[0] = toupper(answer[0]);
+		mustRefresh = (answer[0] != '4');
+
+		// Safety for number higher than 7.
+		if (isdigit(answer[0]) && atoi(answer) > 4) {
+			continue;
+		}
+
+
+		// Perform the user specified action.
+		switch (answer[0]) {
+
+
+		// Alter the array.
+		case '1':
+			cout << "========================================" << endl;
+			cout << "(1)  Change Array Size" << endl;
+			cout << "(2)  Reverse Array Order" << endl;
+			cout << "(3)  Create Sorted Ascending Array" << endl;
+			cout << "(4)  Create Sorted Descending Array" << endl;
+			cout << "(5)  Shuffle Current Array" << endl;
+			cout << "(6)  Randomise Array" << endl;
+			cout << "========================================" << endl;
+			cout << "> ";
+			cin.getline(answer, 20);
+
+			// Perform the requested array alteration.
+			switch (answer[0]) {
+
+			// Change array size.
+			case '1':
+				cout << "new size = ";
+				size_t newSize;
+				cin >> newSize;
+
+				// Shrink array.
+				if (newSize < size) {
+					uint* newArray = new uint[newSize];
+					for (size_t i = 0; i < newSize; i++) {
+						newArray[i] = array[i];
+					}
+					delete [] array;
+					array = newArray;
+					size = newSize;
+				}
+
+				// Grow array.
+				else if (newSize > size) {
+					uint* newArray = new uint[newSize];
+					for (size_t i = 0; i < size; i++) {
+						newArray[i] = array[i];
+					}
+					for (size_t i = size; i < newSize; i++) {
+						newArray[i] = randUint(minValue, maxValue);
+					}
+					delete [] array;
+					array = newArray;
+					size = newSize;
+				}
+				break;
+
+			// Reverse the array order.
+			case '2':
+				for (size_t i = 0, j = size-1; i < j; i++, j--) {
+					swap(array[i], array[j]);
+				}
+				break;
+
+			// Array with ascending elements.
+			case '3':
+				size = maxValue - minValue + 1;
+				delete [] array;
+				array = new uint[size];
+				for (uint i = 0, n = minValue; i < size; i++, n++) {
+					array[i] = n;
+				}
+				break;
+
+			// Array with descending elements.
+			case '4':
+				size = maxValue - minValue + 1;
+				delete [] array;
+				array = new uint[size];
+				for (uint i = 0, n = maxValue; i < size; i++, n--) {
+					array[i] = n;
+				}
+				break;
+
+			// Shuffle the current array.
+			case '5':
+				shuffle(array, size);
+				break;
+
+			// Randomise the array.
+			case '6':
+				delete [] array;
+				array = randUintArray(size, minValue, maxValue);
+				break;
+
+			}
+			break;
+
+
+		// Update the minimum and maximum values.
+		case '2':
+			cout << "minimum value = ";
+			cin >> minValue;
+			cout << "maximum value = ";
+			cin >> maxValue;
+
+			// Ensure maxValue >= minValue.
+			if (minValue > maxValue) {
+				swap(minValue, maxValue);
+			}
+
+			// Modify the array to meet this criteria.
+			for (size_t i = 0; i < size; i++) {
+				array[i] = max(minValue, array[i]);
+				array[i] = min(maxValue, array[i]);
+			}
+
+			break;
+
+
+		// Toggle sorting in ascending/descending order.
+		case '3':
+			Sorting<uint>::sortAscending = !Sorting<uint>::sortAscending;
+			break;
+
+
+		// Run one of the sorting algorithms..
+		case '4':
+			cout << "==============================" << endl;
+			cout << " (1)  Bubble Sort" << endl;
+			cout << " (2)  Selection Sort" << endl;
+			cout << " (3)  Insertion Sort" << endl;
+			cout << " (4)  Cocktail Shaker Sort" << endl;
+			cout << " (5)  QuickSort" << endl;
+			cout << " (6)  QuickSort V2" << endl;
+			cout << " (7)  Shell Sort" << endl;
+			cout << " (8)  Merge Sort" << endl;
+			cout << " (9)  Comb Sort" << endl;
+			cout << "(10)  Radix Sort (base 10)" << endl;
+			cout << "(11)  Radix Sort (custom base)" << endl;
+			cout << "(12)  Heap Sort" << endl;
+			cout << "==============================" << endl;
+			cout << "> ";
+			cin.getline(answer, 20);
+
+			// Continue if not a number.
+			if (!isdigit(answer[0])) {
+				clearScreen();
+				continue;
+			}
+
+			// Run the requested sorting algorithm.
+			number = atoi(answer);
+			switch (number) {
+			case 1:
+				Sorting<uint>::bubbleSort(array, size);
+				break;
+			case 2:
+				Sorting<uint>::selectionSort(array, size);
+				break;
+			case 3:
+				Sorting<uint>::insertionSort(array, size);
+				break;
+			case 4:
+				Sorting<uint>::cocktailShakerSort(array, size);
+				break;
+			case 5:
+				Sorting<uint>::quickSort(array, size);
+				break;
+			case 6:
+				Sorting<uint>::quickSortV2(array, size);
+				break;
+			case 7:
+				Sorting<uint>::shellSort(array, size);
+				break;
+			case 8:
+				Sorting<uint>::mergeSort(array, size);
+				break;
+			case 9:
+				Sorting<uint>::combSort(array, size);
+				break;
+			case 10:
+				Sorting<uint>::radixSort(array, size);
+				break;
+			case 11:
+				cout << "base = ";
+				uint base;
+				cin >> base;
+				Sorting<uint>::radixSort(array, size, base);
+				break;
+			case 12:
+				Sorting<uint>::heapSort(array, size);
+				break;
+			default:
+				clearScreen();
+			}
+		}
+	}
+
+	return 0;
+}
