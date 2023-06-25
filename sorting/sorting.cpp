@@ -129,49 +129,27 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 // Insertion sort the given array.
 template <class T>
 void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('b'));
-	// highlight->append(Highlight('b'));
-	// bool swapped;
+	cout << "Performing Insertion Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Iterate starting from the second element.
-	// for (size_t i = 1; i < SIZE; i++) {
-	// 	swapped = false;
+	// Iterate starting from the second element.
+	for (size_t i = 1; i < SIZE; i++) {
 
-	// 	// Loop while swapping is needed.
-	// 	size_t j = i;
-	// 	while (j > 0 && compare(array[j], array[j-1])) {
-	// 		highlight->get(0).index = j-1;
-	// 		highlight->get(1).index = j;
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 		swap(array[j], array[j-1]);
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 		swapped = true;
-	// 		j--;
-	// 	}
+		// Loop while swapping is needed.
+		size_t j = i;
+		while (j > 0 && compare(array[j], array[j-1])) {
+			swap(array[j], array[j-1]);
+			j--;
+		}
+	}
 
-	// 	// Only print if no swap occurred.
-	// 	if (!swapped) {
-	// 		highlight->get(0).index = i-1;
-	// 		highlight->get(1).index = i;
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 	}
-	// }
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
