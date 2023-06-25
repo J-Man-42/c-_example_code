@@ -46,11 +46,6 @@ bool Sorting<T>::compare(T left, T right) {
 // Bubble sort the given array.
 template <class T>
 void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Bubble Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Sort up to last sorted element.
 	bool swapped;
@@ -70,12 +65,6 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 			break;
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -83,11 +72,6 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 // Selection sort the given array.
 template <class T>
 void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Selection Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Indicate the starting index.
 	bool isSorted;
@@ -118,12 +102,6 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 			break;
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -131,11 +109,6 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 // Insertion sort the given array.
 template <class T>
 void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Insertion Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Iterate starting from the second element.
 	for (size_t i = 1; i < SIZE; i++) {
@@ -147,12 +120,6 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 			j--;
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -160,11 +127,6 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 // Cocktail shaker sort the given array.
 template <class T>
 void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Cocktail Shaker Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto startTime = high_resolution_clock::now();
 
 	// Loop while a swap has occurred.
 	size_t start = 0, end = SIZE;
@@ -201,12 +163,6 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 		start++;
 
 	} while (swapped);
-
-	// Record the timestamp after sorting.
-	auto endTime = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(startTime, endTime);
 }
 
 
@@ -214,20 +170,7 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 // Quick Sort the array.
 template <class T>
 void Sorting<T>::quickSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Quick Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
-
-	// QuickSort.
 	quickSort(array, 0, SIZE-1);
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -284,20 +227,7 @@ int Sorting<T>::partition(T array[], int low, int high) {
 // Quick Sort the array.
 template <class T>
 void Sorting<T>::quickSortV2(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Quick Sort V2..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
-
-	// QuickSort.
 	quickSortV2(array, 0, SIZE-1);
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -355,11 +285,6 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 // Shell Sort the array.
 template <class T>
 void Sorting<T>::shellSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Shell Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// The gap shrink factor.
 	double shrink = 2.3;
@@ -378,12 +303,6 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 			}
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -391,23 +310,12 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 // Merge Sort the array.
 template <class T>
 void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Merge Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Temporary array for copying.
 	uint copy[SIZE];
 
 	// Call the recursive split function.
 	split(array, copy, 0, SIZE);
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -462,15 +370,10 @@ void Sorting<T>::merge(
 // Comb Sort the array.
 template <class T>
 void Sorting<T>::combSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Comb Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
-
-	// Loop for all gaps.
 	bool sorted = false;
 	uint gap = SIZE;
+
+	// Loop for all gaps.
 	while (!sorted) {
 		gap = int(gap / 1.3);
 		if (gap <= 1) {
@@ -485,12 +388,6 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 			}
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -498,11 +395,6 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 // Radix Sort the array using the specified base.
 template <class T>
 void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
-	clearScreen();
-	cout << "Performing Radix Sort (base "<<BASE<<")..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Get the number of digits from the maximum value.
 	uint maxValue = max(array, SIZE);
@@ -560,12 +452,6 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
 			array[count[d]] = copy[i];
 		}
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 
@@ -573,11 +459,6 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
 // Heap Sort the array.
 template <class T>
 void Sorting<T>::heapSort(T array[], const uint& SIZE) {
-	clearScreen();
-	cout << "Performing Heap Sort..." << endl;
-
-	// Record the timestamp before sorting.
-	auto start = high_resolution_clock::now();
 
 	// Get index of last non-leaf node.
 	int node = SIZE / 2 - 1;
@@ -592,12 +473,6 @@ void Sorting<T>::heapSort(T array[], const uint& SIZE) {
 		swap(array[0], array[end]);
 		heapify(array, end, 0);
 	}
-
-	// Record the timestamp after sorting.
-	auto end = high_resolution_clock::now();
-
-	// Print time taken.
-	showTimeTaken(start, end);
 }
 
 

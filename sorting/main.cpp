@@ -198,51 +198,77 @@ int main() {
 				continue;
 			}
 
+			// Record the timestamp before sorting.
+			auto start = high_resolution_clock::now();
+
 			// Run the requested sorting algorithm.
 			number = atoi(answer);
+
+			// Only clear screen if not Radix Sort with custom base.
+			if (number != 11) {
+				clearScreen();
+			}
+
 			switch (number) {
 			case 1:
+				cout << "Performing Bubble Sort..." << endl;
 				Sorting<uint>::bubbleSort(array, size);
 				break;
 			case 2:
+				cout << "Performing Selection Sort..." << endl;
 				Sorting<uint>::selectionSort(array, size);
 				break;
 			case 3:
+				cout << "Performing Insertion Sort..." << endl;
 				Sorting<uint>::insertionSort(array, size);
 				break;
 			case 4:
+				cout << "Performing Cocktail Shaker Sort..." << endl;
 				Sorting<uint>::cocktailShakerSort(array, size);
 				break;
 			case 5:
+				cout << "Performing Quick Sort..." << endl;
 				Sorting<uint>::quickSort(array, size);
 				break;
 			case 6:
+				cout << "Performing Quick Sort V2..." << endl;
 				Sorting<uint>::quickSortV2(array, size);
 				break;
 			case 7:
+				cout << "Performing Shell Sort..." << endl;
 				Sorting<uint>::shellSort(array, size);
 				break;
 			case 8:
+				cout << "Performing Merge Sort..." << endl;
 				Sorting<uint>::mergeSort(array, size);
 				break;
 			case 9:
+				cout << "Performing Comb Sort..." << endl;
 				Sorting<uint>::combSort(array, size);
 				break;
 			case 10:
+				cout << "Performing Radix Sort (base 10)..." << endl;
 				Sorting<uint>::radixSort(array, size);
 				break;
 			case 11:
 				cout << "base = ";
 				cin.getline(answer, 20);
 				number = atoi(answer);
+				clearScreen();
+				cout << "Performing Radix Sort (base "<<number<<")..." << endl;
 				Sorting<uint>::radixSort(array, size, number);
 				break;
 			case 12:
+				cout << "Performing Heap Sort..." << endl;
 				Sorting<uint>::heapSort(array, size);
 				break;
-			default:
-				clearScreen();
 			}
+
+			// Record the timestamp after sorting.
+			auto end = high_resolution_clock::now();
+
+			// Print time taken.
+			Sorting<uint>::showTimeTaken(start, end);
 		}
 	}
 

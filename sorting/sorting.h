@@ -20,6 +20,7 @@ public:
 	static bool sortAscending;
 
 	// Functions.
+	static void showTimeTaken(Time start, Time end);
 	static void bubbleSort(T array[], const uint& SIZE);
 	static void selectionSort(T array[], const uint& SIZE);
 	static void insertionSort(T array[], const uint& SIZE);
@@ -36,7 +37,6 @@ public:
 private:
 
 	// Functions.
-	static void showTimeTaken(Time start, Time end);
 	static bool compare(T left, T right);
 	static void quickSort(T array[], int low, int high);
 	static int partition(T array[], int low, int high);
