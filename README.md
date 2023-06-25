@@ -33,3 +33,7 @@ A collection of example code written in C++.
 ### Sorting
 - [sorting.cpp](sorting/sorting.cpp)
 - [sorting.h](sorting/sorting.h)
+
+### Sorting Visualised
+- [sorting_visualised.cpp](sorting_visualised/sorting_visualised.cpp)
+- [sorting_visualised.h](sorting_visualised/sorting_visualised.h)
