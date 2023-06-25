@@ -355,56 +355,35 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 // Shell Sort the array.
 template <class T>
 void Sorting<T>::shellSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('R'));
-	// highlight->append(Highlight('R'));
-	// bool swapped;
+	clearScreen();
+	cout << "Performing Shell Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Marcin Ciura's gap sequence.
-	// uint gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
+	// The gap shrink factor.
+	double shrink = 2.3;
 
-	// // Start with largest gap and work down to 1.
-	// for (uint gap : gaps) {
+	// Start with largest gap and work down to 1.
+	for (uint gap = SIZE/shrink; gap >= 1; gap /= shrink) {
 
-	// 	// Iterate from gap to SIZE-1.
-	// 	for (size_t i = gap; i < SIZE; i++) {
-	// 		swapped = false;
+		// Iterate from gap to SIZE-1.
+		for (size_t i = gap; i < SIZE; i++) {
 
-	// 		// Do the gapped insertion sort.
-	// 		size_t j = i;
-	// 		while (j >= gap && compare(array[j], array[j-gap])) {
-	// 			highlight->get(0).index = j-gap;
-	// 			highlight->get(1).index = j;
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 			swap(array[j], array[j-gap]);
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 			swapped = true;
-	// 			j -= gap;
-	// 		}
+			// Do the gapped insertion sort.
+			size_t j = i;
+			while (j >= gap && compare(array[j], array[j-gap])) {
+				swap(array[j], array[j-gap]);
+				j -= gap;
+			}
+		}
+	}
 
-	// 		// Only print if no swap occurred.
-	// 		if (!swapped) {
-	// 			highlight->get(0).index = i-gap;
-	// 			highlight->get(1).index = i;
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 		}
-	// 	}
-	// }
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
