@@ -157,79 +157,52 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 // Cocktail shaker sort the given array.
 template <class T>
 void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('b'));
-	// highlight->append(Highlight('b'));
+	cout << "Performing Cocktail Shaker Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto startTime = high_resolution_clock::now();
 
-	// // Loop while a swap has occurred.
-	// size_t start = 0, end = SIZE;
-	// bool swapped;
-	// do {
+	// Loop while a swap has occurred.
+	size_t start = 0, end = SIZE;
+	bool swapped;
+	do {
 
-	// 	// Iterate forwards.
-	// 	swapped = false;
-	// 	for (size_t i = start+1; i < end; i++) {
-	// 		highlight->get(0).index = i-1;
-	// 		highlight->get(1).index = i;
+		// Iterate forwards.
+		swapped = false;
+		for (size_t i = start+1; i < end; i++) {
 
-	// 		// Display the current comparison.
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
+			// Swap elements if needed.
+			if (compare(array[i], array[i-1])) {
+				swap(array[i], array[i-1]);
+				swapped = true;
+			}
+		}
+		end--;
 
-	// 		// Swap elements if needed.
-	// 		if (compare(array[i], array[i-1])) {
-	// 			swap(array[i], array[i-1]);
-	// 			swapped = true;
+		// Break if no swap occurred.
+		if (!swapped) {
+			break;
+		}
 
-	// 			// Display the swapped elements.
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 		}
-	// 	}
-	// 	end--;
-	// 	highlight->append(Highlight('G', end));
+		// Iterate backwards.
+		swapped = false;
+		for (size_t i = end-1; i > start; i--) {
 
-	// 	// Break if no swap occurred.
-	// 	if (!swapped) {
-	// 		break;
-	// 	}
+			// Swap elements.
+			if (compare(array[i], array[i-1])) {
+				swap(array[i], array[i-1]);
+				swapped = true;
+			}
+		}
+		start++;
 
-	// 	// Iterate backwards.
-	// 	swapped = false;
-	// 	for (size_t i = end-1; i > start; i--) {
-	// 		highlight->get(0).index = i-1;
-	// 		highlight->get(1).index = i;
+	} while (swapped);
 
-	// 		// Display the current comparison.
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
+	// Record the timestamp after sorting.
+	auto endTime = high_resolution_clock::now();
 
-	// 		// Swap elements.
-	// 		if (compare(array[i], array[i-1])) {
-	// 			swap(array[i], array[i-1]);
-	// 			swapped = true;
-
-	// 			// Display the swapped elements.
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 		}
-	// 	}
-	// 	highlight->append(Highlight('G', start));
-	// 	start++;
-
-	// } while (swapped);
-
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(startTime, endTime);
 }
 
 
