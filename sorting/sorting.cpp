@@ -46,6 +46,7 @@ bool Sorting<T>::compare(T left, T right) {
 // Bubble sort the given array.
 template <class T>
 void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
+	clearScreen();
 	cout << "Performing Bubble Sort..." << endl;
 
 	// Record the timestamp before sorting.
@@ -82,6 +83,7 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 // Selection sort the given array.
 template <class T>
 void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
+	clearScreen();
 	cout << "Performing Selection Sort..." << endl;
 
 	// Record the timestamp before sorting.
@@ -129,6 +131,7 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 // Insertion sort the given array.
 template <class T>
 void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
+	clearScreen();
 	cout << "Performing Insertion Sort..." << endl;
 
 	// Record the timestamp before sorting.
@@ -157,6 +160,7 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 // Cocktail shaker sort the given array.
 template <class T>
 void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
+	clearScreen();
 	cout << "Performing Cocktail Shaker Sort..." << endl;
 
 	// Record the timestamp before sorting.
@@ -210,6 +214,7 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 // Quick Sort the array.
 template <class T>
 void Sorting<T>::quickSort(T array[], const uint& SIZE) {
+	clearScreen();
 	cout << "Performing Quick Sort..." << endl;
 
 	// Record the timestamp before sorting.
@@ -279,111 +284,70 @@ int Sorting<T>::partition(T array[], int low, int high) {
 // Quick Sort the array.
 template <class T>
 void Sorting<T>::quickSortV2(T array[], const uint& SIZE) {
+	clearScreen();
+	cout << "Performing Quick Sort V2..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // QuickSort.
-	// quickSortV2(array, SIZE, 0, SIZE-1);
+	// QuickSort.
+	quickSortV2(array, 0, SIZE-1);
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
+
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
 // The hidden recursive Quick Sort function.
 template <class T>
-void Sorting<T>::quickSortV2(
-	T array[], const int& SIZE, int low, int high) {
+void Sorting<T>::quickSortV2(T array[], int low, int high) {
 
-	// // Stopping condition.
-	// if (low >= high || low < 0 || high < 0) {
-	// 	return;
-	// }
+	// Stopping condition.
+	if (low >= high || low < 0 || high < 0) {
+		return;
+	}
 
-	// // Configure all highlights.
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('R', low));
-	// highlight->append(Highlight('R'));
-	// for (int i = 0; i < low; i++) {
-	// 	highlight->append(Highlight('x', i));
-	// }
-	// for (int i = high+1; i < SIZE; i++) {
-	// 	highlight->append(Highlight('x', i));
-	// }
+	// Partition array and get the pivot index.
+	int pivotIndex = partitionV2(array, low, high);
 
-	// // Partition array and get the pivot index.
-	// int pivotIndex = partitionV2(array, SIZE, low, high, highlight);
-
-	// // Sort the two partitions.
-	// quickSortV2(array, SIZE, low, pivotIndex);
-	// quickSortV2(array, SIZE, pivotIndex+1, high);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Sort the two partitions.
+	quickSortV2(array, low, pivotIndex);
+	quickSortV2(array, pivotIndex+1, high);
 }
 
 
 // The partition function for Quick Sort.
 template <class T>
-int Sorting<T>::partitionV2(
-	T array[], const int& SIZE, int low, int high) {
+int Sorting<T>::partitionV2(T array[], int low, int high) {
 
-	// // Pivot is the middle element.
-	// uint middle = ((high - low) / 2) + low;
-	// uint pivot = array[middle];
-	// uint horizontalBar = pivot;
+	// Pivot is the middle element.
+	uint middle = ((high - low) / 2) + low;
+	uint pivot = array[middle];
 
-	// // Left index.
-	// int i = low - 1;
+	// Left and right index.
+	int i = low - 1;
+	int j = high + 1;
 
-	// // Right index.
-	// int j = high + 1;
+	// Loop until left and right cross.
+	while (true) {
 
-	// // Loop until left and right cross.
-	// while (true) {
+		// Move left index (at least once).
+		for (++i; i < high && compare(array[i], pivot); i++);
 
-	// 	// Move left index (at least once).
-	// 	do {
-	// 		if (i >= 0) {
-	// 			highlight->append(Highlight('G', i));
-	// 		}
-	// 		i++;
-	// 		highlight->get(0).index = i;
-	// 		displayArray(array, SIZE, highlight, horizontalBar);
-	// 		sleep_for(delay);
-	// 	} while (compare(array[i], pivot) && i < SIZE);
+		// Move right index (at least once).
+		for (--j; j >= 0 && compare(pivot, array[j]); j--);
 
-	// 	// Move right index (at least once).
-	// 	do {
-	// 		if (j <= high) {
-	// 			highlight->append(Highlight('G', j));
-	// 		}
-	// 		j--;
-	// 		highlight->get(1).index = j;
-	// 		displayArray(array, SIZE, highlight, horizontalBar);
-	// 		sleep_for(delay);
-	// 	} while (compare(pivot, array[j]) && j >= 0);
+		// If the indices crossed, return pivot index.
+		if (i >= j) {
+			return j;
+		}
 
-	// 	// If the indices crossed, return pivot index.
-	// 	if (i >= j) {
-	// 		return j;
-	// 	}
-
-	// 	// Show array before swapping.
-	// 	displayArray(array, SIZE, highlight, horizontalBar);
-	// 	sleep_for(delay);
-
-	// 	// Swap left and right.
-	// 	swap(array[i], array[j]);
-
-	// 	// Display array after swapping.
-	// 	displayArray(array, SIZE, highlight, horizontalBar);
-	// 	sleep_for(delay);
-	// }
+		// Swap left and right.
+		swap(array[i], array[j]);
+	}
 }
 
 

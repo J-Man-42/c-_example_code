@@ -20,6 +20,11 @@ int main() {
 	// Main loop.
 	while (answer[0] != 'Q') {
 
+		// Only refresh screen if needed.
+		if (mustRefresh) {
+			clearScreen();
+		}
+
 		// Show the options.
 		cout << "========================================" << endl;
 		cout << "Array contents ~ Z["<<minValue<<", "<<maxValue<<"]" << endl;
