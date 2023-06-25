@@ -210,112 +210,68 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 // Quick Sort the array.
 template <class T>
 void Sorting<T>::quickSort(T array[], const uint& SIZE) {
+	cout << "Performing Quick Sort..." << endl;
 
-	// Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // QuickSort.
-	// quickSort(array, SIZE, 0, SIZE-1);
+	// QuickSort.
+	quickSort(array, 0, SIZE-1);
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
+
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
 // The hidden recursive Quick Sort function.
 template <class T>
-void Sorting<T>::quickSort(
-	T array[], const int& SIZE, int low, int high) {
+void Sorting<T>::quickSort(T array[], int low, int high) {
 
-	// // Stopping condition.
-	// if (low > high || low < 0) {
-	// 	return;
-	// }
+	// Stopping condition.
+	if (low > high || low < 0) {
+		return;
+	}
 
-	// // Configure all highlights.
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('b', low));
-	// highlight->append(Highlight('b'));
-	// highlight->append(Highlight('R', high));
-	// for (int i = 0; i < low; i++) {
-	// 	highlight->append(Highlight('x', i));
-	// }
-	// for (int i = high+1; i < SIZE; i++) {
-	// 	highlight->append(Highlight('x', i));
-	// }
+	// Partition array and get the pivot index.
+	int pivotIndex = partition(array, low, high);
 
-	// // Partition array and get the pivot index.
-	// int pivotIndex = partition(array, SIZE, low, high, highlight);
-
-	// // Sort the two partitions.
-	// quickSort(array, SIZE, low, pivotIndex-1);
-	// quickSort(array, SIZE, pivotIndex+1, high);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Sort the two partitions.
+	quickSort(array, low, pivotIndex-1);
+	quickSort(array, pivotIndex+1, high);
 }
 
 
 // The partition function for Quick Sort.
 template <class T>
-int Sorting<T>::partition(
-	T array[], const int& SIZE, int low, int high) {
+int Sorting<T>::partition(T array[], int low, int high) {
 
 	// Pivot is the last element.
-	// uint pivot = array[high];
-	// uint horizontalBar = pivot;
-	// highlight->get(2).index = high;
+	uint pivot = array[high];
 
-	// // Temporary pivot index.
-	// int i = low - 1;
-	// highlight->get(0).index = i;
+	// Temporary pivot index.
+	int i = low - 1;
 
-	// // Iterate from low to high.
-	// for (int j = low; j < high; j++) {
+	// Iterate from low to high.
+	for (int j = low; j < high; j++) {
 
-	// 	// Display the array.
-	// 	highlight->get(1).index = j;
-	// 	displayArray(array, SIZE, highlight, horizontalBar);
-	// 	sleep_for(delay);
+		// Swap if needed.
+		if (compare(array[j], pivot)) {
+			i++;
+			swap(array[i], array[j]);
+		}
+	}
 
-	// 	// Swap if needed.
-	// 	if (compare(array[j], pivot)) {
-	// 		highlight->append(Highlight('G', i));
-	// 		i++;
-	// 		swap(array[i], array[j]);
+	// Final swap, then return pivot index.
+	i++;
+	if (array[i] != array[high]) {
+	    swap(array[i], array[high]);
+	}
 
-	// 		// Display array after swapping.
-	// 		highlight->get(0).index = i;
-	// 		displayArray(array, SIZE, highlight, horizontalBar);
-	// 		sleep_for(delay);
-	// 	}
-	// }
-
-	// // Final swap, then return pivot index.
-	// i++;
-	// if (array[i] != array[high]) {
-
-	// 	// Show array before swapping.
-	// 	highlight->removeAt(0);
-	// 	highlight->set(0, Highlight('R', i));
-	// 	highlight->get(1).index = high;
-	// 	displayArray(array, SIZE, highlight, horizontalBar);
-	// 	sleep_for(delay);
-
-	// 	// Swap.
-	//     swap(array[i], array[high]);
-
-	//     // Show array after swapping.
-	// 	highlight->get(0).index = i;
-	// 	displayArray(array, SIZE, highlight, horizontalBar);
-	// 	sleep_for(delay);
-	// }
-
-	// // Delete dynamic memory and return pivot index.
-	// return i;
+	// Delete dynamic memory and return pivot index.
+	return i;
 }
 
 

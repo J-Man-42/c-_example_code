@@ -38,10 +38,8 @@ private:
 	// Functions.
 	static void showTimeTaken(Time start, Time end);
 	static bool compare(T left, T right);
-	static void quickSort(
-		T array[], const int& SIZE, int low, int high);
-	static int partition(
-		T array[], const int& SIZE, int low, int high);
+	static void quickSort(T array[], int low, int high);
+	static int partition(T array[], int low, int high);
 	static void quickSortV2(
 		T array[], const int& SIZE, int low, int high);
 	static int partitionV2(
