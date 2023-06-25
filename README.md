@@ -26,6 +26,12 @@ A collection of example code written in C++.
 - [move_cursor.cpp](move_cursor/move_cursor.cpp)
 - [move_cursor.h](move_cursor/move_cursor.h)
 
+### Queue
+- [node.cpp](queue/node.cpp)
+- [node.h](queue/node.h)
+- [queue.cpp](queue/queue.cpp)
+- [queue.h](queue/queue.h)
+
 ### Random
 - [random.cpp](random/random.cpp)
 - [random.h](random/random.h)
