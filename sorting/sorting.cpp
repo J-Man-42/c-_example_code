@@ -462,48 +462,35 @@ void Sorting<T>::merge(
 // Comb Sort the array.
 template <class T>
 void Sorting<T>::combSort(T array[], const uint& SIZE) {
-	// Highlights* highlight = new Highlights();
-	// highlight->append(Highlight('R'));
-	// highlight->append(Highlight('R'));
-	// uint gap = SIZE;
-	// bool sorted = false;
+	clearScreen();
+	cout << "Performing Comb Sort..." << endl;
 
-	// // Display the array before sorting.
-	// clearScreen();
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
+	// Record the timestamp before sorting.
+	auto start = high_resolution_clock::now();
 
-	// // Loop for all gaps.
-	// while (!sorted) {
-	// 	gap = int(gap / 1.3);
-	// 	if (gap <= 1) {
-	// 		gap = 1;
-	// 		sorted = true;
-	// 	}
+	// Loop for all gaps.
+	bool sorted = false;
+	uint gap = SIZE;
+	while (!sorted) {
+		gap = int(gap / 1.3);
+		if (gap <= 1) {
+			gap = 1;
+			sorted = true;
+		}
 
-	// 	// Bubble Sort with the current gap.
-	// 	for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+		// Bubble Sort with the current gap.
+		for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+			if (compare(array[j], array[i])) {
+				swap(array[j], array[i]);
+			}
+		}
+	}
 
-	// 		// Highlight indices before and after swapping.
-	// 		highlight->get(0).index = i;
-	// 		highlight->get(1).index = j;
-	// 		displayArray(array, SIZE, highlight);
-	// 		sleep_for(delay);
-	// 		if (compare(array[j], array[i])) {
-	// 			swap(array[j], array[i]);
-	// 			sorted = false;
-	// 			displayArray(array, SIZE, highlight);
-	// 			sleep_for(delay);
-	// 		}
-	// 	}
-	// }
+	// Record the timestamp after sorting.
+	auto end = high_resolution_clock::now();
 
-	// // Display the array after sorting.
-	// displayArray(array, SIZE);
-	// sleep_for(delay);
-
-	// // Delete dynamic memory.
-	// delete highlight;
+	// Print time taken.
+	showTimeTaken(start, end);
 }
 
 
