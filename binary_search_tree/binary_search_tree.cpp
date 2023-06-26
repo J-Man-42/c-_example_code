@@ -143,3 +143,69 @@ void BinarySearchTree<T>::insert(BSTNode<T>* node, const T& element) {
 		}
 	}
 }
+
+
+
+// Removed the given element from the tree.
+template<class T>
+void BinarySearchTree<T>::remove(const T element) {
+	remove(nullptr, root, element);
+}
+
+// The recursive remove function.
+template<class T>
+void BinarySearchTree<T>::remove(
+	BSTNode<T>* parent, BSTNode<T>* node, const T& element) {
+
+	// If node is null, throw error.
+	if (!node) {
+		throw "Error! Element '"+to_string(element)+"' not found";
+	}
+
+	// Traverse left if element is smaller than current node.
+	if (element < node->data) {
+		remove(node, node->left, element);
+	}
+
+	// Traverse right if element is larger than current node.
+	else if (element > node->data) {
+		remove(node, node->right, element);
+	}
+
+	// It's found otherwise.
+	else {
+		BSTNode<T>* deleteNode = node;
+		BSTNode<T>* child = node->left;
+		while (child && child->right) {
+			node = child;
+			child = child->right;
+		}
+
+		// No left highest node.
+		if (!child) {
+			if (parent) {
+				if (parent->right == node) {
+					parent->right = node->right;
+				} else {
+					parent->left = node->right;
+				}
+			} else {
+				root = node->right;
+			}
+		}
+
+		// There is a left highest node.
+		else {
+			if (node->right == child) {
+				node->right = child->left;
+			} else {
+				node->left = child->left;
+			}
+			deleteNode->data = child->data;
+			deleteNode = child;
+		}
+
+		// Delete the node.
+		delete deleteNode;
+	}
+}

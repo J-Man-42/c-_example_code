@@ -65,7 +65,7 @@ public:
 	void insert(const T element);
 // 	void insertAt(const int signedIndex, const T element);
 // 	bool isEmpty() const;
-// 	void remove(const T element);
+	void remove(const T element);
 // 	T removeAt(const int signedIndex);
 // 	T removeFirst();
 // 	T removeLast();
@@ -85,6 +85,7 @@ private:
 	bool contains(BSTNode<T>* node, const T& element) const;
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
+	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
 	BSTNode<T>* root;
 };
 

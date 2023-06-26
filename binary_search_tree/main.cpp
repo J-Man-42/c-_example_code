@@ -37,6 +37,7 @@ int main() {
 		cout << "\n==============================" << endl;
 		cout << " (1)  contains(element)" << endl;
 		cout << " (2)  insert(element)" << endl;
+		cout << " (3)  remove(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -76,6 +77,20 @@ int main() {
 			cout << "> element = ";
 			cin >> element;
 			tree.insert(element);
+			break;
+
+
+		// Remove an element from the tree.
+		case 3:
+			cout << "remove(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				tree.remove(element);
+			} catch (string e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
 			break;
 		}
 	}
