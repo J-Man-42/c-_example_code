@@ -12,6 +12,14 @@ BinarySearchTree<T>::BinarySearchTree() {
 }
 
 
+// The destructor.
+template<class T>
+BinarySearchTree<T>::~BinarySearchTree() {
+	clear();
+}
+
+
+
 // Breadth First Traversal.
 template<class T>
 void BinarySearchTree<T>::bft() {
@@ -45,6 +53,32 @@ void BinarySearchTree<T>::bft() {
 
 	// Final newline.
 	cout << endl;
+}
+
+
+
+// Clears all entries in the tree.
+template<class T>
+void BinarySearchTree<T>::clear() {
+	clear(root);
+	root = nullptr;
+}
+
+// Recursive part of clear.
+template<class T>
+void BinarySearchTree<T>::clear(BSTNode<T>* node) {
+	
+	// Simply return if node is null.
+	if (!node) {
+		return;
+	}
+
+	// Traverse both left and right children.
+	clear(node->left);
+	clear(node->right);
+
+	// Delete the node afterwards.
+	delete node;
 }
 
 

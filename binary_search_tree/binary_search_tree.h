@@ -37,9 +37,10 @@ public:
 	BinarySearchTree();
 	// BinarySearchTree(const BinarySearchTree<T>& other);
 	// BinarySearchTree(const T array[], const uint SIZE);
-	// ~BinarySearchTree();
+	~BinarySearchTree();
 
 	void bft();
+	void clear();
 	bool contains(const T element) const;
 	void dft();
 
@@ -82,6 +83,7 @@ public:
 // 	std::string toString();
 
 private:
+	void clear(BSTNode<T>* node);
 	bool contains(BSTNode<T>* node, const T& element) const;
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);

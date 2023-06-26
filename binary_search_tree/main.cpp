@@ -35,9 +35,10 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (1)  contains(element)" << endl;
-		cout << " (2)  insert(element)" << endl;
-		cout << " (3)  remove(element)" << endl;
+		cout << " (1)  clear()" << endl;
+		cout << " (2)  contains(element)" << endl;
+		cout << " (3)  insert(element)" << endl;
+		cout << " (4)  remove(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -56,8 +57,15 @@ int main() {
 		switch (number) {
 
 
-		// Test if element in the tree.
+		// Clear all elements in the tree.
 		case 1:
+			cout << "clear()" << endl;
+			tree.clear();
+			break;
+
+
+		// Test if element in the tree.
+		case 2:
 			cout << "contains(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -72,7 +80,7 @@ int main() {
 
 
 		// Insert an element in the tree.
-		case 2:
+		case 3:
 			cout << "insert(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -81,7 +89,7 @@ int main() {
 
 
 		// Remove an element from the tree.
-		case 3:
+		case 4:
 			cout << "remove(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
