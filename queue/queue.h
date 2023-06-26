@@ -34,7 +34,7 @@ public:
 	template<class U>
 	friend std::ostream& operator<<(
 		std::ostream& out, Queue<U>& queue);
-	
+
 	Queue<T>& operator=(const Queue<T>& other);
 	Queue<T> operator+(const T element);
 	Queue<T> operator+(const Queue<T>& other);

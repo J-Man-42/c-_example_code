@@ -37,7 +37,7 @@ public:
 	template<class U>
 	friend std::ostream& operator<<(
 		std::ostream& out, LinkedList<U>& list);
-	
+
 	LinkedList<T>& operator=(const LinkedList<T>& other);
 	T& operator[](const int index);
 	LinkedList<T> operator+(const T element);

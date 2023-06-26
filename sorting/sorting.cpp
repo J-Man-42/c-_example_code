@@ -14,7 +14,7 @@ bool Sorting<T>::sortAscending = true;
 // Print the time taken.
 template <class T>
 void Sorting<T>::showTimeTaken(Time start, Time end) {
-	
+
 	// Get the duration in milliseconds
 	auto duration = duration_cast<milliseconds>(end - start);
 
