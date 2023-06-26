@@ -12,10 +12,53 @@ BinarySearchTree<T>::BinarySearchTree() {
 }
 
 
+// The copy constructor.
+template<class T>
+BinarySearchTree<T>::BinarySearchTree(const BST<T>& other) {
+
+	// If the same trees have been provided, do nothing.
+	if (this == &other) {
+		return;
+	}
+
+	// Copy other.root if not null.
+	this->root = nullptr;
+	if (other.root) {
+		this->root = new BSTNode<T>(other.root->data);
+
+		// Recursively clone all children.
+		clone(this->root, other.root);
+	}
+}
+
+
 // The destructor.
 template<class T>
 BinarySearchTree<T>::~BinarySearchTree() {
 	clear();
+}
+
+
+
+// Overload the assignment operator.
+template<class T>
+BST<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& other) {
+
+	// If the same trees have been provided, do nothing.
+	if (this != &other) {
+		this->clear();
+
+		// Copy other.root if not null.
+		this->root = nullptr;
+		if (other.root) {
+			this->root = new BSTNode<T>(other.root->data);
+
+			// Recursively clone all children.
+			clone(this->root, other.root);
+		}
+	}
+
+	return *this;
 }
 
 
@@ -83,6 +126,32 @@ void BinarySearchTree<T>::clear(BSTNode<T>* node) {
 
 
 
+// Create a hard copy of this tree.
+template<class T>
+BST<T> BinarySearchTree<T>::clone() {
+	return BST<T>(*this);
+}
+
+// The recursive clone function.
+template<class T>
+void BinarySearchTree<T>::clone(
+	BSTNode<T>* thisNode, BSTNode<T>* otherNode) {
+
+	// Clone left child.
+	if (otherNode->left) {
+		thisNode->left = new BSTNode<T>(otherNode->left->data);
+		clone(thisNode->left, otherNode->left);
+	}
+
+	// Clone right child.
+	if (otherNode->right) {
+		thisNode->right = new BSTNode<T>(otherNode->right->data);
+		clone(thisNode->right, otherNode->right);
+	}
+}
+
+
+
 // Returns true if the element is in the tree.
 template<class T>
 bool BinarySearchTree<T>::contains(const T element) const {
@@ -91,7 +160,8 @@ bool BinarySearchTree<T>::contains(const T element) const {
 
 // Recursively search for element in tree.
 template<class T>
-bool BinarySearchTree<T>::contains(BSTNode<T>* node, const T& element) const {
+bool BinarySearchTree<T>::contains(
+	BSTNode<T>* node, const T& element) const {
 
 	// Return false if node is null.
 	if (!node) {
