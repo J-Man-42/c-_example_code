@@ -593,7 +593,20 @@ void LinkedList<T>::resetNext() {
 
 // Reverse this linked list.
 template<class T>
-void LinkedList<T>::reverse() {}
+void LinkedList<T>::reverse() {
+	Node<T>* nodePtr = head;
+	Node<T>* prevPtr = nullptr;
+
+	// Swap head and tail.
+	swap(head, tail);
+
+	// Loop through all elements and swap next and prev.
+	while (nodePtr) {
+		prevPtr = nodePtr;
+		nodePtr = nodePtr->next;
+		swap(prevPtr->next, prevPtr->prev);
+	}
+}
 
 
 

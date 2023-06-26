@@ -361,6 +361,7 @@ int main() {
 		// Reverse the linked list.
 		case 18:
 			cout << "reverse()" << endl;
+			list.reverse();
 			break;
 
 
