@@ -2,7 +2,6 @@
 ######################################################################
 HEADERS := \
 	linked_list.h \
-	node.h \
 	../move_cursor/move_cursor.h \
 	../random/random.h
 OBJECTS := \
@@ -10,9 +9,7 @@ OBJECTS := \
 	out/random.o
 TEMPLATES := \
 	linked_list.cpp \
-	linked_list.h \
-	node.cpp \
-	node.h
+	linked_list.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
 

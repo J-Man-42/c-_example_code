@@ -2,7 +2,27 @@
 #define LINKED_LIST_H
 
 #include <iostream>
-#include "node.h"
+
+
+// The node class.
+template<class T>
+class Node
+{
+public:
+	Node(const T data) {
+		this->data = data;
+		this->next = nullptr;
+		this->prev = nullptr;
+	}
+	~Node() {
+		this->next = nullptr;
+		this->prev = nullptr;
+	}
+	T data;
+	Node<T>* next;
+	Node<T>* prev;
+};
+
 
 // The doubly linked list class.
 template<class T>
@@ -57,6 +77,7 @@ private:
 	Node<T>* tail;
 	Node<T>* current;
 };
+
 
 #include "linked_list.cpp"
 
