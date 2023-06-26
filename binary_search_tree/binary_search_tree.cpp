@@ -14,7 +14,38 @@ BinarySearchTree<T>::BinarySearchTree() {
 
 // Breadth First Traversal.
 template<class T>
-void BinarySearchTree<T>::bft() {}
+void BinarySearchTree<T>::bft() {
+
+	// Return if root is null.
+	if (!root) {
+		cout << endl;
+		return;
+	}
+
+	// Create queue and add root.
+	Queue<BSTNode<T>*> queue;
+	queue.push(root);
+
+	// Loop while the queue is not empty.
+	BSTNode<T>* nodePtr;
+	while (!queue.isEmpty()) {
+		nodePtr = queue.pop();
+		cout << "  " << nodePtr->data;
+
+		// Add left child if not null.
+		if (nodePtr->left) {
+			queue.push(nodePtr->left);
+		}
+
+		// Add right child if not null.
+		if (nodePtr->right) {
+			queue.push(nodePtr->right);
+		}
+	}
+
+	// Final newline.
+	cout << endl;
+}
 
 
 

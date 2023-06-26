@@ -9,6 +9,11 @@ template<class T>
 class BSTNode
 {
 public:
+	BSTNode() {
+		this->data = NULL;
+		this->left = nullptr;
+		this->right = nullptr;
+	}
 	BSTNode(const T data) {
 		this->data = data;
 		this->left = nullptr;

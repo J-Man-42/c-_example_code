@@ -30,6 +30,8 @@ int main() {
 		// Traverse the tree using both Depth First and Breadth First.
 		cout << "Tree DFT:";
 		tree.dft();
+		cout << "Tree BFT:";
+		tree.bft();
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
