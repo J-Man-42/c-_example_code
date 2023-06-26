@@ -8,8 +8,6 @@ A collection of example code written in C++.
 - [colour_text.h](colour_text/colour_text.h)
 
 ### Linked List
-- [node.cpp](linked_list/node.cpp)
-- [node.h](linked_list/node.h)
 - [linked_list.cpp](linked_list/linked_list.cpp)
 - [linked_list.h](linked_list/linked_list.h)
 - <u>Struct Based</u>
@@ -27,8 +25,6 @@ A collection of example code written in C++.
 - [move_cursor.h](move_cursor/move_cursor.h)
 
 ### Queue
-- [node.cpp](queue/node.cpp)
-- [node.h](queue/node.h)
 - [queue.cpp](queue/queue.cpp)
 - [queue.h](queue/queue.h)
 
@@ -43,3 +39,7 @@ A collection of example code written in C++.
 ### Sorting Visualised
 - [sorting.cpp](sorting_visualised/sorting.cpp)
 - [sorting.h](sorting_visualised/sorting.h)
+
+### Stack
+- [stack.cpp](stack/stack.cpp)
+- [stack.h](stack/stack.h)
