@@ -27,7 +27,7 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
-		// Print the array.
+		// Traverse the tree using both Depth First and Breadth First.
 		cout << "Tree DFT:  ";
 		tree.dft();
 
