@@ -210,6 +210,33 @@ LinkedList<T> LinkedList<T>::clone() {
 
 
 
+// Returns true if element is in the list.
+template<class T>
+bool LinkedList<T>::contains(const T element) const {
+	Node<T>* headPtr = head;
+	Node<T>* tailPtr = tail;
+
+	// Loop while both headPtr and tailPtr are not null.
+	while (headPtr && tailPtr) {
+
+		// Check if element at either headPtr or tailPtr.
+		if (headPtr->data == element || tailPtr->data == element) {
+			return true;
+		}
+
+		// Update pointers and ensure overlap has not occurred.
+		headPtr = headPtr->next;
+		if (!headPtr || headPtr == tailPtr || tailPtr->next == headPtr)
+			return false;
+		tailPtr = tailPtr->prev;
+	}
+
+	// The element was not found.
+	return false;
+}
+
+
+
 // Returns the element at the given index.
 template<class T>
 T& LinkedList<T>::get(const int index) {

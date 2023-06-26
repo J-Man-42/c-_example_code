@@ -27,6 +27,7 @@ public:
 	void append(const T element);
 	void clear();
 	LinkedList<T> clone();
+	bool contains(const T element) const;
 	T& get(const int index);
 	T& getFirst();
 	T& getLast();
