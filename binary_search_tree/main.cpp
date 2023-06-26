@@ -39,8 +39,9 @@ int main() {
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  contains(element)" << endl;
 		cout << " (4)  insert(element)" << endl;
-		cout << " (5)  remove(element)" << endl;
-		cout << " (6)  operator=" << endl;
+		cout << " (5)  isEmpty()" << endl;
+		cout << " (6)  remove(element)" << endl;
+		cout << " (7)  operator=" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -102,8 +103,21 @@ int main() {
 			break;
 
 
-		// Remove an element from the tree.
+		// Check if empty.
 		case 5:
+			cout << "isEmpty()" << endl;
+			cout << "> Tree is empty:  ";
+			if (tree.isEmpty()) {
+				cout << "true" << endl;
+			} else {
+				cout << "false" << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Remove an element from the tree.
+		case 6:
 			cout << "remove(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -117,7 +131,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 6:
+		case 7:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;

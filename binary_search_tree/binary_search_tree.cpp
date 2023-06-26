@@ -68,7 +68,7 @@ template<class T>
 void BinarySearchTree<T>::bft() {
 
 	// Return if root is null.
-	if (!root) {
+	if (isEmpty()) {
 		cout << endl;
 		return;
 	}
@@ -213,7 +213,7 @@ template<class T>
 void BinarySearchTree<T>::insert(const T element) {
 
 	// If root is null, create root.
-	if (!root) {
+	if (isEmpty()) {
 		root = new BSTNode<T>(element);
 	}
 
@@ -246,6 +246,14 @@ void BinarySearchTree<T>::insert(BSTNode<T>* node, const T& element) {
 			node->right = new BSTNode<T>(element);
 		}
 	}
+}
+
+
+
+// Returns true if root is null.
+template<class T>
+bool BinarySearchTree<T>::isEmpty() const {
+	return root == nullptr;
 }
 
 

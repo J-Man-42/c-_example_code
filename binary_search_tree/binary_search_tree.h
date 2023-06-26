@@ -46,6 +46,7 @@ public:
 	bool contains(const T element) const;
 	void dft();
 	void insert(const T element);
+	bool isEmpty() const;
 	void remove(const T element);
 
 private:
