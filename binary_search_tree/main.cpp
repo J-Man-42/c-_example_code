@@ -40,6 +40,7 @@ int main() {
 		cout << " (3)  contains(element)" << endl;
 		cout << " (4)  insert(element)" << endl;
 		cout << " (5)  remove(element)" << endl;
+		cout << " (6)  operator=" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -112,6 +113,19 @@ int main() {
 				cout << e << endl;
 				sleep_for(seconds(2));
 			}
+			break;
+
+
+		// Work with the assignment operator.
+		case 6:
+			cout << "operator=" << endl;
+			cout << "> number of elements = ";
+			cin >> number;
+			temp.clear();
+			for (size_t i = 0; i < number; i++) {
+				temp.insert(randUint(10, 99));
+			}
+			tree = temp;
 			break;
 		}
 	}
