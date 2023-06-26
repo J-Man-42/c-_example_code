@@ -2,7 +2,24 @@
 #define LINKED_LIST_H
 
 #include <iostream>
-#include "node.h"
+
+
+// The node class.
+template<class T>
+class Node
+{
+public:
+	Node(const T data) {
+		this->data = data;
+		this->next = nullptr;
+	}
+	~Node() {
+		this->next = nullptr;
+	}
+	T data;
+	Node<T>* next;
+};
+
 
 // The queue class.
 template<class T>
@@ -40,6 +57,7 @@ private:
 	Node<T>* head;
 	Node<T>* tail;
 };
+
 
 #include "queue.cpp"
 

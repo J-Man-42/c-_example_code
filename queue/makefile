@@ -1,7 +1,6 @@
 # Variables and lists.
 ######################################################################
 HEADERS := \
-	node.h \
 	queue.h \
 	../move_cursor/move_cursor.h \
 	../random/random.h
@@ -9,8 +8,6 @@ OBJECTS := \
 	out/move_cursor.o \
 	out/random.o
 TEMPLATES := \
-	node.cpp \
-	node.h \
 	queue.cpp \
 	queue.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
