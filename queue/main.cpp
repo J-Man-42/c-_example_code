@@ -69,7 +69,7 @@ int main() {
 	uint number;
 	uint element;
 
-	// Create the linked queue.
+	// Create the queue.
 	Queue<uint> queue;
 	Queue<uint> temp;
 
