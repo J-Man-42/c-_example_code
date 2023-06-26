@@ -726,11 +726,11 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Marcin Ciura's gap sequence.
-	uint gaps[] = {701, 301, 132, 57, 23, 10, 4, 1};
+	// The gap shrink factor.
+	double shrink = 2.3;
 
 	// Start with largest gap and work down to 1.
-	for (uint gap : gaps) {
+	for (uint gap = SIZE/shrink; gap >= 1; gap /= shrink) {
 
 		// Iterate from gap to SIZE-1.
 		for (size_t i = gap; i < SIZE; i++) {
