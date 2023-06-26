@@ -3,6 +3,10 @@ A collection of example code written in C++.
 
 ## Table of Content:
 ---
+### Binary Search Tree
+- [binary_search_tree.cpp](binary_search_tree/binary_search_tree.cpp)
+- [binary_search_tree.h](binary_search_tree/binary_search_tree.h)
+
 ### Colour Text
 - [colour_text.cpp](colour_text/colour_text.cpp)
 - [colour_text.h](colour_text/colour_text.h)
