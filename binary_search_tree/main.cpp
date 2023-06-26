@@ -27,7 +27,7 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
-		// Traverse the tree using both Depth First and Breadth First.
+		// Traverse the tree.
 		cout << "Tree DFT:";
 		tree.dft();
 		cout << "Tree BFT:";
@@ -35,7 +35,8 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (1)  insert(element)" << endl;
+		cout << " (1)  contains(element)" << endl;
+		cout << " (2)  insert(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -54,8 +55,23 @@ int main() {
 		switch (number) {
 
 
-		// Insert an element in the tree.
+		// Test if element in the tree.
 		case 1:
+			cout << "contains(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			cout << "> Tree contains " << element << ":  ";
+			if (tree.contains(element)) {
+				cout << "true" << endl;
+			} else {
+				cout << "false" << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Insert an element in the tree.
+		case 2:
 			cout << "insert(element)" << endl;
 			cout << "> element = ";
 			cin >> element;

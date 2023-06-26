@@ -49,6 +49,37 @@ void BinarySearchTree<T>::bft() {
 
 
 
+// Returns true if the element is in the tree.
+template<class T>
+bool BinarySearchTree<T>::contains(const T element) const {
+	return contains(root, element);
+}
+
+// Recursively search for element in tree.
+template<class T>
+bool BinarySearchTree<T>::contains(BSTNode<T>* node, const T& element) const {
+
+	// Return false if node is null.
+	if (!node) {
+		return false;
+	}
+
+	// Return true if element is found.
+	if (node->data == element) {
+		return true;
+	}
+
+	// Traverse left if element is smaller than current node.
+	if (element < node->data) {
+		return contains(node->left, element);
+	}
+
+	// Traverse right otherwise.
+	return contains(node->right, element);
+}
+
+
+
 // Depth First Traversal.
 template<class T>
 void BinarySearchTree<T>::dft() {
@@ -83,9 +114,7 @@ void BinarySearchTree<T>::insert(const T element) {
 	}
 
 	// Otherwise, recursively traverse root.
-	else {
-		insert(root, element);
-	}
+	else insert(root, element);
 }
 
 // The recursive insertion function.

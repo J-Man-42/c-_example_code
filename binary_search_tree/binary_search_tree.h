@@ -40,6 +40,7 @@ public:
 	// ~BinarySearchTree();
 
 	void bft();
+	bool contains(const T element) const;
 	void dft();
 
 // 	template<class U>
@@ -81,7 +82,7 @@ public:
 // 	std::string toString();
 
 private:
-	void bft(BSTNode<T>* node);
+	bool contains(BSTNode<T>* node, const T& element) const;
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
 	BSTNode<T>* root;
