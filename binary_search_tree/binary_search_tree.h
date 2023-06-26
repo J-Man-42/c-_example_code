@@ -34,6 +34,9 @@ public:
 	// BinarySearchTree(const T array[], const uint SIZE);
 	// ~BinarySearchTree();
 
+	void bft();
+	void dft();
+
 // 	template<class U>
 // 	friend std::ostream& operator<<(
 // 		std::ostream& out, BinarySearchTree<U>& list);
@@ -71,7 +74,10 @@ public:
 // 	T* toDynamicArray();
 // 	T* toDynamicArray(const uint SIZE);
 // 	std::string toString();
+
 private:
+	void bft(Node<T>* node);
+	void dft(Node<T>* node);
 	void insert(Node<T>* node, const T& element);
 	Node<T>* root;
 };

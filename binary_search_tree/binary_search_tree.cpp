@@ -11,6 +11,35 @@ BinarySearchTree<T>::BinarySearchTree() {
 }
 
 
+// Breadth First Traversal.
+template<class T>
+void BinarySearchTree<T>::bft() {
+
+}
+
+
+
+// Depth First Traversal.
+template<class T>
+void BinarySearchTree<T>::dft() {
+	dft(root);
+	cout << endl;
+}
+
+// Recursive part of the DFT.
+template<class T>
+void BinarySearchTree<T>::dft(Node<T>* node) {
+	if (!node) {
+		return;
+	}
+
+	dft(node->left);
+	cout << node->data << " ";
+	dft(node->right);
+}
+
+
+
 // Insert into the tree.
 template<class T>
 void BinarySearchTree<T>::insert(const T element) {
