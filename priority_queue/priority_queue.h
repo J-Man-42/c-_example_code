@@ -6,18 +6,18 @@
 
 // The node class.
 template<class T>
-class Node
+class PQueueNode
 {
 public:
-	Node(const T data) {
+	PQueueNode(const T data) {
 		this->data = data;
 		this->next = nullptr;
 	}
-	~Node() {
+	~PQueueNode() {
 		this->next = nullptr;
 	}
 	T data;
-	Node<T>* next;
+	PQueueNode<T>* next;
 };
 
 
@@ -54,8 +54,8 @@ public:
 	std::string toString();
 private:
 	uint length;
-	Node<T>* head;
-	Node<T>* tail;
+	PQueueNode<T>* head;
+	PQueueNode<T>* tail;
 };
 
 

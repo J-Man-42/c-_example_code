@@ -8,6 +8,8 @@ OBJECTS := \
 	out/move_cursor.o \
 	out/random.o
 TEMPLATES := \
+	../queue/queue.cpp \
+	../queue/queue.h \
 	binary_search_tree.cpp \
 	binary_search_tree.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)

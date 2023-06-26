@@ -6,21 +6,21 @@
 
 // The node class.
 template<class T>
-class Node
+class BSTNode
 {
 public:
-	Node(const T data) {
+	BSTNode(const T data) {
 		this->data = data;
 		this->left = nullptr;
 		this->right = nullptr;
 	}
-	~Node() {
+	~BSTNode() {
 		this->left = nullptr;
 		this->right = nullptr;
 	}
 	T data;
-	Node<T>* left;
-	Node<T>* right;
+	BSTNode<T>* left;
+	BSTNode<T>* right;
 };
 
 
@@ -76,10 +76,10 @@ public:
 // 	std::string toString();
 
 private:
-	void bft(Node<T>* node);
-	void dft(Node<T>* node);
-	void insert(Node<T>* node, const T& element);
-	Node<T>* root;
+	void bft(BSTNode<T>* node);
+	void dft(BSTNode<T>* node);
+	void insert(BSTNode<T>* node, const T& element);
+	BSTNode<T>* root;
 };
 
 

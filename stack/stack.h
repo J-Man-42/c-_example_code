@@ -6,18 +6,18 @@
 
 // The node class.
 template<class T>
-class Node
+class StackNode
 {
 public:
-	Node(const T data) {
+	StackNode(const T data) {
 		this->data = data;
 		this->next = nullptr;
 	}
-	~Node() {
+	~StackNode() {
 		this->next = nullptr;
 	}
 	T data;
-	Node<T>* next;
+	StackNode<T>* next;
 };
 
 
@@ -53,7 +53,7 @@ public:
 	std::string toString();
 private:
 	uint length;
-	Node<T>* head;
+	StackNode<T>* head;
 };
 
 

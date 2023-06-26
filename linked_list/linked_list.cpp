@@ -29,14 +29,14 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 
 	// Copy other.head if not null.
 	if (other.head) {
-		this->head = new Node<T>(other.head->data);
+		this->head = new ListNode<T>(other.head->data);
 		this->tail = this->head;
 		this->current = this->head;
 
 		// Copy all remaining elements.
-		Node<T>* otherPtr = other.head->next;
+		ListNode<T>* otherPtr = other.head->next;
 		while (otherPtr) {
-			this->tail->next = new Node<T>(otherPtr->data);
+			this->tail->next = new ListNode<T>(otherPtr->data);
 			this->tail->next->prev = this->tail;
 			this->tail = this->tail->next;
 			otherPtr = otherPtr->next;
@@ -86,14 +86,14 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
 
 		// Copy other.head if not null.
 		if (other.head) {
-			this->head = new Node<T>(other.head->data);
+			this->head = new ListNode<T>(other.head->data);
 			this->tail = this->head;
 			this->current = this->head;
 
 			// Copy all remaining elements.
-			Node<T>* otherPtr = other.head->next;
+			ListNode<T>* otherPtr = other.head->next;
 			while (otherPtr) {
-				this->tail->next = new Node<T>(otherPtr->data);
+				this->tail->next = new ListNode<T>(otherPtr->data);
 				this->tail->next->prev = this->tail;
 				this->tail = this->tail->next;
 				otherPtr = otherPtr->next;
@@ -128,7 +128,7 @@ LinkedList<T> LinkedList<T>::operator+(const T element) {
 template<class T>
 LinkedList<T> LinkedList<T>::operator+(const LinkedList<T>& other) {
 	LinkedList<T> list = this->clone();
-	Node<T>* nodePtr = other.head;
+	ListNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		list.append(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -150,7 +150,7 @@ LinkedList<T>& LinkedList<T>::operator+=(const T element) {
 // Add the list of elements to the end of this list.
 template<class T>
 LinkedList<T>& LinkedList<T>::operator+=(const LinkedList<T>& other) {
-	Node<T>* nodePtr = other.head;
+	ListNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		this->append(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -167,12 +167,12 @@ void LinkedList<T>::append(const T element) {
 
 	// See if it's the first element.
 	if (isEmpty()) {
-		head = tail = current = new Node<T>(element);
+		head = tail = current = new ListNode<T>(element);
 	}
 
 	// Otherwise, add to the end.
 	else {
-		tail->next = new Node<T>(element);
+		tail->next = new ListNode<T>(element);
 		tail->next->prev = tail;
 		tail = tail->next;
 	}
@@ -213,8 +213,8 @@ LinkedList<T> LinkedList<T>::clone() {
 // Returns true if element is in the list.
 template<class T>
 bool LinkedList<T>::contains(const T element) const {
-	Node<T>* headPtr = head;
-	Node<T>* tailPtr = tail;
+	ListNode<T>* headPtr = head;
+	ListNode<T>* tailPtr = tail;
 
 	// Loop while both headPtr and tailPtr are not null.
 	while (headPtr && tailPtr) {
@@ -305,7 +305,7 @@ T& LinkedList<T>::getNext() {
 // Returns the list index of the given element.
 template<class T>
 int LinkedList<T>::indexOf(const T element) {
-	Node<T>* nodePtr = head;
+	ListNode<T>* nodePtr = head;
 	int index = 0;
 
 	// Iterate until null or element found.
@@ -329,12 +329,12 @@ void LinkedList<T>::insert(const T element) {
 
 	// See if it's the first element.
 	if (isEmpty()) {
-		head = tail = current = new Node<T>(element);
+		head = tail = current = new ListNode<T>(element);
 	}
 
 	// Otherwise, insert at the beginning.
 	else {
-		head->prev = new Node<T>(element);
+		head->prev = new ListNode<T>(element);
 		head->prev->next = head;
 		head = head->prev;
 	}
@@ -345,37 +345,37 @@ void LinkedList<T>::insert(const T element) {
 // Insert element at the specified index.
 template<class T>
 void LinkedList<T>::insertAt(const int signedIndex, const T element) {
-	Node<T>* newNode = new Node<T>(element);
+	ListNode<T>* newListNode = new ListNode<T>(element);
 
 	// Accommodate negative indices.
 	uint index = handleNegativeIndex(signedIndex);
 
 	// If empty list, assign as head and tail.
 	if (isEmpty()) {
-		head = tail = current = newNode;
+		head = tail = current = newListNode;
 	}
 
 	// See if element is simply appended to the end.
 	else if (index >= length) {
-		tail->next = newNode;
-		newNode->prev = tail;
-		tail = newNode;
+		tail->next = newListNode;
+		newListNode->prev = tail;
+		tail = newListNode;
 	}
 
 	// See if element should be added to the front.
 	else if (index == 0) {
-		head->prev = newNode;
-		newNode->next = head;
-		head = newNode;
+		head->prev = newListNode;
+		newListNode->next = head;
+		head = newListNode;
 	}
 
 	// It is somewhere in the middle.
 	else {
-		Node<T>* nodePtr = findIndex(index);
-		newNode->next = nodePtr;
-		newNode->prev = nodePtr->prev;
-		newNode->next->prev = newNode;
-		newNode->prev->next = newNode;
+		ListNode<T>* nodePtr = findIndex(index);
+		newListNode->next = nodePtr;
+		newListNode->prev = nodePtr->prev;
+		newListNode->next->prev = newListNode;
+		newListNode->prev->next = newListNode;
 	}
 
 	// Increment the length.
@@ -396,7 +396,7 @@ bool LinkedList<T>::isEmpty() const {
 template<class T>
 void LinkedList<T>::remove(const T element) {
 	bool found = false;
-	Node<T>* nodePtr = head;
+	ListNode<T>* nodePtr = head;
 
 	// Iterate until null or element found.
 	while (nodePtr) {
@@ -467,7 +467,7 @@ T LinkedList<T>::removeAt(const int signedIndex) {
 	}
 
 	// Find correct node and get the element.
-	Node<T>* nodePtr = findIndex(index);
+	ListNode<T>* nodePtr = findIndex(index);
 	T element = nodePtr->data;
 
 	// The only element.
@@ -594,8 +594,8 @@ void LinkedList<T>::resetNext() {
 // Reverse this linked list.
 template<class T>
 void LinkedList<T>::reverse() {
-	Node<T>* nodePtr = head;
-	Node<T>* prevPtr = nullptr;
+	ListNode<T>* nodePtr = head;
+	ListNode<T>* prevPtr = nullptr;
 
 	// Swap head and tail.
 	swap(head, tail);
@@ -614,7 +614,7 @@ void LinkedList<T>::reverse() {
 template<class T>
 LinkedList<T> LinkedList<T>::reversed() {
 	LinkedList<T> list;
-	Node<T>* nodePtr = head;
+	ListNode<T>* nodePtr = head;
 	while (nodePtr) {
 		list.insert(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -638,7 +638,7 @@ void LinkedList<T>::set(const int signedIndex, const T element) {
 	}
 
 	// Find the node and set the element.
-	Node<T>* nodePtr = findIndex(index);
+	ListNode<T>* nodePtr = findIndex(index);
 	nodePtr->data = element;
 }
 
@@ -697,7 +697,7 @@ LinkedList<T>* LinkedList<T>::subList(const uint start, const uint end) {
 	LinkedList<T>* list = new LinkedList();
 
 	// Find the starting point.
-	Node<T>* nodePtr = findIndex(start);
+	ListNode<T>* nodePtr = findIndex(start);
 
 	// Copy elements from start to end.
 	for (size_t i = start; i < end; i++) {
@@ -731,7 +731,7 @@ T* LinkedList<T>::toDynamicArray(const uint SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
-	Node<T>* nodePtr = head;
+	ListNode<T>* nodePtr = head;
 	size_t limit = (length > SIZE ? SIZE : length);
 	for (size_t i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
@@ -754,7 +754,7 @@ string LinkedList<T>::toString() {
 	}
 
 	// Iterate through all elements.
-	Node<T>* nodePtr = head;
+	ListNode<T>* nodePtr = head;
 	stringstream ss;
 	ss << "(";
 	while (nodePtr->next) {
@@ -769,8 +769,8 @@ string LinkedList<T>::toString() {
 
 // Find the node corresponding to the given index.
 template<class T>
-Node<T>* LinkedList<T>::findIndex(const uint index) {
-	Node<T>* nodePtr;
+ListNode<T>* LinkedList<T>::findIndex(const uint index) {
+	ListNode<T>* nodePtr;
 
 	// Throw error if index out of bounds.
 	if (index >= length) {

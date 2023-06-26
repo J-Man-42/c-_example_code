@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "binary_search_tree.h"
+#include "../queue/queue.h"
 using namespace std;
 
 
@@ -26,15 +27,16 @@ void BinarySearchTree<T>::dft() {
 
 // Recursive part of the DFT.
 template<class T>
-void BinarySearchTree<T>::dft(Node<T>* node) {
+void BinarySearchTree<T>::dft(BSTNode<T>* node) {
 
 	// Stop if node is null.
-	if (node)
+	if (!node) {
 		return;
+	}
 
 	// Traverse left, print current, then traverse right.
 	dft(node->left);
-	cout << node->data << " ";
+	cout << "  " << node->data;
 	dft(node->right);
 }
 
@@ -46,7 +48,7 @@ void BinarySearchTree<T>::insert(const T element) {
 
 	// If root is null, create root.
 	if (!root) {
-		root = new Node<T>(element);
+		root = new BSTNode<T>(element);
 	}
 
 	// Otherwise, recursively traverse root.
@@ -57,7 +59,7 @@ void BinarySearchTree<T>::insert(const T element) {
 
 // The recursive insertion function.
 template<class T>
-void BinarySearchTree<T>::insert(Node<T>* node, const T& element) {
+void BinarySearchTree<T>::insert(BSTNode<T>* node, const T& element) {
 
 	// Element smaller than current node.
 	if (element < node->data) {
@@ -66,7 +68,7 @@ void BinarySearchTree<T>::insert(Node<T>* node, const T& element) {
 		if (node->left) {
 			insert(node->left, element);
 		} else {
-			node->left = new Node<T>(element);
+			node->left = new BSTNode<T>(element);
 		}
 	}
 
@@ -77,7 +79,7 @@ void BinarySearchTree<T>::insert(Node<T>* node, const T& element) {
 		if (node->right) {
 			insert(node->right, element);
 		} else {
-			node->right = new Node<T>(element);
+			node->right = new BSTNode<T>(element);
 		}
 	}
 }

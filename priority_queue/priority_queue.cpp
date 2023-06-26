@@ -28,13 +28,13 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T>& other) {
 
 	// Copy other.head if not null.
 	if (other.head) {
-		this->head = new Node<T>(other.head->data);
+		this->head = new PQueueNode<T>(other.head->data);
 		this->tail = this->head;
 
 		// Copy all remaining elements.
-		Node<T>* otherPtr = other.head->next;
+		PQueueNode<T>* otherPtr = other.head->next;
 		while (otherPtr) {
-			this->tail->next = new Node<T>(otherPtr->data);
+			this->tail->next = new PQueueNode<T>(otherPtr->data);
 			this->tail = this->tail->next;
 			otherPtr = otherPtr->next;
 		}
@@ -82,13 +82,13 @@ PriorityQueue<T>& PriorityQueue<T>::operator=(const PriorityQueue<T>& other) {
 
 		// Copy other.head if not null.
 		if (other.head) {
-			this->head = new Node<T>(other.head->data);
+			this->head = new PQueueNode<T>(other.head->data);
 			this->tail = this->head;
 
 			// Copy all remaining elements.
-			Node<T>* otherPtr = other.head->next;
+			PQueueNode<T>* otherPtr = other.head->next;
 			while (otherPtr) {
-				this->tail->next = new Node<T>(otherPtr->data);
+				this->tail->next = new PQueueNode<T>(otherPtr->data);
 				this->tail = this->tail->next;
 				otherPtr = otherPtr->next;
 			}
@@ -114,7 +114,7 @@ PriorityQueue<T> PriorityQueue<T>::operator+(const T element) {
 template<class T>
 PriorityQueue<T> PriorityQueue<T>::operator+(const PriorityQueue<T>& other) {
 	PriorityQueue<T> queue = this->clone();
-	Node<T>* nodePtr = other.head;
+	PQueueNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		queue.push(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -136,7 +136,7 @@ PriorityQueue<T>& PriorityQueue<T>::operator+=(const T element) {
 // Add the queue to the end of this queue.
 template<class T>
 PriorityQueue<T>& PriorityQueue<T>::operator+=(const PriorityQueue<T>& other) {
-	Node<T>* nodePtr = other.head;
+	PQueueNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		this->push(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -170,7 +170,7 @@ void PriorityQueue<T>::clear() {
 	if (!isEmpty()) {
 
 		// Delete all nodes except the last.
-		Node<T>* nodePtr = head;
+		PQueueNode<T>* nodePtr = head;
 		while (head != tail) {
 			head = head->next;
 			delete nodePtr;
@@ -196,7 +196,7 @@ PriorityQueue<T> PriorityQueue<T>::clone() {
 // Returns true if the element is in the queue.
 template<class T>
 bool PriorityQueue<T>::contains(const T element) const {
-	Node<T>* nodePtr = head;
+	PQueueNode<T>* nodePtr = head;
 	while (nodePtr) {
 		if (nodePtr->data == element)
 			return true;
@@ -253,7 +253,7 @@ T PriorityQueue<T>::pop() {
 
 	// Otherwise, at least two elements in the queue.
 	else {
-		Node<T>* nodePtr = head;
+		PQueueNode<T>* nodePtr = head;
 		head = head->next;
 		delete nodePtr;
 	}
@@ -271,29 +271,29 @@ void PriorityQueue<T>::push(const T element) {
 
 	// See if it's the first element.
 	if (isEmpty()) {
-		head = tail = new Node<T>(element);
+		head = tail = new PQueueNode<T>(element);
 	}
 
 	// See if it's smaller than the last element.
 	else if (tail->data >= element) {
-		tail->next = new Node<T>(element);
+		tail->next = new PQueueNode<T>(element);
 		tail = tail->next;
 	}
 
 	// Otherwise, find position to insert.
 	else {
-		Node<T>* prevPtr = nullptr;
-		Node<T>* nodePtr = head;
+		PQueueNode<T>* prevPtr = nullptr;
+		PQueueNode<T>* nodePtr = head;
 		while (nodePtr && nodePtr->data > element) {
 			prevPtr = nodePtr;
 			nodePtr = nodePtr->next;
 		}
 		if (prevPtr) {
-			prevPtr->next = new Node<T>(element);
+			prevPtr->next = new PQueueNode<T>(element);
 			prevPtr = prevPtr->next;
 			prevPtr->next = nodePtr;
 		} else {
-			head = new Node<T>(element);
+			head = new PQueueNode<T>(element);
 			head->next = nodePtr;
 		}
 	}
@@ -329,7 +329,7 @@ T* PriorityQueue<T>::toDynamicArray(const uint SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
-	Node<T>* nodePtr = head;
+	PQueueNode<T>* nodePtr = head;
 	size_t limit = (length > SIZE ? SIZE : length);
 	for (size_t i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
@@ -352,7 +352,7 @@ string PriorityQueue<T>::toString() {
 	}
 
 	// Iterate through all elements.
-	Node<T>* nodePtr = head;
+	PQueueNode<T>* nodePtr = head;
 	stringstream ss;
 	ss << "(";
 	while (nodePtr->next) {

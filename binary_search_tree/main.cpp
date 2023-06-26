@@ -28,7 +28,7 @@ int main() {
 		clearScreen();
 
 		// Traverse the tree using both Depth First and Breadth First.
-		cout << "Tree DFT:  ";
+		cout << "Tree DFT:";
 		tree.dft();
 
 		// Print majority of available functions.

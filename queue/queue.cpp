@@ -28,13 +28,13 @@ Queue<T>::Queue(const Queue<T>& other) {
 
 	// Copy other.head if not null.
 	if (other.head) {
-		this->head = new Node<T>(other.head->data);
+		this->head = new QueueNode<T>(other.head->data);
 		this->tail = this->head;
 
 		// Copy all remaining elements.
-		Node<T>* otherPtr = other.head->next;
+		QueueNode<T>* otherPtr = other.head->next;
 		while (otherPtr) {
-			this->tail->next = new Node<T>(otherPtr->data);
+			this->tail->next = new QueueNode<T>(otherPtr->data);
 			this->tail = this->tail->next;
 			otherPtr = otherPtr->next;
 		}
@@ -82,13 +82,13 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other) {
 
 		// Copy other.head if not null.
 		if (other.head) {
-			this->head = new Node<T>(other.head->data);
+			this->head = new QueueNode<T>(other.head->data);
 			this->tail = this->head;
 
 			// Copy all remaining elements.
-			Node<T>* otherPtr = other.head->next;
+			QueueNode<T>* otherPtr = other.head->next;
 			while (otherPtr) {
-				this->tail->next = new Node<T>(otherPtr->data);
+				this->tail->next = new QueueNode<T>(otherPtr->data);
 				this->tail = this->tail->next;
 				otherPtr = otherPtr->next;
 			}
@@ -114,7 +114,7 @@ Queue<T> Queue<T>::operator+(const T element) {
 template<class T>
 Queue<T> Queue<T>::operator+(const Queue<T>& other) {
 	Queue<T> queue = this->clone();
-	Node<T>* nodePtr = other.head;
+	QueueNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		queue.push(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -136,7 +136,7 @@ Queue<T>& Queue<T>::operator+=(const T element) {
 // Add the queue to the end of this queue.
 template<class T>
 Queue<T>& Queue<T>::operator+=(const Queue<T>& other) {
-	Node<T>* nodePtr = other.head;
+	QueueNode<T>* nodePtr = other.head;
 	while (nodePtr) {
 		this->push(nodePtr->data);
 		nodePtr = nodePtr->next;
@@ -170,7 +170,7 @@ void Queue<T>::clear() {
 	if (!isEmpty()) {
 
 		// Delete all nodes except the last.
-		Node<T>* nodePtr = head;
+		QueueNode<T>* nodePtr = head;
 		while (head != tail) {
 			head = head->next;
 			delete nodePtr;
@@ -196,7 +196,7 @@ Queue<T> Queue<T>::clone() {
 // Returns true if the element is in the queue.
 template<class T>
 bool Queue<T>::contains(const T element) const {
-	Node<T>* nodePtr = head;
+	QueueNode<T>* nodePtr = head;
 	while (nodePtr) {
 		if (nodePtr->data == element) {
 			return true;
@@ -252,7 +252,7 @@ T Queue<T>::pop() {
 
 	// Otherwise, at least two elements in the queue.
 	else {
-		Node<T>* nodePtr = head;
+		QueueNode<T>* nodePtr = head;
 		head = head->next;
 		delete nodePtr;
 	}
@@ -270,12 +270,12 @@ void Queue<T>::push(const T element) {
 
 	// See if it's the first element.
 	if (isEmpty()) {
-		head = tail = new Node<T>(element);
+		head = tail = new QueueNode<T>(element);
 	}
 
 	// Otherwise, add to the end.
 	else {
-		tail->next = new Node<T>(element);
+		tail->next = new QueueNode<T>(element);
 		tail = tail->next;
 	}
 }
@@ -310,7 +310,7 @@ T* Queue<T>::toDynamicArray(const uint SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
-	Node<T>* nodePtr = head;
+	QueueNode<T>* nodePtr = head;
 	size_t limit = (length > SIZE ? SIZE : length);
 	for (size_t i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
@@ -333,7 +333,7 @@ string Queue<T>::toString() {
 	}
 
 	// Iterate through all elements.
-	Node<T>* nodePtr = head;
+	QueueNode<T>* nodePtr = head;
 	stringstream ss;
 	ss << "(";
 	while (nodePtr->next) {

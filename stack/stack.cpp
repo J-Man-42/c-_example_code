@@ -27,13 +27,13 @@ Stack<T>::Stack(const Stack<T>& other) {
 
 	// Copy other.head if not null.
 	if (other.head) {
-		this->head = new Node<T>(other.head->data);
+		this->head = new StackNode<T>(other.head->data);
 
 		// Copy all remaining elements.
-		Node<T>* otherPtr = other.head->next;
-		Node<T>* thisPtr = this->head;
+		StackNode<T>* otherPtr = other.head->next;
+		StackNode<T>* thisPtr = this->head;
 		while (otherPtr) {
-			thisPtr->next = new Node<T>(otherPtr->data);
+			thisPtr->next = new StackNode<T>(otherPtr->data);
 			thisPtr = thisPtr->next;
 			otherPtr = otherPtr->next;
 		}
@@ -80,13 +80,13 @@ Stack<T>& Stack<T>::operator=(const Stack<T>& other) {
 
 		// Copy other.head if not null.
 		if (other.head) {
-			this->head = new Node<T>(other.head->data);
+			this->head = new StackNode<T>(other.head->data);
 
 			// Copy all remaining elements.
-			Node<T>* otherPtr = other.head->next;
-			Node<T>* thisPtr = this->head;
+			StackNode<T>* otherPtr = other.head->next;
+			StackNode<T>* thisPtr = this->head;
 			while (otherPtr) {
-				thisPtr->next = new Node<T>(otherPtr->data);
+				thisPtr->next = new StackNode<T>(otherPtr->data);
 				thisPtr = thisPtr->next;
 				otherPtr = otherPtr->next;
 			}
@@ -113,18 +113,18 @@ template<class T>
 Stack<T> Stack<T>::operator+(const Stack<T>& other) {
 	Stack<T> topStack;
 	Stack<T> bottomStack;
-	Node<T>* nodePtr = nullptr;
+	StackNode<T>* nodePtr = nullptr;
 
 	// Copy other.head if not null.
 	if (other.head) {
 		topStack.length = other.length;
-		topStack.head = new Node<T>(other.head->data);
+		topStack.head = new StackNode<T>(other.head->data);
 
 		// Copy all remaining elements.
 		nodePtr = topStack.head;
-		Node<T>* otherPtr = other.head->next;
+		StackNode<T>* otherPtr = other.head->next;
 		while (otherPtr) {
-			nodePtr->next = new Node<T>(otherPtr->data);
+			nodePtr->next = new StackNode<T>(otherPtr->data);
 			nodePtr = nodePtr->next;
 			otherPtr = otherPtr->next;
 		}
@@ -156,18 +156,18 @@ Stack<T>& Stack<T>::operator+=(const T element) {
 template<class T>
 Stack<T>& Stack<T>::operator+=(const Stack<T>& other) {
 	Stack<T> topStack;
-	Node<T>* nodePtr = nullptr;
+	StackNode<T>* nodePtr = nullptr;
 
 	// Copy other.head if not null.
 	if (other.head) {
 		topStack.length = other.length;
-		topStack.head = new Node<T>(other.head->data);
+		topStack.head = new StackNode<T>(other.head->data);
 
 		// Copy all remaining elements.
 		nodePtr = topStack.head;
-		Node<T>* otherPtr = other.head->next;
+		StackNode<T>* otherPtr = other.head->next;
 		while (otherPtr) {
-			nodePtr->next = new Node<T>(otherPtr->data);
+			nodePtr->next = new StackNode<T>(otherPtr->data);
 			nodePtr = nodePtr->next;
 			otherPtr = otherPtr->next;
 		}
@@ -194,7 +194,7 @@ void Stack<T>::clear() {
 	if (!isEmpty()) {
 
 		// Delete all nodes except.
-		Node<T>* nodePtr = head;
+		StackNode<T>* nodePtr = head;
 		while (head) {
 			head = head->next;
 			delete nodePtr;
@@ -216,7 +216,7 @@ Stack<T> Stack<T>::clone() {
 // Returns true if the element is in the stack.
 template<class T>
 bool Stack<T>::contains(const T element) const {
-	Node<T>* nodePtr = head;
+	StackNode<T>* nodePtr = head;
 	while (nodePtr) {
 		if (nodePtr->data == element) {
 			return true;
@@ -250,7 +250,7 @@ T Stack<T>::pop() {
 	length--;
 
 	// Delete top of stack.
-	Node<T>* nodePtr = head;
+	StackNode<T>* nodePtr = head;
 	head = head->next;
 	delete nodePtr;
 
@@ -267,12 +267,12 @@ void Stack<T>::push(const T element) {
 
 	// See if it's the first element.
 	if (isEmpty()) {
-		head = new Node<T>(element);
+		head = new StackNode<T>(element);
 	}
 
 	// Otherwise, add to the top.
 	else {
-		Node<T>* nodePtr = new Node<T>(element);
+		StackNode<T>* nodePtr = new StackNode<T>(element);
 		nodePtr->next = head;
 		head = nodePtr;
 	}
@@ -323,7 +323,7 @@ T* Stack<T>::toDynamicArray(const uint SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
-	Node<T>* nodePtr = head;
+	StackNode<T>* nodePtr = head;
 	size_t limit = (length > SIZE ? SIZE : length);
 	for (size_t i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
@@ -346,7 +346,7 @@ string Stack<T>::toString() {
 	}
 
 	// Iterate through all elements.
-	Node<T>* nodePtr = head;
+	StackNode<T>* nodePtr = head;
 	stringstream ss;
 	ss << "(";
 	while (nodePtr->next) {

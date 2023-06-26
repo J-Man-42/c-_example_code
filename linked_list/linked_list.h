@@ -6,21 +6,21 @@
 
 // The node class.
 template<class T>
-class Node
+class ListNode
 {
 public:
-	Node(const T data) {
+	ListNode(const T data) {
 		this->data = data;
 		this->next = nullptr;
 		this->prev = nullptr;
 	}
-	~Node() {
+	~ListNode() {
 		this->next = nullptr;
 		this->prev = nullptr;
 	}
 	T data;
-	Node<T>* next;
-	Node<T>* prev;
+	ListNode<T>* next;
+	ListNode<T>* prev;
 };
 
 
@@ -72,12 +72,12 @@ public:
 	T* toDynamicArray(const uint SIZE);
 	std::string toString();
 private:
-	Node<T>* findIndex(const uint index);
+	ListNode<T>* findIndex(const uint index);
 	uint handleNegativeIndex(const int index);
 	uint length;
-	Node<T>* head;
-	Node<T>* tail;
-	Node<T>* current;
+	ListNode<T>* head;
+	ListNode<T>* tail;
+	ListNode<T>* current;
 };
 
 
