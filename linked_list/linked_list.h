@@ -61,6 +61,8 @@ public:
 	T removeFirst();
 	T removeLast();
 	void resetNext();
+	void reverse();
+	LinkedList<T> reversed();
 	void set(const int signedIndex, const T element);
 	void setFirst(const T element);
 	void setLast(const T element);

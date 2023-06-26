@@ -591,6 +591,18 @@ void LinkedList<T>::resetNext() {
 
 
 
+// Reverse this linked list.
+template<class T>
+void LinkedList<T>::reverse() {}
+
+
+
+// Return a reversed version of this list.
+template<class T>
+LinkedList<T> LinkedList<T>::reversed() {}
+
+
+
 // Set the element at the given index.
 template<class T>
 void LinkedList<T>::set(const int signedIndex, const T element) {
