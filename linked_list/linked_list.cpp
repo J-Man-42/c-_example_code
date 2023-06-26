@@ -612,7 +612,15 @@ void LinkedList<T>::reverse() {
 
 // Return a reversed version of this list.
 template<class T>
-LinkedList<T> LinkedList<T>::reversed() {}
+LinkedList<T> LinkedList<T>::reversed() {
+	LinkedList<T> list;
+	Node<T>* nodePtr = head;
+	while (nodePtr) {
+		list.insert(nodePtr->data);
+		nodePtr = nodePtr->next;
+	}
+	return list;
+}
 
 
 

@@ -368,6 +368,9 @@ int main() {
 		// Return a reversed version of this list.
 		case 19:
 			cout << "reversed()" << endl;
+			temp = list.reversed();
+			cout << "Reversed:  " << temp << endl;
+			sleep_for(seconds(5));
 			break;
 
 
