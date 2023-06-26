@@ -28,6 +28,10 @@ A collection of example code written in C++.
 - [queue.cpp](queue/queue.cpp)
 - [queue.h](queue/queue.h)
 
+### Priority Queue
+- [priority_queue.cpp](priority_queue/priority_queue.cpp)
+- [priority_queue.h](priority_queue/priority_queue.h)
+
 ### Random
 - [random.cpp](random/random.cpp)
 - [random.h](random/random.h)
