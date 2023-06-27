@@ -4,6 +4,39 @@
 using namespace std;
 
 
+// The example node class for trees.
+class Node
+{
+public:
+	Node() {
+		this->data = 0;
+		this->height = 0;
+		this->left = nullptr;
+		this->right = nullptr;
+	}
+	Node(const int data, const uint height = 1) {
+		this->data = data;
+		this->height = height;
+		this->left = nullptr;
+		this->right = nullptr;
+	}
+	Node(Node* other) {
+		this->data = other->data;
+		this->height = other->height;
+		this->left = nullptr;
+		this->right = nullptr;
+	}
+	~Node() {
+		this->left = nullptr;
+		this->right = nullptr;
+	}
+	int data;
+	uint height;
+	Node* left;
+	Node* right;
+};
+
+
 // Main testing function.
 int main() {
 
@@ -25,6 +58,18 @@ int main() {
 
 	// Display as a heap.
 	displayHeap(array, SIZE);
+
+	// Build the tree.
+	Node* root = new Node(50, 3);
+	root->left = new Node(25, 2);
+	root->right = new Node(75, 2);
+	root->left->left = new Node(15);
+	root->left->right = new Node(35);
+	root->right->left = new Node(65);
+	root->right->right = new Node(85);
+
+	// Display the tree.
+	displayTree<Node>(root);
 
 	return 0;
 }

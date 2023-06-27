@@ -68,6 +68,7 @@ void displayHeap(uint* array, const uint SIZE) {
 
 	// Calculate height of heap.
 	uint height = 1 + log2(SIZE);
+	cout << "height = " << height << endl;
 
 	// Calculate the widths.
 	uint width[height];
