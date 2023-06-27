@@ -27,14 +27,17 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
-		// Print the tree height.
-		cout << "Tree height:  " << tree.height() << endl;
-
 		// Traverse the tree.
-		cout << "Tree DFT:";
+		cout << "DFT:";
 		tree.dft();
-		cout << "Tree BFT:";
+		cout << "BFT:";
 		tree.bft();
+
+		// Print the tree height.
+		cout << "Height:  " << tree.height() << endl;
+
+		// Print the tree.
+		tree.printTree();
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;

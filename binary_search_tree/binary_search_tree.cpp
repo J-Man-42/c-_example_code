@@ -273,6 +273,14 @@ bool BinarySearchTree<T>::isEmpty() const {
 
 
 
+// Elegantly prints the tree.
+template<class T>
+void BinarySearchTree<T>::printTree() {
+	displayTree<BSTNode<T>>(root);
+}
+
+
+
 // Removed the given element from the tree.
 template<class T>
 void BinarySearchTree<T>::remove(const T element) {

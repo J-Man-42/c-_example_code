@@ -2,6 +2,7 @@
 #define BINARY_SEARCH_TREE_H
 
 #include <iostream>
+#include "../display_structure/display_structure.h"
 
 
 // The node class.
@@ -57,6 +58,7 @@ public:
 	uint height() const;
 	void insert(const T element);
 	bool isEmpty() const;
+	void printTree();
 	void remove(const T element);
 
 private:

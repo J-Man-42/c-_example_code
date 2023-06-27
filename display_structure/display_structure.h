@@ -22,7 +22,6 @@ void displayTree(Node* root) {
 
 	// Get the height from root.
 	uint height = root->height;
-	cout << "height = " << height << endl;
 
 	// Calculate the widths.
 	uint width[height];
