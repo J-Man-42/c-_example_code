@@ -8,11 +8,14 @@ using namespace std;
 int main() {
 
 	// Create random array.
-	const uint SIZE = 10;
+	const uint SIZE = 15;
 	uint* array = randUintArray(SIZE, 1, 999);
 
 	// Display the array.
 	displayArray(array, SIZE);
+
+	// Display as a heap.
+	displayHeap(array, SIZE);
 
 	// Delete dynamic memory.
 	delete [] array;
