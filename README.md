@@ -11,6 +11,10 @@ A collection of example code written in C++.
 - [colour_text.cpp](colour_text/colour_text.cpp)
 - [colour_text.h](colour_text/colour_text.h)
 
+### Display Structure
+- [display_structure.cpp](display_structure/display_structure.cpp)
+- [display_structure.h](display_structure/display_structure.h)
+
 ### Linked List
 - [linked_list.cpp](linked_list/linked_list.cpp)
 - [linked_list.h](linked_list/linked_list.h)
