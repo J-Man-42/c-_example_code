@@ -10,6 +10,8 @@ OBJECTS := \
 TEMPLATES := \
 	../queue/queue.cpp \
 	../queue/queue.h \
+	../stack/stack.cpp \
+	../stack/stack.h \
 	binary_search_tree.cpp \
 	binary_search_tree.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)

@@ -1,7 +1,9 @@
 #include <iostream>
+#include <algorithm>
 #include <sstream>
-#include "binary_search_tree.h"
 #include "../queue/queue.h"
+#include "../stack/stack.h"
+#include "binary_search_tree.h"
 using namespace std;
 
 
@@ -290,20 +292,24 @@ void BinarySearchTree<T>::remove(
 	// Traverse left if element is smaller than current node.
 	if (element < node->data) {
 		remove(node, node->left, element);
+		updateHeight(node);
 	}
 
 	// Traverse right if element is larger than current node.
 	else if (element > node->data) {
 		remove(node, node->right, element);
+		updateHeight(node);
 	}
 
 	// It's found otherwise.
 	else {
 		BSTNode<T>* deleteNode = node;
 		BSTNode<T>* child = node->left;
+		Stack<BSTNode<T>*> stack;
 		while (child && child->right) {
 			node = child;
 			child = child->right;
+			stack.push(node);
 		}
 
 		// No left highest node.
@@ -317,6 +323,7 @@ void BinarySearchTree<T>::remove(
 			} else {
 				root = node->right;
 			}
+			node->height--;
 		}
 
 		// There is a left highest node.
@@ -326,8 +333,14 @@ void BinarySearchTree<T>::remove(
 			} else {
 				node->left = child->left;
 			}
+			child->height--;
 			deleteNode->data = child->data;
 			deleteNode = child;
+		}
+
+		// Update all node heights in the stack.
+		while (!stack.isEmpty()) {
+			updateHeight(stack.pop());
 		}
 
 		// Delete the node.
@@ -341,13 +354,19 @@ void BinarySearchTree<T>::remove(
 template<class T>
 void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) const {
 
-	// Check for left child.
-	if (node->left && node->left->height >= node->height) {
-		node->height = node->left->height + 1;
+	// The initial left and right heights.
+	uint left = 0, right = 0;
+
+	// Update left height if left is not null.
+	if (node->left) {
+		left = node->left->height;
 	}
 
-	// Check for right child.
-	else if (node->right && node->right->height >= node->height) {
-		node->height = node->right->height + 1;
+	// Update right height if right is not null.
+	if (node->right) {
+		right = node->right->height;
 	}
+
+	// Height of node is max height of children + 1.
+	node->height = max(left, right) + 1;
 }
