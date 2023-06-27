@@ -2,9 +2,11 @@
 ######################################################################
 HEADERS := \
 	display_structure.h \
+	../math/math.h \
 	../random/random.h
 OBJECTS := \
 	out/display_structure.o \
+	out/math.o \
 	out/random.o
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)
 
@@ -20,6 +22,9 @@ out/main.o:  main.cpp
 
 out/display_structure.o:  display_structure.cpp display_structure.h
 	g++ -Wall -c display_structure.cpp -o out/display_structure.o
+
+out/math.o:  ../math/math.cpp ../math/math.h
+	g++ -Wall -c ../math/math.cpp -o out/math.o
 
 out/random.o:  ../random/random.cpp ../random/random.h
 	g++ -Wall -c ../random/random.cpp -o out/random.o
