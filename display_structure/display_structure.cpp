@@ -1,7 +1,7 @@
+#include <algorithm>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
-#include "../math/math.h"
 #include "display_structure.h"
 using namespace std;
 
