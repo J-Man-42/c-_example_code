@@ -364,7 +364,7 @@ void BinarySearchTree<T>::remove(
 
 // Updates the node's height based on it's left and right child.
 template<class T>
-void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) const {
+void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) {
 
 	// If node is null, do nothing.
 	if (!node) {
@@ -418,6 +418,10 @@ void BinarySearchTree<T>::rotateLeft(
 	// Rearrange node and child.
 	node->right = child->left;
 	child->left = node;
+
+	// Update their heights.
+	updateHeight(node);
+	updateHeight(child);
 }
 
 
@@ -450,4 +454,8 @@ void BinarySearchTree<T>::rotateRight(
 	// Rearrange node and child.
 	node->left = child->right;
 	child->right = node;
+
+	// Update their heights.
+	updateHeight(node);
+	updateHeight(child);
 }

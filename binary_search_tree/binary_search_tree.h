@@ -68,7 +68,7 @@ private:
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
 	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
-	void updateHeight(BSTNode<T>* node) const;
+	void updateHeight(BSTNode<T>* node);
 	void rotateLeft(BSTNode<T>* parent, BSTNode<T>* node);
 	void rotateRight(BSTNode<T>* parent, BSTNode<T>* node);
 	BSTNode<T>* root;
