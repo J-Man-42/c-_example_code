@@ -33,7 +33,7 @@ public:
 		this->right = nullptr;
 	}
 	T data;
-	uint height;
+	int height;
 	BSTNode<T>* left;
 	BSTNode<T>* right;
 };

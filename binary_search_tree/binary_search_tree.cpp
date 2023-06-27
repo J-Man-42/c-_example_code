@@ -285,6 +285,9 @@ void BinarySearchTree<T>::printTree() {
 template<class T>
 void BinarySearchTree<T>::remove(const T element) {
 	remove(nullptr, root, element);
+
+	// Update root's height.
+	updateHeight(root);
 }
 
 // The recursive remove function.
@@ -323,6 +326,7 @@ void BinarySearchTree<T>::remove(
 		// No left highest node.
 		if (!child) {
 			if (parent) {
+				parent->height--;
 				if (parent->right == node) {
 					parent->right = node->right;
 				} else {
@@ -361,6 +365,11 @@ void BinarySearchTree<T>::remove(
 // Updates the node's height based on it's left and right child.
 template<class T>
 void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) const {
+
+	// If node is null, do nothing.
+	if (!node) {
+		return;
+	}
 
 	// The initial left and right heights.
 	uint left = 0, right = 0;

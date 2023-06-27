@@ -18,8 +18,8 @@ int main() {
 	uint element;
 
 	// Create the binary search tree.
-	BinarySearchTree<int> tree;
-	BinarySearchTree<int> temp;
+	BinarySearchTree<uint> tree;
+	BinarySearchTree<uint> temp;
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -143,7 +143,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (size_t i = 0; i < number; i++) {
-				temp.insert(randUint(10, 99));
+				temp.insert(randUint(0, 999));
 			}
 			tree = temp;
 			break;
