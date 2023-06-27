@@ -4,62 +4,12 @@
 #include <thread>
 #include <cmath>
 #include "queue.h"
+#include "../display_structure/display_structure.h"
 #include "../move_cursor/move_cursor.h"
 #include "../random/random.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
-
-
-// Elegantly displays the content of the array.
-void displayArray(uint* array, const uint SIZE) {
-	uint width;
-
-	// Do not print array of size 0.
-	if (SIZE == 0) {
-		return;
-	}
-
-	// Display the top border.
-	cout << "┌─";
-	for (size_t i = 0; i < SIZE; i++) {
-		width = 1;
-		if (array[i] > 0) {
-			width += log10(array[i]);
-		}
-		for (size_t j = 0; j < width; j++) {
-			cout << "─";
-		}
-		if (i < SIZE-1) {
-			cout << "─┬─";
-		} else {
-			cout << "─┐\n";
-		}
-	}
-
-	// Iterate through all elements.
-	for (size_t i = 0; i < SIZE; i++) {
-		cout << "│ " << array[i] << " ";
-	}
-	cout << "│\n";
-
-	// Display the bottom border.
-	cout << "└─";
-	for (size_t i = 0; i < SIZE; i++) {
-		width = 1;
-		if (array[i] > 0) {
-			width += log10(array[i]);
-		}
-		for (size_t j = 0; j < width; j++) {
-			cout << "─";
-		}
-		if (i < SIZE-1) {
-			cout << "─┴─";
-		} else {
-			cout << "─┘\n";
-		}
-	}
-}
 
 
 
@@ -105,7 +55,7 @@ int main() {
 		cout << " (9)  size()" << endl;
 		cout << "(10)  toDynamicArray()" << endl;
 		cout << "(11)  toDynamicArray(size)" << endl;
-		cout << "(12)  operator=(queue)" << endl;
+		cout << "(12)  operator=" << endl;
 		cout << "(13)  operator+(element)" << endl;
 		cout << "(14)  operator+(queue)" << endl;
 		cout << "(15)  operator+=(element)" << endl;
