@@ -27,6 +27,9 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
+		// Print the tree height.
+		cout << "Tree height:  " << tree.height() << endl;
+
 		// Traverse the tree.
 		cout << "Tree DFT:";
 		tree.dft();

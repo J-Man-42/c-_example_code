@@ -24,7 +24,7 @@ BinarySearchTree<T>::BinarySearchTree(const BST<T>& other) {
 	// Copy other.root if not null.
 	this->root = nullptr;
 	if (other.root) {
-		this->root = new BSTNode<T>(other.root->data);
+		this->root = new BSTNode<T>(other.root);
 
 		// Recursively clone all children.
 		clone(this->root, other.root);
@@ -49,9 +49,8 @@ BST<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& other) {
 		this->clear();
 
 		// Copy other.root if not null.
-		this->root = nullptr;
 		if (other.root) {
-			this->root = new BSTNode<T>(other.root->data);
+			this->root = new BSTNode<T>(other.root);
 
 			// Recursively clone all children.
 			clone(this->root, other.root);
@@ -139,13 +138,13 @@ void BinarySearchTree<T>::clone(
 
 	// Clone left child.
 	if (otherNode->left) {
-		thisNode->left = new BSTNode<T>(otherNode->left->data);
+		thisNode->left = new BSTNode<T>(otherNode->left);
 		clone(thisNode->left, otherNode->left);
 	}
 
 	// Clone right child.
 	if (otherNode->right) {
-		thisNode->right = new BSTNode<T>(otherNode->right->data);
+		thisNode->right = new BSTNode<T>(otherNode->right);
 		clone(thisNode->right, otherNode->right);
 	}
 }
@@ -208,6 +207,17 @@ void BinarySearchTree<T>::dft(BSTNode<T>* node) {
 
 
 
+// Returns the height of the tree.
+template<class T>
+uint BinarySearchTree<T>::height() const {
+	if (isEmpty()) {
+		return 0;
+	}
+	return root->height;
+}
+
+
+
 // Insert into the tree.
 template<class T>
 void BinarySearchTree<T>::insert(const T element) {
@@ -246,6 +256,9 @@ void BinarySearchTree<T>::insert(BSTNode<T>* node, const T& element) {
 			node->right = new BSTNode<T>(element);
 		}
 	}
+
+	// Update node height.
+	updateHeight(node);
 }
 
 
@@ -319,5 +332,22 @@ void BinarySearchTree<T>::remove(
 
 		// Delete the node.
 		delete deleteNode;
+	}
+}
+
+
+
+// Updates the node's height based on it's left and right child.
+template<class T>
+void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) const {
+
+	// Check for left child.
+	if (node->left && node->left->height >= node->height) {
+		node->height = node->left->height + 1;
+	}
+
+	// Check for right child.
+	else if (node->right && node->right->height >= node->height) {
+		node->height = node->right->height + 1;
 	}
 }

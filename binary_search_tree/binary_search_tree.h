@@ -11,11 +11,19 @@ class BSTNode
 public:
 	BSTNode() {
 		this->data = NULL;
+		this->height = 0;
 		this->left = nullptr;
 		this->right = nullptr;
 	}
 	BSTNode(const T data) {
 		this->data = data;
+		this->height = 1;
+		this->left = nullptr;
+		this->right = nullptr;
+	}
+	BSTNode(BSTNode* other) {
+		this->data = other->data;
+		this->height = other->height;
 		this->left = nullptr;
 		this->right = nullptr;
 	}
@@ -24,6 +32,7 @@ public:
 		this->right = nullptr;
 	}
 	T data;
+	uint height;
 	BSTNode<T>* left;
 	BSTNode<T>* right;
 };
@@ -45,6 +54,7 @@ public:
 	BinarySearchTree<T> clone();
 	bool contains(const T element) const;
 	void dft();
+	uint height() const;
 	void insert(const T element);
 	bool isEmpty() const;
 	void remove(const T element);
@@ -56,6 +66,7 @@ private:
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
 	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
+	void updateHeight(BSTNode<T>* node) const;
 	BSTNode<T>* root;
 };
 
