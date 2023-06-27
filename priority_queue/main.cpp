@@ -43,7 +43,7 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (A)  Create List from Array" << endl;
+		cout << " (A)  Create Queue from Array" << endl;
 		cout << " (1)  back()" << endl;
 		cout << " (2)  clear()" << endl;
 		cout << " (3)  clone()" << endl;

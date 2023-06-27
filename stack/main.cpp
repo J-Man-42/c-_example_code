@@ -43,7 +43,7 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (A)  Create List from Array" << endl;
+		cout << " (A)  Create Stack from Array" << endl;
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  contains(element)" << endl;
