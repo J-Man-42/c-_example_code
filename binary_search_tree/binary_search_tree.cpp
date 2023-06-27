@@ -387,3 +387,67 @@ void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) const {
 	// Height of node is max height of children + 1.
 	node->height = max(left, right) + 1;
 }
+
+
+
+// Perform a left rotation.
+template<class T>
+void BinarySearchTree<T>::rotateLeft(
+	BSTNode<T>* parent, BSTNode<T>* node) {
+
+	// Do nothing if right child is null.
+	if (!node->right) {
+		return;
+	}
+
+	// Link parent to right child.
+	BSTNode<T>* child = node->right;
+
+	// Node is root.
+	if (!parent) {
+		root = child;
+	}
+
+	// Node is not root.
+	else if (parent->left == node) {
+		parent->left = child;
+	} else {
+		parent->right = child;
+	}
+
+	// Rearrange node and child.
+	node->right = child->left;
+	child->left = node;
+}
+
+
+
+// Perform a right rotation.
+template<class T>
+void BinarySearchTree<T>::rotateRight(
+	BSTNode<T>* parent, BSTNode<T>* node) {
+
+	// Do nothing if left child is null.
+	if (!node->left) {
+		return;
+	}
+
+	// Link parent to left child.
+	BSTNode<T>* child = node->left;
+
+	// Node is root.
+	if (!parent) {
+		root = child;
+	}
+
+	// Node is not root.
+	else if (parent->left == node) {
+		parent->left = child;
+	} else {
+		parent->right = child;
+	}
+
+	// Rearrange node and child.
+	node->left = child->right;
+	child->right = node;
+}
