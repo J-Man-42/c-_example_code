@@ -60,13 +60,21 @@ int main() {
 	displayHeap(array, SIZE);
 
 	// Build the tree.
-	Node* root = new Node(50, 3);
-	root->left = new Node(25, 2);
-	root->right = new Node(75, 2);
-	root->left->left = new Node(15);
-	root->left->right = new Node(35);
-	root->right->left = new Node(65);
-	root->right->right = new Node(85);
+	Node* root = new Node(50, 4);
+	root->left = new Node(25, 3);
+	root->right = new Node(75, 3);
+	root->left->left = new Node(15, 2);
+	root->left->right = new Node(35, 2);
+	root->right->left = new Node(65, 2);
+	root->right->right = new Node(85, 2);
+	root->left->left->left = new Node(10);
+	root->left->left->right = new Node(20);
+	root->left->right->left = new Node(30);
+	root->left->right->right = new Node(40);
+	root->right->left->left = new Node(60);
+	root->right->left->right = new Node(70);
+	root->right->right->left = new Node(80);
+	root->right->right->right = new Node(90);
 
 	// Display the tree.
 	displayTree<Node>(root);
