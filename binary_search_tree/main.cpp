@@ -44,10 +44,11 @@ int main() {
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  contains(element)" << endl;
-		cout << " (4)  insert(element)" << endl;
-		cout << " (5)  isEmpty()" << endl;
-		cout << " (6)  remove(element)" << endl;
-		cout << " (7)  operator=" << endl;
+		cout << " (4)  createBackbone()" << endl;
+		cout << " (5)  insert(element)" << endl;
+		cout << " (6)  isEmpty()" << endl;
+		cout << " (7)  remove(element)" << endl;
+		cout << " (8)  operator=" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -100,8 +101,15 @@ int main() {
 			break;
 
 
-		// Insert an element in the tree.
+		// Create the backbone used for balancing the tree.
 		case 4:
+			cout << "createBackbone()" << endl;
+			tree.createBackbone();
+			break;
+
+
+		// Insert an element in the tree.
+		case 5:
 			cout << "insert(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -110,7 +118,7 @@ int main() {
 
 
 		// Check if empty.
-		case 5:
+		case 6:
 			cout << "isEmpty()" << endl;
 			cout << "> Tree is empty:  ";
 			if (tree.isEmpty()) {
@@ -123,7 +131,7 @@ int main() {
 
 
 		// Remove an element from the tree.
-		case 6:
+		case 7:
 			cout << "remove(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -137,7 +145,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 7:
+		case 8:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;

@@ -54,6 +54,7 @@ public:
 	void clear();
 	BinarySearchTree<T> clone();
 	bool contains(const T element) const;
+	void createBackbone();
 	void dft();
 	uint height() const;
 	void insert(const T element);

@@ -185,6 +185,40 @@ bool BinarySearchTree<T>::contains(
 
 
 
+// Turns the tree into a backbone for balancing the tree.
+template<class T>
+void BinarySearchTree<T>::createBackbone() {
+	BSTNode<T>* parent = nullptr;
+	BSTNode<T>* node = root;
+	BSTNode<T>* child;
+	Stack<BSTNode<T>*> stack;
+
+	// Traverse all right nodes.
+	while (node) {
+		child = node->left;
+
+		// Rotate right if left child exists.
+		if (child) {
+			rotateRight(parent, node);
+			node = child;
+		}
+
+		// Move down right otherwise.
+		else {
+			stack.push(node);
+			parent = node;
+			node = node->right;
+		}
+	}
+
+	// Update all heights.
+	while (!stack.isEmpty()) {
+		updateHeight(stack.pop());
+	}
+}
+
+
+
 // Depth First Traversal.
 template<class T>
 void BinarySearchTree<T>::dft() {
