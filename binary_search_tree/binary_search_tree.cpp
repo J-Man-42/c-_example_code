@@ -74,7 +74,7 @@ void BinarySearchTree<T>::balanceTree() {
 	// Get actual and ideal number of nodes.
 	uint n = root->height;
 	uint m = pow(2, int(log2(n+1))) - 1;
-	
+
 	// Node pointers.
 	BSTNode<T>* parent = nullptr;
 	BSTNode<T>* node = root;
@@ -188,7 +188,7 @@ void BinarySearchTree<T>::clear() {
 // Recursive part of clear.
 template<class T>
 void BinarySearchTree<T>::clear(BSTNode<T>* node) {
-	
+
 	// Simply return if node is null.
 	if (!node) {
 		return;
