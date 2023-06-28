@@ -41,10 +41,10 @@ int main() {
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		cout << " (1)  clear()" << endl;
-		cout << " (2)  clone()" << endl;
-		cout << " (3)  contains(element)" << endl;
-		cout << " (4)  createBackbone()" << endl;
+		cout << " (1)  balanceTree()" << endl;
+		cout << " (2)  clear()" << endl;
+		cout << " (3)  clone()" << endl;
+		cout << " (4)  contains(element)" << endl;
 		cout << " (5)  insert(element)" << endl;
 		cout << " (6)  isEmpty()" << endl;
 		cout << " (7)  remove(element)" << endl;
@@ -67,15 +67,22 @@ int main() {
 		switch (number) {
 
 
-		// Clear all elements in the tree.
+		// Balance the tree.
 		case 1:
+			cout << "balanceTree()" << endl;
+			tree.balanceTree();
+			break;
+
+
+		// Clear all elements in the tree.
+		case 2:
 			cout << "clear()" << endl;
 			tree.clear();
 			break;
 
 
 		// Clone the tree.
-		case 2:
+		case 3:
 			cout << "clone()" << endl;
 			temp = tree.clone();
 			cout << "> cloned tree DFT:";
@@ -87,7 +94,7 @@ int main() {
 
 
 		// Test if element in the tree.
-		case 3:
+		case 4:
 			cout << "contains(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -98,13 +105,6 @@ int main() {
 				cout << "false" << endl;
 			}
 			sleep_for(seconds(2));
-			break;
-
-
-		// Create the backbone used for balancing the tree.
-		case 4:
-			cout << "createBackbone()" << endl;
-			tree.createBackbone();
 			break;
 
 

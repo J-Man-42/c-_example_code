@@ -64,6 +64,64 @@ BST<T>& BinarySearchTree<T>::operator=(const BinarySearchTree<T>& other) {
 
 
 
+// Balance the tree after creating the backbone.
+template<class T>
+void BinarySearchTree<T>::balanceTree() {
+
+	// Create the backbone.
+	createBackbone();
+
+	// Get actual and ideal number of nodes.
+	uint n = root->height;
+	uint m = pow(2, int(log2(n+1))) - 1;
+	
+	// Node pointers.
+	BSTNode<T>* parent = nullptr;
+	BSTNode<T>* node = root;
+	BSTNode<T>* child = root->right;
+
+	// Initial set of rotations.
+	for (uint i = m; i < n; i++) {
+		rotateLeft(parent, node);
+		parent = child;
+		if (!child) {
+			break;
+		}
+		node = child->right;
+		if (node) {
+			child = node->right;
+		}
+	}
+
+	// The remaining set of rotations.
+	while (m > 1) {
+
+		// Update variables and pointers.
+		m /= 2;
+		BSTNode<T>* parent = nullptr;
+		BSTNode<T>* node = root;
+		BSTNode<T>* child = root->right;
+
+		// Make m rotations.
+		for (uint i = 0; i < m; i++) {
+			rotateLeft(parent, node);
+			parent = child;
+			if (!child) {
+				break;
+			}
+			node = child->right;
+			if (node) {
+				child = node->right;
+			}
+		}
+	}
+
+	// Recalibrate the tree heights.
+	calibrateHeights(root);
+}
+
+
+
 // Breadth First Traversal.
 template<class T>
 void BinarySearchTree<T>::bft() {
@@ -97,6 +155,25 @@ void BinarySearchTree<T>::bft() {
 
 	// Final newline.
 	cout << endl;
+}
+
+
+
+// Completely calculate heights from the ground up.
+template<class T>
+void BinarySearchTree<T>::calibrateHeights(BSTNode<T>* node) {
+
+	// Stop when null.
+	if (!node) {
+		return;
+	}
+
+	// Calibrate heights of both children.
+	calibrateHeights(node->left);
+	calibrateHeights(node->right);
+
+	// Update height of current node.
+	updateHeight(node);
 }
 
 
@@ -191,7 +268,6 @@ void BinarySearchTree<T>::createBackbone() {
 	BSTNode<T>* parent = nullptr;
 	BSTNode<T>* node = root;
 	BSTNode<T>* child;
-	Stack<BSTNode<T>*> stack;
 
 	// Traverse all right nodes.
 	while (node) {
@@ -205,16 +281,13 @@ void BinarySearchTree<T>::createBackbone() {
 
 		// Move down right otherwise.
 		else {
-			stack.push(node);
 			parent = node;
 			node = node->right;
 		}
 	}
 
-	// Update all heights.
-	while (!stack.isEmpty()) {
-		updateHeight(stack.pop());
-	}
+	// Recalibrate the tree heights.
+	calibrateHeights(root);
 }
 
 
@@ -396,34 +469,6 @@ void BinarySearchTree<T>::remove(
 
 
 
-// Updates the node's height based on it's left and right child.
-template<class T>
-void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) {
-
-	// If node is null, do nothing.
-	if (!node) {
-		return;
-	}
-
-	// The initial left and right heights.
-	uint left = 0, right = 0;
-
-	// Update left height if left is not null.
-	if (node->left) {
-		left = node->left->height;
-	}
-
-	// Update right height if right is not null.
-	if (node->right) {
-		right = node->right->height;
-	}
-
-	// Height of node is max height of children + 1.
-	node->height = max(left, right) + 1;
-}
-
-
-
 // Perform a left rotation.
 template<class T>
 void BinarySearchTree<T>::rotateLeft(
@@ -492,4 +537,23 @@ void BinarySearchTree<T>::rotateRight(
 	// Update their heights.
 	updateHeight(node);
 	updateHeight(child);
+}
+
+
+
+// Updates the node's height based on it's left and right child.
+template<class T>
+void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) {
+
+	// If node is null, do nothing.
+	if (!node) {
+		return;
+	}
+
+	// Get the left and right child heights.
+	uint left = (node->left ? node->left->height : 0);
+	uint right = (node->right ? node->right->height : 0);
+
+	// Height of node is max height of children + 1.
+	node->height = max(left, right) + 1;
 }

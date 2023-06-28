@@ -50,11 +50,11 @@ public:
 
 	BinarySearchTree<T>& operator=(const BinarySearchTree<T>& other);
 
+	void balanceTree();
 	void bft();
 	void clear();
 	BinarySearchTree<T> clone();
 	bool contains(const T element) const;
-	void createBackbone();
 	void dft();
 	uint height() const;
 	void insert(const T element);
@@ -63,15 +63,17 @@ public:
 	void remove(const T element);
 
 private:
+	void calibrateHeights(BSTNode<T>* node);
 	void clear(BSTNode<T>* node);
 	void clone(BSTNode<T>* thisNode, BSTNode<T>* otherNode);
 	bool contains(BSTNode<T>* node, const T& element) const;
+	void createBackbone();
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
 	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
-	void updateHeight(BSTNode<T>* node);
 	void rotateLeft(BSTNode<T>* parent, BSTNode<T>* node);
 	void rotateRight(BSTNode<T>* parent, BSTNode<T>* node);
+	void updateHeight(BSTNode<T>* node);
 	BSTNode<T>* root;
 };
 
