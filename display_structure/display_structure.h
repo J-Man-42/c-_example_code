@@ -144,7 +144,7 @@ void displayTree(Node* root) {
 				}
 				cout << endl;
 			}
-			
+
 			// Swap queues and increment depth.
 			swap(topQueue, bottomQueue);
 			d++;

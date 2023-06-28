@@ -92,7 +92,7 @@ void displayHeap(uint* array, const uint SIZE) {
 	for (uint i = 0; i < height; i++) {
 		limit = min(SIZE, index*2 + 1);
 		start = index;
-		
+
 		// Calculate left and right indices.
 		left = 2*start + 1;
 		right = 2*start + 2;

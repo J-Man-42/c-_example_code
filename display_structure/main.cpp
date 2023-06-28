@@ -41,22 +41,21 @@ public:
 int main() {
 
 	// Create the array.
-	uint SIZE = 63;
+	uint SIZE = 31;
 	uint array[SIZE] = {
-		50,
-		25, 75,
-		15, 35, 65, 85,
-		10, 20, 30, 40, 60, 70, 80, 90,
-		8, 12, 18, 22, 28, 32, 38, 42, 58, 62, 68, 72, 78, 82, 88, 92,
-		7, 9, 11, 13, 17, 19, 21, 23, 27, 29, 31, 33, 37, 39, 41, 43,
-		57, 59, 61, 63, 67, 69, 71, 73, 77, 79, 81, 83, 87, 89, 91, 93
+		 1,
+		 9,  2,
+		13, 10,  5,  3,
+		15, 14, 11, 21,  7,  6,  4, 17,
+		16, 24, 28, 23, 12, 22, 27, 30, 8, 20, 26, 19, 31, 18, 25, 29
 	};
-	SIZE = 25;
 
 	// Display the array.
+	cout << "\nArray:" << endl;
 	displayArray(array, SIZE);
 
 	// Display as a heap.
+	cout << "\nHeap:" << endl;
 	displayHeap(array, SIZE);
 
 	// Build the tree.
@@ -77,6 +76,7 @@ int main() {
 	root->right->right->right = new Node(90);
 
 	// Display the tree.
+	cout << "\nTree:" << endl;
 	displayTree<Node>(root);
 
 	return 0;
