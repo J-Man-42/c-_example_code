@@ -287,12 +287,16 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 // Shell Sort the array.
 template<class T>
 void Sorting<T>::shellSort(T array[], const uint& SIZE) {
-
-	// The gap shrink factor.
-	double shrink = 2.3;
+	bool sorted = false;
 
 	// Start with largest gap and work down to 1.
-	for (uint gap = SIZE/shrink; gap >= 1; gap /= shrink) {
+	uint gap = SIZE;
+	while (!sorted) {
+		gap /= 2.3;
+		if (gap <= 1) {
+			gap = 1;
+			sorted = true;
+		}
 
 		// Iterate from gap to SIZE-1.
 		for (size_t i = gap; i < SIZE; i++) {

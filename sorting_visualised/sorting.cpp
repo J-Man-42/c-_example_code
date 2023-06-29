@@ -720,6 +720,7 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('R'));
 	highlight->append(Highlight('R'));
+	bool sorted = false;
 	bool swapped;
 
 	// Display the array before sorting.
@@ -727,11 +728,14 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// The gap shrink factor.
-	double shrink = 2.3;
-
 	// Start with largest gap and work down to 1.
-	for (uint gap = SIZE/shrink; gap >= 1; gap /= shrink) {
+	uint gap = SIZE;
+	while (!sorted) {
+		gap /= 2.3;
+		if (gap <= 1) {
+			gap = 1;
+			sorted = true;
+		}
 
 		// Iterate from gap to SIZE-1.
 		for (size_t i = gap; i < SIZE; i++) {
@@ -873,7 +877,6 @@ void Sorting::combSort(uint array[], const uint& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('R'));
 	highlight->append(Highlight('R'));
-	uint gap = SIZE;
 	bool sorted = false;
 
 	// Display the array before sorting.
@@ -882,6 +885,7 @@ void Sorting::combSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Loop for all gaps.
+	uint gap = SIZE;
 	while (!sorted) {
 		gap = int(gap / 1.3);
 		if (gap <= 1) {
