@@ -32,6 +32,7 @@ public:
 	static void combSort(T array[], const uint& SIZE);
 	static void radixSort(T array[], const uint& SIZE, uint base = 10);
 	static void heapSort(T array[], const uint& SIZE);
+	static void bucketSort(T array[], const uint& SIZE);
 
 private:
 

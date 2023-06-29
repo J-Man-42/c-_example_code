@@ -234,6 +234,7 @@ int main() {
 			cout << "(10)  Radix Sort (base 10)" << endl;
 			cout << "(11)  Radix Sort (custom base)" << endl;
 			cout << "(12)  Heap Sort" << endl;
+			cout << "(13)  Bucket Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -355,6 +356,10 @@ int main() {
 				} else {
 					Sorting<char>::heapSort(charArray, size);
 				}
+				break;
+			case 13:
+				cout << "Performing Bucket Sort..." << endl;
+				Sorting<uint>::bucketSort(uintArray, size);
 				break;
 			}
 

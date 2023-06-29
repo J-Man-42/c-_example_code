@@ -4,6 +4,7 @@
 #include "sorting.h"
 #include "../math/math.h"
 #include "../move_cursor/move_cursor.h"
+#include "../priority_queue/priority_queue.h"
 using namespace std;
 
 
@@ -572,5 +573,41 @@ void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
 		// Break loop otherwise.
 		else break;
 
+	}
+}
+
+
+
+// Bucket Sort the array.
+// Note: only works for unsigned integer arrays.
+template<class T>
+void Sorting<T>::bucketSort(T array[], const uint& SIZE) {
+
+	// Get the maximum value in the array plus 1.
+	uint maxValue = 1 + max(array, SIZE);
+
+	// Get the index ratio.
+	double ratio = double(SIZE) / maxValue;
+
+	// Create priority queue array.
+	PriorityQueue<uint> bucket[SIZE];
+
+	// Iterate through array and push elements to bucket.
+	for (size_t j, i = 0; i < SIZE; i++) {
+		j = array[i] * ratio;
+		bucket[j].push(array[i]);
+	}
+
+	// Get array starting index based on sorting order.
+	int j = (sortAscending ? SIZE-1 : 0);
+
+	// Iterate through bucket and sort array.
+	for (int i = SIZE-1; i >= 0; i--) {
+		while (!bucket[i].isEmpty()) {
+			array[j] = bucket[i].pop();
+
+			// Update array index.
+			j += (sortAscending ? -1 : 1);
+		}
 	}
 }
