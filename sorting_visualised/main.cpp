@@ -237,6 +237,7 @@ int main() {
 			cout << "(10)  Radix Sort (base 10)" << endl;
 			cout << "(11)  Radix Sort (custom base)" << endl;
 			cout << "(12)  Heap Sort" << endl;
+			cout << "(13)  Bucket Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -288,6 +289,9 @@ int main() {
 				break;
 			case 12:
 				Sorting::heapSort(array, size);
+				break;
+			case 13:
+				Sorting::bucketSort(array, size);
 				break;
 			default:
 				clearScreen();

@@ -2,9 +2,10 @@
 #include <iomanip>
 #include <cmath>
 #include "sorting.h"
+#include "../colour_text/colour_text.h"
 #include "../math/math.h"
 #include "../move_cursor/move_cursor.h"
-#include "../colour_text/colour_text.h"
+#include "../priority_queue/priority_queue.h"
 using namespace std;
 
 
@@ -1124,4 +1125,54 @@ void Sorting::heapify(
 		else break;
 
 	}
+}
+
+
+
+// Bucket Sort the array.
+void Sorting::bucketSort(uint array[], const uint& SIZE) {
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Get the maximum value in the array plus 1.
+	uint maxValue = 1 + max(array, SIZE);
+
+	// Get the index ratio.
+	double ratio = double(SIZE) / maxValue;
+
+	// Create priority queue array.
+	PriorityQueue<uint> bucket[SIZE];
+
+	// Iterate through array and push elements to bucket.
+	for (size_t j, i = 0; i < SIZE; i++) {
+		j = array[i] * ratio;
+		bucket[j].push(array[i]);
+	}
+
+	// Iterate through bucket and sort array in ascending order.
+	if (sortAscending) {
+		for (int i = SIZE-1, j = SIZE-1; i >= 0; i--) {
+			while (!bucket[i].isEmpty()) {
+				array[j] = bucket[i].pop();
+				j--;
+			}
+		}
+	}
+
+	// Iterate through bucket and sort array in descending order.
+	else {
+		for (int i = SIZE-1, j = 0; i >= 0; i--) {
+			while (!bucket[i].isEmpty()) {
+				array[j] = bucket[i].pop();
+				j++;
+			}
+		}
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
 }
