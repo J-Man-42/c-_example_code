@@ -11,7 +11,7 @@ typedef time_point<
 > Time;
 
 // The static class for various sorting algorithms.
-template <class T>
+template<class T>
 class Sorting
 {
 public:

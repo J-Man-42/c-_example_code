@@ -8,12 +8,12 @@ using namespace std;
 
 
 // Set static member values.
-template <class T>
+template<class T>
 bool Sorting<T>::sortAscending = true;
 
 
 // Print the time taken.
-template <class T>
+template<class T>
 void Sorting<T>::showTimeTaken(Time start, Time end) {
 
 	// Get the duration in milliseconds
@@ -36,7 +36,7 @@ void Sorting<T>::showTimeTaken(Time start, Time end) {
 
 // Ascending order:   returns status of left < right.
 // Descending order:  returns status of left > right.
-template <class T>
+template<class T>
 bool Sorting<T>::compare(T left, T right) {
 	if (sortAscending)
 		return left < right;
@@ -45,7 +45,7 @@ bool Sorting<T>::compare(T left, T right) {
 
 
 // Bubble sort the given array.
-template <class T>
+template<class T>
 void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 
 	// Sort up to last sorted element.
@@ -71,7 +71,7 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 
 
 // Selection sort the given array.
-template <class T>
+template<class T>
 void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 
 	// Indicate the starting index.
@@ -108,7 +108,7 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 
 
 // Insertion sort the given array.
-template <class T>
+template<class T>
 void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 
 	// Iterate starting from the second element.
@@ -126,7 +126,7 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 
 
 // Cocktail shaker sort the given array.
-template <class T>
+template<class T>
 void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 
 	// Loop while a swap has occurred.
@@ -169,14 +169,14 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 
 
 // Quick Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::quickSort(T array[], const uint& SIZE) {
 	quickSort(array, 0, SIZE-1);
 }
 
 
 // The hidden recursive Quick Sort function.
-template <class T>
+template<class T>
 void Sorting<T>::quickSort(T array[], int low, int high) {
 
 	// Stopping condition.
@@ -194,7 +194,7 @@ void Sorting<T>::quickSort(T array[], int low, int high) {
 
 
 // The partition function for Quick Sort.
-template <class T>
+template<class T>
 int Sorting<T>::partition(T array[], int low, int high) {
 
 	// Pivot is the last element.
@@ -226,14 +226,14 @@ int Sorting<T>::partition(T array[], int low, int high) {
 
 
 // Quick Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::quickSortV2(T array[], const uint& SIZE) {
 	quickSortV2(array, 0, SIZE-1);
 }
 
 
 // The hidden recursive Quick Sort function.
-template <class T>
+template<class T>
 void Sorting<T>::quickSortV2(T array[], int low, int high) {
 
 	// Stopping condition.
@@ -251,7 +251,7 @@ void Sorting<T>::quickSortV2(T array[], int low, int high) {
 
 
 // The partition function for Quick Sort.
-template <class T>
+template<class T>
 int Sorting<T>::partitionV2(T array[], int low, int high) {
 
 	// Pivot is the middle element.
@@ -284,7 +284,7 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 
 
 // Shell Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 
 	// The gap shrink factor.
@@ -309,7 +309,7 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 
 
 // Merge Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
 
 	// Temporary array for copying.
@@ -321,7 +321,7 @@ void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
 
 
 // The function to recursively split the array for Merge Sort.
-template <class T>
+template<class T>
 void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
 
 	// Stopping condition.
@@ -342,7 +342,7 @@ void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
 
 
 // Merge the array again.
-template <class T>
+template<class T>
 void Sorting<T>::merge(
 	T array[], T copy[], uint start, uint middle, uint end) {
 
@@ -369,7 +369,7 @@ void Sorting<T>::merge(
 
 
 // Comb Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::combSort(T array[], const uint& SIZE) {
 	bool sorted = false;
 	uint gap = SIZE;
@@ -395,7 +395,7 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 
 // Radix Sort the array using the specified base.
 // Note: Only works for unsigned integers, chars, and strings.
-template <class T>
+template<class T>
 void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
 
 	// Update base for type T.
@@ -512,7 +512,7 @@ uint Sorting<T>::radixHash(char& value, uint digit, const uint& BASE) {
 
 
 // Heap Sort the array.
-template <class T>
+template<class T>
 void Sorting<T>::heapSort(T array[], const uint& SIZE) {
 
 	// Get index of last non-leaf node.
@@ -532,7 +532,7 @@ void Sorting<T>::heapSort(T array[], const uint& SIZE) {
 
 
 // Recursively heapify the array at the given index.
-template <class T>
+template<class T>
 void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
 
 	// The index of the lowest non-leaf node.
