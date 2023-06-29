@@ -30,8 +30,7 @@ public:
 	static void shellSort(T array[], const uint& SIZE);
 	static void mergeSort(T array[], const uint& SIZE);
 	static void combSort(T array[], const uint& SIZE);
-	static void radixSort(
-		uint array[], const uint& SIZE, const uint BASE = 10);
+	static void radixSort(T array[], const uint& SIZE, uint base = 10);
 	static void heapSort(T array[], const uint& SIZE);
 
 private:
@@ -45,6 +44,14 @@ private:
 	static void split(T array[], T copy[], uint start, uint end);
 	static void merge(
 		T array[], T copy[], uint start, uint middle, uint end);
+	static uint updateBase(uint array[], uint base);
+	static uint updateBase(char array[], uint base);
+	static uint radixDigits(
+		uint array[], const uint& SIZE, const uint& BASE);
+	static uint radixDigits(
+		char array[], const uint& SIZE, const uint& BASE);
+	static uint radixHash(uint& value, uint digit, const uint& BASE);
+	static uint radixHash(char& value, uint digit, const uint& BASE);
 	static void heapify(T array[], uint end, uint parentIndex);
 };
 

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "sorting.h"
 #include "../math/math.h"
 #include "../move_cursor/move_cursor.h"
@@ -393,26 +394,25 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 
 
 // Radix Sort the array using the specified base.
-// Note: Only works for unsigned integer types.
+// Note: Only works for unsigned integers, chars, and strings.
 template <class T>
-void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
+void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
+
+	// Update base for type T.
+	base = updateBase(array, base);
 
 	// Get the number of digits from the maximum value.
-	uint maxValue = max(array, SIZE);
-	uint numDigits = 1;
-	if (maxValue >= BASE) {
-		numDigits += log(BASE, maxValue);
-	}
+	uint numDigits = radixDigits(array, SIZE, base);
 
 	// Create counting array and copy of original array.
-	uint count[BASE];
+	int count[base];
 	uint copy[SIZE];
 
 	// Iterate through all digits.
-	for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
-
+	for (uint d, digit = 0; digit < numDigits; digit++) {
+	
 		// Reset the counting array.
-		for (size_t i = 0; i < BASE; i++) {
+		for (size_t i = 0; i < base; i++) {
 			count[i] = 0;
 		}
 
@@ -421,11 +421,11 @@ void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 			copy[i] = array[i];
 
 			// Determine the current digit.
-			d = (array[i] / digit) % BASE;
+			d = radixHash(array[i], digit, base);
 
 			// Invert digit if descending order.
 			if (!sortAscending) {
-				d = BASE - 1 - d;
+				d = base - 1 - d;
 			}
 
 			// Increment the respective count.
@@ -433,7 +433,7 @@ void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 		}
 
 		// Increment each subsequent count.
-		for (size_t i = 1; i < BASE; i++) {
+		for (size_t i = 1; i < base; i++) {
 			count[i] += count[i-1];
 		}
 
@@ -441,11 +441,11 @@ void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 		for (int i = SIZE-1; i >= 0; i--) {
 
 			// Determine the current digit.
-			d = (copy[i] / digit) % BASE;
+			d = radixHash(copy[i], digit, base);
 
 			// Invert digit if descending order.
 			if (!sortAscending) {
-				d = BASE - 1 - d;
+				d = base - 1 - d;
 			}
 
 			// Copy to array.
@@ -453,6 +453,60 @@ void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 			array[count[d]] = copy[i];
 		}
 	}
+}
+
+
+// Update the base for type unsigned integer.
+template<class T>
+uint Sorting<T>::updateBase(uint array[], uint base) {
+	return base;
+}
+
+
+// Update the base for type char.
+template<class T>
+uint Sorting<T>::updateBase(char array[], uint base) {
+	return 128;
+}
+
+
+// Get the number of digits (unsigned integer) for Radix Sort.
+template<class T>
+uint Sorting<T>::radixDigits(
+	uint array[], const uint& SIZE, const uint& BASE) {
+
+	// The number of digits is based on the maximum value.
+	uint maxValue = max(array, SIZE);
+	uint numDigits = 1;
+	if (maxValue >= BASE) {
+		numDigits += log(BASE, maxValue);
+	}
+	return numDigits;
+}
+
+
+// Get the number of digits (char) for Radix Sort.
+template<class T>
+uint Sorting<T>::radixDigits(
+	char array[], const uint& SIZE, const uint& BASE) {
+
+	// The number of char digits is always 1.
+	return 1;
+}
+
+
+// Hash function to get the unsigned integer radix digit.
+template<class T>
+uint Sorting<T>::radixHash(uint& value, uint digit, const uint& BASE) {
+	digit = pow(BASE, digit);
+	return (value / digit) % BASE;
+}
+
+
+// Hash function to get the char radix digit.
+template<class T>
+uint Sorting<T>::radixHash(char& value, uint digit, const uint& BASE) {
+	return uint(value);
 }
 
 
