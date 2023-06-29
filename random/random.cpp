@@ -47,7 +47,7 @@ char randChar(char type) {
 	static short startSymbol[4] = {33, 58, 91, 123};
 	static short endSymbol[4] = {47, 64, 96, 127};
 	short start, index;
-	
+
 	// Switch statement for type.
 	switch (type) {
 

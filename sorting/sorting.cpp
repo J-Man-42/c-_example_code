@@ -411,7 +411,7 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
 
 	// Iterate through all digits.
 	for (uint d, digit = 0; digit < numDigits; digit++) {
-	
+
 		// Reset the counting array.
 		for (size_t i = 0; i < base; i++) {
 			count[i] = 0;
