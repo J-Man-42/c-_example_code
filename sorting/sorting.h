@@ -31,7 +31,7 @@ public:
 	static void mergeSort(T array[], const uint& SIZE);
 	static void combSort(T array[], const uint& SIZE);
 	static void radixSort(
-		T array[], const uint& SIZE, const uint BASE = 10);
+		uint array[], const uint& SIZE, const uint BASE = 10);
 	static void heapSort(T array[], const uint& SIZE);
 
 private:

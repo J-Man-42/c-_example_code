@@ -197,7 +197,7 @@ template <class T>
 int Sorting<T>::partition(T array[], int low, int high) {
 
 	// Pivot is the last element.
-	uint pivot = array[high];
+	T pivot = array[high];
 
 	// Temporary pivot index.
 	int i = low - 1;
@@ -255,7 +255,7 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 
 	// Pivot is the middle element.
 	uint middle = ((high - low) / 2) + low;
-	uint pivot = array[middle];
+	T pivot = array[middle];
 
 	// Left and right index.
 	int i = low - 1;
@@ -312,7 +312,7 @@ template <class T>
 void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
 
 	// Temporary array for copying.
-	uint copy[SIZE];
+	T copy[SIZE];
 
 	// Call the recursive split function.
 	split(array, copy, 0, SIZE);
@@ -393,8 +393,9 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 
 
 // Radix Sort the array using the specified base.
+// Note: Only works for unsigned integer types.
 template <class T>
-void Sorting<T>::radixSort(T array[], const uint& SIZE, const uint BASE) {
+void Sorting<T>::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 
 	// Get the number of digits from the maximum value.
 	uint maxValue = max(array, SIZE);
