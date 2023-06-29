@@ -7,27 +7,32 @@ using namespace std;
 int main() {
 
 	// Set the minimum and maximum thresholds.
-	int minInt = -5;
-	int maxInt = 9;
-	uint minUint = 2;
-	uint maxUint = 19;
-	double minDouble = 2.0;
-	double maxDouble = 5.0;
-	const size_t SIZE = 10;
+	int minInt = -10;
+	int maxInt = 10;
+	uint minUint = 0;
+	uint maxUint = 20;
+	double minDouble = 0.0;
+	double maxDouble = 1.0;
+	const size_t SIZE = 14;
 
 	// Generate random values.
-	cout << "\nrandInt("<<minInt<<", "<<maxInt<<") = ";
+	cout << "\nRandom values:" << endl;
+	cout << "========================================" << endl;
+	cout << "randInt("<<minInt<<", "<<maxInt<<") = ";
 	cout << randInt(minInt, maxInt) << endl;
 	cout << "randUint("<<minUint<<", "<<maxUint<<") = ";
 	cout << randInt(minUint, maxUint) << endl;
 	cout << "randDouble("<<minDouble<<", "<<maxDouble<<") = ";
 	cout << randDouble(minDouble, maxDouble) << endl;
-	cout << "randChar(letter) = ";
-	cout << randChar('l') << endl;
-	cout << "randChar(number) = ";
-	cout << randChar('n') << endl;
-	cout << "randChar(symbol) = ";
-	cout << randChar('s') << endl;
+	cout << "randChar(letter) = '";
+	cout << randChar('l') << "'\n";
+	cout << "randChar(number) = '";
+	cout << randChar('n') << "'\n";
+	cout << "randChar(symbol) = '";
+	cout << randChar('s') << "'\n";
+	cout << "randChar(any) = '";
+	cout << randChar() << "'\n";
+	cout << "========================================" << endl;
 
 
 	// Generate random arrays.
@@ -40,6 +45,8 @@ int main() {
 	char* charArray = randCharArray(SIZE);
 
 	// Print all arrays.
+	cout << "\n\nRandom arrays:" << endl;
+	cout << "==============" << endl;
 	cout << "\nrandIntArray():" << endl;
 	for (size_t i = 0; i < SIZE; i++) {
 		cout << intArray[i] << "  ";
@@ -78,9 +85,10 @@ int main() {
 	shuffle(letterArray, SIZE);
 	shuffle(symbolArray, SIZE);
 	shuffle(charArray, SIZE);
-	cout << "\n\nAfter shuffling:" << endl;
 
 	// Print all arrays.
+	cout << "\n\nAfter shuffling:" << endl;
+	cout << "================" << endl;
 	cout << "\nrandIntArray():" << endl;
 	for (size_t i = 0; i < SIZE; i++) {
 		cout << intArray[i] << "  ";
@@ -118,6 +126,7 @@ int main() {
 	delete [] letterArray;
 	delete [] numberArray;
 	delete [] symbolArray;
+	delete [] charArray;
 
 	// Return.
 	return 0;
