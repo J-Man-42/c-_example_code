@@ -53,6 +53,22 @@ double min(double arr[], const uint SIZE) {
 	}
 	return minValue;
 }
+char min(char arr[], const uint SIZE) {
+
+	// If array is empty, return 0.
+	if (SIZE == 0) {
+		return 0;
+	}
+
+	// Find and return the minimum value otherwise.
+	char minValue = arr[0];
+	for (uint i = 1; i < SIZE; i++) {
+		if (arr[i] < minValue) {
+			minValue = arr[i];
+		}
+	}
+	return minValue;
+}
 
 
 // Find the minimum of the two values.
@@ -63,6 +79,9 @@ int min(int a, int b) {
 	return (a < b ? a : b);
 }
 double min(double a, double b) {
+	return (a < b ? a : b);
+}
+char min(char a, char b) {
 	return (a < b ? a : b);
 }
 
@@ -116,6 +135,22 @@ double max(double arr[], const uint SIZE) {
 	}
 	return maxValue;
 }
+char max(char arr[], const uint SIZE) {
+
+	// If array is empty, return 0.
+	if (SIZE == 0) {
+		return 0;
+	}
+
+	// Find and return the maximum value otherwise.
+	char maxValue = arr[0];
+	for (uint i = 1; i < SIZE; i++) {
+		if (arr[i] > maxValue) {
+			maxValue = arr[i];
+		}
+	}
+	return maxValue;
+}
 
 
 // Find the maximum of the two values.
@@ -126,6 +161,9 @@ int max(int a, int b) {
 	return (a > b ? a : b);
 }
 double max(double a, double b) {
+	return (a > b ? a : b);
+}
+char max(char a, char b) {
 	return (a > b ? a : b);
 }
 

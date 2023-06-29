@@ -5,24 +5,34 @@ using namespace std;
 
 int main() {
 
-	// Initialise the array of values.
+	// Initialise the arrays.
 	const uint SIZE = 5;
-	uint array[SIZE] = {18, 42, 66, 12, 92};
+	uint uintArray[SIZE] = {18, 42, 66, 12, 92};
+	char charArray[SIZE] = {'a', 'z', 'q', 'b', 'i'};
 
-	// Print array.
-	cout << "array:" << endl;
+	// Print both arrays.
+	cout << "uintArray:" << endl;
 	for (uint i = 0; i < SIZE; i++) {
-		cout << array[i] << " ";
+		cout << uintArray[i] << " ";
+	}
+	cout << "\ncharArray:" << endl;
+	for (uint i = 0; i < SIZE; i++) {
+		cout << "'" << charArray[i] << "' ";
 	}
 	cout << endl;
 
 	// Print the minimum and maximum value.
-	cout << "\nmin(array) = " << min(array, SIZE) << endl;
-	cout << "max(array) = " << max(array, SIZE) << endl;
+	cout << "\nmin(uintArray) = " << min(uintArray, SIZE) << endl;
+	cout << "max(uintArray) = " << max(uintArray, SIZE) << endl;
+	cout << "min(charArray) = '" << min(charArray, SIZE) << "'\n";
+	cout << "max(charArray) = '" << max(charArray, SIZE) << "'\n";
 
 	uint a = 3, b = 5;
 	cout << "\nmin("<<a<<", "<<b<<") = " << min(a, b) << endl;
 	cout << "max("<<a<<", "<<b<<") = " << max(a, b) << endl;
+	char x = 'A', y = 'F';
+	cout << "min('"<<x<<"', '"<<y<<"') = '" << min(x, y) << "'\n";
+	cout << "max('"<<x<<"', '"<<y<<"') = '" << max(x, y) << "'\n";
 
 	// Log of custom base.
 	cout << endl;
