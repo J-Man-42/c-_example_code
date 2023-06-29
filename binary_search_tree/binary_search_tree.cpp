@@ -84,9 +84,6 @@ void BinarySearchTree<T>::balanceTree() {
 	for (uint i = m; i < n; i++) {
 		rotateLeft(parent, node);
 		parent = child;
-		if (!child) {
-			break;
-		}
 		node = child->right;
 		if (node) {
 			child = node->right;
@@ -106,13 +103,8 @@ void BinarySearchTree<T>::balanceTree() {
 		for (uint i = 0; i < m; i++) {
 			rotateLeft(parent, node);
 			parent = child;
-			if (!child) {
-				break;
-			}
 			node = child->right;
-			if (node) {
-				child = node->right;
-			}
+			child = node->right;
 		}
 	}
 
@@ -316,6 +308,14 @@ void BinarySearchTree<T>::dft(BSTNode<T>* node) {
 
 
 
+// Elegantly displays the tree.
+template<class T>
+void BinarySearchTree<T>::display() {
+	displayTree<BSTNode<T>>(root);
+}
+
+
+
 // Returns the height of the tree.
 template<class T>
 uint BinarySearchTree<T>::height() const {
@@ -376,14 +376,6 @@ void BinarySearchTree<T>::insert(BSTNode<T>* node, const T& element) {
 template<class T>
 bool BinarySearchTree<T>::isEmpty() const {
 	return root == nullptr;
-}
-
-
-
-// Elegantly prints the tree.
-template<class T>
-void BinarySearchTree<T>::printTree() {
-	displayTree<BSTNode<T>>(root);
 }
 
 

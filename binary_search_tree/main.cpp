@@ -36,8 +36,8 @@ int main() {
 		// Print the tree height.
 		cout << "Height:  " << tree.height() << endl;
 
-		// Print the tree.
-		tree.printTree();
+		// Display the tree.
+		tree.display();
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
@@ -85,10 +85,8 @@ int main() {
 		case 3:
 			cout << "clone()" << endl;
 			temp = tree.clone();
-			cout << "> cloned tree DFT:";
-			temp.dft();
-			cout << "> cloned tree BFT:";
-			temp.bft();
+			cout << "> cloned tree:" << endl;
+			tree.display();
 			sleep_for(seconds(5));
 			break;
 

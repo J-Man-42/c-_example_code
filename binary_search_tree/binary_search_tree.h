@@ -56,10 +56,10 @@ public:
 	BinarySearchTree<T> clone();
 	bool contains(const T element) const;
 	void dft();
+	void display();
 	uint height() const;
 	void insert(const T element);
 	bool isEmpty() const;
-	void printTree();
 	void remove(const T element);
 
 private:
