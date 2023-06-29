@@ -359,7 +359,11 @@ int main() {
 				break;
 			case 13:
 				cout << "Performing Bucket Sort..." << endl;
-				Sorting<uint>::bucketSort(uintArray, size);
+				if (isUint) {
+					Sorting<uint>::bucketSort(uintArray, size);
+				} else {
+					Sorting<char>::bucketSort(charArray, size);
+				}
 				break;
 			}
 

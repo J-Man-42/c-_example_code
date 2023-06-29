@@ -579,7 +579,7 @@ void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
 
 
 // Bucket Sort the array.
-// Note: only works for unsigned integer arrays.
+// Note: only works for unsigned integer and char arrays.
 template<class T>
 void Sorting<T>::bucketSort(T array[], const uint& SIZE) {
 
@@ -590,7 +590,7 @@ void Sorting<T>::bucketSort(T array[], const uint& SIZE) {
 	double ratio = double(SIZE) / maxValue;
 
 	// Create priority queue array.
-	PriorityQueue<uint> bucket[SIZE];
+	PriorityQueue<T> bucket[SIZE];
 
 	// Iterate through array and push elements to bucket.
 	for (size_t j, i = 0; i < SIZE; i++) {
