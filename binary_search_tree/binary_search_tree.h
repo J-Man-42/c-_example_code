@@ -49,6 +49,10 @@ public:
 	~BinarySearchTree();
 
 	BinarySearchTree<T>& operator=(const BinarySearchTree<T>& other);
+	BinarySearchTree<T> operator+(const T element);
+	BinarySearchTree<T>& operator+=(const T element);
+	BinarySearchTree<T> operator-(const T element);
+	BinarySearchTree<T>& operator-=(const T element);
 
 	void balanceTree();
 	void bft();

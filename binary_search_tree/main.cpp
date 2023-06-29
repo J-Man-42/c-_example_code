@@ -49,6 +49,10 @@ int main() {
 		cout << " (6)  isEmpty()" << endl;
 		cout << " (7)  remove(element)" << endl;
 		cout << " (8)  operator=" << endl;
+		cout << " (9)  operator+(element)" << endl;
+		cout << "(10)  operator+=(element)" << endl;
+		cout << "(11)  operator-(element)" << endl;
+		cout << "(12)  operator-=(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -152,6 +156,58 @@ int main() {
 				temp.insert(randUint(0, 999));
 			}
 			tree = temp;
+			break;
+
+
+		// Work with tree + element.
+		case 9:
+			cout << "operator+(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			temp = tree + element;
+			cout << "> returned tree:" << endl;
+			temp.display();
+			sleep_for(seconds(5));
+			break;
+
+
+		// Work with tree += element.
+		case 10:
+			cout << "operator+=(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			tree += element;
+			break;
+
+
+		// Work with tree - element.
+		case 11:
+			cout << "operator-(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				temp = tree - element;
+				cout << "> returned tree:" << endl;
+				temp.display();
+				sleep_for(seconds(5));
+			} catch (string e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Work with tree -= element.
+		case 12:
+			cout << "operator-=(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				tree -= element;
+			} catch (string e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
 			break;
 		}
 	}
