@@ -1131,6 +1131,8 @@ void Sorting::heapify(
 
 // Bucket Sort the array.
 void Sorting::bucketSort(uint array[], const uint& SIZE) {
+	Highlights* highlight = new Highlights();
+	highlight->append(Highlight('b'));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -1150,29 +1152,40 @@ void Sorting::bucketSort(uint array[], const uint& SIZE) {
 	for (size_t j, i = 0; i < SIZE; i++) {
 		j = array[i] * ratio;
 		bucket[j].push(array[i]);
+
+		// Show current item.
+		highlight->getFirst().index = i;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
 	}
 
-	// Iterate through bucket and sort array in ascending order.
-	if (sortAscending) {
-		for (int i = SIZE-1, j = SIZE-1; i >= 0; i--) {
-			while (!bucket[i].isEmpty()) {
-				array[j] = bucket[i].pop();
-				j--;
-			}
-		}
-	}
+	// Display the array after filling bucket.
+	highlight->clear();
+	displayArray(array, SIZE);
+	sleep_for(delay);
 
-	// Iterate through bucket and sort array in descending order.
-	else {
-		for (int i = SIZE-1, j = 0; i >= 0; i--) {
-			while (!bucket[i].isEmpty()) {
-				array[j] = bucket[i].pop();
-				j++;
-			}
+	// Get array starting index based on sorting order.
+	int j = (sortAscending ? SIZE-1 : 0);
+
+	// Iterate through bucket and sort array.
+	for (int i = SIZE-1; i >= 0; i--) {
+		while (!bucket[i].isEmpty()) {
+			array[j] = bucket[i].pop();
+
+			// Display update.
+			highlight->append(Highlight('G', j));
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
+
+			// Update array index.
+			j += (sortAscending ? -1 : 1);
 		}
 	}
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
