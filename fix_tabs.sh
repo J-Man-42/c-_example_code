@@ -24,6 +24,7 @@ while getopts "hf:" arg; do
 	esac
 done
 
+# Help is true if file was not provided.
 if ! [[ $file ]]; then
 	help=true
 fi
@@ -35,7 +36,7 @@ if [[ $help ]]; then
 fi
 
 
-# Read file and correct trailing whitespace.
+# Read file and correct trailing whitespaces.
 if [[ $file ]]; then
 	readarray -t lines < $file
 	printf "" > $file
