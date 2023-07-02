@@ -38,6 +38,7 @@ fi
 
 # Read file and remove trailing whitespaces.
 if [[ $file ]]; then
+	echo "Removing trailing spaces for '${file}'..."
 	readarray -t lines < $file
 	printf "" > $file
 	for (( i = 0; i < "${#lines[@]}"; i++ )); do
