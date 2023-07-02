@@ -102,6 +102,11 @@ BST<T>& BinarySearchTree<T>::operator-=(const T element) {
 template<class T>
 void BinarySearchTree<T>::balanceTree() {
 
+	// If tree is empty, do nothing.
+	if (isEmpty()) {
+		return;
+	}
+
 	// Create the backbone.
 	createBackbone();
 
