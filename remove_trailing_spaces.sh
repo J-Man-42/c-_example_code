@@ -1,7 +1,7 @@
 # Show the help dialogue.
 function showHelp {
 	echo "╔══════════════════════════════════════════════════════════╗"
-	echo "║ Usage: ./fix_spaces.sh [option]                          ║"
+	echo "║ Usage: ./remove_trailing_spaces.sh [option]              ║"
 	echo "║ optional arguments:                                      ║"
 	echo "║    -h:  Shows the help dialogue                          ║"
 	echo "║    -f:  Select the file to update                        ║"
@@ -36,7 +36,7 @@ if [[ $help ]]; then
 fi
 
 
-# Read file and correct trailing whitespaces.
+# Read file and remove trailing whitespaces.
 if [[ $file ]]; then
 	readarray -t lines < $file
 	printf "" > $file
