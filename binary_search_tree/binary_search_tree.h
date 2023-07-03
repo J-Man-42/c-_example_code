@@ -74,6 +74,8 @@ private:
 	void createBackbone();
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
+	void linkParent(
+		BSTNode<T>* parent, BSTNode<T>* node, BSTNode<T>* child);
 	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
 	void rotateLeft(BSTNode<T>* parent, BSTNode<T>* node);
 	void rotateRight(BSTNode<T>* parent, BSTNode<T>* node);

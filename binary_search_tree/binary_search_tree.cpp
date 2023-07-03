@@ -419,6 +419,26 @@ bool BinarySearchTree<T>::isEmpty() const {
 
 
 
+// Links the parent when rotating.
+template<class T>
+void BinarySearchTree<T>::linkParent(
+	BSTNode<T>* parent, BSTNode<T>* node, BSTNode<T>* child) {
+
+	// Node is root.
+	if (!parent) {
+		root = child;
+	}
+
+	// Node is not root.
+	else if (parent->left == node) {
+		parent->left = child;
+	} else {
+		parent->right = child;
+	}
+}
+
+
+
 // Removed the given element from the tree.
 template<class T>
 void BinarySearchTree<T>::remove(const T element) {
@@ -512,18 +532,7 @@ void BinarySearchTree<T>::rotateLeft(
 
 	// Link parent to right child.
 	BSTNode<T>* child = node->right;
-
-	// Node is root.
-	if (!parent) {
-		root = child;
-	}
-
-	// Node is not root.
-	else if (parent->left == node) {
-		parent->left = child;
-	} else {
-		parent->right = child;
-	}
+	linkParent(parent, node, child);
 
 	// Rearrange node and child.
 	node->right = child->left;
@@ -548,18 +557,7 @@ void BinarySearchTree<T>::rotateRight(
 
 	// Link parent to left child.
 	BSTNode<T>* child = node->left;
-
-	// Node is root.
-	if (!parent) {
-		root = child;
-	}
-
-	// Node is not root.
-	else if (parent->left == node) {
-		parent->left = child;
-	} else {
-		parent->right = child;
-	}
+	linkParent(parent, node, child);
 
 	// Rearrange node and child.
 	node->left = child->right;
