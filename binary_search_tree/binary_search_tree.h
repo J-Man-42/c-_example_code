@@ -72,10 +72,13 @@ private:
 	void clone(BSTNode<T>* thisNode, BSTNode<T>* otherNode);
 	bool contains(BSTNode<T>* node, const T& element) const;
 	void createBackbone();
+	BSTNode<T>* deleteByCopying(
+		BSTNode<T>* origin, BSTNode<T>* parent, BSTNode<T>* node);
 	void dft(BSTNode<T>* node);
 	void insert(BSTNode<T>* node, const T& element);
 	void linkParent(
-		BSTNode<T>* parent, BSTNode<T>* node, BSTNode<T>* child);
+		BSTNode<T>* parent, BSTNode<T>* node,
+		BSTNode<T>* child = nullptr);
 	void remove(BSTNode<T>* parent, BSTNode<T>* node, const T& element);
 	void rotateLeft(BSTNode<T>* parent, BSTNode<T>* node);
 	void rotateRight(BSTNode<T>* parent, BSTNode<T>* node);

@@ -323,6 +323,33 @@ void BinarySearchTree<T>::createBackbone() {
 
 
 
+// Delete the node by copying.
+template<class T>
+BSTNode<T>* BinarySearchTree<T>::deleteByCopying(
+	BSTNode<T>* origin, BSTNode<T>* parent, BSTNode<T>* node) {
+
+	// There is still a right child.
+	BSTNode<T>* deleteNode;
+	if (node->right) {
+		deleteNode = deleteByCopying(origin, node, node->right);
+		updateHeight(node);
+		return deleteNode;
+	}
+
+	// Found the rightmost node.
+	origin->data = node->data;
+	if (parent == origin) {
+		parent->left = node->left;
+	} else {
+		parent->right = node->left;
+	}
+
+	// Return the node to delete.
+	return node;
+}
+
+
+
 // Depth First Traversal.
 template<class T>
 void BinarySearchTree<T>::dft() {
@@ -462,60 +489,38 @@ void BinarySearchTree<T>::remove(
 	if (element < node->data) {
 		remove(node, node->left, element);
 		updateHeight(node);
+		return;
 	}
 
 	// Traverse right if element is larger than current node.
-	else if (element > node->data) {
+	if (element > node->data) {
 		remove(node, node->right, element);
 		updateHeight(node);
+		return;
 	}
 
 	// It's found otherwise.
-	else {
-		BSTNode<T>* deleteNode = node;
-		BSTNode<T>* child = node->left;
-		Stack<BSTNode<T>*> stack;
-		while (child && child->right) {
-			node = child;
-			child = child->right;
-			stack.push(node);
-		}
+	BSTNode<T>* deleteNode = node;
 
-		// No left highest node.
-		if (!child) {
-			if (parent) {
-				parent->height--;
-				if (parent->right == node) {
-					parent->right = node->right;
-				} else {
-					parent->left = node->right;
-				}
-			} else {
-				root = node->right;
-			}
-			node->height--;
-		}
-
-		// There is a left highest node.
-		else {
-			if (node->right == child) {
-				node->right = child->left;
-			} else {
-				node->left = child->left;
-			}
-			child->height--;
-			deleteNode->data = child->data;
-			deleteNode = child;
-		}
-
-		// Update all node heights in the stack.
-		while (!stack.isEmpty()) {
-			updateHeight(stack.pop());
-		}
-
-		// Delete the node.
-		delete deleteNode;
+	// Case 1: node is leaf node.
+	if (!node->left && !node->right) {
+		node->height = 0;
+		linkParent(parent, node);
 	}
+
+	// Case 2: node has a left child.
+	else if (node->left) {
+		deleteNode = deleteByCopying(node, node, node->left);
+		updateHeight(node);
+	}
+	
+	// Case 3: node only has a right child.
+	else {
+		linkParent(parent, node, node->right);
+	}
+
+	// Delete the node.
+	delete deleteNode;
 }
 
 
