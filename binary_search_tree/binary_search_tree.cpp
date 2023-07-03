@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <sstream>
 #include "../queue/queue.h"
-#include "../stack/stack.h"
 #include "binary_search_tree.h"
 using namespace std;
 
@@ -446,7 +445,7 @@ bool BinarySearchTree<T>::isEmpty() const {
 
 
 
-// Links the parent when rotating.
+// Properly links the parent and child nodes.
 template<class T>
 void BinarySearchTree<T>::linkParent(
 	BSTNode<T>* parent, BSTNode<T>* node, BSTNode<T>* child) {
@@ -502,21 +501,21 @@ void BinarySearchTree<T>::remove(
 	// It's found otherwise.
 	BSTNode<T>* deleteNode = node;
 
-	// Case 1: node is leaf node.
-	if (!node->left && !node->right) {
-		node->height = 0;
-		linkParent(parent, node);
-	}
-
-	// Case 2: node has a left child.
-	else if (node->left) {
+	// Case 1: node has a left child.
+	if (node->left) {
 		deleteNode = deleteByCopying(node, node, node->left);
 		updateHeight(node);
 	}
 	
-	// Case 3: node only has a right child.
-	else {
+	// Case 2: node only has a right child.
+	else if (node->right) {
 		linkParent(parent, node, node->right);
+	}
+
+	// Case 3: node is leaf node.
+	else {
+		node->height = 0;
+		linkParent(parent, node);
 	}
 
 	// Delete the node.
