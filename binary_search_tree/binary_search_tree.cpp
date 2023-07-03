@@ -506,7 +506,7 @@ void BinarySearchTree<T>::remove(
 		deleteNode = deleteByCopying(node, node, node->left);
 		updateHeight(node);
 	}
-	
+
 	// Case 2: node only has a right child.
 	else if (node->right) {
 		linkParent(parent, node, node->right);
