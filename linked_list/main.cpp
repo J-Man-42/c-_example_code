@@ -58,7 +58,7 @@ int main() {
 		cout << " (9)  indexOf(element)" << endl;
 		cout << "(10)  insert(element)" << endl;
 		cout << "(11)  insertAt(index, element)" << endl;
-		cout << "(12)  isEmpty()" << endl;
+		cout << "(12)  isEmpty() / isNotEmpty()" << endl;
 		cout << "(13)  remove(element)" << endl;
 		cout << "(14)  removeAt(index)" << endl;
 		cout << "(15)  removeFirst()" << endl;
@@ -236,13 +236,12 @@ int main() {
 
 		// Check if empty.
 		case 12:
-			cout << "isEmpty()" << endl;
-			if (list.isEmpty()) {
-				cout << "The list is empty" << endl;
-			} else {
-				cout << "The list contains elements" << endl;
-			}
-			sleep_for(seconds(2));
+			cout << "isEmpty() / isNotEmpty()" << endl;
+			cout << "> List IS empty:      ";
+			cout << (list.isEmpty() ? "true\n" : "false\n");
+			cout << "> List is NOT empty:  ";
+			cout << (list.isNotEmpty() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
 			break;
 
 

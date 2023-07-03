@@ -56,6 +56,7 @@ public:
 	void insert(const T element);
 	void insertAt(const int signedIndex, const T element);
 	bool isEmpty() const;
+	bool isNotEmpty() const;
 	void remove(const T element);
 	T removeAt(const int signedIndex);
 	T removeFirst();

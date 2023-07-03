@@ -391,6 +391,13 @@ bool LinkedList<T>::isEmpty() const {
 }
 
 
+// Returns true if head is not null.
+template<class T>
+bool LinkedList<T>::isNotEmpty() const {
+	return head != nullptr;
+}
+
+
 
 // Removes the first instance of the given element.
 template<class T>

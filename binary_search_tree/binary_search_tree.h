@@ -64,6 +64,7 @@ public:
 	uint height() const;
 	void insert(const T element);
 	bool isEmpty() const;
+	bool isNotEmpty() const;
 	void remove(const T element);
 
 private:

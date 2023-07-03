@@ -46,6 +46,7 @@ public:
 	bool contains(const T element) const;
 	T& front();
 	bool isEmpty() const;
+	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
 	uint size() const;

@@ -47,7 +47,7 @@ int main() {
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  contains(element)" << endl;
-		cout << " (4)  isEmpty()" << endl;
+		cout << " (4)  isEmpty() / isNotEmpty()" << endl;
 		cout << " (5)  pop()" << endl;
 		cout << " (6)  push(element)" << endl;
 		cout << " (7)  size()" << endl;
@@ -123,13 +123,12 @@ int main() {
 
 		// Check if empty.
 		case 4:
-			cout << "isEmpty()" << endl;
-			if (stack.isEmpty()) {
-				cout << "The stack is empty" << endl;
-			} else {
-				cout << "The stack contains elements" << endl;
-			}
-			sleep_for(seconds(2));
+			cout << "isEmpty() / isNotEmpty()" << endl;
+			cout << "> Stack IS empty:      ";
+			cout << (stack.isEmpty() ? "true\n" : "false\n");
+			cout << "> Stack is NOT empty:  ";
+			cout << (stack.isNotEmpty() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
 			break;
 
 

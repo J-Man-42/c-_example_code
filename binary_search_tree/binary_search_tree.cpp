@@ -444,6 +444,13 @@ bool BinarySearchTree<T>::isEmpty() const {
 }
 
 
+// Returns true if root is not null.
+template<class T>
+bool BinarySearchTree<T>::isNotEmpty() const {
+	return root != nullptr;
+}
+
+
 
 // Properly links the parent and child nodes.
 template<class T>

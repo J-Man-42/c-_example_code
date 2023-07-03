@@ -44,6 +44,7 @@ public:
 	Stack<T> clone();
 	bool contains(const T element) const;
 	bool isEmpty() const;
+	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
 	uint size() const;

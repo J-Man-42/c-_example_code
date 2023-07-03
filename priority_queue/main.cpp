@@ -49,7 +49,7 @@ int main() {
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  contains(element)" << endl;
 		cout << " (5)  front()" << endl;
-		cout << " (6)  isEmpty()" << endl;
+		cout << " (6)  isEmpty() / isNotEmpty()" << endl;
 		cout << " (7)  pop()" << endl;
 		cout << " (8)  push(element)" << endl;
 		cout << " (9)  size()" << endl;
@@ -150,13 +150,12 @@ int main() {
 
 		// Check if empty.
 		case 6:
-			cout << "isEmpty()" << endl;
-			if (queue.isEmpty()) {
-				cout << "The queue is empty" << endl;
-			} else {
-				cout << "The queue contains elements" << endl;
-			}
-			sleep_for(seconds(2));
+			cout << "isEmpty() / isNotEmpty()" << endl;
+			cout << "> Queue IS empty:      ";
+			cout << (queue.isEmpty() ? "true\n" : "false\n");
+			cout << "> Queue is NOT empty:  ";
+			cout << (queue.isNotEmpty() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
 			break;
 
 

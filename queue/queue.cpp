@@ -230,6 +230,13 @@ bool Queue<T>::isEmpty() const {
 }
 
 
+// Returns true if head is not null.
+template<class T>
+bool Queue<T>::isNotEmpty() const {
+	return head != nullptr;
+}
+
+
 
 // Remove the element at head.
 template<class T>

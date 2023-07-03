@@ -46,7 +46,7 @@ int main() {
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  contains(element)" << endl;
 		cout << " (5)  insert(element)" << endl;
-		cout << " (6)  isEmpty()" << endl;
+		cout << " (6)  isEmpty() / isNotEmpty()" << endl;
 		cout << " (7)  remove(element)" << endl;
 		cout << " (8)  operator=" << endl;
 		cout << " (9)  operator+(element)" << endl;
@@ -119,16 +119,14 @@ int main() {
 			break;
 
 
-		// Check if empty.
+		// Check if empty / not empty.
 		case 6:
-			cout << "isEmpty()" << endl;
-			cout << "> Tree is empty:  ";
-			if (tree.isEmpty()) {
-				cout << "true" << endl;
-			} else {
-				cout << "false" << endl;
-			}
-			sleep_for(seconds(2));
+			cout << "isEmpty() / isNotEmpty()" << endl;
+			cout << "> Tree IS empty:      ";
+			cout << (tree.isEmpty() ? "true\n" : "false\n");
+			cout << "> Tree is NOT empty:  ";
+			cout << (tree.isNotEmpty() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
 			break;
 
 

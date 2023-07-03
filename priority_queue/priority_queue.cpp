@@ -231,6 +231,13 @@ bool PriorityQueue<T>::isEmpty() const {
 }
 
 
+// Returns true if head is not null.
+template<class T>
+bool PriorityQueue<T>::isNotEmpty() const {
+	return head != nullptr;
+}
+
+
 
 // Remove the element at head.
 template<class T>
