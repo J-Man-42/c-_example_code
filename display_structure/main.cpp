@@ -58,7 +58,7 @@ void adjustHeight(Node* node) {
 
 // Recursively delete the entire tree.
 void deleteTree(Node* node) {
-	
+
 	// Stopping condition.
 	if (!node) {
 		return;
@@ -101,13 +101,13 @@ int main() {
 	// Height 4.
 	root->left = new Node(25);
 	root->right = new Node(75);
-	
+
 	// Height 3.
 	root->left->left = new Node(15);
 	root->left->right = new Node(35);
 	root->right->left = new Node(65);
 	root->right->right = new Node(85);
-	
+
 	// Height 2.
 	root->left->left->left = new Node(10);
 	root->left->left->right = new Node(20);
