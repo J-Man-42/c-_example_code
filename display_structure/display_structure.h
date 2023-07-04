@@ -77,7 +77,9 @@ void displayTree(Node* root) {
 			bottomDisplayQueue->push(nodePtr);
 			cout << setw(width[d]) << "";
 			if (nodePtr) {
+				startColour(nodePtr->colour);
 				cout << "┌─" << (d > 0 ? "┴" : "─") << "─┐";
+				startColour('w');
 			} else {
 				cout << setw(5) << "";
 			}
@@ -91,8 +93,10 @@ void displayTree(Node* root) {
 			topDisplayQueue->push(nodePtr);
 			cout << setw(width[d]) << "";
 			if (nodePtr) {
+				startColour(nodePtr->colour);
 				cout << "│" << setfill('0') << setw(3);
 				cout << nodePtr->data << "│";
+				startColour('w');
 			} else {
 				cout << setw(5) << "";
 			}
@@ -106,8 +110,10 @@ void displayTree(Node* root) {
 			bottomDisplayQueue->push(nodePtr);
 			cout << setw(width[d]) << "";
 			if (nodePtr) {
+				startColour(nodePtr->colour);
 				cout << "└" << (nodePtr->left ? "┬" : "─") << "─";
 				cout << (nodePtr->right ? "┬" : "─") << "┘";
+				startColour('w');
 			} else {
 				cout << setw(5) << "";
 			}
