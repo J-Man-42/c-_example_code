@@ -2,10 +2,12 @@
 ######################################################################
 HEADERS := \
 	binary_search_tree.h \
+	../colour_text/colour_text.h \
 	../display_structure/display_structure.h \
 	../move_cursor/move_cursor.h \
 	../random/random.h
 OBJECTS := \
+	out/colour_text.o \
 	out/display_structure.o \
 	out/move_cursor.o \
 	out/random.o
@@ -25,6 +27,9 @@ main:  $(UPDATES)
 
 out/main.o:  main.cpp $(TEMPLATES)
 	g++ -Wall -c main.cpp -o out/main.o
+
+out/colour_text.o:  ../colour_text/colour_text.cpp ../colour_text/colour_text.h
+	g++ -Wall -c ../colour_text/colour_text.cpp -o out/colour_text.o
 
 out/display_structure.o:  ../display_structure/display_structure.cpp ../display_structure/display_structure.h
 	g++ -Wall -c ../display_structure/display_structure.cpp -o out/display_structure.o

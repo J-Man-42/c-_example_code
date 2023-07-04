@@ -68,7 +68,7 @@ int main() {
 
 		// Create stack from array.
 		if (answer[0] == 'A') {
-			cout << "Create List from Array" << endl;
+			cout << "Create Stack from Array" << endl;
 			stack = Stack<uint>(array, size);
 			continue;
 		}
@@ -157,7 +157,7 @@ int main() {
 		// Display the number of elements.
 		case 7:
 			cout << "size()" << endl;
-			cout << "List size:  " << stack.size() << endl;
+			cout << "Stack size:  " << stack.size() << endl;
 			sleep_for(seconds(2));
 			break;
 

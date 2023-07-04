@@ -69,7 +69,7 @@ int main() {
 
 		// Create queue from array.
 		if (answer[0] == 'A') {
-			cout << "Create List from Array" << endl;
+			cout << "Create Priority Queue from Array" << endl;
 			queue = PriorityQueue<uint>(array, size);
 			continue;
 		}
@@ -184,7 +184,7 @@ int main() {
 		// Display the number of elements.
 		case 9:
 			cout << "size()" << endl;
-			cout << "List size:  " << queue.size() << endl;
+			cout << "Queue size:  " << queue.size() << endl;
 			sleep_for(seconds(2));
 			break;
 
