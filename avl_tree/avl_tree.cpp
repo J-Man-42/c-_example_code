@@ -393,6 +393,7 @@ void AVLTree<T>::remove(const T element) {
 	if (root->data == element && !root->left && !root->right) {
 		delete root;
 		root = nullptr;
+		return;
 	}
 
 	// Recursively check child nodes for matching element.
@@ -439,15 +440,15 @@ void AVLTree<T>::remove(
 		node->height = 0;
 		linkParent(parent, node, nullptr);
 	}
-	
+
 	// Case 2: node has 2 children.
 	else if (node->left && node->right) {
 		deleteNode = deleteByCopying(node, node, node->left);
 		updateHeight(node);
 		rotateIfUnbalanced(parent, node);
 	}
-	
-	// Case 3: node with 1 child.
+
+	// Case 3: node has 1 child.
 	else {
 		AVLNode<T>* child = (node->left ? node->left : node->right);
 		linkParent(parent, node, child);
@@ -496,7 +497,7 @@ void AVLTree<T>::rotateLeft(AVLNode<T>* parent, AVLNode<T>* A) {
 		rotateLeft(parent, A);
 		return;
 	}
-	
+
 	// Swap link with parent.
 	linkParent(parent, A, B);
 
