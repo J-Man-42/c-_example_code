@@ -228,6 +228,7 @@ AVLNode<T>* AVLTree<T>::deleteByCopying(
 	if (node->right) {
 		deleteNode = deleteByCopying(origin, node, node->right);
 		updateHeight(node);
+		rotateIfUnbalanced(parent, node);
 		return deleteNode;
 	}
 
@@ -280,10 +281,17 @@ void AVLTree<T>::display() {
 // Returns the height of the tree.
 template<class T>
 uint AVLTree<T>::height() const {
-	if (isEmpty()) {
-		return 0;
+	return height(root);
+}
+
+
+// Returns the height of the given node.
+template<class T>
+uint AVLTree<T>::height(AVLNode<T>* node) const {
+	if (node) {
+		return node->height;
 	}
-	return root->height;
+	return 0;
 }
 
 
@@ -298,19 +306,20 @@ void AVLTree<T>::insert(const T element) {
 	}
 
 	// Otherwise, recursively traverse root.
-	else insert(root, element);
+	else insert(nullptr, root, element);
 }
 
 // The recursive insertion function.
 template<class T>
-void AVLTree<T>::insert(AVLNode<T>* node, const T& element) {
+void AVLTree<T>::insert(
+	AVLNode<T>* parent, AVLNode<T>* node, const T& element) {
 
 	// Element smaller than current node.
 	if (element < node->data) {
 
 		// Traverse left if not null, otherwise create left.
 		if (node->left) {
-			insert(node->left, element);
+			insert(node, node->left, element);
 		} else {
 			node->left = new AVLNode<T>(element);
 		}
@@ -321,7 +330,7 @@ void AVLTree<T>::insert(AVLNode<T>* node, const T& element) {
 
 		// Traverse right if not null, otherwise create right.
 		if (node->right) {
-			insert(node->right, element);
+			insert(node, node->right, element);
 		} else {
 			node->right = new AVLNode<T>(element);
 		}
@@ -329,6 +338,9 @@ void AVLTree<T>::insert(AVLNode<T>* node, const T& element) {
 
 	// Update node height.
 	updateHeight(node);
+
+	// Ensure the tree remains balanced.
+	rotateIfUnbalanced(parent, node);
 }
 
 
@@ -371,10 +383,26 @@ void AVLTree<T>::linkParent(
 // Removed the given element from the tree.
 template<class T>
 void AVLTree<T>::remove(const T element) {
+
+	// If root is null, do nothing.
+	if (isEmpty()) {
+		return;
+	}
+
+	// Check if root has a matching element and is a leaf.
+	if (root->data == element && !root->left && !root->right) {
+		delete root;
+		root = nullptr;
+	}
+
+	// Recursively check child nodes for matching element.
 	remove(nullptr, root, element);
 
 	// Update root's height.
 	updateHeight(root);
+
+	// Ensure the tree remains balanced.
+	rotateIfUnbalanced(nullptr, root);
 }
 
 // The recursive remove function.
@@ -391,6 +419,7 @@ void AVLTree<T>::remove(
 	if (element < node->data) {
 		remove(node, node->left, element);
 		updateHeight(node);
+		rotateIfUnbalanced(parent, node);
 		return;
 	}
 
@@ -398,27 +427,30 @@ void AVLTree<T>::remove(
 	if (element > node->data) {
 		remove(node, node->right, element);
 		updateHeight(node);
+		rotateIfUnbalanced(parent, node);
 		return;
 	}
 
 	// It's found otherwise.
 	AVLNode<T>* deleteNode = node;
 
-	// Case 1: node has a left child.
-	if (node->left) {
+	// Case 1: node is leaf node.
+	if (!node->left && !node->right) {
+		node->height = 0;
+		linkParent(parent, node, nullptr);
+	}
+	
+	// Case 2: node has 2 children.
+	else if (node->left && node->right) {
 		deleteNode = deleteByCopying(node, node, node->left);
 		updateHeight(node);
+		rotateIfUnbalanced(parent, node);
 	}
-
-	// Case 2: node only has a right child.
-	else if (node->right) {
-		linkParent(parent, node, node->right);
-	}
-
-	// Case 3: node is leaf node.
+	
+	// Case 3: node with 1 child.
 	else {
-		node->height = 0;
-		linkParent(parent, node);
+		AVLNode<T>* child = (node->left ? node->left : node->right);
+		linkParent(parent, node, child);
 	}
 
 	// Delete the node.
@@ -427,52 +459,84 @@ void AVLTree<T>::remove(
 
 
 
-// Perform a left rotation.
+// Perform a rotation if the heights are unbalanced.
 template<class T>
-void AVLTree<T>::rotateLeft(
+void AVLTree<T>::rotateIfUnbalanced(
 	AVLNode<T>* parent, AVLNode<T>* node) {
 
-	// Do nothing if right child is null.
-	if (!node->right) {
+	// Get the left and right child heights.
+	int left = (node->left ? node->left->height : 0);
+	int right = (node->right ? node->right->height : 0);
+
+	// Get the balance.
+	int balance = right - left;
+
+	// Rotate if unbalanced.
+	if (balance > 1) {
+		rotateLeft(parent, node);
+	} else if (balance < -1) {
+		rotateRight(parent, node);
+	}
+}
+
+
+
+// Perform a left rotation.
+template<class T>
+void AVLTree<T>::rotateLeft(AVLNode<T>* parent, AVLNode<T>* A) {
+
+	// Create pointers for B, alpha, and beta.
+	AVLNode<T>* B = A->right;
+	AVLNode<T>* alpha = A->left;
+	AVLNode<T>* beta = B->left;
+
+	// Special case. Perform a right-left rotation.
+	if (height(beta) > height(alpha)) {
+		rotateRight(A, B);
+		rotateLeft(parent, A);
 		return;
 	}
+	
+	// Swap link with parent.
+	linkParent(parent, A, B);
 
-	// Link parent to right child.
-	AVLNode<T>* child = node->right;
-	linkParent(parent, node, child);
+	// Pivot.
+	B->left = A;
+	A->right = beta;
 
-	// Rearrange node and child.
-	node->right = child->left;
-	child->left = node;
-
-	// Update their heights.
-	updateHeight(node);
-	updateHeight(child);
+	// Update the heights of A and B.
+	updateHeight(A);
+	updateHeight(B);
 }
 
 
 
 // Perform a right rotation.
 template<class T>
-void AVLTree<T>::rotateRight(
-	AVLNode<T>* parent, AVLNode<T>* node) {
+void AVLTree<T>::rotateRight(AVLNode<T>* parent, AVLNode<T>* B) {
 
-	// Do nothing if left child is null.
-	if (!node->left) {
+	// Create pointers for A, alpha, and beta.
+	AVLNode<T>* A = B->left;
+	AVLNode<T>* beta = A->right;
+	AVLNode<T>* gamma = B->right;
+
+	// Special case. Perform a left-right rotation.
+	if (height(beta) > height(gamma)) {
+		rotateLeft(B, A);
+		rotateRight(parent, B);
 		return;
 	}
 
-	// Link parent to left child.
-	AVLNode<T>* child = node->left;
-	linkParent(parent, node, child);
+	// Swap link with parent.
+	linkParent(parent, B, A);
 
-	// Rearrange node and child.
-	node->left = child->right;
-	child->right = node;
+	// Pivot.
+	A->right = B;
+	B->left = beta;
 
-	// Update their heights.
-	updateHeight(node);
-	updateHeight(child);
+	// Update the heights of B and A.
+	updateHeight(B);
+	updateHeight(A);
 }
 
 
@@ -487,8 +551,8 @@ void AVLTree<T>::updateHeight(AVLNode<T>* node) {
 	}
 
 	// Get the left and right child heights.
-	uint left = (node->left ? node->left->height : 0);
-	uint right = (node->right ? node->right->height : 0);
+	uint left = height(node->left);
+	uint right = height(node->right);
 
 	// Height of node is max height of children + 1.
 	node->height = max(left, right) + 1;

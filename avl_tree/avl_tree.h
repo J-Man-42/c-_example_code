@@ -73,11 +73,13 @@ private:
 	AVLNode<T>* deleteByCopying(
 		AVLNode<T>* origin, AVLNode<T>* parent, AVLNode<T>* node);
 	void dft(AVLNode<T>* node);
-	void insert(AVLNode<T>* node, const T& element);
+	uint height(AVLNode<T>* node) const;
+	void insert(AVLNode<T>* parent, AVLNode<T>* node, const T& element);
 	void linkParent(
 		AVLNode<T>* parent, AVLNode<T>* node,
 		AVLNode<T>* child = nullptr);
 	void remove(AVLNode<T>* parent, AVLNode<T>* node, const T& element);
+	void rotateIfUnbalanced(AVLNode<T>* parent, AVLNode<T>* node);
 	void rotateLeft(AVLNode<T>* parent, AVLNode<T>* node);
 	void rotateRight(AVLNode<T>* parent, AVLNode<T>* node);
 	void updateHeight(AVLNode<T>* node);
