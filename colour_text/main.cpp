@@ -25,13 +25,30 @@ int main() {
 	stringstream ss;
 	string gamma;
 	char colour;
-	for (int i = 0; i < 2; i++) {
+	cout << "Colour texts:" << endl;
+	for (uint i = 0; i < 2; i++) {
 		gamma = (i == 0 ? "bright " : "dark ");
 		for (uint j = 0; j < SIZE; j++) {
 			colour = (i == 0 ? tolower(colours[j]) : colours[j]);
 			ss << colour << " --> " << gamma << title[j];
 			cout << colourText(ss.str(), colour) << endl;
 			ss.str("");
+		}
+	}
+
+	// Starting and ending specific colours.
+	cout << "\nColour start and end:" << endl;
+	for (uint i = 0; i < 2; i++) {
+		gamma = (i == 0 ? "bright " : "dark ");
+		for (uint j = 0; j < SIZE; j++) {
+			colour = (i == 0 ? tolower(colours[j]) : colours[j]);
+			startColour(colour);
+			cout << colour;
+			endColour();
+			cout << " --> ";
+			startColour(colour);
+			cout << gamma << title[j] << endl;
+			endColour();
 		}
 	}
 	return 0;

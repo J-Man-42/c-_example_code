@@ -49,3 +49,60 @@ string colourText(string text, char colour) {
 		return text;
 	}
 }
+
+
+// Prints the specified colour going forward.
+void startColour(char colour) {
+	string gamma = islower(colour) ? "1" : "0";
+	colour = toupper(colour);
+
+	// Switch statement for each colour.
+	switch (colour) {
+
+	// Grey.
+	case 'X':
+		cout << "\033["<<gamma<<";30m";
+		break;
+
+	// Red.
+	case 'R':
+		cout << "\033["<<gamma<<";31m";
+		break;
+
+	// Green.
+	case 'G':
+		cout << "\033["<<gamma<<";32m";
+		break;
+
+	// Yellow.
+	case 'Y':
+		cout << "\033["<<gamma<<";33m";
+		break;
+
+	// Blue.
+	case 'B':
+		cout << "\033["<<gamma<<";34m";
+		break;
+
+	// Magenta.
+	case 'M':
+		cout << "\033["<<gamma<<";35m";
+		break;
+
+	// Cyan.
+	case 'C':
+		cout << "\033["<<gamma<<";36m";
+		break;
+
+	// White.
+	case 'W':
+		cout << "\033["<<gamma<<";37m";
+		break;
+	}
+}
+
+
+// Print normal text again.
+void endColour() {
+	cout << "\033[0m";
+}
