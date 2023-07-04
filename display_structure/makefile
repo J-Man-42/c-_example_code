@@ -2,9 +2,11 @@
 ######################################################################
 HEADERS := \
 	display_structure.h \
+	../colour_text/colour_text.h \
 	../random/random.h
 OBJECTS := \
 	out/display_structure.o \
+	out/colour_text.o \
 	out/random.o
 TEMPLATES := \
 	../queue/queue.cpp \
@@ -23,6 +25,9 @@ out/main.o:  main.cpp $(TEMPLATES)
 
 out/display_structure.o:  display_structure.cpp display_structure.h
 	g++ -Wall -c display_structure.cpp -o out/display_structure.o
+
+out/colour_text.o:  ../colour_text/colour_text.cpp ../colour_text/colour_text.h
+	g++ -Wall -c ../colour_text/colour_text.cpp -o out/colour_text.o
 
 out/random.o:  ../random/random.cpp ../random/random.h
 	g++ -Wall -c ../random/random.cpp -o out/random.o

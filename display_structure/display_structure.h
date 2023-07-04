@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include "../colour_text/colour_text.h"
 #include "../queue/queue.h"
 using namespace std;
 
@@ -19,6 +20,9 @@ void displayTree(Node* root) {
 	if (!root) {
 		return;
 	}
+
+	// Configure the colour text.
+	startColour('w');
 
 	// Get the height from root.
 	uint height = root->height;
@@ -150,6 +154,9 @@ void displayTree(Node* root) {
 		}
 		cout << endl;
 	}
+
+	// Reset colour.
+	endColour();
 
 	// Delete all the queues.
 	delete topQueue;

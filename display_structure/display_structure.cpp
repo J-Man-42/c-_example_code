@@ -16,6 +16,9 @@ void displayArray(uint* array, const uint SIZE) {
 		return;
 	}
 
+	// Configure the colour text.
+	startColour('w');
+
 	// Display the top border.
 	cout << "┌─";
 	for (size_t i = 0; i < SIZE; i++) {
@@ -55,6 +58,9 @@ void displayArray(uint* array, const uint SIZE) {
 			cout << "─┘\n";
 		}
 	}
+
+	// Reset colour.
+	endColour();
 }
 
 
@@ -65,6 +71,9 @@ void displayHeap(uint* array, const uint SIZE) {
 	// Simply return if no elements in the array.
 	if (SIZE == 0)
 		return;
+
+	// Configure the colour text.
+	startColour('w');
 
 	// Calculate height of heap.
 	uint height = 1 + log2(SIZE);
@@ -163,4 +172,7 @@ void displayHeap(uint* array, const uint SIZE) {
 		// Update count.
 		count *= 2;
 	}
+
+	// Reset colour.
+	endColour();
 }
