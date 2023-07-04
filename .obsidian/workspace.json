@@ -148,6 +148,7 @@
   },
   "active": "8210e5affb850334",
   "lastOpenFiles": [
+    "README.md",
     "stack/main",
     "stack/out/random.o",
     "stack/out/move_cursor.o",
@@ -155,7 +156,6 @@
     "stack/out",
     "stack/stack.h",
     "stack/stack.cpp",
-    "colour_text.md",
-    "README.md"
+    "colour_text.md"
   ]
 }

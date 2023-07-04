@@ -3,6 +3,10 @@ A collection of example code written in C++.
 
 ## Table of Content:
 ---
+### AVL Tree
+- [avl_tree.cpp](avl_tree/avl_tree.cpp)
+- [avl_tree.h](avl_tree/avl_tree.h)
+
 ### Binary Search Tree
 - [binary_search_tree.cpp](binary_search_tree/binary_search_tree.cpp)
 - [binary_search_tree.h](binary_search_tree/binary_search_tree.h)
