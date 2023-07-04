@@ -63,92 +63,92 @@ void displayTree(Node* root) {
 		}
 
 		// When the top queue is empty, display the row.
-		if (topQueue->isEmpty()) {
-
-			// Print top border.
-			while (!topDisplayQueue->isEmpty()) {
-				nodePtr = topDisplayQueue->pop();
-				bottomDisplayQueue->push(nodePtr);
-				cout << setw(width[d]) << "";
-				if (nodePtr) {
-					cout << "┌─" << (d > 0 ? "┴" : "─") << "─┐";
-				} else {
-					cout << setw(5) << "";
-				}
-				cout << setw(width[d]+1) << "";
-			}
-			cout << endl;
-
-			// Print row of elements.
-			while (!bottomDisplayQueue->isEmpty()) {
-				nodePtr = bottomDisplayQueue->pop();
-				topDisplayQueue->push(nodePtr);
-				cout << setw(width[d]) << "";
-				if (nodePtr) {
-					cout << "│" << setfill('0') << setw(3);
-					cout << nodePtr->data << "│";
-				} else {
-					cout << setw(5) << "";
-				}
-				cout << setfill(' ') << setw(width[d]+1) << "";
-			}
-			cout << endl;
-
-			// Print bottom borders.
-			while (!topDisplayQueue->isEmpty()) {
-				nodePtr = topDisplayQueue->pop();
-				bottomDisplayQueue->push(nodePtr);
-				cout << setw(width[d]) << "";
-				if (nodePtr) {
-					cout << "└" << (nodePtr->left ? "┬" : "─") << "─";
-					cout << (nodePtr->right ? "┬" : "─") << "┘";
-				} else {
-					cout << setw(5) << "";
-				}
-				cout << setw(width[d]+1) << "";
-			}
-			cout << endl;
-
-			// Clear display queue if last row.
-			if (d >= height-1) {
-				bottomDisplayQueue->clear();
-			}
-
-			// Print connections otherwise.
-			else {
-				while (!bottomDisplayQueue->isEmpty()) {
-					nodePtr = bottomDisplayQueue->pop();
-
-					// Left branch.
-					cout << setw(width[d+1]+2) << "";
-					if (nodePtr && nodePtr->left) {
-						cout << "┌";
-						for (uint k = 0; k <= width[d+1]; k++) {
-							cout << "─";
-						}
-						cout << "┘";
-					} else {
-						cout << setw(width[d+1]+3) << "";
-					}
-
-					// Right branch.
-					if (nodePtr && nodePtr->right) {
-						cout << " └";
-						for (uint k = 0; k <= width[d+1]; k++) {
-							cout << "─";
-						}
-						cout << "┐" << setw(width[d+1]+3) << "";
-					} else {
-						cout << setw(width[d]+4) << "";
-					}
-				}
-				cout << endl;
-			}
-
-			// Swap queues and increment depth.
-			swap(topQueue, bottomQueue);
-			d++;
+		if (topQueue->isNotEmpty()) {
+			continue;
 		}
+
+		// Print top border.
+		while (topDisplayQueue->isNotEmpty()) {
+			nodePtr = topDisplayQueue->pop();
+			bottomDisplayQueue->push(nodePtr);
+			cout << setw(width[d]) << "";
+			if (nodePtr) {
+				cout << "┌─" << (d > 0 ? "┴" : "─") << "─┐";
+			} else {
+				cout << setw(5) << "";
+			}
+			cout << setw(width[d]+1) << "";
+		}
+		cout << endl;
+
+		// Print row of elements.
+		while (bottomDisplayQueue->isNotEmpty()) {
+			nodePtr = bottomDisplayQueue->pop();
+			topDisplayQueue->push(nodePtr);
+			cout << setw(width[d]) << "";
+			if (nodePtr) {
+				cout << "│" << setfill('0') << setw(3);
+				cout << nodePtr->data << "│";
+			} else {
+				cout << setw(5) << "";
+			}
+			cout << setfill(' ') << setw(width[d]+1) << "";
+		}
+		cout << endl;
+
+		// Print bottom borders.
+		while (topDisplayQueue->isNotEmpty()) {
+			nodePtr = topDisplayQueue->pop();
+			bottomDisplayQueue->push(nodePtr);
+			cout << setw(width[d]) << "";
+			if (nodePtr) {
+				cout << "└" << (nodePtr->left ? "┬" : "─") << "─";
+				cout << (nodePtr->right ? "┬" : "─") << "┘";
+			} else {
+				cout << setw(5) << "";
+			}
+			cout << setw(width[d]+1) << "";
+		}
+		cout << endl;
+
+		// Swap queues and increment depth.
+		swap(topQueue, bottomQueue);
+		d++;
+
+		// Clear display queue if last row.
+		if (d >= height) {
+			bottomDisplayQueue->clear();
+			continue;
+		}
+
+		// Print connections otherwise.
+		while (bottomDisplayQueue->isNotEmpty()) {
+			nodePtr = bottomDisplayQueue->pop();
+
+			// Left branch.
+			cout << setw(width[d]+2) << "";
+			if (nodePtr && nodePtr->left) {
+				cout << "┌";
+				for (uint k = 0; k <= width[d]; k++) {
+					cout << "─";
+				}
+				cout << "┘";
+			} else {
+				cout << setw(width[d]+3) << "";
+			}
+
+			// Right branch.
+			if (nodePtr && nodePtr->right) {
+				cout << " └";
+				for (uint k = 0; k <= width[d]; k++) {
+					cout << "─";
+				}
+				cout << "┐" << setw(width[d]+3) << "";
+			} else {
+				cout << setw(width[d-1]+4) << "";
+			}
+		}
+		cout << endl;
 	}
 
 	// Delete all the queues.
