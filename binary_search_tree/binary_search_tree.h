@@ -13,18 +13,21 @@ public:
 	BSTNode() {
 		this->data = NULL;
 		this->height = 0;
+		this->colour = '\0';
 		this->left = nullptr;
 		this->right = nullptr;
 	}
 	BSTNode(const T data) {
 		this->data = data;
 		this->height = 1;
+		this->colour = '\0';
 		this->left = nullptr;
 		this->right = nullptr;
 	}
 	BSTNode(BSTNode* other) {
 		this->data = other->data;
 		this->height = other->height;
+		this->colour = other->colour;
 		this->left = nullptr;
 		this->right = nullptr;
 	}
@@ -34,6 +37,7 @@ public:
 	}
 	T data;
 	int height;
+	char colour;
 	BSTNode<T>* left;
 	BSTNode<T>* right;
 };
