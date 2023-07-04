@@ -40,8 +40,21 @@ fi
 if [[ $file ]]; then
 	echo "Removing trailing spaces for '${file}'..."
 	readarray -t lines < $file
-	printf "" > $file
+
+	# Create temporary file for output.
+	temp="$(echo $file | cut -d '.' -f1).tmp"
+	rm -f $temp && touch $temp
+
+	# Write all lines to file.
 	for (( i = 0; i < "${#lines[@]}"; i++ )); do
-		echo "$(sed -e 's/[[:space:]]*$//'<<<"${lines[i]}")" >> $file
+		if [[ "${lines[i]}" == *$'\t' || "${lines[i]}" == *" " ]]; then
+			echo "$(sed -e 's/[[:space:]]*$//'<<<"${lines[i]}")" >> $temp
+		else
+			echo "${lines[i]}" >> $temp
+		fi
 	done
+
+	# Delete original and rename temp.
+	rm $file
+	mv $temp $file
 fi
