@@ -44,68 +44,68 @@ public:
 	// Functions.
 	static void restoreDefault();
 	static void toggleWideBar();
-	static void setBarWidth(uint maxValue);
-	static void setBarHeight(uint height);
-	static void setVerticalScale(uint scale);
-	static void setDelay(uint ms);
-	static uint getBarWidth();
-	static uint getVerticalScale();
-	static uint getDelay();
+	static void setBarWidth(unsigned maxValue);
+	static void setBarHeight(unsigned height);
+	static void setVerticalScale(unsigned scale);
+	static void setDelay(unsigned ms);
+	static unsigned getBarWidth();
+	static unsigned getVerticalScale();
+	static unsigned getDelay();
 	static void displayArray(
-		uint array[], const uint& SIZE,
+		unsigned array[], const unsigned& SIZE,
 		Highlights* highlight = nullptr,
-		uint horizontalBar = 0);
-	static void bubbleSort(uint array[], const uint& SIZE);
-	static void selectionSort(uint array[], const uint& SIZE);
-	static void insertionSort(uint array[], const uint& SIZE);
-	static void cocktailShakerSort(uint array[], const uint& SIZE);
-	static void quickSort(uint array[], const uint& SIZE);
-	static void quickSortV2(uint array[], const uint& SIZE);
-	static void shellSort(uint array[], const uint& SIZE);
-	static void mergeSort(uint array[], const uint& SIZE);
-	static void combSort(uint array[], const uint& SIZE);
+		unsigned horizontalBar = 0);
+	static void bubbleSort(unsigned array[], const unsigned& SIZE);
+	static void selectionSort(unsigned array[], const unsigned& SIZE);
+	static void insertionSort(unsigned array[], const unsigned& SIZE);
+	static void cocktailShakerSort(unsigned array[], const unsigned& SIZE);
+	static void quickSort(unsigned array[], const unsigned& SIZE);
+	static void quickSortV2(unsigned array[], const unsigned& SIZE);
+	static void shellSort(unsigned array[], const unsigned& SIZE);
+	static void mergeSort(unsigned array[], const unsigned& SIZE);
+	static void combSort(unsigned array[], const unsigned& SIZE);
 	static void radixSort(
-		uint array[], const uint& SIZE, const uint BASE = 10);
-	static void heapSort(uint array[], const uint& SIZE);
-	static void bucketSort(uint array[], const uint& SIZE);
+		unsigned array[], const unsigned& SIZE, const unsigned BASE = 10);
+	static void heapSort(unsigned array[], const unsigned& SIZE);
+	static void bucketSort(unsigned array[], const unsigned& SIZE);
 
 private:
 
 	// Variables.
 	static Duration delay;
-	static uint barHeight;
-	static uint barWidth;
-	static uint wideBarWidth;
-	static uint verticalScale;
-	static uint displayHeight;
+	static unsigned barHeight;
+	static unsigned barWidth;
+	static unsigned wideBarWidth;
+	static unsigned verticalScale;
+	static unsigned displayHeight;
 	static string bars[];
 
 	// Functions.
 	static void generateBars();
 	static void calibrateHeightAndScale();
-	static uint scaleVertically(uint value);
-	static void printBorder(string symbol, const uint& SIZE);
-	static bool compare(uint left, uint right);
+	static unsigned scaleVertically(unsigned value);
+	static void printBorder(string symbol, const unsigned& SIZE);
+	static bool compare(unsigned left, unsigned right);
 	static void quickSort(
-		uint array[], const int& SIZE, int low, int high);
+		unsigned array[], const int& SIZE, int low, int high);
 	static int partition(
-		uint array[], const int& SIZE, int low, int high,
+		unsigned array[], const int& SIZE, int low, int high,
 		Highlights* highlight);
 	static void quickSortV2(
-		uint array[], const int& SIZE, int low, int high);
+		unsigned array[], const int& SIZE, int low, int high);
 	static int partitionV2(
-		uint array[], const int& SIZE, int low, int high,
+		unsigned array[], const int& SIZE, int low, int high,
 		Highlights* highlight);
 	static void split(
-		uint array[], uint copy[], const uint& SIZE,
-		uint start, uint end);
+		unsigned array[], unsigned copy[], const unsigned& SIZE,
+		unsigned start, unsigned end);
 	static void merge(
-		uint array[], uint copy[], const uint& SIZE,
-		uint start, uint middle, uint end,
+		unsigned array[], unsigned copy[], const unsigned& SIZE,
+		unsigned start, unsigned middle, unsigned end,
 		Highlights* highlight);
 	static void heapify(
-		uint array[], const uint& SIZE, uint end,
-		uint parentIndex, Highlights* highlight);
+		unsigned array[], const unsigned& SIZE, unsigned end,
+		unsigned parentIndex, Highlights* highlight);
 };
 
 

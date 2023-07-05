@@ -2,11 +2,11 @@
 #define MOVE_CURSOR
 
 // Function prototypes.
-void positionCursor(uint L, uint C);
-void moveCursorUp(uint N);
-void moveCursorDown(uint N);
-void moveCursorRight(uint N);
-void moveCursorLeft(uint N);
+void positionCursor(unsigned L, unsigned C);
+void moveCursorUp(unsigned N);
+void moveCursorDown(unsigned N);
+void moveCursorRight(unsigned N);
+void moveCursorLeft(unsigned N);
 void clearScreen();
 void eraseRight();
 void saveCursorPosition();

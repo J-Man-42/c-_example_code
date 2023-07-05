@@ -21,9 +21,9 @@ void Sorting<T>::showTimeTaken(Time start, Time end) {
 	auto duration = duration_cast<milliseconds>(end - start);
 
 	// Get milliseconds, seconds, and minutes.
-	uint milliseconds = duration.count();
-	uint seconds = milliseconds / 1000;
-	uint minutes = seconds / 60;
+	unsigned milliseconds = duration.count();
+	unsigned seconds = milliseconds / 1000;
+	unsigned minutes = seconds / 60;
 	seconds %= 60;
 	milliseconds %= 100;
 
@@ -47,13 +47,13 @@ bool Sorting<T>::compare(T left, T right) {
 
 // Bubble sort the given array.
 template<class T>
-void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
+void Sorting<T>::bubbleSort(T array[], const unsigned& SIZE) {
 
 	// Sort up to last sorted element.
 	bool swapped;
-	for (size_t n = SIZE; n > 0; n--) {
+	for (unsigned n = SIZE; n > 0; n--) {
 		swapped = false;
-		for (size_t i = 1; i < n; i++) {
+		for (unsigned i = 1; i < n; i++) {
 
 			// Swap elements if needed.
 			if (compare(array[i], array[i-1])) {
@@ -73,15 +73,15 @@ void Sorting<T>::bubbleSort(T array[], const uint& SIZE) {
 
 // Selection sort the given array.
 template<class T>
-void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
+void Sorting<T>::selectionSort(T array[], const unsigned& SIZE) {
 
 	// Indicate the starting index.
 	bool isSorted;
-	size_t minIndex;
-	for (size_t i = 0; i < SIZE-1; i++) {
+	unsigned minIndex;
+	for (unsigned i = 0; i < SIZE-1; i++) {
 		minIndex = i;
 		isSorted = true;
-		for (size_t j = i+1; j < SIZE; j++) {
+		for (unsigned j = i+1; j < SIZE; j++) {
 
 			// New critical value.
 			if (compare(array[j], array[minIndex])) {
@@ -110,13 +110,13 @@ void Sorting<T>::selectionSort(T array[], const uint& SIZE) {
 
 // Insertion sort the given array.
 template<class T>
-void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
+void Sorting<T>::insertionSort(T array[], const unsigned& SIZE) {
 
 	// Iterate starting from the second element.
-	for (size_t i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 
 		// Loop while swapping is needed.
-		size_t j = i;
+		unsigned j = i;
 		while (j > 0 && compare(array[j], array[j-1])) {
 			swap(array[j], array[j-1]);
 			j--;
@@ -128,16 +128,16 @@ void Sorting<T>::insertionSort(T array[], const uint& SIZE) {
 
 // Cocktail shaker sort the given array.
 template<class T>
-void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
+void Sorting<T>::cocktailShakerSort(T array[], const unsigned& SIZE) {
 
 	// Loop while a swap has occurred.
-	size_t start = 0, end = SIZE;
+	unsigned start = 0, end = SIZE;
 	bool swapped;
 	do {
 
 		// Iterate forwards.
 		swapped = false;
-		for (size_t i = start+1; i < end; i++) {
+		for (unsigned i = start+1; i < end; i++) {
 
 			// Swap elements if needed.
 			if (compare(array[i], array[i-1])) {
@@ -154,7 +154,7 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 
 		// Iterate backwards.
 		swapped = false;
-		for (size_t i = end-1; i > start; i--) {
+		for (unsigned i = end-1; i > start; i--) {
 
 			// Swap elements.
 			if (compare(array[i], array[i-1])) {
@@ -171,7 +171,7 @@ void Sorting<T>::cocktailShakerSort(T array[], const uint& SIZE) {
 
 // Quick Sort the array.
 template<class T>
-void Sorting<T>::quickSort(T array[], const uint& SIZE) {
+void Sorting<T>::quickSort(T array[], const unsigned& SIZE) {
 	quickSort(array, 0, SIZE-1);
 }
 
@@ -228,7 +228,7 @@ int Sorting<T>::partition(T array[], int low, int high) {
 
 // Quick Sort the array.
 template<class T>
-void Sorting<T>::quickSortV2(T array[], const uint& SIZE) {
+void Sorting<T>::quickSortV2(T array[], const unsigned& SIZE) {
 	quickSortV2(array, 0, SIZE-1);
 }
 
@@ -256,7 +256,7 @@ template<class T>
 int Sorting<T>::partitionV2(T array[], int low, int high) {
 
 	// Pivot is the middle element.
-	uint middle = ((high - low) / 2) + low;
+	unsigned middle = ((high - low) / 2) + low;
 	T pivot = array[middle];
 
 	// Left and right index.
@@ -286,11 +286,11 @@ int Sorting<T>::partitionV2(T array[], int low, int high) {
 
 // Shell Sort the array.
 template<class T>
-void Sorting<T>::shellSort(T array[], const uint& SIZE) {
+void Sorting<T>::shellSort(T array[], const unsigned& SIZE) {
 	bool sorted = false;
 
 	// Start with largest gap and work down to 1.
-	uint gap = SIZE;
+	unsigned gap = SIZE;
 	while (!sorted) {
 		gap /= 2.3;
 		if (gap <= 1) {
@@ -299,10 +299,10 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 		}
 
 		// Iterate from gap to SIZE-1.
-		for (size_t i = gap; i < SIZE; i++) {
+		for (unsigned i = gap; i < SIZE; i++) {
 
 			// Do the gapped insertion sort.
-			size_t j = i;
+			unsigned j = i;
 			while (j >= gap && compare(array[j], array[j-gap])) {
 				swap(array[j], array[j-gap]);
 				j -= gap;
@@ -315,7 +315,7 @@ void Sorting<T>::shellSort(T array[], const uint& SIZE) {
 
 // Merge Sort the array.
 template<class T>
-void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
+void Sorting<T>::mergeSort(T array[], const unsigned& SIZE) {
 
 	// Temporary array for copying.
 	T copy[SIZE];
@@ -327,7 +327,7 @@ void Sorting<T>::mergeSort(T array[], const uint& SIZE) {
 
 // The function to recursively split the array for Merge Sort.
 template<class T>
-void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
+void Sorting<T>::split(T array[], T copy[], unsigned start, unsigned end) {
 
 	// Stopping condition.
 	if (end - start <= 1) {
@@ -335,7 +335,7 @@ void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
 	}
 
 	// Get midpoint of start and end.
-	uint middle = (start + end) / 2;
+	unsigned middle = (start + end) / 2;
 
 	// Split into left and right halves.
 	split(array, copy, start, middle);
@@ -349,13 +349,13 @@ void Sorting<T>::split(T array[], T copy[], uint start, uint end) {
 // Merge the array again.
 template<class T>
 void Sorting<T>::merge(
-	T array[], T copy[], uint start, uint middle, uint end) {
+	T array[], T copy[], unsigned start, unsigned middle, unsigned end) {
 
 	// Configure the moving indices.
-	size_t i = start, j = middle;
+	unsigned i = start, j = middle;
 
 	// Merge array into copy from start to end.
-	for (size_t k = start; k < end; k++) {
+	for (unsigned k = start; k < end; k++) {
 		if (i < middle && (j >= end || compare(array[i], array[j]))) {
 			copy[k] = array[i];
 			i++;
@@ -366,7 +366,7 @@ void Sorting<T>::merge(
 	}
 
 	// Copy back into original array.
-	for (size_t k = start; k < end; k++) {
+	for (unsigned k = start; k < end; k++) {
 		array[k] = copy[k];
 	}
 }
@@ -375,9 +375,9 @@ void Sorting<T>::merge(
 
 // Comb Sort the array.
 template<class T>
-void Sorting<T>::combSort(T array[], const uint& SIZE) {
+void Sorting<T>::combSort(T array[], const unsigned& SIZE) {
 	bool sorted = false;
-	uint gap = SIZE;
+	unsigned gap = SIZE;
 
 	// Loop for all gaps.
 	while (!sorted) {
@@ -388,7 +388,7 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 		}
 
 		// Bubble Sort with the current gap.
-		for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+		for (unsigned i = 0, j = gap; j < SIZE; i++, j++) {
 			if (compare(array[j], array[i])) {
 				swap(array[j], array[i]);
 			}
@@ -401,28 +401,28 @@ void Sorting<T>::combSort(T array[], const uint& SIZE) {
 // Radix Sort the array using the specified base.
 // Note: Only works for unsigned integers, chars, and strings.
 template<class T>
-void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
+void Sorting<T>::radixSort(T array[], const unsigned& SIZE, unsigned base) {
 
 	// Update base for type T.
 	base = updateBase(array, base);
 
 	// Get the number of digits from the maximum value.
-	uint numDigits = radixDigits(array, SIZE, base);
+	unsigned numDigits = radixDigits(array, SIZE, base);
 
 	// Create counting array and copy of original array.
 	int count[base];
-	uint copy[SIZE];
+	unsigned copy[SIZE];
 
 	// Iterate through all digits.
-	for (uint d, digit = 0; digit < numDigits; digit++) {
+	for (unsigned d, digit = 0; digit < numDigits; digit++) {
 
 		// Reset the counting array.
-		for (size_t i = 0; i < base; i++) {
+		for (unsigned i = 0; i < base; i++) {
 			count[i] = 0;
 		}
 
 		// Iterate through all elements in the array.
-		for (size_t i = 0; i < SIZE; i++) {
+		for (unsigned i = 0; i < SIZE; i++) {
 			copy[i] = array[i];
 
 			// Determine the current digit.
@@ -438,7 +438,7 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
 		}
 
 		// Increment each subsequent count.
-		for (size_t i = 1; i < base; i++) {
+		for (unsigned i = 1; i < base; i++) {
 			count[i] += count[i-1];
 		}
 
@@ -463,26 +463,26 @@ void Sorting<T>::radixSort(T array[], const uint& SIZE, uint base) {
 
 // Update the base for type unsigned integer.
 template<class T>
-uint Sorting<T>::updateBase(uint array[], uint base) {
+unsigned Sorting<T>::updateBase(unsigned array[], unsigned base) {
 	return base;
 }
 
 
 // Update the base for type char.
 template<class T>
-uint Sorting<T>::updateBase(char array[], uint base) {
+unsigned Sorting<T>::updateBase(char array[], unsigned base) {
 	return 128;
 }
 
 
 // Get the number of digits (unsigned integer) for Radix Sort.
 template<class T>
-uint Sorting<T>::radixDigits(
-	uint array[], const uint& SIZE, const uint& BASE) {
+unsigned Sorting<T>::radixDigits(
+	unsigned array[], const unsigned& SIZE, const unsigned& BASE) {
 
 	// The number of digits is based on the maximum value.
-	uint maxValue = max(array, SIZE);
-	uint numDigits = 1;
+	unsigned maxValue = max(array, SIZE);
+	unsigned numDigits = 1;
 	if (maxValue >= BASE) {
 		numDigits += log(BASE, maxValue);
 	}
@@ -492,8 +492,8 @@ uint Sorting<T>::radixDigits(
 
 // Get the number of digits (char) for Radix Sort.
 template<class T>
-uint Sorting<T>::radixDigits(
-	char array[], const uint& SIZE, const uint& BASE) {
+unsigned Sorting<T>::radixDigits(
+	char array[], const unsigned& SIZE, const unsigned& BASE) {
 
 	// The number of char digits is always 1.
 	return 1;
@@ -502,7 +502,7 @@ uint Sorting<T>::radixDigits(
 
 // Hash function to get the unsigned integer radix digit.
 template<class T>
-uint Sorting<T>::radixHash(uint& value, uint digit, const uint& BASE) {
+unsigned Sorting<T>::radixHash(unsigned& value, unsigned digit, const unsigned& BASE) {
 	digit = pow(BASE, digit);
 	return (value / digit) % BASE;
 }
@@ -510,15 +510,15 @@ uint Sorting<T>::radixHash(uint& value, uint digit, const uint& BASE) {
 
 // Hash function to get the char radix digit.
 template<class T>
-uint Sorting<T>::radixHash(char& value, uint digit, const uint& BASE) {
-	return uint(value);
+unsigned Sorting<T>::radixHash(char& value, unsigned digit, const unsigned& BASE) {
+	return unsigned(value);
 }
 
 
 
 // Heap Sort the array.
 template<class T>
-void Sorting<T>::heapSort(T array[], const uint& SIZE) {
+void Sorting<T>::heapSort(T array[], const unsigned& SIZE) {
 
 	// Get index of last non-leaf node.
 	int node = SIZE / 2 - 1;
@@ -529,7 +529,7 @@ void Sorting<T>::heapSort(T array[], const uint& SIZE) {
 	}
 
 	// Sort by continuously popping from the heap.
-	for (size_t end = SIZE-1; end > 0; end--) {
+	for (unsigned end = SIZE-1; end > 0; end--) {
 		swap(array[0], array[end]);
 		heapify(array, end, 0);
 	}
@@ -538,13 +538,13 @@ void Sorting<T>::heapSort(T array[], const uint& SIZE) {
 
 // Recursively heapify the array at the given index.
 template<class T>
-void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
+void Sorting<T>::heapify(T array[], unsigned end, unsigned parentIndex) {
 
 	// The index of the lowest non-leaf node.
-	uint lowestNoneLeaf = end / 2 - 1;
+	unsigned lowestNoneLeaf = end / 2 - 1;
 
 	// Iterate for all children.
-	uint left, right, criticalIndex;
+	unsigned left, right, criticalIndex;
 	while (parentIndex <= lowestNoneLeaf) {
 
 		// Depending on sorting order is index of either
@@ -585,10 +585,10 @@ void Sorting<T>::heapify(T array[], uint end, uint parentIndex) {
 // Bucket Sort the array.
 // Note: only works for unsigned integer and char arrays.
 template<class T>
-void Sorting<T>::bucketSort(T array[], const uint& SIZE) {
+void Sorting<T>::bucketSort(T array[], const unsigned& SIZE) {
 
 	// Get the maximum value in the array plus 1.
-	uint maxValue = 1 + max(array, SIZE);
+	unsigned maxValue = 1 + max(array, SIZE);
 
 	// Get the index ratio.
 	double ratio = double(SIZE) / maxValue;
@@ -597,7 +597,7 @@ void Sorting<T>::bucketSort(T array[], const uint& SIZE) {
 	PriorityQueue<T> bucket[SIZE];
 
 	// Iterate through array and push elements to bucket.
-	for (size_t j, i = 0; i < SIZE; i++) {
+	for (unsigned j, i = 0; i < SIZE; i++) {
 		j = array[i] * ratio;
 		bucket[j].push(array[i]);
 	}

@@ -28,7 +28,7 @@ class Stack
 public:
 	Stack();
 	Stack(const Stack<T>& other);
-	Stack(const T array[], const uint SIZE);
+	Stack(const T array[], const unsigned SIZE);
 	~Stack();
 
 	template<class U>
@@ -47,13 +47,13 @@ public:
 	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
-	uint size() const;
+	unsigned size() const;
 	T& top();
 	T* toDynamicArray();
-	T* toDynamicArray(const uint SIZE);
+	T* toDynamicArray(const unsigned SIZE);
 	std::string toString();
 private:
-	uint length;
+	unsigned length;
 	StackNode<T>* head;
 };
 

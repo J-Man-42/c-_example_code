@@ -16,16 +16,16 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[3];
-	uint number;
-	uint element;
+	unsigned number;
+	unsigned element;
 
 	// Create the priority queue.
-	PriorityQueue<uint> queue;
-	PriorityQueue<uint> temp;
+	PriorityQueue<unsigned> queue;
+	PriorityQueue<unsigned> temp;
 
 	// Declare the array pointer.
-	uint size = 0;
-	uint* array = new uint[size];
+	unsigned size = 0;
+	unsigned* array = new unsigned[size];
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -70,7 +70,7 @@ int main() {
 		// Create queue from array.
 		if (answer[0] == 'A') {
 			cout << "Create Priority Queue from Array" << endl;
-			queue = PriorityQueue<uint>(array, size);
+			queue = PriorityQueue<unsigned>(array, size);
 			continue;
 		}
 
@@ -199,7 +199,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -216,7 +216,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -228,7 +228,7 @@ int main() {
 			cout << "> new size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			queue = temp;
@@ -252,7 +252,7 @@ int main() {
 			cout << "> other queue size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			temp = queue + temp;
@@ -276,7 +276,7 @@ int main() {
 			cout << "> other queue size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			queue += temp;

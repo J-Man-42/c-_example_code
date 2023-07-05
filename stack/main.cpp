@@ -16,16 +16,16 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[3];
-	uint number;
-	uint element;
+	unsigned number;
+	unsigned element;
 
 	// Create the stack.
-	Stack<uint> stack;
-	Stack<uint> temp;
+	Stack<unsigned> stack;
+	Stack<unsigned> temp;
 
 	// Declare the array pointer.
-	uint size = 0;
-	uint* array = new uint[size];
+	unsigned size = 0;
+	unsigned* array = new unsigned[size];
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -69,7 +69,7 @@ int main() {
 		// Create stack from array.
 		if (answer[0] == 'A') {
 			cout << "Create Stack from Array" << endl;
-			stack = Stack<uint>(array, size);
+			stack = Stack<unsigned>(array, size);
 			continue;
 		}
 
@@ -185,7 +185,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -202,7 +202,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -214,7 +214,7 @@ int main() {
 			cout << "> new size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			stack = temp;
@@ -238,7 +238,7 @@ int main() {
 			cout << "> other stack size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			temp = stack + temp;
@@ -262,7 +262,7 @@ int main() {
 			cout << "> other stack size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.push(randUint(10, 99));
 			}
 			stack += temp;

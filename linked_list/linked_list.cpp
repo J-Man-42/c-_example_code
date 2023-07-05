@@ -47,11 +47,11 @@ LinkedList<T>::LinkedList(const LinkedList<T>& other) {
 
 // Construct a LinkedList from the given array.
 template<class T>
-LinkedList<T>::LinkedList(const T array[], const uint SIZE) {
+LinkedList<T>::LinkedList(const T array[], const unsigned SIZE) {
 	this->head = nullptr;
 	this->tail = nullptr;
 	this->length = 0;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		this->append(array[i]);
 	}
 	this->current = head;
@@ -348,7 +348,7 @@ void LinkedList<T>::insertAt(const int signedIndex, const T element) {
 	ListNode<T>* newListNode = new ListNode<T>(element);
 
 	// Accommodate negative indices.
-	uint index = handleNegativeIndex(signedIndex);
+	unsigned index = handleNegativeIndex(signedIndex);
 
 	// If empty list, assign as head and tail.
 	if (isEmpty()) {
@@ -466,7 +466,7 @@ template<class T>
 T LinkedList<T>::removeAt(const int signedIndex) {
 
 	// Accommodate negative indices.
-	uint index = handleNegativeIndex(signedIndex);
+	unsigned index = handleNegativeIndex(signedIndex);
 
 	// Throw error if index out of bounds.
 	if (index >= length) {
@@ -636,7 +636,7 @@ template<class T>
 void LinkedList<T>::set(const int signedIndex, const T element) {
 
 	// Accommodate negative indices.
-	uint index = handleNegativeIndex(signedIndex);
+	unsigned index = handleNegativeIndex(signedIndex);
 
 	// If index out of bounds, add to the end.
 	if (index >= length) {
@@ -685,7 +685,7 @@ void LinkedList<T>::setLast(const T element) {
 
 // Get the number of elements in the list.
 template<class T>
-uint LinkedList<T>::size() const {
+unsigned LinkedList<T>::size() const {
 	return length;
 }
 
@@ -693,7 +693,7 @@ uint LinkedList<T>::size() const {
 
 // Returns a sub list from start to end.
 template<class T>
-LinkedList<T>* LinkedList<T>::subList(const uint start, const uint end) {
+LinkedList<T>* LinkedList<T>::subList(const unsigned start, const unsigned end) {
 
 	// Throw error if invalid index.
 	if (start >= end || start >= length || end > length) {
@@ -707,7 +707,7 @@ LinkedList<T>* LinkedList<T>::subList(const uint start, const uint end) {
 	ListNode<T>* nodePtr = findIndex(start);
 
 	// Copy elements from start to end.
-	for (size_t i = start; i < end; i++) {
+	for (unsigned i = start; i < end; i++) {
 		list->append(nodePtr->data);
 		nodePtr = nodePtr->next;
 	}
@@ -734,13 +734,13 @@ T* LinkedList<T>::toDynamicArray() {
 
 // Converts the list into a dynamic array of the given size.
 template<class T>
-T* LinkedList<T>::toDynamicArray(const uint SIZE) {
+T* LinkedList<T>::toDynamicArray(const unsigned SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
 	ListNode<T>* nodePtr = head;
-	size_t limit = (length > SIZE ? SIZE : length);
-	for (size_t i = 0; i < limit; i++) {
+	unsigned limit = (length > SIZE ? SIZE : length);
+	for (unsigned i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
 		nodePtr = nodePtr->next;
 	}
@@ -776,7 +776,7 @@ string LinkedList<T>::toString() {
 
 // Find the node corresponding to the given index.
 template<class T>
-ListNode<T>* LinkedList<T>::findIndex(const uint index) {
+ListNode<T>* LinkedList<T>::findIndex(const unsigned index) {
 	ListNode<T>* nodePtr;
 
 	// Throw error if index out of bounds.
@@ -787,7 +787,7 @@ ListNode<T>* LinkedList<T>::findIndex(const uint index) {
 	// See if index is closer to head.
 	if (length-index >= index) {
 		nodePtr = head;
-		for (size_t i = 0; i < index; i++) {
+		for (unsigned i = 0; i < index; i++) {
 			nodePtr = nodePtr->next;
 		}
 	}
@@ -795,7 +795,7 @@ ListNode<T>* LinkedList<T>::findIndex(const uint index) {
 	// Otherwise, index is closer to tail.
 	else {
 		nodePtr = tail;
-		for (size_t i = length-1; i > index; i--) {
+		for (unsigned i = length-1; i > index; i--) {
 			nodePtr = nodePtr->prev;
 		}
 	}
@@ -808,7 +808,7 @@ ListNode<T>* LinkedList<T>::findIndex(const uint index) {
 
 // Return the positive index equivalent.
 template<class T>
-uint LinkedList<T>::handleNegativeIndex(const int index) {
+unsigned LinkedList<T>::handleNegativeIndex(const int index) {
 	if (index < 0)
 		return length + index;
 	return index;

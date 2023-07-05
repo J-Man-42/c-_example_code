@@ -7,15 +7,15 @@ using namespace std;
 
 // Main loop function.
 int main() {
-	uint number;
+	unsigned number;
 	char answer[21];
-	size_t size = 20;
-	uint minValue = 1;
-	uint maxValue = 40;
+	unsigned size = 20;
+	unsigned minValue = 1;
+	unsigned maxValue = 40;
 	bool mustRefresh = true;
 
 	// Initialise array.
-	uint* array = randUintArray(size, minValue, maxValue);
+	unsigned* array = randUintArray(size, minValue, maxValue);
 
 	// Main loop.
 	while (answer[0] != 'Q') {
@@ -96,13 +96,13 @@ int main() {
 			// Change array size.
 			case '1':
 				cout << "new size = ";
-				size_t newSize;
+				unsigned newSize;
 				cin >> newSize;
 
 				// Shrink array.
 				if (newSize < size) {
-					uint* newArray = new uint[newSize];
-					for (size_t i = 0; i < newSize; i++) {
+					unsigned* newArray = new unsigned[newSize];
+					for (unsigned i = 0; i < newSize; i++) {
 						newArray[i] = array[i];
 					}
 					delete [] array;
@@ -112,11 +112,11 @@ int main() {
 
 				// Grow array.
 				else if (newSize > size) {
-					uint* newArray = new uint[newSize];
-					for (size_t i = 0; i < size; i++) {
+					unsigned* newArray = new unsigned[newSize];
+					for (unsigned i = 0; i < size; i++) {
 						newArray[i] = array[i];
 					}
-					for (size_t i = size; i < newSize; i++) {
+					for (unsigned i = size; i < newSize; i++) {
 						newArray[i] = randUint(minValue, maxValue);
 					}
 					delete [] array;
@@ -127,7 +127,7 @@ int main() {
 
 			// Reverse the array order.
 			case '2':
-				for (size_t i = 0, j = size-1; i < j; i++, j--) {
+				for (unsigned i = 0, j = size-1; i < j; i++, j--) {
 					swap(array[i], array[j]);
 				}
 				break;
@@ -136,8 +136,8 @@ int main() {
 			case '3':
 				size = maxValue - minValue + 1;
 				delete [] array;
-				array = new uint[size];
-				for (uint i = 0, n = minValue; i < size; i++, n++) {
+				array = new unsigned[size];
+				for (unsigned i = 0, n = minValue; i < size; i++, n++) {
 					array[i] = n;
 				}
 				break;
@@ -146,8 +146,8 @@ int main() {
 			case '4':
 				size = maxValue - minValue + 1;
 				delete [] array;
-				array = new uint[size];
-				for (uint i = 0, n = maxValue; i < size; i++, n--) {
+				array = new unsigned[size];
+				for (unsigned i = 0, n = maxValue; i < size; i++, n--) {
 					array[i] = n;
 				}
 				break;
@@ -180,7 +180,7 @@ int main() {
 			}
 
 			// Modify the array to meet this criteria.
-			for (size_t i = 0; i < size; i++) {
+			for (unsigned i = 0; i < size; i++) {
 				array[i] = max(minValue, array[i]);
 				array[i] = min(maxValue, array[i]);
 			}
@@ -201,7 +201,7 @@ int main() {
 		// Change the milliseconds delay when sorting.
 		case '4':
 			cout << "new delay = ";
-			uint ms;
+			unsigned ms;
 			cin >> ms;
 			Sorting::setDelay(ms);
 			break;
@@ -216,7 +216,7 @@ int main() {
 		// Change the value to vertical bar scale.
 		case '6':
 			cout << "new vertical scale = ";
-			uint scale;
+			unsigned scale;
 			cin >> scale;
 			Sorting::setVerticalScale(scale);
 			break;
@@ -283,7 +283,7 @@ int main() {
 				break;
 			case 11:
 				cout << "base = ";
-				uint base;
+				unsigned base;
 				cin >> base;
 				Sorting::radixSort(array, size, base);
 				break;

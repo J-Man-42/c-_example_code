@@ -15,7 +15,7 @@ public:
 		this->left = nullptr;
 		this->right = nullptr;
 	}
-	Node(const uint data, const char colour = '\0') {
+	Node(const unsigned data, const char colour = '\0') {
 		this->data = data;
 		this->height = 1;
 		this->colour = colour;
@@ -33,8 +33,8 @@ public:
 		this->left = nullptr;
 		this->right = nullptr;
 	}
-	uint data;
-	uint height;
+	unsigned data;
+	unsigned height;
 	char colour;
 	Node* left;
 	Node* right;
@@ -54,8 +54,8 @@ void adjustHeight(Node* node) {
 	adjustHeight(node->right);
 
 	// Update height of current node.
-	uint left = (node->left ? node->left->height : 0);
-	uint right = (node->right ? node->right->height : 0);
+	unsigned left = (node->left ? node->left->height : 0);
+	unsigned right = (node->right ? node->right->height : 0);
 	node->height = 1 + max(left, right);
 }
 
@@ -81,8 +81,8 @@ void deleteTree(Node* node) {
 int main() {
 
 	// Create the array.
-	uint SIZE = 31;
-	uint array[SIZE] = {
+	unsigned SIZE = 31;
+	unsigned array[SIZE] = {
 		 1,
 		 9,  2,
 		13, 10,  5,  3,

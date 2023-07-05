@@ -4,31 +4,31 @@ using namespace std;
 
 
 // Move the cursor to the given line and column number.
-void positionCursor(uint L, uint C) {
+void positionCursor(unsigned L, unsigned C) {
 	cout << "\033["<<L<<";"<<C<<"H";
 }
 
 
 // Move the cursor up N lines.
-void moveCursorUp(uint N) {
+void moveCursorUp(unsigned N) {
 	cout << "\033["<<N<<"A";
 }
 
 
 // Move the cursor down N lines.
-void moveCursorDown(uint N) {
+void moveCursorDown(unsigned N) {
 	cout << "\033["<<N<<"B";
 }
 
 
 // Move the cursor forward N columns.
-void moveCursorRight(uint N) {
+void moveCursorRight(unsigned N) {
 	cout << "\033["<<N<<"C";
 }
 
 
 // Move the cursor backward N columns.
-void moveCursorLeft(uint N) {
+void moveCursorLeft(unsigned N) {
 	cout << "\033["<<N<<"D";
 }
 

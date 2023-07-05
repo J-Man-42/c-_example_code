@@ -44,11 +44,11 @@ Queue<T>::Queue(const Queue<T>& other) {
 
 // Construct a Queue from the given array.
 template<class T>
-Queue<T>::Queue(const T array[], const uint SIZE) {
+Queue<T>::Queue(const T array[], const unsigned SIZE) {
 	this->head = nullptr;
 	this->tail = nullptr;
 	this->length = 0;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		this->push(array[i]);
 	}
 }
@@ -291,7 +291,7 @@ void Queue<T>::push(const T element) {
 
 // Get the number of elements in the queue.
 template<class T>
-uint Queue<T>::size() const {
+unsigned Queue<T>::size() const {
 	return length;
 }
 
@@ -313,13 +313,13 @@ T* Queue<T>::toDynamicArray() {
 
 // Converts the queue into a dynamic array of the given size.
 template<class T>
-T* Queue<T>::toDynamicArray(const uint SIZE) {
+T* Queue<T>::toDynamicArray(const unsigned SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
 	QueueNode<T>* nodePtr = head;
-	size_t limit = (length > SIZE ? SIZE : length);
-	for (size_t i = 0; i < limit; i++) {
+	unsigned limit = (length > SIZE ? SIZE : length);
+	for (unsigned i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
 		nodePtr = nodePtr->next;
 	}

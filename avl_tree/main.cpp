@@ -14,12 +14,12 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[20];
-	uint number;
-	uint element;
+	unsigned number;
+	unsigned element;
 
 	// Create the AVL tree.
-	AVLTree<uint> tree;
-	AVLTree<uint> temp;
+	AVLTree<unsigned> tree;
+	AVLTree<unsigned> temp;
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -60,7 +60,7 @@ int main() {
 
 
 		// Any other character continues the loop.
-		if (isalpha(answer[0])) {
+		if (!isdigit(answer[0])) {
 			continue;
 		}
 
@@ -142,8 +142,8 @@ int main() {
 			cout << "> number of elements = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
-				temp.insert(randUint(0, 999));
+			for (unsigned i = 0; i < number; i++) {
+				temp.insert(randInt(0, 999));
 			}
 			tree = temp;
 			break;

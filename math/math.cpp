@@ -5,7 +5,7 @@ using namespace std;
 
 
 // Find the minimum value in the array.
-uint min(uint arr[], const uint SIZE) {
+unsigned min(unsigned arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -13,15 +13,15 @@ uint min(uint arr[], const uint SIZE) {
 	}
 
 	// Find and return the minimum value otherwise.
-	uint minValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	unsigned minValue = arr[0];
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] < minValue) {
 			minValue = arr[i];
 		}
 	}
 	return minValue;
 }
-int min(int arr[], const uint SIZE) {
+int min(int arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -30,14 +30,14 @@ int min(int arr[], const uint SIZE) {
 
 	// Find and return the minimum value otherwise.
 	int minValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] < minValue) {
 			minValue = arr[i];
 		}
 	}
 	return minValue;
 }
-double min(double arr[], const uint SIZE) {
+double min(double arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -46,14 +46,14 @@ double min(double arr[], const uint SIZE) {
 
 	// Find and return the minimum value otherwise.
 	double minValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] < minValue) {
 			minValue = arr[i];
 		}
 	}
 	return minValue;
 }
-char min(char arr[], const uint SIZE) {
+char min(char arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -62,7 +62,7 @@ char min(char arr[], const uint SIZE) {
 
 	// Find and return the minimum value otherwise.
 	char minValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] < minValue) {
 			minValue = arr[i];
 		}
@@ -72,7 +72,7 @@ char min(char arr[], const uint SIZE) {
 
 
 // Find the minimum of the two values.
-uint min(uint a, uint b) {
+unsigned min(unsigned a, unsigned b) {
 	return (a < b ? a : b);
 }
 int min(int a, int b) {
@@ -87,7 +87,7 @@ char min(char a, char b) {
 
 
 // Find the minimum value in the array.
-uint max(uint arr[], const uint SIZE) {
+unsigned max(unsigned arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -95,15 +95,15 @@ uint max(uint arr[], const uint SIZE) {
 	}
 
 	// Find and return the maximum value otherwise.
-	uint maxValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	unsigned maxValue = arr[0];
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] > maxValue) {
 			maxValue = arr[i];
 		}
 	}
 	return maxValue;
 }
-int max(int arr[], const uint SIZE) {
+int max(int arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -112,14 +112,14 @@ int max(int arr[], const uint SIZE) {
 
 	// Find and return the maximum value otherwise.
 	int maxValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] > maxValue) {
 			maxValue = arr[i];
 		}
 	}
 	return maxValue;
 }
-double max(double arr[], const uint SIZE) {
+double max(double arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -128,14 +128,14 @@ double max(double arr[], const uint SIZE) {
 
 	// Find and return the maximum value otherwise.
 	double maxValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] > maxValue) {
 			maxValue = arr[i];
 		}
 	}
 	return maxValue;
 }
-char max(char arr[], const uint SIZE) {
+char max(char arr[], const unsigned SIZE) {
 
 	// If array is empty, return 0.
 	if (SIZE == 0) {
@@ -144,7 +144,7 @@ char max(char arr[], const uint SIZE) {
 
 	// Find and return the maximum value otherwise.
 	char maxValue = arr[0];
-	for (uint i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		if (arr[i] > maxValue) {
 			maxValue = arr[i];
 		}
@@ -154,7 +154,7 @@ char max(char arr[], const uint SIZE) {
 
 
 // Find the maximum of the two values.
-uint max(uint a, uint b) {
+unsigned max(unsigned a, unsigned b) {
 	return (a > b ? a : b);
 }
 int max(int a, int b) {

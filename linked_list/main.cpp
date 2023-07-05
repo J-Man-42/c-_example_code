@@ -16,19 +16,19 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[3];
-	uint start, end;
-	uint number;
-	uint element;
+	unsigned start, end;
+	unsigned number;
+	unsigned element;
 	int index;
-	LinkedList<uint>* sublist = nullptr;
+	LinkedList<unsigned>* sublist = nullptr;
 
 	// Create the linked list.
-	LinkedList<uint> list;
-	LinkedList<uint> temp;
+	LinkedList<unsigned> list;
+	LinkedList<unsigned> temp;
 
 	// Declare the array pointer.
-	uint size = 0;
-	uint* array = new uint[size];
+	unsigned size = 0;
+	unsigned* array = new unsigned[size];
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -89,7 +89,7 @@ int main() {
 		// Create list from array.
 		if (answer[0] == 'A') {
 			cout << "Create List from Array" << endl;
-			list = LinkedList<uint>(array, size);
+			list = LinkedList<unsigned>(array, size);
 			continue;
 		}
 
@@ -390,7 +390,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -407,7 +407,7 @@ int main() {
 			} catch (char const* e) {
 				cout << e << endl;
 				size = 0;
-				array = new uint[size];
+				array = new unsigned[size];
 				sleep_for(seconds(2));
 			}
 			break;
@@ -419,7 +419,7 @@ int main() {
 			cout << "> new size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.append(randUint(10, 99));
 			}
 			list = temp;
@@ -476,7 +476,7 @@ int main() {
 			cout << "> other list size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.append(randUint(10, 99));
 			}
 			temp = list + temp;
@@ -500,7 +500,7 @@ int main() {
 			cout << "> other list size = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.append(randUint(10, 99));
 			}
 			list += temp;

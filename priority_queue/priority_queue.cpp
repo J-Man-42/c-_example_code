@@ -44,11 +44,11 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T>& other) {
 
 // Construct a PriorityQueue from the given array.
 template<class T>
-PriorityQueue<T>::PriorityQueue(const T array[], const uint SIZE) {
+PriorityQueue<T>::PriorityQueue(const T array[], const unsigned SIZE) {
 	this->head = nullptr;
 	this->tail = nullptr;
 	this->length = 0;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		this->push(array[i]);
 	}
 }
@@ -310,7 +310,7 @@ void PriorityQueue<T>::push(const T element) {
 
 // Get the number of elements in the queue.
 template<class T>
-uint PriorityQueue<T>::size() const {
+unsigned PriorityQueue<T>::size() const {
 	return length;
 }
 
@@ -332,13 +332,13 @@ T* PriorityQueue<T>::toDynamicArray() {
 
 // Converts the queue into a dynamic array of the given size.
 template<class T>
-T* PriorityQueue<T>::toDynamicArray(const uint SIZE) {
+T* PriorityQueue<T>::toDynamicArray(const unsigned SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
 	PQueueNode<T>* nodePtr = head;
-	size_t limit = (length > SIZE ? SIZE : length);
-	for (size_t i = 0; i < limit; i++) {
+	unsigned limit = (length > SIZE ? SIZE : length);
+	for (unsigned i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
 		nodePtr = nodePtr->next;
 	}

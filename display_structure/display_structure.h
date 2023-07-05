@@ -8,8 +8,8 @@
 using namespace std;
 
 // Function prototypes.
-void displayArray(uint* array, const uint SIZE);
-void displayHeap(uint* array, const uint SIZE);
+void displayArray(unsigned* array, const unsigned SIZE);
+void displayHeap(unsigned* array, const unsigned SIZE);
 
 
 // Elegantly displays the tree structure.
@@ -25,12 +25,12 @@ void displayTree(Node* root) {
 	startColour('w');
 
 	// Get the height from root.
-	uint height = root->height;
+	unsigned height = root->height;
 
 	// Calculate the widths.
-	uint width[height];
+	unsigned width[height];
 	width[height-1] = 0;
-	uint x = 3;
+	unsigned x = 3;
 	for (int n = height-2; n >= 0; n--) {
 		width[n] = width[n+1] + x;
 		x *= 2;
@@ -46,7 +46,7 @@ void displayTree(Node* root) {
 
 	// The node and current depth variables.
 	Node* nodePtr;
-	uint d = 0;
+	unsigned d = 0;
 
 	// Loop for all heights.
 	topQueue->push(root);
@@ -139,7 +139,7 @@ void displayTree(Node* root) {
 			cout << setw(width[d]+2) << "";
 			if (nodePtr && nodePtr->left) {
 				cout << "┌";
-				for (uint k = 0; k <= width[d]; k++) {
+				for (unsigned k = 0; k <= width[d]; k++) {
 					cout << "─";
 				}
 				cout << "┘";
@@ -150,7 +150,7 @@ void displayTree(Node* root) {
 			// Right branch.
 			if (nodePtr && nodePtr->right) {
 				cout << " └";
-				for (uint k = 0; k <= width[d]; k++) {
+				for (unsigned k = 0; k <= width[d]; k++) {
 					cout << "─";
 				}
 				cout << "┐" << setw(width[d]+3) << "";

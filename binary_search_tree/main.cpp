@@ -14,12 +14,12 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[3];
-	uint number;
-	uint element;
+	unsigned number;
+	unsigned element;
 
 	// Create the binary search tree.
-	BinarySearchTree<uint> tree;
-	BinarySearchTree<uint> temp;
+	BinarySearchTree<unsigned> tree;
+	BinarySearchTree<unsigned> temp;
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
@@ -150,7 +150,7 @@ int main() {
 			cout << "> number of elements = ";
 			cin >> number;
 			temp.clear();
-			for (size_t i = 0; i < number; i++) {
+			for (unsigned i = 0; i < number; i++) {
 				temp.insert(randUint(0, 999));
 			}
 			tree = temp;

@@ -6,9 +6,7 @@ using namespace std::chrono;
 
 
 // Simplify
-typedef time_point<
-	_V2::system_clock, duration<long int, std::ratio<1, 1000000000> >
-> Time;
+typedef std::chrono::_V2::system_clock::time_point Time;
 
 // The static class for various sorting algorithms.
 template<class T>
@@ -21,18 +19,18 @@ public:
 
 	// Functions.
 	static void showTimeTaken(Time start, Time end);
-	static void bubbleSort(T array[], const uint& SIZE);
-	static void selectionSort(T array[], const uint& SIZE);
-	static void insertionSort(T array[], const uint& SIZE);
-	static void cocktailShakerSort(T array[], const uint& SIZE);
-	static void quickSort(T array[], const uint& SIZE);
-	static void quickSortV2(T array[], const uint& SIZE);
-	static void shellSort(T array[], const uint& SIZE);
-	static void mergeSort(T array[], const uint& SIZE);
-	static void combSort(T array[], const uint& SIZE);
-	static void radixSort(T array[], const uint& SIZE, uint base = 10);
-	static void heapSort(T array[], const uint& SIZE);
-	static void bucketSort(T array[], const uint& SIZE);
+	static void bubbleSort(T array[], const unsigned& SIZE);
+	static void selectionSort(T array[], const unsigned& SIZE);
+	static void insertionSort(T array[], const unsigned& SIZE);
+	static void cocktailShakerSort(T array[], const unsigned& SIZE);
+	static void quickSort(T array[], const unsigned& SIZE);
+	static void quickSortV2(T array[], const unsigned& SIZE);
+	static void shellSort(T array[], const unsigned& SIZE);
+	static void mergeSort(T array[], const unsigned& SIZE);
+	static void combSort(T array[], const unsigned& SIZE);
+	static void radixSort(T array[], const unsigned& SIZE, unsigned base = 10);
+	static void heapSort(T array[], const unsigned& SIZE);
+	static void bucketSort(T array[], const unsigned& SIZE);
 
 private:
 
@@ -42,18 +40,18 @@ private:
 	static int partition(T array[], int low, int high);
 	static void quickSortV2(T array[], int low, int high);
 	static int partitionV2(T array[], int low, int high);
-	static void split(T array[], T copy[], uint start, uint end);
+	static void split(T array[], T copy[], unsigned start, unsigned end);
 	static void merge(
-		T array[], T copy[], uint start, uint middle, uint end);
-	static uint updateBase(uint array[], uint base);
-	static uint updateBase(char array[], uint base);
-	static uint radixDigits(
-		uint array[], const uint& SIZE, const uint& BASE);
-	static uint radixDigits(
-		char array[], const uint& SIZE, const uint& BASE);
-	static uint radixHash(uint& value, uint digit, const uint& BASE);
-	static uint radixHash(char& value, uint digit, const uint& BASE);
-	static void heapify(T array[], uint end, uint parentIndex);
+		T array[], T copy[], unsigned start, unsigned middle, unsigned end);
+	static unsigned updateBase(unsigned array[], unsigned base);
+	static unsigned updateBase(char array[], unsigned base);
+	static unsigned radixDigits(
+		unsigned array[], const unsigned& SIZE, const unsigned& BASE);
+	static unsigned radixDigits(
+		char array[], const unsigned& SIZE, const unsigned& BASE);
+	static unsigned radixHash(unsigned& value, unsigned digit, const unsigned& BASE);
+	static unsigned radixHash(char& value, unsigned digit, const unsigned& BASE);
+	static void heapify(T array[], unsigned end, unsigned parentIndex);
 };
 
 #include "sorting.cpp"

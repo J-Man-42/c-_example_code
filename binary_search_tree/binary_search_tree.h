@@ -36,7 +36,7 @@ public:
 		this->right = nullptr;
 	}
 	T data;
-	int height;
+	unsigned height;
 	char colour;
 	BSTNode<T>* left;
 	BSTNode<T>* right;
@@ -65,7 +65,7 @@ public:
 	bool contains(const T element) const;
 	void dft();
 	void display();
-	uint height() const;
+	unsigned height() const;
 	void insert(const T element);
 	bool isEmpty() const;
 	bool isNotEmpty() const;

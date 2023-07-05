@@ -8,8 +8,8 @@ using namespace std;
 
 
 // Elegantly displays the content of the array.
-void displayArray(uint* array, const uint SIZE) {
-	uint width;
+void displayArray(unsigned* array, const unsigned SIZE) {
+	unsigned width;
 
 	// Do not print array of size 0.
 	if (SIZE == 0) {
@@ -21,12 +21,12 @@ void displayArray(uint* array, const uint SIZE) {
 
 	// Display the top border.
 	cout << "┌─";
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		width = 1;
 		if (array[i] > 0) {
 			width += log10(array[i]);
 		}
-		for (size_t j = 0; j < width; j++) {
+		for (unsigned j = 0; j < width; j++) {
 			cout << "─";
 		}
 		if (i < SIZE-1) {
@@ -37,19 +37,19 @@ void displayArray(uint* array, const uint SIZE) {
 	}
 
 	// Iterate through all elements.
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "│ " << array[i] << " ";
 	}
 	cout << "│\n";
 
 	// Display the bottom border.
 	cout << "└─";
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		width = 1;
 		if (array[i] > 0) {
 			width += log10(array[i]);
 		}
-		for (size_t j = 0; j < width; j++) {
+		for (unsigned j = 0; j < width; j++) {
 			cout << "─";
 		}
 		if (i < SIZE-1) {
@@ -66,7 +66,7 @@ void displayArray(uint* array, const uint SIZE) {
 
 
 // Elegantly displays the array as a heap.
-void displayHeap(uint* array, const uint SIZE) {
+void displayHeap(unsigned* array, const unsigned SIZE) {
 
 	// Simply return if no elements in the array.
 	if (SIZE == 0)
@@ -76,29 +76,29 @@ void displayHeap(uint* array, const uint SIZE) {
 	startColour('w');
 
 	// Calculate height of heap.
-	uint height = 1 + log2(SIZE);
+	unsigned height = 1 + log2(SIZE);
 
 	// Calculate the widths.
-	uint width[height];
+	unsigned width[height];
 	width[height-1] = 0;
-	uint x = 3;
+	unsigned x = 3;
 	for (int n = height-2; n >= 0; n--) {
 		width[n] = width[n+1] + x;
 		x *= 2;
 	}
 
 	// The number of nodes for the current depth.
-	uint count = 1;
+	unsigned count = 1;
 
 	// The starting point and limit for the number of children.
-	uint start, limit;
+	unsigned start, limit;
 
 	// The left and right child indices.
-	uint left, right;
+	unsigned left, right;
 
 	// Print heap.
-	uint index = 0;
-	for (uint i = 0; i < height; i++) {
+	unsigned index = 0;
+	for (unsigned i = 0; i < height; i++) {
 		limit = min(SIZE, index*2 + 1);
 		start = index;
 
@@ -107,7 +107,7 @@ void displayHeap(uint* array, const uint SIZE) {
 		right = 2*start + 2;
 
 		// Print top borders.
-		for (uint j = start; j < limit; j++) {
+		for (unsigned j = start; j < limit; j++) {
 			cout << setw(width[i]) << "";
 			cout << "┌─" << (i > 0 ? "┴" : "─") << "─┐";
 			cout << setw(width[i]+1) << "";
@@ -115,7 +115,7 @@ void displayHeap(uint* array, const uint SIZE) {
 		cout << endl;
 
 		// Print array content.
-		for (uint j = start; j < limit; j++) {
+		for (unsigned j = start; j < limit; j++) {
 			cout << setw(width[i]) << "" << "│";
 			cout << setfill('0') << setw(3) << array[index] << "│";
 			cout << setfill(' ') << setw(width[i]+1) << "";
@@ -124,7 +124,7 @@ void displayHeap(uint* array, const uint SIZE) {
 		cout << endl;
 
 		// Print bottom borders.
-		for (uint j = start, l = left, r = right; j < limit; j++) {
+		for (unsigned j = start, l = left, r = right; j < limit; j++) {
 
 			// See if children must be attached.
 			cout << setw(width[i]) << "" << "└";
@@ -140,14 +140,14 @@ void displayHeap(uint* array, const uint SIZE) {
 
 		// Print connections.
 		if (i < height-1) {
-			for (uint j = start, l = left, r = right; j < limit; j++) {
+			for (unsigned j = start, l = left, r = right; j < limit; j++) {
 
 				// Left branch.
 				if (l >= SIZE) {
 					break;
 				}
 				cout << setw(width[i+1]+2) << "" << "┌";
-				for (uint k = 0; k <= width[i+1]; k++) {
+				for (unsigned k = 0; k <= width[i+1]; k++) {
 					cout << "─";
 				}
 				cout << "┘";
@@ -157,7 +157,7 @@ void displayHeap(uint* array, const uint SIZE) {
 					break;
 				}
 				cout << " └";
-				for (uint k = 0; k <= width[i+1]; k++) {
+				for (unsigned k = 0; k <= width[i+1]; k++) {
 					cout << "─";
 				}
 				cout << "┐" << setw(width[i+1]+3) << "";

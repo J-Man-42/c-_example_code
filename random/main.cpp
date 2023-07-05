@@ -9,11 +9,11 @@ int main() {
 	// Set the minimum and maximum thresholds.
 	int minInt = -10;
 	int maxInt = 10;
-	uint minUint = 0;
-	uint maxUint = 20;
+	unsigned minUint = 0;
+	unsigned maxUint = 20;
 	double minDouble = 0.0;
 	double maxDouble = 1.0;
-	const size_t SIZE = 14;
+	const unsigned SIZE = 14;
 
 	// Generate random values.
 	cout << "\nRandom values:" << endl;
@@ -37,7 +37,7 @@ int main() {
 
 	// Generate random arrays.
 	int* intArray = randIntArray(SIZE, minInt, maxInt);
-	uint* uintArray = randUintArray(SIZE, minUint, maxUint);
+	unsigned* unsignedArray = randUintArray(SIZE, minUint, maxUint);
 	double* doubleArray = randDoubleArray(SIZE, minDouble, maxDouble);
 	char* letterArray = randCharArray(SIZE, 'l');
 	char* numberArray = randCharArray(SIZE, 'n');
@@ -48,38 +48,38 @@ int main() {
 	cout << "\n\nRandom arrays:" << endl;
 	cout << "==============" << endl;
 	cout << "\nrandIntArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << intArray[i] << "  ";
 	}
 	cout << "\n\nrandUintArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
-		cout << uintArray[i] << "  ";
+	for (unsigned i = 0; i < SIZE; i++) {
+		cout << unsignedArray[i] << "  ";
 	}
 	cout << "\n\nrandDoubleArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << doubleArray[i] << "  ";
 	}
 	cout << "\n\nrandCharArray(number):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<numberArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(letter):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<letterArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(symbol):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<symbolArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(any):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<charArray[i]<<"'" << "  ";
 	}
 	cout << endl;
 
 	// Shuffle all arrays.
 	shuffle(intArray, SIZE);
-	shuffle(uintArray, SIZE);
+	shuffle(unsignedArray, SIZE);
 	shuffle(doubleArray, SIZE);
 	shuffle(numberArray, SIZE);
 	shuffle(letterArray, SIZE);
@@ -90,38 +90,38 @@ int main() {
 	cout << "\n\nAfter shuffling:" << endl;
 	cout << "================" << endl;
 	cout << "\nrandIntArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << intArray[i] << "  ";
 	}
 	cout << "\n\nrandUintArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
-		cout << uintArray[i] << "  ";
+	for (unsigned i = 0; i < SIZE; i++) {
+		cout << unsignedArray[i] << "  ";
 	}
 	cout << "\n\nrandDoubleArray():" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << doubleArray[i] << "  ";
 	}
 	cout << "\n\nrandCharArray(number):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<numberArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(letter):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<letterArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(symbol):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<symbolArray[i]<<"'" << "  ";
 	}
 	cout << "\n\nrandCharArray(any):" << endl;
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'"<<charArray[i]<<"'" << "  ";
 	}
 	cout << endl;
 
 	// Delete dynamic arrays.
 	delete [] intArray;
-	delete [] uintArray;
+	delete [] unsignedArray;
 	delete [] doubleArray;
 	delete [] letterArray;
 	delete [] numberArray;

@@ -28,7 +28,7 @@ class PriorityQueue
 public:
 	PriorityQueue();
 	PriorityQueue(const PriorityQueue<T>& other);
-	PriorityQueue(const T array[], const uint SIZE);
+	PriorityQueue(const T array[], const unsigned SIZE);
 	~PriorityQueue();
 
 	template<class U>
@@ -49,12 +49,12 @@ public:
 	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
-	uint size() const;
+	unsigned size() const;
 	T* toDynamicArray();
-	T* toDynamicArray(const uint SIZE);
+	T* toDynamicArray(const unsigned SIZE);
 	std::string toString();
 private:
-	uint length;
+	unsigned length;
 	PQueueNode<T>* head;
 	PQueueNode<T>* tail;
 };

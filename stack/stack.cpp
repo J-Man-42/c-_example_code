@@ -43,7 +43,7 @@ Stack<T>::Stack(const Stack<T>& other) {
 
 // Construct a Stack from the given array.
 template<class T>
-Stack<T>::Stack(const T array[], const uint SIZE) {
+Stack<T>::Stack(const T array[], const unsigned SIZE) {
 	this->head = nullptr;
 	this->length = 0;
 	for (int i = SIZE-1; i >= 0; i--) {
@@ -289,7 +289,7 @@ void Stack<T>::push(const T element) {
 
 // Get the number of elements in the stack.
 template<class T>
-uint Stack<T>::size() const {
+unsigned Stack<T>::size() const {
 	return length;
 }
 
@@ -326,13 +326,13 @@ T* Stack<T>::toDynamicArray() {
 
 // Converts the stack into a dynamic array of the given size.
 template<class T>
-T* Stack<T>::toDynamicArray(const uint SIZE) {
+T* Stack<T>::toDynamicArray(const unsigned SIZE) {
 
 	// Copy all elements to the new array.
 	T* array = new T[SIZE];
 	StackNode<T>* nodePtr = head;
-	size_t limit = (length > SIZE ? SIZE : length);
-	for (size_t i = 0; i < limit; i++) {
+	unsigned limit = (length > SIZE ? SIZE : length);
+	for (unsigned i = 0; i < limit; i++) {
 		array[i] = nodePtr->data;
 		nodePtr = nodePtr->next;
 	}

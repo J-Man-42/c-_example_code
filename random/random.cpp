@@ -5,7 +5,7 @@
 
 
 // The static seed value.
-static uint long seed = 0;
+static unsigned long seed = 0;
 
 
 // Update the random seed to epoch time.
@@ -25,7 +25,7 @@ int randInt(int minValue, int maxValue) {
 
 
 // Generate a random unsigned integer between minValue and maxValue.
-uint randUint(uint minValue, uint maxValue) {
+unsigned randUint(unsigned minValue, unsigned maxValue) {
 	updateSeed();
 	return rand() % (maxValue - minValue + 1) + minValue;
 }
@@ -73,9 +73,9 @@ char randChar(char type) {
 
 
 // Generates a signed integer array with random values.
-int* randIntArray(const uint SIZE, int minValue, int maxValue) {
+int* randIntArray(const unsigned SIZE, int minValue, int maxValue) {
 	int* array = new int[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		array[i] = randInt(minValue, maxValue);
 	}
 	return array;
@@ -83,9 +83,9 @@ int* randIntArray(const uint SIZE, int minValue, int maxValue) {
 
 
 // Generates an unsigned integer array with random values.
-uint* randUintArray(const uint SIZE, uint minValue, uint maxValue) {
-	uint* array = new uint[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
+unsigned* randUintArray(const unsigned SIZE, unsigned minValue, unsigned maxValue) {
+	unsigned* array = new unsigned[SIZE];
+	for (unsigned i = 0; i < SIZE; i++) {
 		array[i] = randUint(minValue, maxValue);
 	}
 	return array;
@@ -93,9 +93,9 @@ uint* randUintArray(const uint SIZE, uint minValue, uint maxValue) {
 
 
 // Generates a double array with random values.
-double* randDoubleArray(const uint SIZE, double minValue, double maxValue) {
+double* randDoubleArray(const unsigned SIZE, double minValue, double maxValue) {
 	double* array = new double[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		array[i] = randDouble(minValue, maxValue);
 	}
 	return array;
@@ -103,9 +103,9 @@ double* randDoubleArray(const uint SIZE, double minValue, double maxValue) {
 
 
 // Generates a char array of random characters based on type.
-char* randCharArray(const uint SIZE, char type) {
+char* randCharArray(const unsigned SIZE, char type) {
 	char* array = new char[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		array[i] = randChar(type);
 	}
 	return array;
@@ -113,9 +113,9 @@ char* randCharArray(const uint SIZE, char type) {
 
 
 // Shuffle the given signed integer array.
-void shuffle(int* array, const uint SIZE) {
+void shuffle(int* array, const unsigned SIZE) {
 	updateSeed();
-	for (size_t j, i = SIZE-1; i > 0; i--) {
+	for (unsigned j, i = SIZE-1; i > 0; i--) {
 		j = randUint(0, SIZE-1);
 		std::swap(array[i], array[j]);
 	}
@@ -123,9 +123,9 @@ void shuffle(int* array, const uint SIZE) {
 
 
 // Shuffle the given unsigned integer array.
-void shuffle(uint* array, const uint SIZE) {
+void shuffle(unsigned* array, const unsigned SIZE) {
 	updateSeed();
-	for (size_t j, i = SIZE-1; i > 0; i--) {
+	for (unsigned j, i = SIZE-1; i > 0; i--) {
 		j = randUint(0, SIZE-1);
 		std::swap(array[i], array[j]);
 	}
@@ -133,9 +133,9 @@ void shuffle(uint* array, const uint SIZE) {
 
 
 // Shuffle the given double array.
-void shuffle(double* array, const uint SIZE) {
+void shuffle(double* array, const unsigned SIZE) {
 	updateSeed();
-	for (size_t j, i = SIZE-1; i > 0; i--) {
+	for (unsigned j, i = SIZE-1; i > 0; i--) {
 		j = randUint(0, SIZE-1);
 		std::swap(array[i], array[j]);
 	}
@@ -143,9 +143,9 @@ void shuffle(double* array, const uint SIZE) {
 
 
 // Shuffle the given char array.
-void shuffle(char* array, const uint SIZE) {
+void shuffle(char* array, const unsigned SIZE) {
 	updateSeed();
-	for (size_t j, i = SIZE-1; i > 0; i--) {
+	for (unsigned j, i = SIZE-1; i > 0; i--) {
 		j = randUint(0, SIZE-1);
 		std::swap(array[i], array[j]);
 	}

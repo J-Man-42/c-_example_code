@@ -7,16 +7,16 @@ using namespace std;
 
 // Main loop function.
 int main() {
-	uint number;
+	unsigned number;
 	char answer[21];
-	size_t size = 100000;
-	uint minValue = 1;
-	uint maxValue = 100000;
+	unsigned size = 100000;
+	unsigned minValue = 1;
+	unsigned maxValue = 100000;
 	bool mustRefresh = true;
 	bool isUint = true;
 
 	// Initialise the arrays.
-	uint* uintArray = randUintArray(size, minValue, maxValue);
+	unsigned* unsignedArray = randUintArray(size, minValue, maxValue);
 	char* charArray = randCharArray(size);
 
 	// Main loop.
@@ -38,7 +38,7 @@ int main() {
 		cout << "Array size = " << size << endl;
 		cout << "Sort ";
 		if (isUint) {
-			cout << (Sorting<uint>::sortAscending ? "Ascending" : "Descending");
+			cout << (Sorting<unsigned>::sortAscending ? "Ascending" : "Descending");
 		} else {
 			cout << (Sorting<char>::sortAscending ? "Ascending" : "Descending");
 		}
@@ -87,39 +87,39 @@ int main() {
 			// Change array size.
 			case '1':
 				cout << "new size = ";
-				size_t newSize;
+				unsigned newSize;
 				cin >> newSize;
 
 				// Shrink array.
 				if (newSize < size) {
-					uint* newUintArray = new uint[newSize];
+					unsigned* newUintArray = new unsigned[newSize];
 					char* newCharArray = new char[newSize];
-					for (size_t i = 0; i < newSize; i++) {
-						newUintArray[i] = uintArray[i];
+					for (unsigned i = 0; i < newSize; i++) {
+						newUintArray[i] = unsignedArray[i];
 						newCharArray[i] = charArray[i];
 					}
-					delete [] uintArray;
+					delete [] unsignedArray;
 					delete [] charArray;
-					uintArray = newUintArray;
+					unsignedArray = newUintArray;
 					charArray = newCharArray;
 					size = newSize;
 				}
 
 				// Grow array.
 				else if (newSize > size) {
-					uint* newUintArray = new uint[newSize];
+					unsigned* newUintArray = new unsigned[newSize];
 					char* newCharArray = new char[newSize];
-					for (size_t i = 0; i < size; i++) {
-						newUintArray[i] = uintArray[i];
+					for (unsigned i = 0; i < size; i++) {
+						newUintArray[i] = unsignedArray[i];
 						newCharArray[i] = charArray[i];
 					}
-					for (size_t i = size; i < newSize; i++) {
+					for (unsigned i = size; i < newSize; i++) {
 						newUintArray[i] = randUint(minValue, maxValue);
 						newCharArray[i] = randChar();
 					}
-					delete [] uintArray;
+					delete [] unsignedArray;
 					delete [] charArray;
-					uintArray = newUintArray;
+					unsignedArray = newUintArray;
 					charArray = newCharArray;
 					size = newSize;
 				}
@@ -127,8 +127,8 @@ int main() {
 
 			// Reverse the array order.
 			case '2':
-				for (size_t i = 0, j = size-1; i < j; i++, j--) {
-					swap(uintArray[i], uintArray[j]);
+				for (unsigned i = 0, j = size-1; i < j; i++, j--) {
+					swap(unsignedArray[i], unsignedArray[j]);
 					swap(charArray[i], charArray[j]);
 				}
 				break;
@@ -140,12 +140,12 @@ int main() {
 					maxValue = 127;
 				}
 				size = maxValue - minValue + 1;
-				delete [] uintArray;
+				delete [] unsignedArray;
 				delete [] charArray;
-				uintArray = new uint[size];
+				unsignedArray = new unsigned[size];
 				charArray = new char[size];
-				for (uint i = 0, n = minValue; i < size; i++, n++) {
-					uintArray[i] = n;
+				for (unsigned i = 0, n = minValue; i < size; i++, n++) {
+					unsignedArray[i] = n;
 					charArray[i] = n;
 				}
 				break;
@@ -157,27 +157,27 @@ int main() {
 					maxValue = 127;
 				}
 				size = maxValue - minValue + 1;
-				delete [] uintArray;
+				delete [] unsignedArray;
 				delete [] charArray;
-				uintArray = new uint[size];
+				unsignedArray = new unsigned[size];
 				charArray = new char[size];
-				for (uint i = 0, n = maxValue; i < size; i++, n--) {
-					uintArray[i] = n;
+				for (unsigned i = 0, n = maxValue; i < size; i++, n--) {
+					unsignedArray[i] = n;
 					charArray[i] = n % 128;
 				}
 				break;
 
 			// Shuffle the current array.
 			case '5':
-				shuffle(uintArray, size);
+				shuffle(unsignedArray, size);
 				shuffle(charArray, size);
 				break;
 
 			// Randomise the array.
 			case '6':
-				delete [] uintArray;
+				delete [] unsignedArray;
 				delete [] charArray;
-				uintArray = randUintArray(size, minValue, maxValue);
+				unsignedArray = randUintArray(size, minValue, maxValue);
 				charArray = randCharArray(size);
 				break;
 
@@ -198,9 +198,9 @@ int main() {
 			}
 
 			// Modify the array to meet this criteria.
-			for (size_t i = 0; i < size; i++) {
-				uintArray[i] = max(minValue, uintArray[i]);
-				uintArray[i] = min(maxValue, uintArray[i]);
+			for (unsigned i = 0; i < size; i++) {
+				unsignedArray[i] = max(minValue, unsignedArray[i]);
+				unsignedArray[i] = min(maxValue, unsignedArray[i]);
 			}
 
 			break;
@@ -208,8 +208,8 @@ int main() {
 
 		// Toggle sorting in ascending/descending order.
 		case '3':
-			Sorting<uint>::sortAscending = !Sorting<uint>::sortAscending;
-			Sorting<char>::sortAscending = Sorting<uint>::sortAscending;
+			Sorting<unsigned>::sortAscending = !Sorting<unsigned>::sortAscending;
+			Sorting<char>::sortAscending = Sorting<unsigned>::sortAscending;
 			break;
 
 
@@ -260,7 +260,7 @@ int main() {
 			case 1:
 				cout << "Performing Bubble Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::bubbleSort(uintArray, size);
+					Sorting<unsigned>::bubbleSort(unsignedArray, size);
 				} else {
 					Sorting<char>::bubbleSort(charArray, size);
 				}
@@ -268,7 +268,7 @@ int main() {
 			case 2:
 				cout << "Performing Selection Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::selectionSort(uintArray, size);
+					Sorting<unsigned>::selectionSort(unsignedArray, size);
 				} else {
 					Sorting<char>::selectionSort(charArray, size);
 				}
@@ -276,7 +276,7 @@ int main() {
 			case 3:
 				cout << "Performing Insertion Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::insertionSort(uintArray, size);
+					Sorting<unsigned>::insertionSort(unsignedArray, size);
 				} else {
 					Sorting<char>::insertionSort(charArray, size);
 				}
@@ -284,7 +284,7 @@ int main() {
 			case 4:
 				cout << "Performing Cocktail Shaker Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::cocktailShakerSort(uintArray, size);
+					Sorting<unsigned>::cocktailShakerSort(unsignedArray, size);
 				} else {
 					Sorting<char>::cocktailShakerSort(charArray, size);
 				}
@@ -292,7 +292,7 @@ int main() {
 			case 5:
 				cout << "Performing Quick Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::quickSort(uintArray, size);
+					Sorting<unsigned>::quickSort(unsignedArray, size);
 				} else {
 					Sorting<char>::quickSort(charArray, size);
 				}
@@ -300,7 +300,7 @@ int main() {
 			case 6:
 				cout << "Performing Quick Sort V2..." << endl;
 				if (isUint) {
-					Sorting<uint>::quickSortV2(uintArray, size);
+					Sorting<unsigned>::quickSortV2(unsignedArray, size);
 				} else {
 					Sorting<char>::quickSortV2(charArray, size);
 				}
@@ -308,7 +308,7 @@ int main() {
 			case 7:
 				cout << "Performing Shell Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::shellSort(uintArray, size);
+					Sorting<unsigned>::shellSort(unsignedArray, size);
 				} else {
 					Sorting<char>::shellSort(charArray, size);
 				}
@@ -316,7 +316,7 @@ int main() {
 			case 8:
 				cout << "Performing Merge Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::mergeSort(uintArray, size);
+					Sorting<unsigned>::mergeSort(unsignedArray, size);
 				} else {
 					Sorting<char>::mergeSort(charArray, size);
 				}
@@ -324,7 +324,7 @@ int main() {
 			case 9:
 				cout << "Performing Comb Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::combSort(uintArray, size);
+					Sorting<unsigned>::combSort(unsignedArray, size);
 				} else {
 					Sorting<char>::combSort(charArray, size);
 				}
@@ -332,7 +332,7 @@ int main() {
 			case 10:
 				cout << "Performing Radix Sort (base 10)..." << endl;
 				if (isUint) {
-					Sorting<uint>::radixSort(uintArray, size);
+					Sorting<unsigned>::radixSort(unsignedArray, size);
 				} else {
 					Sorting<char>::radixSort(charArray, size);
 				}
@@ -344,7 +344,7 @@ int main() {
 				clearScreen();
 				cout << "Performing Radix Sort (base "<<number<<")..." << endl;
 				if (isUint) {
-					Sorting<uint>::radixSort(uintArray, size, number);
+					Sorting<unsigned>::radixSort(unsignedArray, size, number);
 				} else {
 					Sorting<char>::radixSort(charArray, size, number);
 				}
@@ -352,7 +352,7 @@ int main() {
 			case 12:
 				cout << "Performing Heap Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::heapSort(uintArray, size);
+					Sorting<unsigned>::heapSort(unsignedArray, size);
 				} else {
 					Sorting<char>::heapSort(charArray, size);
 				}
@@ -360,7 +360,7 @@ int main() {
 			case 13:
 				cout << "Performing Bucket Sort..." << endl;
 				if (isUint) {
-					Sorting<uint>::bucketSort(uintArray, size);
+					Sorting<unsigned>::bucketSort(unsignedArray, size);
 				} else {
 					Sorting<char>::bucketSort(charArray, size);
 				}
@@ -371,7 +371,7 @@ int main() {
 			auto end = high_resolution_clock::now();
 
 			// Print time taken.
-			Sorting<uint>::showTimeTaken(start, end);
+			Sorting<unsigned>::showTimeTaken(start, end);
 		}
 	}
 

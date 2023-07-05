@@ -110,8 +110,8 @@ void BinarySearchTree<T>::balanceTree() {
 	createBackbone();
 
 	// Get actual and ideal number of nodes.
-	uint n = root->height;
-	uint m = pow(2, int(log2(n+1))) - 1;
+	unsigned n = root->height;
+	unsigned m = pow(2, int(log2(n+1))) - 1;
 
 	// Node pointers.
 	BSTNode<T>* parent = nullptr;
@@ -119,7 +119,7 @@ void BinarySearchTree<T>::balanceTree() {
 	BSTNode<T>* child = root->right;
 
 	// Initial set of rotations.
-	for (uint i = m; i < n; i++) {
+	for (unsigned i = m; i < n; i++) {
 		rotateLeft(parent, node);
 		parent = child;
 		node = child->right;
@@ -138,7 +138,7 @@ void BinarySearchTree<T>::balanceTree() {
 		BSTNode<T>* child = root->right;
 
 		// Make m rotations.
-		for (uint i = 0; i < m; i++) {
+		for (unsigned i = 0; i < m; i++) {
 			rotateLeft(parent, node);
 			parent = child;
 			node = child->right;
@@ -383,7 +383,7 @@ void BinarySearchTree<T>::display() {
 
 // Returns the height of the tree.
 template<class T>
-uint BinarySearchTree<T>::height() const {
+unsigned BinarySearchTree<T>::height() const {
 	if (isEmpty()) {
 		return 0;
 	}
@@ -591,8 +591,8 @@ void BinarySearchTree<T>::updateHeight(BSTNode<T>* node) {
 	}
 
 	// Get the left and right child heights.
-	uint left = (node->left ? node->left->height : 0);
-	uint right = (node->right ? node->right->height : 0);
+	unsigned left = (node->left ? node->left->height : 0);
+	unsigned right = (node->right ? node->right->height : 0);
 
 	// Height of node is max height of children + 1.
 	node->height = max(left, right) + 1;

@@ -280,14 +280,14 @@ void AVLTree<T>::display() {
 
 // Returns the height of the tree.
 template<class T>
-uint AVLTree<T>::height() const {
+unsigned AVLTree<T>::height() const {
 	return height(root);
 }
 
 
 // Returns the height of the given node.
 template<class T>
-uint AVLTree<T>::height(AVLNode<T>* node) const {
+unsigned AVLTree<T>::height(AVLNode<T>* node) const {
 	if (node) {
 		return node->height;
 	}
@@ -552,8 +552,8 @@ void AVLTree<T>::updateHeight(AVLNode<T>* node) {
 	}
 
 	// Get the left and right child heights.
-	uint left = height(node->left);
-	uint right = height(node->right);
+	unsigned left = height(node->left);
+	unsigned right = height(node->right);
 
 	// Height of node is max height of children + 1.
 	node->height = max(left, right) + 1;

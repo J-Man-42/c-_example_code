@@ -6,28 +6,28 @@ using namespace std;
 int main() {
 
 	// Initialise the arrays.
-	const uint SIZE = 5;
-	uint uintArray[SIZE] = {18, 42, 66, 12, 92};
+	const unsigned SIZE = 5;
+	unsigned unsignedArray[SIZE] = {18, 42, 66, 12, 92};
 	char charArray[SIZE] = {'a', 'z', 'q', 'b', 'i'};
 
 	// Print both arrays.
-	cout << "uintArray:" << endl;
-	for (uint i = 0; i < SIZE; i++) {
-		cout << uintArray[i] << " ";
+	cout << "unsignedArray:" << endl;
+	for (unsigned i = 0; i < SIZE; i++) {
+		cout << unsignedArray[i] << " ";
 	}
 	cout << "\ncharArray:" << endl;
-	for (uint i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		cout << "'" << charArray[i] << "' ";
 	}
 	cout << endl;
 
 	// Print the minimum and maximum value.
-	cout << "\nmin(uintArray) = " << min(uintArray, SIZE) << endl;
-	cout << "max(uintArray) = " << max(uintArray, SIZE) << endl;
+	cout << "\nmin(unsignedArray) = " << min(unsignedArray, SIZE) << endl;
+	cout << "max(unsignedArray) = " << max(unsignedArray, SIZE) << endl;
 	cout << "min(charArray) = '" << min(charArray, SIZE) << "'\n";
 	cout << "max(charArray) = '" << max(charArray, SIZE) << "'\n";
 
-	uint a = 3, b = 5;
+	unsigned a = 3, b = 5;
 	cout << "\nmin("<<a<<", "<<b<<") = " << min(a, b) << endl;
 	cout << "max("<<a<<", "<<b<<") = " << max(a, b) << endl;
 	char x = 'A', y = 'F';
@@ -36,8 +36,8 @@ int main() {
 
 	// Log of custom base.
 	cout << endl;
-	uint base = 3;
-	for (uint number = 1; number <= 10; number++) {
+	unsigned base = 3;
+	for (unsigned number = 1; number <= 10; number++) {
 		cout << "log("<<base<<", "<<number<<") = ";
 		cout << log(base, number) << endl;
 	}

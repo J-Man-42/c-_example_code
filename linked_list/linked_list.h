@@ -31,7 +31,7 @@ class LinkedList
 public:
 	LinkedList();
 	LinkedList(const LinkedList<T>& other);
-	LinkedList(const T array[], const uint SIZE);
+	LinkedList(const T array[], const unsigned SIZE);
 	~LinkedList();
 
 	template<class U>
@@ -67,15 +67,15 @@ public:
 	void set(const int signedIndex, const T element);
 	void setFirst(const T element);
 	void setLast(const T element);
-	uint size() const;
-	LinkedList<T>* subList(const uint start, const uint end);
+	unsigned size() const;
+	LinkedList<T>* subList(const unsigned start, const unsigned end);
 	T* toDynamicArray();
-	T* toDynamicArray(const uint SIZE);
+	T* toDynamicArray(const unsigned SIZE);
 	std::string toString();
 private:
-	ListNode<T>* findIndex(const uint index);
-	uint handleNegativeIndex(const int index);
-	uint length;
+	ListNode<T>* findIndex(const unsigned index);
+	unsigned handleNegativeIndex(const int index);
+	unsigned length;
 	ListNode<T>* head;
 	ListNode<T>* tail;
 	ListNode<T>* current;

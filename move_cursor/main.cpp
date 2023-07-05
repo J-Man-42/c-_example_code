@@ -24,7 +24,7 @@ void showMenu() {
 // Main testing function.
 int main() {
 	char answer;
-	uint L, C, N;
+	unsigned L, C, N;
 
 	// Show the initial menu.
 	showMenu();

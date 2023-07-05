@@ -28,7 +28,7 @@ class Queue
 public:
 	Queue();
 	Queue(const Queue<T>& other);
-	Queue(const T array[], const uint SIZE);
+	Queue(const T array[], const unsigned SIZE);
 	~Queue();
 
 	template<class U>
@@ -49,12 +49,12 @@ public:
 	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
-	uint size() const;
+	unsigned size() const;
 	T* toDynamicArray();
-	T* toDynamicArray(const uint SIZE);
+	T* toDynamicArray(const unsigned SIZE);
 	std::string toString();
 private:
-	uint length;
+	unsigned length;
 	QueueNode<T>* head;
 	QueueNode<T>* tail;
 };

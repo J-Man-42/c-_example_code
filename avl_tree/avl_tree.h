@@ -36,7 +36,7 @@ public:
 		this->right = nullptr;
 	}
 	T data;
-	int height;
+	unsigned height;
 	char colour;
 	AVLNode<T>* left;
 	AVLNode<T>* right;
@@ -64,7 +64,7 @@ public:
 	bool contains(const T element) const;
 	void dft();
 	void display();
-	uint height() const;
+	unsigned height() const;
 	void insert(const T element);
 	bool isEmpty() const;
 	bool isNotEmpty() const;
@@ -77,7 +77,7 @@ private:
 	AVLNode<T>* deleteByCopying(
 		AVLNode<T>* origin, AVLNode<T>* parent, AVLNode<T>* node);
 	void dft(AVLNode<T>* node);
-	uint height(AVLNode<T>* node) const;
+	unsigned height(AVLNode<T>* node) const;
 	void insert(AVLNode<T>* parent, AVLNode<T>* node, const T& element);
 	void linkParent(
 		AVLNode<T>* parent, AVLNode<T>* node,

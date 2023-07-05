@@ -12,11 +12,11 @@ using namespace std;
 // Set static member values.
 bool Sorting::sortAscending = true;
 Duration Sorting::delay = milliseconds(50);
-uint Sorting::barHeight = 40;
-uint Sorting::barWidth = 2;
-uint Sorting::wideBarWidth = 2;
-uint Sorting::verticalScale = 1;
-uint Sorting::displayHeight = 40;
+unsigned Sorting::barHeight = 40;
+unsigned Sorting::barWidth = 2;
+unsigned Sorting::wideBarWidth = 2;
+unsigned Sorting::verticalScale = 1;
+unsigned Sorting::displayHeight = 40;
 string Sorting::bars[] = {"██ ", "▄▄ ", "   "};
 
 
@@ -40,7 +40,7 @@ void Sorting::generateBars() {
 	bars[0] = " ";
 	bars[1] = " ";
 	bars[2] = " ";
-	for (size_t i = 0; i < barWidth; i++) {
+	for (unsigned i = 0; i < barWidth; i++) {
 		bars[0] = "█" + bars[0];
 		bars[1] = "▄" + bars[1];
 		bars[2] = " " + bars[2];
@@ -64,7 +64,7 @@ void Sorting::calibrateHeightAndScale() {
 
 
 // Updates the current bar width.
-void Sorting::setBarWidth(uint maxValue) {
+void Sorting::setBarWidth(unsigned maxValue) {
 	wideBarWidth = 1;
 	if (maxValue >= 10) {
 		wideBarWidth += log10(maxValue);
@@ -77,51 +77,51 @@ void Sorting::setBarWidth(uint maxValue) {
 
 
 // Update the display bar height.
-void Sorting::setBarHeight(uint height) {
+void Sorting::setBarHeight(unsigned height) {
 	barHeight = height;
 	calibrateHeightAndScale();
 }
 
 
 // Sets the vertical display scale.
-void Sorting::setVerticalScale(uint scale) {
+void Sorting::setVerticalScale(unsigned scale) {
 	verticalScale = scale;
 	calibrateHeightAndScale();
 }
 
 
 // Sets the delay in milliseconds.
-void Sorting::setDelay(uint ms) {
+void Sorting::setDelay(unsigned ms) {
 	delay = milliseconds(ms);
 }
 
 
 // Returns the current bar width.
-uint Sorting::getBarWidth() {
+unsigned Sorting::getBarWidth() {
 	return barWidth;
 }
 
 
 // Returns the vertical display scale.
-uint Sorting::getVerticalScale() {
+unsigned Sorting::getVerticalScale() {
 	return verticalScale;
 }
 
 
 // Returns the delay in milliseconds.
-uint Sorting::getDelay() {
+unsigned Sorting::getDelay() {
 	return delay.count();
 }
 
 
 // Prints either the top or bottom border.
-void Sorting::printBorder(string symbol, const uint& SIZE) {
-	for (size_t i = 1; i < SIZE; i++) {
-		for (size_t j = 0; j <= barWidth; j++) {
+void Sorting::printBorder(string symbol, const unsigned& SIZE) {
+	for (unsigned i = 1; i < SIZE; i++) {
+		for (unsigned j = 0; j <= barWidth; j++) {
 			cout << symbol;
 		}
 	}
-	for (size_t i = 0; i < barWidth; i++) {
+	for (unsigned i = 0; i < barWidth; i++) {
 		cout << symbol;
 	}
 	cout << endl;
@@ -129,7 +129,7 @@ void Sorting::printBorder(string symbol, const uint& SIZE) {
 
 
 // Update the given value according to the vertical scale.
-uint Sorting::scaleVertically(uint value) {
+unsigned Sorting::scaleVertically(unsigned value) {
 	value = ceil(double(value) / verticalScale);
 	value *= verticalScale;
 	return value + (value % verticalScale);
@@ -138,9 +138,9 @@ uint Sorting::scaleVertically(uint value) {
 
 // Displays the array content as pillars.
 void Sorting::displayArray(
-	uint array[], const uint& SIZE,
+	unsigned array[], const unsigned& SIZE,
 	Highlights* highlight,
-	uint horizontalBar) {
+	unsigned horizontalBar) {
 
 	// Update horizontal bar for display.
 	if (horizontalBar > 0) {
@@ -149,7 +149,7 @@ void Sorting::displayArray(
 
 	// Make all entries bright white.
 	char colour[SIZE];
-	for (size_t i = 0; i < SIZE; i++) {
+	for (unsigned i = 0; i < SIZE; i++) {
 		colour[i] = 'w';
 	}
 
@@ -157,7 +157,7 @@ void Sorting::displayArray(
 	if (highlight) {
 		Highlight entry;
 		highlight->resetNext();
-		for (size_t i = 0; i < highlight->size(); i++) {
+		for (unsigned i = 0; i < highlight->size(); i++) {
 			entry = highlight->getNext();
 			colour[entry.index] = entry.colour;
 		}
@@ -171,14 +171,14 @@ void Sorting::displayArray(
 
 	// Configure the horizontal bar shape.
 	string vBar, hBar;
-	size_t N = ceil(horizontalBar / double(verticalScale));
+	unsigned N = ceil(horizontalBar / double(verticalScale));
 	hBar = (N % 2 == 0 ? "▀" : "▄");
 
 	// Iterate through all layers.
 	N = verticalScale*2;
-	uint value = 0;
-	for (size_t n = barHeight; n > 0; n -= N) {
-		for (size_t i = 0; i < SIZE; i++) {
+	unsigned value = 0;
+	for (unsigned n = barHeight; n > 0; n -= N) {
+		for (unsigned i = 0; i < SIZE; i++) {
 
 			// Modify value for display.
 			value = scaleVertically(array[i]);
@@ -199,7 +199,7 @@ void Sorting::displayArray(
 			if (n == horizontalBar || n == horizontalBar+verticalScale) {
 				if (value < horizontalBar) {
 					moveCursorLeft(barWidth+1);
-					for (size_t j = 0; j <= barWidth; j++) {
+					for (unsigned j = 0; j <= barWidth; j++) {
 						cout << colourText(hBar, 'M');
 					}
 				} else {
@@ -213,7 +213,7 @@ void Sorting::displayArray(
 	// Show the numbers below the bars.
 	if (barWidth > 1) {
 		string text;
-		for (size_t i = 0; i < SIZE; i++) {
+		for (unsigned i = 0; i < SIZE; i++) {
 			text = colourText(to_string(array[i]), colour[i]);
 			cout << setw(11+barWidth) << text << " ";
 		}
@@ -229,7 +229,7 @@ void Sorting::displayArray(
 
 // Ascending order:   returns status of left < right.
 // Descending order:  returns status of left > right.
-bool Sorting::compare(uint left, uint right) {
+bool Sorting::compare(unsigned left, unsigned right) {
 	if (sortAscending)
 		return left < right;
 	return left > right;
@@ -238,7 +238,7 @@ bool Sorting::compare(uint left, uint right) {
 
 
 // Bubble sort the given array.
-void Sorting::bubbleSort(uint array[], const uint& SIZE) {
+void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
@@ -250,12 +250,12 @@ void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 
 	// Indicate update which element to sort.
 	bool swapped;
-	for (size_t n = SIZE; n > 0; n--) {
+	for (unsigned n = SIZE; n > 0; n--) {
 		swapped = false;
 		if (n < SIZE) {
 			highlight->append(Highlight('G', n));
 		}
-		for (size_t i = 1; i < n; i++) {
+		for (unsigned i = 1; i < n; i++) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
@@ -291,7 +291,7 @@ void Sorting::bubbleSort(uint array[], const uint& SIZE) {
 
 
 // Selection sort the given array.
-void Sorting::selectionSort(uint array[], const uint& SIZE) {
+void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
@@ -304,12 +304,12 @@ void Sorting::selectionSort(uint array[], const uint& SIZE) {
 
 	// Indicate the starting index.
 	bool isSorted;
-	size_t minIndex;
-	for (size_t i = 0; i < SIZE-1; i++) {
+	unsigned minIndex;
+	for (unsigned i = 0; i < SIZE-1; i++) {
 		highlight->get(2).index = i;
 		minIndex = i;
 		isSorted = true;
-		for (size_t j = i+1; j < SIZE; j++) {
+		for (unsigned j = i+1; j < SIZE; j++) {
 			highlight->get(0).index = i;
 			highlight->get(1).index = j;
 
@@ -367,7 +367,7 @@ void Sorting::selectionSort(uint array[], const uint& SIZE) {
 
 
 // Insertion sort the given array.
-void Sorting::insertionSort(uint array[], const uint& SIZE) {
+void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
@@ -379,11 +379,11 @@ void Sorting::insertionSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Iterate starting from the second element.
-	for (size_t i = 1; i < SIZE; i++) {
+	for (unsigned i = 1; i < SIZE; i++) {
 		swapped = false;
 
 		// Loop while swapping is needed.
-		size_t j = i;
+		unsigned j = i;
 		while (j > 0 && compare(array[j], array[j-1])) {
 			highlight->get(0).index = j-1;
 			highlight->get(1).index = j;
@@ -416,7 +416,7 @@ void Sorting::insertionSort(uint array[], const uint& SIZE) {
 
 
 // Cocktail shaker sort the given array.
-void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
+void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
@@ -427,13 +427,13 @@ void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Loop while a swap has occurred.
-	size_t start = 0, end = SIZE;
+	unsigned start = 0, end = SIZE;
 	bool swapped;
 	do {
 
 		// Iterate forwards.
 		swapped = false;
-		for (size_t i = start+1; i < end; i++) {
+		for (unsigned i = start+1; i < end; i++) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
@@ -461,7 +461,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 
 		// Iterate backwards.
 		swapped = false;
-		for (size_t i = end-1; i > start; i--) {
+		for (unsigned i = end-1; i > start; i--) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
@@ -495,7 +495,7 @@ void Sorting::cocktailShakerSort(uint array[], const uint& SIZE) {
 
 
 // Quick Sort the array.
-void Sorting::quickSort(uint array[], const uint& SIZE) {
+void Sorting::quickSort(unsigned array[], const unsigned& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -513,7 +513,7 @@ void Sorting::quickSort(uint array[], const uint& SIZE) {
 
 // The hidden recursive Quick Sort function.
 void Sorting::quickSort(
-	uint array[], const int& SIZE, int low, int high) {
+	unsigned array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low > high || low < 0) {
@@ -546,12 +546,12 @@ void Sorting::quickSort(
 
 // The partition function for Quick Sort.
 int Sorting::partition(
-	uint array[], const int& SIZE, int low, int high,
+	unsigned array[], const int& SIZE, int low, int high,
 	Highlights* highlight) {
 
 	// Pivot is the last element.
-	uint pivot = array[high];
-	uint horizontalBar = pivot;
+	unsigned pivot = array[high];
+	unsigned horizontalBar = pivot;
 	highlight->get(2).index = high;
 
 	// Temporary pivot index.
@@ -606,7 +606,7 @@ int Sorting::partition(
 
 
 // Quick Sort the array.
-void Sorting::quickSortV2(uint array[], const uint& SIZE) {
+void Sorting::quickSortV2(unsigned array[], const unsigned& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -624,7 +624,7 @@ void Sorting::quickSortV2(uint array[], const uint& SIZE) {
 
 // The hidden recursive Quick Sort function.
 void Sorting::quickSortV2(
-	uint array[], const int& SIZE, int low, int high) {
+	unsigned array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low >= high || low < 0 || high < 0) {
@@ -656,13 +656,13 @@ void Sorting::quickSortV2(
 
 // The partition function for Quick Sort.
 int Sorting::partitionV2(
-	uint array[], const int& SIZE, int low, int high,
+	unsigned array[], const int& SIZE, int low, int high,
 	Highlights* highlight) {
 
 	// Pivot is the middle element.
-	uint middle = ((high - low) / 2) + low;
-	uint pivot = array[middle];
-	uint horizontalBar = pivot;
+	unsigned middle = ((high - low) / 2) + low;
+	unsigned pivot = array[middle];
+	unsigned horizontalBar = pivot;
 
 	// Left index.
 	int i = low - 1;
@@ -716,7 +716,7 @@ int Sorting::partitionV2(
 
 
 // Shell Sort the array.
-void Sorting::shellSort(uint array[], const uint& SIZE) {
+void Sorting::shellSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('R'));
 	highlight->append(Highlight('R'));
@@ -729,7 +729,7 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Start with largest gap and work down to 1.
-	uint gap = SIZE;
+	unsigned gap = SIZE;
 	while (!sorted) {
 		gap /= 2.3;
 		if (gap <= 1) {
@@ -738,11 +738,11 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 		}
 
 		// Iterate from gap to SIZE-1.
-		for (size_t i = gap; i < SIZE; i++) {
+		for (unsigned i = gap; i < SIZE; i++) {
 			swapped = false;
 
 			// Do the gapped insertion sort.
-			size_t j = i;
+			unsigned j = i;
 			while (j >= gap && compare(array[j], array[j-gap])) {
 				highlight->get(0).index = j-gap;
 				highlight->get(1).index = j;
@@ -776,7 +776,7 @@ void Sorting::shellSort(uint array[], const uint& SIZE) {
 
 
 // Merge Sort the array.
-void Sorting::mergeSort(uint array[], const uint& SIZE) {
+void Sorting::mergeSort(unsigned array[], const unsigned& SIZE) {
 
 	// Display the array before sorting.
 	clearScreen();
@@ -784,7 +784,7 @@ void Sorting::mergeSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Temporary array for copying.
-	uint copy[SIZE];
+	unsigned copy[SIZE];
 
 	// Call the recursive split function.
 	split(array, copy, SIZE, 0, SIZE);
@@ -797,8 +797,8 @@ void Sorting::mergeSort(uint array[], const uint& SIZE) {
 
 // The function to recursively split the array for Merge Sort.
 void Sorting::split(
-	uint array[], uint copy[], const uint& SIZE,
-	uint start, uint end) {
+	unsigned array[], unsigned copy[], const unsigned& SIZE,
+	unsigned start, unsigned end) {
 
 	// Stopping condition.
 	if (end - start <= 1) {
@@ -806,11 +806,11 @@ void Sorting::split(
 	}
 
 	// Grey out all entries before start and after end.
-	uint middle = (start + end) / 2;
+	unsigned middle = (start + end) / 2;
 	Highlights* highlight = new Highlights();
-	for (size_t i = 0; i < start; i++)
+	for (unsigned i = 0; i < start; i++)
 		highlight->append(Highlight('x', i));
-	for (size_t i = end; i < SIZE; i++)
+	for (unsigned i = end; i < SIZE; i++)
 		highlight->append(Highlight('x', i));
 
 	// Display the array portion.
@@ -831,17 +831,17 @@ void Sorting::split(
 
 // Merge the array again.
 void Sorting::merge(
-	uint array[], uint copy[], const uint& SIZE,
-	uint start, uint middle, uint end,
+	unsigned array[], unsigned copy[], const unsigned& SIZE,
+	unsigned start, unsigned middle, unsigned end,
 	Highlights* highlight) {
 
 	// Configure the moving indices and red highlights.
-	size_t i = start, j = middle;
+	unsigned i = start, j = middle;
 	highlight->insert(Highlight('R', j));
 	highlight->insert(Highlight('R', i));
 
 	// Merge array into copy from start to end.
-	for (size_t k = start; k < end; k++) {
+	for (unsigned k = start; k < end; k++) {
 
 		// Display the comparison.
 		displayArray(array, SIZE, highlight);
@@ -860,7 +860,7 @@ void Sorting::merge(
 	// Copy back into original array.
 	highlight->removeAt(0);
 	highlight->removeAt(0);
-	for (size_t k = start; k < end; k++) {
+	for (unsigned k = start; k < end; k++) {
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 		array[k] = copy[k];
@@ -873,7 +873,7 @@ void Sorting::merge(
 
 
 // Comb Sort the array.
-void Sorting::combSort(uint array[], const uint& SIZE) {
+void Sorting::combSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('R'));
 	highlight->append(Highlight('R'));
@@ -885,7 +885,7 @@ void Sorting::combSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Loop for all gaps.
-	uint gap = SIZE;
+	unsigned gap = SIZE;
 	while (!sorted) {
 		gap = int(gap / 1.3);
 		if (gap <= 1) {
@@ -894,7 +894,7 @@ void Sorting::combSort(uint array[], const uint& SIZE) {
 		}
 
 		// Bubble Sort with the current gap.
-		for (size_t i = 0, j = gap; j < SIZE; i++, j++) {
+		for (unsigned i = 0, j = gap; j < SIZE; i++, j++) {
 
 			// Highlight indices before and after swapping.
 			highlight->get(0).index = i;
@@ -921,7 +921,7 @@ void Sorting::combSort(uint array[], const uint& SIZE) {
 
 
 // Radix Sort the array using the specified base.
-void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
+void Sorting::radixSort(unsigned array[], const unsigned& SIZE, const unsigned BASE) {
 	Highlights* highlight = new Highlights();
 
 	// Display the array before sorting.
@@ -930,27 +930,27 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 	sleep_for(delay);
 
 	// Get the number of digits from the maximum value.
-	uint maxValue = max(array, SIZE);
-	uint numDigits = 1;
+	unsigned maxValue = max(array, SIZE);
+	unsigned numDigits = 1;
 	if (maxValue >= BASE) {
 		numDigits += log(BASE, maxValue);
 	}
 
 	// Create counting array and copy of original array.
-	uint count[BASE];
-	uint copy[SIZE];
+	unsigned count[BASE];
+	unsigned copy[SIZE];
 
 	// Iterate through all digits.
-	for (size_t d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
+	for (unsigned d, n = 0, digit = 1; n < numDigits; n++, digit *= BASE) {
 		highlight->append(Highlight('b'));
 
 		// Reset the counting array.
-		for (size_t i = 0; i < BASE; i++) {
+		for (unsigned i = 0; i < BASE; i++) {
 			count[i] = 0;
 		}
 
 		// Iterate through all elements in the array.
-		for (size_t i = 0; i < SIZE; i++) {
+		for (unsigned i = 0; i < SIZE; i++) {
 			copy[i] = array[i];
 
 			// Show current comparison.
@@ -975,7 +975,7 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 		sleep_for(delay);
 
 		// Increment each subsequent count.
-		for (size_t i = 1; i < BASE; i++) {
+		for (unsigned i = 1; i < BASE; i++) {
 			count[i] += count[i-1];
 		}
 
@@ -1014,14 +1014,14 @@ void Sorting::radixSort(uint array[], const uint& SIZE, const uint BASE) {
 
 
 // Heap Sort the array.
-void Sorting::heapSort(uint array[], const uint& SIZE) {
+void Sorting::heapSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('R'));
 	highlight->append(Highlight('R'));
 
 	// The colours for various heap heights.
 	char colours[] = {'m', 'y', 'c', 'M', 'C'};
-	uint index;
+	unsigned index;
 
 	// Display the array before sorting.
 	clearScreen();
@@ -1049,7 +1049,7 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 	}
 
 	// Sort by continuously popping from the heap.
-	for (size_t end = SIZE-1; end > 0; end--) {
+	for (unsigned end = SIZE-1; end > 0; end--) {
 
 		// Show the array before and after swapping.
 		highlight->get(-1).index = end;
@@ -1076,14 +1076,14 @@ void Sorting::heapSort(uint array[], const uint& SIZE) {
 
 // Recursively heapify the array at the given index.
 void Sorting::heapify(
-	uint array[], const uint& SIZE, uint end,
-	uint parentIndex, Highlights* highlight) {
+	unsigned array[], const unsigned& SIZE, unsigned end,
+	unsigned parentIndex, Highlights* highlight) {
 
 	// The index of the lowest non-leaf node.
-	uint lowestNoneLeaf = end / 2 - 1;
+	unsigned lowestNoneLeaf = end / 2 - 1;
 
 	// Iterate for all children.
-	uint left, right, criticalIndex;
+	unsigned left, right, criticalIndex;
 	while (parentIndex <= lowestNoneLeaf) {
 
 		// Depending on sorting order is index of either
@@ -1134,7 +1134,7 @@ void Sorting::heapify(
 
 
 // Bucket Sort the array.
-void Sorting::bucketSort(uint array[], const uint& SIZE) {
+void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 
@@ -1144,16 +1144,16 @@ void Sorting::bucketSort(uint array[], const uint& SIZE) {
 	sleep_for(delay);
 
 	// Get the maximum value in the array plus 1.
-	uint maxValue = 1 + max(array, SIZE);
+	unsigned maxValue = 1 + max(array, SIZE);
 
 	// Get the index ratio.
 	double ratio = double(SIZE) / maxValue;
 
 	// Create priority queue array.
-	PriorityQueue<uint> bucket[SIZE];
+	PriorityQueue<unsigned> bucket[SIZE];
 
 	// Iterate through array and push elements to bucket.
-	for (size_t j, i = 0; i < SIZE; i++) {
+	for (unsigned j, i = 0; i < SIZE; i++) {
 		j = array[i] * ratio;
 		bucket[j].push(array[i]);
 
