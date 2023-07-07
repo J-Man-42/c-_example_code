@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 #include <cmath>
 #include "sorting.h"
@@ -213,8 +214,11 @@ void Sorting::displayArray(
 	// Show the numbers below the bars.
 	if (barWidth > 1) {
 		string text;
+		stringstream number;
 		for (unsigned i = 0; i < SIZE; i++) {
-			text = colourText(to_string(array[i]), colour[i]);
+			number.str("");
+			number << setfill('0') << setw(barWidth) << array[i];
+			text = colourText(number.str(), colour[i]);
 			cout << setw(11+barWidth) << text << " ";
 		}
 		cout << endl;
