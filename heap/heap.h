@@ -58,7 +58,7 @@ public:
 };
 
 
-// The binary search tree class.
+// The heap class.
 template<class T>
 class Heap
 {
@@ -84,12 +84,14 @@ public:
 	void push(const T element);
 	T pop();
 	unsigned size() const;
+	void toggleMaxMin();
 
 private:
 	bool compare(const T left, const T right) const;
 	void clear(HeapNode<T>* node);
 	void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
 	void dft(HeapNode<T>* node);
+	void heapify(HeapNode<T>* node);
 	void updateHeight(HeapNode<T>* node);
 
 	HeapNode<T>* root;

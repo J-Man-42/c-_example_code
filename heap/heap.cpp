@@ -102,13 +102,13 @@ void Heap<T>::bft() {
 
 	// Iterate through the heap row by row.
 	HeapNode<T>* nodePtr = root;
-	HeapNode<T>* thisLeftmost = root;
+	HeapNode<T>* rowLeftmost = root;
 	while (nodePtr) {
 		cout << "  " << nodePtr->data;
 
 		// Get next entry in the heap.
-		if (nodePtr->next == thisLeftmost) {
-			nodePtr = thisLeftmost = thisLeftmost->left;
+		if (nodePtr->next == rowLeftmost) {
+			nodePtr = rowLeftmost = rowLeftmost->left;
 		} else {
 			nodePtr = nodePtr->next;
 		}
@@ -244,6 +244,35 @@ void Heap<T>::dft(HeapNode<T>* node) {
 template<class T>
 void Heap<T>::display() {
 	displayTree<HeapNode<T>>(root);
+}
+
+
+
+// Ensures the heap properties remain for the given node.
+template<class T>
+void Heap<T>::heapify(HeapNode<T>* node) {
+
+	// Heapify all children of the given node.
+	HeapNode<T>* child;
+	while (node) {
+		child = node;
+
+		// Get the maximum amongst node, left, and right child.
+		if (node->right && compare(node->right->data, node->data)) {
+			child = node->right;
+		}
+		if (node->left && compare(node->left->data, child->data)) {
+			child = node->left;
+		}
+
+		// Check if swapping is needed.
+		if (child == node) {
+			node = nullptr;
+		} else {
+			swap(node->data, child->data);
+			node = child;
+		}
+	}
 }
 
 
@@ -395,26 +424,8 @@ T Heap<T>::pop() {
 		nodePtr = nodePtr->parent;
 	}
 
-	// Heapify.
-	nodePtr = root;
-	HeapNode<T>* child;
-	while (nodePtr) {
-		child = nodePtr;
-
-		// Get maximum amongst node, left, and right child.
-		if (nodePtr->right && compare(nodePtr->right->data, nodePtr->data)) {
-			child = nodePtr->right;
-		}
-		if (nodePtr->left && compare(nodePtr->left->data, child->data)) {
-			child = nodePtr->left;
-		}
-
-		// Check if swapping is needed.
-		if (child != nodePtr) {
-			swap(nodePtr->data, child->data);
-			nodePtr = child;
-		} else nodePtr = nullptr;
-	}
+	// Heapify from root.
+	heapify(root);
 
 	// Decrement size and return data.
 	numElements--;
@@ -427,6 +438,38 @@ T Heap<T>::pop() {
 template<class T>
 unsigned Heap<T>::size() const {
 	return numElements;
+}
+
+
+
+// Converts between max heap <--> min heap.
+template<class T>
+void Heap<T>::toggleMaxMin() {
+
+	// Switch between max and min heap.
+	maxHeap = !maxHeap;
+
+	// If at most one element in the heap, do nothing.
+	if (numElements <= 1) {
+		return;
+	}
+
+	// Iterate backwards through all rows excluding leaf nodes.
+	HeapNode<T>* nodePtr = leftmost->prev->parent;
+	HeapNode<T>* rowLeftmost = leftmost->parent;
+	while (nodePtr) {
+
+		// Heapify at current node pointer.
+		heapify(nodePtr);
+
+		// Update node pointer.
+		if (nodePtr == rowLeftmost) {
+			rowLeftmost = rowLeftmost->parent;
+			nodePtr = (rowLeftmost ? rowLeftmost->prev : nullptr);
+		} else {
+			nodePtr = nodePtr->prev;
+		}
+	}
 }
 
 

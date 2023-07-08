@@ -27,6 +27,9 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
+		// Print max/min heap status.
+		cout << (heap.isMaxHeap() ? "MAX Heap\n" : "MIN Heap\n");
+
 		// Traverse the heap.
 		cout << "DFT:";
 		heap.dft();
@@ -48,9 +51,10 @@ int main() {
 		cout << " (4)  isMaxHeap() / isMinHeap()" << endl;
 		cout << " (5)  push(element)" << endl;
 		cout << " (6)  pop()" << endl;
-		cout << " (7)  operator=" << endl;
-		cout << " (8)  operator+(element)" << endl;
-		cout << " (9)  operator+=(element)" << endl;
+		cout << " (7)  toggleMaxMin()" << endl;
+		cout << " (8)  operator=" << endl;
+		cout << " (9)  operator+(element)" << endl;
+		cout << "(10)  operator+=(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -81,7 +85,8 @@ int main() {
 			cout << "clone()" << endl;
 			temp = heap.clone();
 			cout << "> cloned heap:" << endl;
-			heap.display();
+			temp.display();
+			temp.clear();
 			sleep_for(seconds(5));
 			break;
 
@@ -129,8 +134,16 @@ int main() {
 			break;
 
 
-		// Work with the assignment operator.
+		// Converts the heap from max to min or vice versa.
 		case 7:
+			cout << "toggleMaxMin()" << endl;
+			heap.toggleMaxMin();
+			temp.toggleMaxMin();
+			break;
+
+
+		// Work with the assignment operator.
+		case 8:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;
@@ -139,23 +152,25 @@ int main() {
 				temp.push(randUint(0, 999));
 			}
 			heap = temp;
+			temp.clear();
 			break;
 
 
 		// Work with heap + element.
-		case 8:
+		case 9:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
 			temp = heap + element;
 			cout << "> returned heap:" << endl;
 			temp.display();
+			temp.clear();
 			sleep_for(seconds(5));
 			break;
 
 
 		// Work with heap += element.
-		case 9:
+		case 10:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
