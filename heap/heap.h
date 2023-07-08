@@ -14,37 +14,47 @@ public:
 		this->data = NULL;
 		this->height = 0;
 		this->colour = '\0';
+		this->parent = nullptr;
 		this->left = nullptr;
 		this->right = nullptr;
-		this->previous = nullptr;
+		this->next = nullptr;
+		this->prev = nullptr;
 	}
 	HeapNode(const T data) {
 		this->data = data;
 		this->height = 1;
 		this->colour = '\0';
+		this->parent = nullptr;
 		this->left = nullptr;
 		this->right = nullptr;
-		this->previous = nullptr;
+		this->next = nullptr;
+		this->prev = nullptr;
 	}
 	HeapNode(HeapNode* other) {
 		this->data = other->data;
 		this->height = other->height;
 		this->colour = other->colour;
+		this->parent = nullptr;
 		this->left = nullptr;
 		this->right = nullptr;
-		this->previous = nullptr;
+		this->next = nullptr;
+		this->prev = nullptr;
 	}
 	~HeapNode() {
+		this->parent = nullptr;
 		this->left = nullptr;
 		this->right = nullptr;
-		this->previous = nullptr;
+		this->next = nullptr;
+		this->prev = nullptr;
 	}
 	T data;
 	unsigned height;
 	char colour;
+	HeapNode<T>* parent;
 	HeapNode<T>* left;
 	HeapNode<T>* right;
-	HeapNode<T>* previous;
+	HeapNode<T>* next;
+	HeapNode<T>* prev;
 };
 
 
@@ -77,18 +87,16 @@ public:
 	unsigned size() const;
 
 private:
-	void calibrateHeights(HeapNode<T>* node);
+	// void calibrateHeights(HeapNode<T>* node);
 	void clear(HeapNode<T>* node);
 	void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
 	bool contains(HeapNode<T>* node, const T& element) const;
 	void dft(HeapNode<T>* node);
 	void insert(HeapNode<T>* node, const T& element);
-	void linkParent(
-		HeapNode<T>* parent, HeapNode<T>* node,
-		HeapNode<T>* child = nullptr);
 	void updateHeight(HeapNode<T>* node);
 	
 	HeapNode<T>* root;
+	HeapNode<T>* leftmost;
 	unsigned numElements;
 };
 

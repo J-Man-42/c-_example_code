@@ -14,8 +14,8 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[3];
-	// unsigned number;
-	// unsigned element;
+	unsigned number;
+	unsigned element;
 
 	// Create the heap.
 	Heap<unsigned> heap;
@@ -35,14 +35,14 @@ int main() {
 
 		// Print the heap height and size.
 		cout << "Height:  " << heap.height() << endl;
+		cout << "Size:    " << heap.size() << endl;
 
 		// Display the heap.
 		heap.display();
 
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
-		// cout << " (1)  balanceTree()" << endl;
-		// cout << " (2)  clear()" << endl;
+		cout << " (1)  clear()" << endl;
 		// cout << " (3)  clone()" << endl;
 		// cout << " (4)  contains(element)" << endl;
 		// cout << " (5)  insert(element)" << endl;
@@ -53,6 +53,8 @@ int main() {
 		// cout << "(10)  operator+=(element)" << endl;
 		// cout << "(11)  operator-(element)" << endl;
 		// cout << "(12)  operator-=(element)" << endl;
+		cout << " (2)  push(element)" << endl;
+		cout << " (3)  pop()" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -61,28 +63,21 @@ int main() {
 
 
 		// Any other character continues the loop.
-		if (isalpha(answer[0])) {
+		if (!isdigit(answer[0])) {
 			continue;
 		}
 
 
-		// // Switch statement for answer.
-		// number = atoi(answer);
-		// switch (number) {
+		// Switch statement for answer.
+		number = atoi(answer);
+		switch (number) {
 
 
-		// // Balance the heap.
-		// case 1:
-		// 	cout << "balanceTree()" << endl;
-		// 	heap.balanceTree();
-		// 	break;
-
-
-		// // Clear all elements in the heap.
-		// case 2:
-		// 	cout << "clear()" << endl;
-		// 	heap.clear();
-		// 	break;
+		// Clear all elements in the heap.
+		case 1:
+			cout << "clear()" << endl;
+			heap.clear();
+			break;
 
 
 		// // Clone the heap.
@@ -207,7 +202,21 @@ int main() {
 		// 		sleep_for(seconds(2));
 		// 	}
 		// 	break;
-		// }
+
+
+		// Push element onto the heap.
+		case 2:
+			cout << "push(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			heap.push(element);
+			break;
+
+		// Pop from the heap.
+		case 3:
+			cout << "pop()" << endl;
+			break;
+		}
 	}
 
 	return 0;

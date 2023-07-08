@@ -1,6 +1,7 @@
 #include <iostream>
-#include <algorithm>
-#include <sstream>
+// #include <algorithm>
+#include <cmath>
+// #include <sstream>
 #include "../queue/queue.h"
 #include "heap.h"
 using namespace std;
@@ -10,6 +11,7 @@ using namespace std;
 template<class T>
 Heap<T>::Heap() {
 	root = nullptr;
+	leftmost = nullptr;
 	numElements = 0;
 }
 
@@ -98,61 +100,6 @@ Heap<T>::~Heap() {
 
 
 
-// // Balance the tree after creating the backbone.
-// template<class T>
-// void Heap<T>::balanceTree() {
-
-// 	// If tree is empty, do nothing.
-// 	if (isEmpty()) {
-// 		return;
-// 	}
-
-// 	// Create the backbone.
-// 	createBackbone();
-
-// 	// Get actual and ideal number of nodes.
-// 	unsigned n = root->height;
-// 	unsigned m = pow(2, int(log2(n+1))) - 1;
-
-// 	// Node pointers.
-// 	HeapNode<T>* parent = nullptr;
-// 	HeapNode<T>* node = root;
-// 	HeapNode<T>* child = root->right;
-
-// 	// Initial set of rotations.
-// 	for (unsigned i = m; i < n; i++) {
-// 		rotateLeft(parent, node);
-// 		parent = child;
-// 		node = child->right;
-// 		if (node) {
-// 			child = node->right;
-// 		}
-// 	}
-
-// 	// The remaining set of rotations.
-// 	while (m > 1) {
-
-// 		// Update variables and pointers.
-// 		m /= 2;
-// 		HeapNode<T>* parent = nullptr;
-// 		HeapNode<T>* node = root;
-// 		HeapNode<T>* child = root->right;
-
-// 		// Make m rotations.
-// 		for (unsigned i = 0; i < m; i++) {
-// 			rotateLeft(parent, node);
-// 			parent = child;
-// 			node = child->right;
-// 			child = node->right;
-// 		}
-// 	}
-
-// 	// Recalibrate the tree heights.
-// 	calibrateHeights(root);
-// }
-
-
-
 // Breadth First Traversal.
 template<class T>
 void Heap<T>::bft() {
@@ -214,6 +161,7 @@ template<class T>
 void Heap<T>::clear() {
 	clear(root);
 	root = nullptr;
+	leftmost = nullptr;
 	numElements = 0;
 }
 
@@ -294,63 +242,6 @@ void Heap<T>::clear(HeapNode<T>* node) {
 
 
 
-// // Turns the tree into a backbone for balancing the tree.
-// template<class T>
-// void Heap<T>::createBackbone() {
-// 	HeapNode<T>* parent = nullptr;
-// 	HeapNode<T>* node = root;
-// 	HeapNode<T>* child;
-
-// 	// Traverse all right nodes.
-// 	while (node) {
-// 		child = node->left;
-
-// 		// Rotate right if left child exists.
-// 		if (child) {
-// 			rotateRight(parent, node);
-// 			node = child;
-// 		}
-
-// 		// Move down right otherwise.
-// 		else {
-// 			parent = node;
-// 			node = node->right;
-// 		}
-// 	}
-
-// 	// Recalibrate the tree heights.
-// 	calibrateHeights(root);
-// }
-
-
-
-// // Delete the node by copying.
-// template<class T>
-// HeapNode<T>* Heap<T>::deleteByCopying(
-// 	HeapNode<T>* origin, HeapNode<T>* parent, HeapNode<T>* node) {
-
-// 	// There is still a right child.
-// 	HeapNode<T>* deleteNode;
-// 	if (node->right) {
-// 		deleteNode = deleteByCopying(origin, node, node->right);
-// 		updateHeight(node);
-// 		return deleteNode;
-// 	}
-
-// 	// Found the rightmost node.
-// 	origin->data = node->data;
-// 	if (parent == origin) {
-// 		parent->left = node->left;
-// 	} else {
-// 		parent->right = node->left;
-// 	}
-
-// 	// Return the node to delete.
-// 	return node;
-// }
-
-
-
 // Depth First Traversal.
 template<class T>
 void Heap<T>::dft() {
@@ -394,51 +285,6 @@ unsigned Heap<T>::height() const {
 
 
 
-// // Insert into the tree.
-// template<class T>
-// void Heap<T>::insert(const T element) {
-
-// 	// If root is null, create root.
-// 	if (isEmpty()) {
-// 		root = new HeapNode<T>(element);
-// 	}
-
-// 	// Otherwise, recursively traverse root.
-// 	else insert(root, element);
-// }
-
-// // The recursive insertion function.
-// template<class T>
-// void Heap<T>::insert(HeapNode<T>* node, const T& element) {
-
-// 	// Element smaller than current node.
-// 	if (element < node->data) {
-
-// 		// Traverse left if not null, otherwise create left.
-// 		if (node->left) {
-// 			insert(node->left, element);
-// 		} else {
-// 			node->left = new HeapNode<T>(element);
-// 		}
-// 	}
-
-// 	// Element larger than or equal to current node.
-// 	else {
-
-// 		// Traverse right if not null, otherwise create right.
-// 		if (node->right) {
-// 			insert(node->right, element);
-// 		} else {
-// 			node->right = new HeapNode<T>(element);
-// 		}
-// 	}
-
-// 	// Update node height.
-// 	updateHeight(node);
-// }
-
-
-
 // Returns true if root is null.
 template<class T>
 bool Heap<T>::isEmpty() const {
@@ -454,148 +300,89 @@ bool Heap<T>::isNotEmpty() const {
 
 
 
-// // Properly links the parent and child nodes.
-// template<class T>
-// void Heap<T>::linkParent(
-// 	HeapNode<T>* parent, HeapNode<T>* node, HeapNode<T>* child) {
+// Push an element onto the heap.
+template<class T>
+void Heap<T>::push(const T element) {
 
-// 	// Node is root.
-// 	if (!parent) {
-// 		root = child;
-// 	}
+	// Increment the number of elements.
+	numElements++;
 
-// 	// Node is not root.
-// 	else if (parent->left == node) {
-// 		parent->left = child;
-// 	} else {
-// 		parent->right = child;
-// 	}
-// }
+	// If root is null, create root.
+	if (isEmpty()) {
+		root = leftmost = new HeapNode<T>(element);
+		root->next = root->prev = root;
+		return;
+	}
 
+	// Create the new node.
+	HeapNode<T>* newNode = new HeapNode<T>(element);
+	unsigned test = pow(2, int(log2(numElements)));
+	
+	// Place new node at a new depth.
+	if (numElements == test) {
+		leftmost->left = newNode;
+		newNode->parent = leftmost;
+		leftmost = leftmost->left;
+		leftmost->next = leftmost->prev = leftmost;
+	}
 
+	// Place new node in current row.
+	else {
+		newNode->next = leftmost;
+		newNode->prev = leftmost->prev;
+		newNode->prev->next = newNode;
+		newNode->next->prev = newNode;
 
-// // Removed the given element from the tree.
-// template<class T>
-// void Heap<T>::remove(const T element) {
-// 	remove(nullptr, root, element);
+		// Right child.
+		if (newNode->prev->parent->left == newNode->prev) {
+			newNode->parent = newNode->prev->parent;
+			newNode->parent->right = newNode;
+		}
 
-// 	// Update root's height.
-// 	updateHeight(root);
-// }
+		// Left child.
+		else {
+			newNode->parent = newNode->prev->parent->next;
+			newNode->parent->left = newNode;
+		}
+	}
 
-// // The recursive remove function.
-// template<class T>
-// void Heap<T>::remove(
-// 	HeapNode<T>* parent, HeapNode<T>* node, const T& element) {
-
-// 	// If node is null, throw error.
-// 	if (!node) {
-// 		throw "Error! Element '"+to_string(element)+"' not found";
-// 	}
-
-// 	// Traverse left if element is smaller than current node.
-// 	if (element < node->data) {
-// 		remove(node, node->left, element);
-// 		updateHeight(node);
-// 		return;
-// 	}
-
-// 	// Traverse right if element is larger than current node.
-// 	if (element > node->data) {
-// 		remove(node, node->right, element);
-// 		updateHeight(node);
-// 		return;
-// 	}
-
-// 	// It's found otherwise.
-// 	HeapNode<T>* deleteNode = node;
-
-// 	// Case 1: node has a left child.
-// 	if (node->left) {
-// 		deleteNode = deleteByCopying(node, node, node->left);
-// 		updateHeight(node);
-// 	}
-
-// 	// Case 2: node only has a right child.
-// 	else if (node->right) {
-// 		linkParent(parent, node, node->right);
-// 	}
-
-// 	// Case 3: node is leaf node.
-// 	else {
-// 		node->height = 0;
-// 		linkParent(parent, node);
-// 	}
-
-// 	// Delete the node.
-// 	delete deleteNode;
-// }
+	// Update heights.
+	HeapNode<T>* nodePtr = newNode;
+	while (nodePtr) {
+		updateHeight(nodePtr);
+		nodePtr = nodePtr->parent;
+	}
+}
 
 
 
-// // Perform a left rotation.
-// template<class T>
-// void Heap<T>::rotateLeft(
-// 	HeapNode<T>* parent, HeapNode<T>* node) {
-
-// 	// Do nothing if right child is null.
-// 	if (!node->right) {
-// 		return;
-// 	}
-
-// 	// Link parent to right child.
-// 	HeapNode<T>* child = node->right;
-// 	linkParent(parent, node, child);
-
-// 	// Rearrange node and child.
-// 	node->right = child->left;
-// 	child->left = node;
-
-// 	// Update their heights.
-// 	updateHeight(node);
-// 	updateHeight(child);
-// }
+// Remove the value at root and heapify.
+template<class T>
+T Heap<T>::pop() {}
 
 
 
-// // Perform a right rotation.
-// template<class T>
-// void Heap<T>::rotateRight(
-// 	HeapNode<T>* parent, HeapNode<T>* node) {
-
-// 	// Do nothing if left child is null.
-// 	if (!node->left) {
-// 		return;
-// 	}
-
-// 	// Link parent to left child.
-// 	HeapNode<T>* child = node->left;
-// 	linkParent(parent, node, child);
-
-// 	// Rearrange node and child.
-// 	node->left = child->right;
-// 	child->right = node;
-
-// 	// Update their heights.
-// 	updateHeight(node);
-// 	updateHeight(child);
-// }
+// Returns the size of the heap.
+template<class T>
+unsigned Heap<T>::size() const {
+	return numElements;
+}
 
 
 
-// // Updates the node's height based on it's left and right child.
-// template<class T>
-// void Heap<T>::updateHeight(HeapNode<T>* node) {
+// Updates the node's height based on it's left and right child.
+template<class T>
+void Heap<T>::updateHeight(HeapNode<T>* node) {
 
-// 	// If node is null, do nothing.
-// 	if (!node) {
-// 		return;
-// 	}
+	// If node is null, do nothing.
+	if (!node) {
+		return;
+	}
 
-// 	// Get the left and right child heights.
-// 	unsigned left = (node->left ? node->left->height : 0);
-// 	unsigned right = (node->right ? node->right->height : 0);
+	// Get the left and right child heights.
+	unsigned left = (node->left ? node->left->height : 0);
+	unsigned right = (node->right ? node->right->height : 0);
 
-// 	// Height of node is max height of children + 1.
-// 	node->height = max(left, right) + 1;
-// }
+	// Height of node is max height of children + 1.
+	node->height = max(left, right) + 1;
+}
