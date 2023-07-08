@@ -1,5 +1,5 @@
-#ifndef BINARY_SEARCH_TREE_H
-#define BINARY_SEARCH_TREE_H
+#ifndef HEAP_H
+#define HEAP_H
 
 #include <iostream>
 #include "../display_structure/display_structure.h"
