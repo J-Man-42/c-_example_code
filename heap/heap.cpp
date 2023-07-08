@@ -157,7 +157,7 @@ void Heap<T>::clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode) {
 	// Clone all remaining children.
 	HeapNode<T>* otherLeftmost = otherNode;
 	for (unsigned i = 1; i < this->numElements; i++) {
-		
+
 		// End of the row.
 		if (otherNode->next == otherLeftmost) {
 
@@ -198,38 +198,6 @@ void Heap<T>::clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode) {
 	thisNode->next = this->leftmost;
 	this->leftmost->prev = thisNode;
 }
-
-
-
-// // Returns true if the element is in the tree.
-// template<class T>
-// bool Heap<T>::contains(const T element) const {
-// 	return contains(root, element);
-// }
-
-// // Recursively search for element in tree.
-// template<class T>
-// bool Heap<T>::contains(
-// 	HeapNode<T>* node, const T& element) const {
-
-// 	// Return false if node is null.
-// 	if (!node) {
-// 		return false;
-// 	}
-
-// 	// Return true if element is found.
-// 	if (node->data == element) {
-// 		return true;
-// 	}
-
-// 	// Traverse left if element is smaller than current node.
-// 	if (element < node->data) {
-// 		return contains(node->left, element);
-// 	}
-
-// 	// Traverse right otherwise.
-// 	return contains(node->right, element);
-// }
 
 
 
@@ -308,7 +276,7 @@ void Heap<T>::push(const T element) {
 	// Create the new node.
 	HeapNode<T>* newNode = new HeapNode<T>(element);
 	unsigned test = pow(2, int(log2(numElements)));
-	
+
 	// Place new node at a new depth.
 	if (numElements == test) {
 		leftmost->left = newNode;
@@ -352,7 +320,77 @@ void Heap<T>::push(const T element) {
 
 // Remove the value at root and heapify.
 template<class T>
-T Heap<T>::pop() {}
+T Heap<T>::pop() {
+
+	// If heap is empty, throw error.
+	if (isEmpty()) {
+		throw "Error! Heap is empty";
+	}
+
+	// Get the data to return.
+	T data = root->data;
+
+	// Only one element in heap.
+	if (numElements == 1) {
+		delete root;
+		root = leftmost = nullptr;
+		numElements = 0;
+		return data;
+	}
+
+	// Set root data to last node's data.
+	root->data = leftmost->prev->data;
+
+	// Remove last node from the heap.
+	HeapNode<T>* lastNode = leftmost->prev;
+	if (leftmost == lastNode) {
+		leftmost = leftmost->parent;
+		lastNode->parent->left = nullptr;
+	} else {
+		lastNode->prev->next = lastNode->next;
+		lastNode->next->prev = lastNode->prev;
+		if (lastNode->parent->left == lastNode) {
+			lastNode->parent->left = nullptr;
+		} else {
+			lastNode->parent->right = nullptr;
+		}
+	}
+
+	// Go to last parent and delete last node.
+	HeapNode<T>* nodePtr = lastNode->parent;
+	delete lastNode;
+
+	// Update heights.
+	while (nodePtr) {
+		updateHeight(nodePtr);
+		nodePtr = nodePtr->parent;
+	}
+
+	// Heapify.
+	nodePtr = root;
+	HeapNode<T>* child;
+	while (nodePtr) {
+		child = nodePtr;
+
+		// Get maximum amongst node, left, and right child.
+		if (nodePtr->right && nodePtr->data < nodePtr->right->data) {
+			child = nodePtr->right;
+		}
+		if (nodePtr->left && child->data < nodePtr->left->data) {
+			child = nodePtr->left;
+		}
+
+		// Check if swapping is needed.
+		if (child != nodePtr) {
+			swap(nodePtr->data, child->data);
+			nodePtr = child;
+		} else nodePtr = nullptr;
+	}
+
+	// Decrement size and return data.
+	numElements--;
+	return data;
+}
 
 
 

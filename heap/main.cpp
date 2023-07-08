@@ -128,6 +128,13 @@ int main() {
 		// Pop from the heap.
 		case 5:
 			cout << "pop()" << endl;
+			try {
+				element = heap.pop();
+				cout << "> popped element:  " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
 			break;
 
 
