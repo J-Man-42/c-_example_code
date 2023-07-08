@@ -63,7 +63,7 @@ template<class T>
 class Heap
 {
 public:
-	Heap();
+	Heap(const bool maxHeap = true);
 	Heap(const Heap<T>& other);
 	~Heap();
 
@@ -78,12 +78,15 @@ public:
 	void display();
 	unsigned height() const;
 	bool isEmpty() const;
+	bool isMaxHeap() const;
+	bool isMinHeap() const;
 	bool isNotEmpty() const;
 	void push(const T element);
 	T pop();
 	unsigned size() const;
 
 private:
+	bool compare(const T left, const T right) const;
 	void clear(HeapNode<T>* node);
 	void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
 	void dft(HeapNode<T>* node);
@@ -92,6 +95,7 @@ private:
 	HeapNode<T>* root;
 	HeapNode<T>* leftmost;
 	unsigned numElements;
+	bool maxHeap;
 };
 
 

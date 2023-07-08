@@ -44,17 +44,13 @@ int main() {
 		cout << "\n==============================" << endl;
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
-		// cout << " (4)  contains(element)" << endl;
-		// cout << " (5)  insert(element)" << endl;
-		// cout << " (7)  remove(element)" << endl;
-		// cout << "(11)  operator-(element)" << endl;
-		// cout << "(12)  operator-=(element)" << endl;
 		cout << " (3)  isEmpty() / isNotEmpty()" << endl;
-		cout << " (4)  push(element)" << endl;
-		cout << " (5)  pop()" << endl;
-		cout << " (6)  operator=" << endl;
-		cout << " (7)  operator+(element)" << endl;
-		cout << " (8)  operator+=(element)" << endl;
+		cout << " (4)  isMaxHeap() / isMinHeap()" << endl;
+		cout << " (5)  push(element)" << endl;
+		cout << " (6)  pop()" << endl;
+		cout << " (7)  operator=" << endl;
+		cout << " (8)  operator+(element)" << endl;
+		cout << " (9)  operator+=(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -90,21 +86,6 @@ int main() {
 			break;
 
 
-		// // Test if element in the heap.
-		// case 4:
-		// 	cout << "contains(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	cout << "> Tree contains " << element << ":  ";
-		// 	if (heap.contains(element)) {
-		// 		cout << "true" << endl;
-		// 	} else {
-		// 		cout << "false" << endl;
-		// 	}
-		// 	sleep_for(seconds(2));
-		// 	break;
-
-
 		// Check if empty / not empty.
 		case 3:
 			cout << "isEmpty() / isNotEmpty()" << endl;
@@ -116,8 +97,18 @@ int main() {
 			break;
 
 
-		// Push element onto the heap.
 		case 4:
+			cout << "isMaxHeap() / isMinHeap()" << endl;
+			cout << "> Max heap:  ";
+			cout << (heap.isMaxHeap() ? "true\n" : "false\n");
+			cout << "> Min heap:  ";
+			cout << (heap.isMinHeap() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
+			break;
+
+
+		// Push element onto the heap.
+		case 5:
 			cout << "push(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -126,7 +117,7 @@ int main() {
 
 
 		// Pop from the heap.
-		case 5:
+		case 6:
 			cout << "pop()" << endl;
 			try {
 				element = heap.pop();
@@ -139,7 +130,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 6:
+		case 7:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;
@@ -152,7 +143,7 @@ int main() {
 
 
 		// Work with heap + element.
-		case 7:
+		case 8:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -164,7 +155,7 @@ int main() {
 
 
 		// Work with heap += element.
-		case 8:
+		case 9:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;

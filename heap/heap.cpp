@@ -6,10 +6,11 @@ using namespace std;
 
 // The constructor.
 template<class T>
-Heap<T>::Heap() {
-	root = nullptr;
-	leftmost = nullptr;
-	numElements = 0;
+Heap<T>::Heap(const bool maxHeap) {
+	this->root = nullptr;
+	this->leftmost = nullptr;
+	this->numElements = 0;
+	this->maxHeap = maxHeap;
 }
 
 
@@ -17,7 +18,7 @@ Heap<T>::Heap() {
 template<class T>
 Heap<T>::Heap(const Heap<T>& other) {
 
-	// If the same trees have been provided, do nothing.
+	// If the same heaps have been provided, do nothing.
 	if (this == &other) {
 		return;
 	}
@@ -26,11 +27,13 @@ Heap<T>::Heap(const Heap<T>& other) {
 	this->root = nullptr;
 	this->leftmost = nullptr;
 	this->numElements = 0;
+	this->maxHeap = true;
 
 	// Copy other.root if not null.
 	if (other.root) {
 		this->root = this->leftmost = new HeapNode<T>(other.root);
 		this->numElements = other.numElements;
+		this->maxHeap = other.maxHeap;
 
 		// Clone remaining children.
 		clone(this->root, other.root);
@@ -50,7 +53,7 @@ Heap<T>::~Heap() {
 template<class T>
 Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 
-	// If the same trees have been provided, do nothing.
+	// If the same heaps have been provided, do nothing.
 	if (this != &other) {
 		this->clear();
 
@@ -58,6 +61,7 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 		if (other.root) {
 			this->root = this->leftmost = new HeapNode<T>(other.root);
 			this->numElements = other.numElements;
+			this->maxHeap = other.maxHeap;
 
 			// Clone remaining children.
 			clone(this->root, other.root);
@@ -68,16 +72,16 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 }
 
 
-// Returns a copied tree with element pushed.
+// Returns a copied heap with element pushed.
 template<class T>
 Heap<T> Heap<T>::operator+(const T element) {
-	Heap<T> tree = this->clone();
-	tree.push(element);
-	return tree;
+	Heap<T> heap = this->clone();
+	heap.push(element);
+	return heap;
 }
 
 
-// Push the element into the tree.
+// Push the element into the heap.
 template<class T>
 Heap<T>& Heap<T>::operator+=(const T element) {
 	this->push(element);
@@ -116,7 +120,18 @@ void Heap<T>::bft() {
 
 
 
-// Clears all entries in the tree.
+// Max Heap:  returns status of left > right.
+// Min Heap:  returns status of left < right.
+template<class T>
+bool Heap<T>::compare(const T left, const T right) const {
+	if (maxHeap)
+		return left > right;
+	return left < right;
+}
+
+
+
+// Clears all entries in the heap.
 template<class T>
 void Heap<T>::clear() {
 	clear(root);
@@ -144,7 +159,7 @@ void Heap<T>::clear(HeapNode<T>* node) {
 
 
 
-// Create a hard copy of this tree.
+// Create a hard copy of this heap.
 template<class T>
 Heap<T> Heap<T>::clone() {
 	return Heap<T>(*this);
@@ -225,7 +240,7 @@ void Heap<T>::dft(HeapNode<T>* node) {
 
 
 
-// Elegantly displays the tree.
+// Elegantly displays the heap.
 template<class T>
 void Heap<T>::display() {
 	displayTree<HeapNode<T>>(root);
@@ -233,7 +248,7 @@ void Heap<T>::display() {
 
 
 
-// Returns the height of the tree.
+// Returns the height of the heap.
 template<class T>
 unsigned Heap<T>::height() const {
 	if (isEmpty()) {
@@ -248,6 +263,20 @@ unsigned Heap<T>::height() const {
 template<class T>
 bool Heap<T>::isEmpty() const {
 	return root == nullptr;
+}
+
+
+// Returns true if configured as a max heap.
+template<class T>
+bool Heap<T>::isMaxHeap() const {
+	return maxHeap;
+}
+
+
+// Returns true if configured as a min heap.
+template<class T>
+bool Heap<T>::isMinHeap() const {
+	return !maxHeap;
 }
 
 
@@ -308,7 +337,7 @@ void Heap<T>::push(const T element) {
 	// Heapify and update heights.
 	HeapNode<T>* nodePtr = newNode;
 	while (nodePtr) {
-		if (nodePtr->parent && nodePtr->data > nodePtr->parent->data) {
+		if (nodePtr->parent && compare(nodePtr->data, nodePtr->parent->data)) {
 			swap(nodePtr->data, nodePtr->parent->data);
 		}
 		updateHeight(nodePtr);
@@ -373,10 +402,10 @@ T Heap<T>::pop() {
 		child = nodePtr;
 
 		// Get maximum amongst node, left, and right child.
-		if (nodePtr->right && nodePtr->data < nodePtr->right->data) {
+		if (nodePtr->right && compare(nodePtr->right->data, nodePtr->data)) {
 			child = nodePtr->right;
 		}
-		if (nodePtr->left && child->data < nodePtr->left->data) {
+		if (nodePtr->left && compare(nodePtr->left->data, child->data)) {
 			child = nodePtr->left;
 		}
 
