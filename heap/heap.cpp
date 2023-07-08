@@ -68,38 +68,21 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 }
 
 
-// // Returns a copied tree with element inserted.
-// template<class T>
-// Heap<T> Heap<T>::operator+(const T element) {
-// 	Heap<T> tree = this->clone();
-// 	tree.insert(element);
-// 	return tree;
-// }
+// Returns a copied tree with element pushed.
+template<class T>
+Heap<T> Heap<T>::operator+(const T element) {
+	Heap<T> tree = this->clone();
+	tree.push(element);
+	return tree;
+}
 
 
-// // Insert the element into the tree.
-// template<class T>
-// Heap<T>& Heap<T>::operator+=(const T element) {
-// 	this->insert(element);
-// 	return *this;
-// }
-
-
-// // Returns a copied tree with element removed.
-// template<class T>
-// Heap<T> Heap<T>::operator-(const T element) {
-// 	Heap<T> tree = this->clone();
-// 	tree.remove(element);
-// 	return tree;
-// }
-
-
-// // Remove the element from the tree.
-// template<class T>
-// Heap<T>& Heap<T>::operator-=(const T element) {
-// 	this->remove(element);
-// 	return *this;
-// }
+// Push the element into the tree.
+template<class T>
+Heap<T>& Heap<T>::operator+=(const T element) {
+	this->push(element);
+	return *this;
+}
 
 
 
@@ -130,25 +113,6 @@ void Heap<T>::bft() {
 	// Final newline.
 	cout << endl;
 }
-
-
-
-// // Completely calculate heights from the ground up.
-// template<class T>
-// void Heap<T>::calibrateHeights(HeapNode<T>* node) {
-
-// 	// Stop when null.
-// 	if (!node) {
-// 		return;
-// 	}
-
-// 	// Calibrate heights of both children.
-// 	calibrateHeights(node->left);
-// 	calibrateHeights(node->right);
-
-// 	// Update height of current node.
-// 	updateHeight(node);
-// }
 
 
 

@@ -70,8 +70,6 @@ public:
 	Heap<T>& operator=(const Heap<T>& other);
 	Heap<T> operator+(const T element);
 	Heap<T>& operator+=(const T element);
-	Heap<T> operator-(const T element);
-	Heap<T>& operator-=(const T element);
 
 	void bft();
 	void clear();
@@ -87,12 +85,10 @@ public:
 	unsigned size() const;
 
 private:
-	// void calibrateHeights(HeapNode<T>* node);
 	void clear(HeapNode<T>* node);
 	void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
 	bool contains(HeapNode<T>* node, const T& element) const;
 	void dft(HeapNode<T>* node);
-	void insert(HeapNode<T>* node, const T& element);
 	void updateHeight(HeapNode<T>* node);
 	
 	HeapNode<T>* root;

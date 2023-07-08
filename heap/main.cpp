@@ -46,15 +46,15 @@ int main() {
 		cout << " (2)  clone()" << endl;
 		// cout << " (4)  contains(element)" << endl;
 		// cout << " (5)  insert(element)" << endl;
-		// cout << " (6)  isEmpty() / isNotEmpty()" << endl;
 		// cout << " (7)  remove(element)" << endl;
-		// cout << " (9)  operator+(element)" << endl;
-		// cout << "(10)  operator+=(element)" << endl;
 		// cout << "(11)  operator-(element)" << endl;
 		// cout << "(12)  operator-=(element)" << endl;
-		cout << " (3)  push(element)" << endl;
-		cout << " (4)  pop()" << endl;
-		cout << " (5)  operator=" << endl;
+		cout << " (3)  isEmpty() / isNotEmpty()" << endl;
+		cout << " (4)  push(element)" << endl;
+		cout << " (5)  pop()" << endl;
+		cout << " (6)  operator=" << endl;
+		cout << " (7)  operator+(element)" << endl;
+		cout << " (8)  operator+=(element)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -105,107 +105,34 @@ int main() {
 		// 	break;
 
 
-		// // Insert an element in the heap.
-		// case 5:
-		// 	cout << "insert(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	heap.insert(element);
-		// 	break;
-
-
-		// // Check if empty / not empty.
-		// case 6:
-		// 	cout << "isEmpty() / isNotEmpty()" << endl;
-		// 	cout << "> Tree IS empty:      ";
-		// 	cout << (heap.isEmpty() ? "true\n" : "false\n");
-		// 	cout << "> Tree is NOT empty:  ";
-		// 	cout << (heap.isNotEmpty() ? "true\n" : "false\n");
-		// 	sleep_for(seconds(3));
-		// 	break;
-
-
-		// // Remove an element from the heap.
-		// case 7:
-		// 	cout << "remove(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	try {
-		// 		heap.remove(element);
-		// 	} catch (string e) {
-		// 		cout << e << endl;
-		// 		sleep_for(seconds(2));
-		// 	}
-		// 	break;
-
-
-		// // Work with heap + element.
-		// case 9:
-		// 	cout << "operator+(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	temp = heap + element;
-		// 	cout << "> returned heap:" << endl;
-		// 	temp.display();
-		// 	sleep_for(seconds(5));
-		// 	break;
-
-
-		// // Work with heap += element.
-		// case 10:
-		// 	cout << "operator+=(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	heap += element;
-		// 	break;
-
-
-		// // Work with heap - element.
-		// case 11:
-		// 	cout << "operator-(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	try {
-		// 		temp = heap - element;
-		// 		cout << "> returned heap:" << endl;
-		// 		temp.display();
-		// 		sleep_for(seconds(5));
-		// 	} catch (string e) {
-		// 		cout << e << endl;
-		// 		sleep_for(seconds(2));
-		// 	}
-		// 	break;
-
-
-		// // Work with heap -= element.
-		// case 12:
-		// 	cout << "operator-=(element)" << endl;
-		// 	cout << "> element = ";
-		// 	cin >> element;
-		// 	try {
-		// 		heap -= element;
-		// 	} catch (string e) {
-		// 		cout << e << endl;
-		// 		sleep_for(seconds(2));
-		// 	}
-		// 	break;
+		// Check if empty / not empty.
+		case 3:
+			cout << "isEmpty() / isNotEmpty()" << endl;
+			cout << "> Heap IS empty:      ";
+			cout << (heap.isEmpty() ? "true\n" : "false\n");
+			cout << "> Heap is NOT empty:  ";
+			cout << (heap.isNotEmpty() ? "true\n" : "false\n");
+			sleep_for(seconds(3));
+			break;
 
 
 		// Push element onto the heap.
-		case 3:
+		case 4:
 			cout << "push(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
 			heap.push(element);
 			break;
 
+
 		// Pop from the heap.
-		case 4:
+		case 5:
 			cout << "pop()" << endl;
 			break;
 
+
 		// Work with the assignment operator.
-		case 5:
+		case 6:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;
@@ -214,6 +141,27 @@ int main() {
 				temp.push(randUint(0, 999));
 			}
 			heap = temp;
+			break;
+
+
+		// Work with heap + element.
+		case 7:
+			cout << "operator+(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			temp = heap + element;
+			cout << "> returned heap:" << endl;
+			temp.display();
+			sleep_for(seconds(5));
+			break;
+
+
+		// Work with heap += element.
+		case 8:
+			cout << "operator+=(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			heap += element;
 			break;
 		}
 	}
