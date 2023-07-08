@@ -12,8 +12,6 @@ OBJECTS := \
 	out/move_cursor.o \
 	out/random.o
 TEMPLATES := \
-	../queue/queue.cpp \
-	../queue/queue.h \
 	heap.cpp \
 	heap.h
 UPDATES := out/ out/main.o $(OBJECTS) $(HEADERS)

@@ -1,8 +1,5 @@
 #include <iostream>
-// #include <algorithm>
 #include <cmath>
-// #include <sstream>
-#include "../queue/queue.h"
 #include "heap.h"
 using namespace std;
 
@@ -16,24 +13,29 @@ Heap<T>::Heap() {
 }
 
 
-// // The copy constructor.
-// template<class T>
-// Heap<T>::Heap(const Heap<T>& other) {
+// The copy constructor.
+template<class T>
+Heap<T>::Heap(const Heap<T>& other) {
 
-// 	// If the same trees have been provided, do nothing.
-// 	if (this == &other) {
-// 		return;
-// 	}
+	// If the same trees have been provided, do nothing.
+	if (this == &other) {
+		return;
+	}
 
-// 	// Copy other.root if not null.
-// 	this->root = nullptr;
-// 	if (other.root) {
-// 		this->root = new HeapNode<T>(other.root);
+	// Set defaults.
+	this->root = nullptr;
+	this->leftmost = nullptr;
+	this->numElements = 0;
 
-// 		// Recursively clone all children.
-// 		clone(this->root, other.root);
-// 	}
-// }
+	// Copy other.root if not null.
+	if (other.root) {
+		this->root = this->leftmost = new HeapNode<T>(other.root);
+		this->numElements = other.numElements;
+
+		// Clone remaining children.
+		clone(this->root, other.root);
+	}
+}
 
 
 // The destructor.
@@ -44,25 +46,26 @@ Heap<T>::~Heap() {
 
 
 
-// // Overload the assignment operator.
-// template<class T>
-// Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
+// Overload the assignment operator.
+template<class T>
+Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 
-// 	// If the same trees have been provided, do nothing.
-// 	if (this != &other) {
-// 		this->clear();
+	// If the same trees have been provided, do nothing.
+	if (this != &other) {
+		this->clear();
 
-// 		// Copy other.root if not null.
-// 		if (other.root) {
-// 			this->root = new HeapNode<T>(other.root);
+		// Copy other.root if not null.
+		if (other.root) {
+			this->root = this->leftmost = new HeapNode<T>(other.root);
+			this->numElements = other.numElements;
 
-// 			// Recursively clone all children.
-// 			clone(this->root, other.root);
-// 		}
-// 	}
+			// Clone remaining children.
+			clone(this->root, other.root);
+		}
+	}
 
-// 	return *this;
-// }
+	return *this;
+}
 
 
 // // Returns a copied tree with element inserted.
@@ -110,24 +113,17 @@ void Heap<T>::bft() {
 		return;
 	}
 
-	// Create queue and add root.
-	Queue<HeapNode<T>*> queue;
-	queue.push(root);
-
-	// Loop while the queue is not empty.
-	HeapNode<T>* nodePtr;
-	while (!queue.isEmpty()) {
-		nodePtr = queue.pop();
+	// Iterate through the heap row by row.
+	HeapNode<T>* nodePtr = root;
+	HeapNode<T>* thisLeftmost = root;
+	while (nodePtr) {
 		cout << "  " << nodePtr->data;
 
-		// Add left child if not null.
-		if (nodePtr->left) {
-			queue.push(nodePtr->left);
-		}
-
-		// Add right child if not null.
-		if (nodePtr->right) {
-			queue.push(nodePtr->right);
+		// Get next entry in the heap.
+		if (nodePtr->next == thisLeftmost) {
+			nodePtr = thisLeftmost = thisLeftmost->left;
+		} else {
+			nodePtr = nodePtr->next;
 		}
 	}
 
@@ -184,29 +180,60 @@ void Heap<T>::clear(HeapNode<T>* node) {
 
 
 
-// // Create a hard copy of this tree.
-// template<class T>
-// Heap<T> Heap<T>::clone() {
-// 	return Heap<T>(*this);
-// }
+// Create a hard copy of this tree.
+template<class T>
+Heap<T> Heap<T>::clone() {
+	return Heap<T>(*this);
+}
 
-// // The recursive clone function.
-// template<class T>
-// void Heap<T>::clone(
-// 	HeapNode<T>* thisNode, HeapNode<T>* otherNode) {
+// The private clone function.
+template<class T>
+void Heap<T>::clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode) {
 
-// 	// Clone left child.
-// 	if (otherNode->left) {
-// 		thisNode->left = new HeapNode<T>(otherNode->left);
-// 		clone(thisNode->left, otherNode->left);
-// 	}
+	// Clone all remaining children.
+	HeapNode<T>* otherLeftmost = otherNode;
+	for (unsigned i = 1; i < this->numElements; i++) {
+		
+		// End of the row.
+		if (otherNode->next == otherLeftmost) {
 
-// 	// Clone right child.
-// 	if (otherNode->right) {
-// 		thisNode->right = new HeapNode<T>(otherNode->right);
-// 		clone(thisNode->right, otherNode->right);
-// 	}
-// }
+			// Make the row circularly linked.
+			thisNode->next = this->leftmost;
+			this->leftmost->prev = thisNode;
+
+			// Start new row.
+			otherNode = otherLeftmost = otherLeftmost->left;
+			this->leftmost->left = new HeapNode<T>(otherNode);
+			this->leftmost->left->parent = this->leftmost;
+			this->leftmost = this->leftmost->left;
+			thisNode = this->leftmost;
+		}
+
+		// Continue with row.
+		else {
+			otherNode = otherNode->next;
+			thisNode->next = new HeapNode<T>(otherNode);
+			thisNode->next->prev = thisNode;
+			thisNode = thisNode->next;
+
+			// Right child.
+			if (thisNode->prev->parent->left == thisNode->prev) {
+				thisNode->parent = thisNode->prev->parent;
+				thisNode->parent->right = thisNode;
+			}
+
+			// Left child.
+			else {
+				thisNode->parent = thisNode->prev->parent->next;
+				thisNode->parent->left = thisNode;
+			}
+		}
+	}
+
+	// Make the final row circularly linked.
+	thisNode->next = this->leftmost;
+	this->leftmost->prev = thisNode;
+}
 
 
 

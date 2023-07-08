@@ -13,7 +13,7 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 
 // Main function.
 int main() {
-	char answer[3];
+	char answer[20];
 	unsigned number;
 	unsigned element;
 
@@ -43,22 +43,22 @@ int main() {
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
 		cout << " (1)  clear()" << endl;
-		// cout << " (3)  clone()" << endl;
+		cout << " (2)  clone()" << endl;
 		// cout << " (4)  contains(element)" << endl;
 		// cout << " (5)  insert(element)" << endl;
 		// cout << " (6)  isEmpty() / isNotEmpty()" << endl;
 		// cout << " (7)  remove(element)" << endl;
-		// cout << " (8)  operator=" << endl;
 		// cout << " (9)  operator+(element)" << endl;
 		// cout << "(10)  operator+=(element)" << endl;
 		// cout << "(11)  operator-(element)" << endl;
 		// cout << "(12)  operator-=(element)" << endl;
-		cout << " (2)  push(element)" << endl;
-		cout << " (3)  pop()" << endl;
+		cout << " (3)  push(element)" << endl;
+		cout << " (4)  pop()" << endl;
+		cout << " (5)  operator=" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
-		cin.getline(answer, 3);
+		cin.getline(answer, 20);
 		answer[0] = toupper(answer[0]);
 
 
@@ -80,14 +80,14 @@ int main() {
 			break;
 
 
-		// // Clone the heap.
-		// case 3:
-		// 	cout << "clone()" << endl;
-		// 	temp = heap.clone();
-		// 	cout << "> cloned heap:" << endl;
-		// 	heap.display();
-		// 	sleep_for(seconds(5));
-		// 	break;
+		// Clone the heap.
+		case 2:
+			cout << "clone()" << endl;
+			temp = heap.clone();
+			cout << "> cloned heap:" << endl;
+			heap.display();
+			sleep_for(seconds(5));
+			break;
 
 
 		// // Test if element in the heap.
@@ -136,19 +136,6 @@ int main() {
 		// 		cout << e << endl;
 		// 		sleep_for(seconds(2));
 		// 	}
-		// 	break;
-
-
-		// // Work with the assignment operator.
-		// case 8:
-		// 	cout << "operator=" << endl;
-		// 	cout << "> number of elements = ";
-		// 	cin >> number;
-		// 	temp.clear();
-		// 	for (unsigned i = 0; i < number; i++) {
-		// 		temp.insert(randUint(0, 999));
-		// 	}
-		// 	heap = temp;
 		// 	break;
 
 
@@ -205,7 +192,7 @@ int main() {
 
 
 		// Push element onto the heap.
-		case 2:
+		case 3:
 			cout << "push(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -213,8 +200,20 @@ int main() {
 			break;
 
 		// Pop from the heap.
-		case 3:
+		case 4:
 			cout << "pop()" << endl;
+			break;
+
+		// Work with the assignment operator.
+		case 5:
+			cout << "operator=" << endl;
+			cout << "> number of elements = ";
+			cin >> number;
+			temp.clear();
+			for (unsigned i = 0; i < number; i++) {
+				temp.push(randUint(0, 999));
+			}
+			heap = temp;
 			break;
 		}
 	}
