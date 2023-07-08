@@ -680,7 +680,7 @@ int Sorting::partitionV2(
 		// Move left index (at least once).
 		do {
 			if (i >= 0) {
-				highlight->append(Highlight('G', i));
+				highlight->append(Highlight('c', i));
 			}
 			i++;
 			highlight->get(0).index = i;
