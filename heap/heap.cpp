@@ -346,9 +346,12 @@ void Heap<T>::push(const T element) {
 		}
 	}
 
-	// Update heights.
+	// Heapify and update heights.
 	HeapNode<T>* nodePtr = newNode;
 	while (nodePtr) {
+		if (nodePtr->parent && nodePtr->data > nodePtr->parent->data) {
+			swap(nodePtr->data, nodePtr->parent->data);
+		}
 		updateHeight(nodePtr);
 		nodePtr = nodePtr->parent;
 	}
