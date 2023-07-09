@@ -137,17 +137,6 @@ void Heap<T>::bft() {
 
 
 
-// Max Heap:  returns status of left > right.
-// Min Heap:  returns status of left < right.
-template<class T>
-bool Heap<T>::compare(const T left, const T right) const {
-	if (maxHeap)
-		return left > right;
-	return left < right;
-}
-
-
-
 // Clears all entries in the heap.
 template<class T>
 void Heap<T>::clear() {
@@ -229,6 +218,62 @@ void Heap<T>::clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode) {
 	// Make the final row circularly linked.
 	thisNode->next = this->leftmost;
 	this->leftmost->prev = thisNode;
+}
+
+
+
+// Max Heap:  returns status of left > right.
+// Min Heap:  returns status of left < right.
+template<class T>
+bool Heap<T>::compare(const T left, const T right) const {
+	if (maxHeap)
+		return left > right;
+	return left < right;
+}
+
+
+
+// Returns true if the element is in the heap.
+template<class T>
+bool Heap<T>::contains(const T element) const {
+
+	// If heap is empty, return false.
+	if (isEmpty()) {
+		return false;
+	}
+
+	// Search heap otherwise.
+	return contains(root, element);
+}
+
+// Recursive part of the search function.
+template<class T>
+bool Heap<T>::contains(HeapNode<T>* node, const T& element) const {
+	bool found;
+
+	// See if found.
+	if (node->data == element) {
+		return true;
+	}
+
+	// See if possibly at left child.
+	if (node->left && !(node->left->data < element)) {
+		found = contains(node->left, element);
+		if (found) {
+			return true;
+		}
+	}
+
+	// See if possibly at right child.
+	if (node->right && !(node->right->data < element)) {
+		found = contains(node->right, element);
+		if (found) {
+			return true;
+		}
+	}
+
+	// Return false otherwise.
+	return false;
 }
 
 

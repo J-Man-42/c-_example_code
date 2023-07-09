@@ -76,6 +76,7 @@ public:
 	void bft();
 	void clear();
 	Heap<T> clone();
+	bool contains(const T element) const;
 	void dft();
 	void display();
 	unsigned height() const;
@@ -90,6 +91,7 @@ public:
 
 private:
 	bool compare(const T left, const T right) const;
+	bool contains(HeapNode<T>* node, const T& element) const;
 	void clear(HeapNode<T>* node);
 	void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
 	void dft(HeapNode<T>* node);
