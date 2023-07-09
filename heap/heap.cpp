@@ -89,6 +89,23 @@ Heap<T>& Heap<T>::operator+=(const T element) {
 }
 
 
+// Pop from heap and return resulting heap.
+template<class T>
+Heap<T>& Heap<T>::operator--() {
+	this->pop();
+	return *this;
+}
+
+
+// Pop from heap and return copy of initial heap.
+template<class T>
+Heap<T> Heap<T>::operator--(int) {
+	Heap<T> heap = this->clone();
+	this->pop();
+	return heap;
+}
+
+
 
 // Breadth First Traversal.
 template<class T>

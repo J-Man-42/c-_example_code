@@ -70,6 +70,8 @@ public:
 	Heap<T>& operator=(const Heap<T>& other);
 	Heap<T> operator+(const T element);
 	Heap<T>& operator+=(const T element);
+	Heap<T>& operator--();
+	Heap<T> operator--(int);
 
 	void bft();
 	void clear();

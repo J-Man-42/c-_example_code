@@ -48,13 +48,14 @@ int main() {
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  isEmpty() / isNotEmpty()" << endl;
-		cout << " (4)  isMaxHeap() / isMinHeap()" << endl;
-		cout << " (5)  push(element)" << endl;
-		cout << " (6)  pop()" << endl;
-		cout << " (7)  toggleMaxMin()" << endl;
-		cout << " (8)  operator=" << endl;
-		cout << " (9)  operator+(element)" << endl;
-		cout << "(10)  operator+=(element)" << endl;
+		cout << " (4)  push(element)" << endl;
+		cout << " (5)  pop()" << endl;
+		cout << " (6)  toggleMaxMin()" << endl;
+		cout << " (7)  operator=" << endl;
+		cout << " (8)  operator+(element)" << endl;
+		cout << " (9)  operator+=(element)" << endl;
+		cout << "(10)  prefix operator--" << endl;
+		cout << "(11)  postfix operator--" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -102,18 +103,8 @@ int main() {
 			break;
 
 
-		case 4:
-			cout << "isMaxHeap() / isMinHeap()" << endl;
-			cout << "> Max heap:  ";
-			cout << (heap.isMaxHeap() ? "true\n" : "false\n");
-			cout << "> Min heap:  ";
-			cout << (heap.isMinHeap() ? "true\n" : "false\n");
-			sleep_for(seconds(3));
-			break;
-
-
 		// Push element onto the heap.
-		case 5:
+		case 4:
 			cout << "push(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -122,7 +113,7 @@ int main() {
 
 
 		// Pop from the heap.
-		case 6:
+		case 5:
 			cout << "pop()" << endl;
 			try {
 				element = heap.pop();
@@ -135,7 +126,7 @@ int main() {
 
 
 		// Converts the heap from max to min or vice versa.
-		case 7:
+		case 6:
 			cout << "toggleMaxMin()" << endl;
 			heap.toggleMaxMin();
 			temp.toggleMaxMin();
@@ -143,7 +134,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 8:
+		case 7:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;
@@ -157,7 +148,7 @@ int main() {
 
 
 		// Work with heap + element.
-		case 9:
+		case 8:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -170,11 +161,39 @@ int main() {
 
 
 		// Work with heap += element.
-		case 10:
+		case 9:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
 			heap += element;
+			break;
+
+
+		// Work with --heap;
+		case 10:
+			cout << "prefix operator--" << endl;
+			try {
+				--heap;
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Work with heap--;
+		case 11:
+			cout << "postfix operator--" << endl;
+			try {
+				temp = heap--;
+				cout << "> returned heap:" << endl;
+				temp.display();
+				temp.clear();
+				sleep_for(seconds(5));
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
 			break;
 		}
 	}
