@@ -257,7 +257,7 @@ bool Heap<T>::contains(HeapNode<T>* node, const T& element) const {
 	}
 
 	// See if possibly at left child.
-	if (node->left && !(node->left->data < element)) {
+	if (node->left && !compare(element, node->left->data)) {
 		found = contains(node->left, element);
 		if (found) {
 			return true;
@@ -265,7 +265,7 @@ bool Heap<T>::contains(HeapNode<T>* node, const T& element) const {
 	}
 
 	// See if possibly at right child.
-	if (node->right && !(node->right->data < element)) {
+	if (node->right && !compare(element, node->right->data)) {
 		found = contains(node->right, element);
 		if (found) {
 			return true;
