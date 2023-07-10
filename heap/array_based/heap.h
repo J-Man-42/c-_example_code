@@ -10,7 +10,7 @@ template<class T>
 class Heap
 {
 public:
-	Heap(const bool maxHeap = true);
+	Heap(const bool maxHeap = true, const unsigned capacity = 100);
 	Heap(const Heap<T>& other);
 	~Heap();
 
@@ -37,17 +37,15 @@ public:
 	void toggleMaxMin();
 
 private:
-	// bool compare(const T left, const T right) const;
-	// bool contains(HeapNode<T>* node, const T& element) const;
-	// void clear(HeapNode<T>* node);
-	// void clone(HeapNode<T>* thisNode, HeapNode<T>* otherNode);
-	// void dft(HeapNode<T>* node);
-	// void heapify(HeapNode<T>* node);
-	// void updateHeight(HeapNode<T>* node);
+	bool compare(const T left, const T right) const;
+	bool contains(const unsigned index, const T& element) const;
+	void dft(const unsigned index);
+	void heapify(unsigned index);
 
 	unsigned numElements;
 	unsigned capacity;
 	bool maxHeap;
+	T* array;
 };
 
 
