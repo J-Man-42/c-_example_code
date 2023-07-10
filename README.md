@@ -19,7 +19,11 @@ A collection of example code written in C++.
 - [display_structure.cpp](display_structure/display_structure.cpp)
 - [display_structure.h](display_structure/display_structure.h)
 
-### Heap (Tree Based)
+### Heap (Array-Based)
+- [heap.cpp](heap/array_based/heap.cpp)
+- [heap.h](heap/array_based/heap.h)
+
+### Heap (Tree-Based)
 - [heap.cpp](heap/tree_based/heap.cpp)
 - [heap.h](heap/tree_based/heap.h)
 
