@@ -10,7 +10,7 @@ template<class T>
 class Heap
 {
 public:
-	Heap(const bool maxHeap = true, const unsigned maxCapacity = 10);
+	Heap(const bool maxHeap = true, const unsigned maxCapacity = 100);
 	Heap(const Heap<T>& other);
 	~Heap();
 
