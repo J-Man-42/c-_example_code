@@ -36,9 +36,10 @@ int main() {
 		cout << "BFT:";
 		heap.bft();
 
-		// Print the heap height and size.
-		cout << "Height:  " << heap.height() << endl;
-		cout << "Size:    " << heap.size() << endl;
+		// Print the heap height, size, and capacity.
+		cout << "Capacity:  " << heap.capacity() << endl;
+		cout << "Height:    " << heap.height() << endl;
+		cout << "Size:      " << heap.size() << endl;
 
 		// Display the heap.
 		heap.display();

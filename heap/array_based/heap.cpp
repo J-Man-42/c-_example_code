@@ -6,11 +6,11 @@ using namespace std;
 
 // The constructor.
 template<class T>
-Heap<T>::Heap(const bool maxHeap, const unsigned capacity) {
+Heap<T>::Heap(const bool maxHeap, const unsigned maxCapacity) {
 	this->numElements = 0;
-	this->capacity = capacity;
+	this->maxCapacity = maxCapacity;
 	this->maxHeap = maxHeap;
-	this->array = new T[capacity];
+	this->array = new T[maxCapacity];
 }
 
 
@@ -25,9 +25,9 @@ Heap<T>::Heap(const Heap<T>& other) {
 
 	// Copy heap parameters.
 	this->numElements = other.numElements;
-	this->capacity = other.capacity;
+	this->maxCapacity = other.maxCapacity;
 	this->maxHeap = other.maxHeap;
-	this->array = new T[capacity];
+	this->array = new T[maxCapacity];
 
 	// Copy all elements.
 	for (unsigned i = 0; i < numElements; i++) {
@@ -56,9 +56,9 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& other) {
 
 		// Copy heap parameters.
 		this->numElements = other.numElements;
-		this->capacity = other.capacity;
+		this->maxCapacity = other.maxCapacity;
 		this->maxHeap = other.maxHeap;
-		this->array = new T[capacity];
+		this->array = new T[maxCapacity];
 
 		// Copy all elements.
 		for (unsigned i = 0; i < numElements; i++) {
@@ -112,6 +112,14 @@ void Heap<T>::bft() {
 		cout << "  " << array[i];
 	}
 	cout << endl;
+}
+
+
+
+// Returns the current heap capacity.
+template<class T>
+unsigned Heap<T>::capacity() const {
+	return maxCapacity;
 }
 
 
@@ -329,14 +337,16 @@ void Heap<T>::push(const T element) {
 
 	}
 
-	// If at capacity, increase array size.
-	capacity = capacity*1.5;
-	T* temp = new T[capacity];
-	for (unsigned i = 0; i < numElements; i++) {
-		temp[i] = array[i];
+	// If at max capacity, increase array size.
+	if (numElements == maxCapacity) {
+		maxCapacity = maxCapacity*1.5;
+		T* temp = new T[maxCapacity];
+		for (unsigned i = 0; i < numElements; i++) {
+			temp[i] = array[i];
+		}
+		delete [] array;
+		array = temp;
 	}
-	delete [] array;
-	array = temp;
 }
 
 
