@@ -1,5 +1,6 @@
 # Variables and lists.
 ######################################################################
+SOURCE_1 := colour_text
 HEADERS := \
 	colour_text.h
 OBJECTS := \
@@ -16,8 +17,8 @@ main:  $(UPDATES)
 out/main.o:  main.cpp
 	g++ -Wall -c main.cpp -o out/main.o
 
-out/colour_text.o:  colour_text.cpp colour_text.h
-	g++ -Wall -c colour_text.cpp -o out/colour_text.o
+out/colour_text.o:  $(SOURCE_1).cpp $(SOURCE_1).h
+	g++ -Wall -c $(SOURCE_1).cpp -o out/colour_text.o
 
 out/:
 	mkdir -p out

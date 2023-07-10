@@ -1,5 +1,6 @@
 # Variables and lists.
 ######################################################################
+SOURCE_1 := move_cursor
 HEADERS := \
 	move_cursor.h
 OBJECTS := \
@@ -16,8 +17,8 @@ main:  $(UPDATES)
 out/main.o:  main.cpp
 	g++ -Wall -c main.cpp -o out/main.o
 
-out/move_cursor.o:  move_cursor.cpp move_cursor.h
-	g++ -Wall -c move_cursor.cpp -o out/move_cursor.o
+out/move_cursor.o:  $(SOURCE_1).cpp $(SOURCE_1).h
+	g++ -Wall -c $(SOURCE_1).cpp -o out/move_cursor.o
 
 out/:
 	mkdir -p out

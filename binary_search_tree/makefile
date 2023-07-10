@@ -1,5 +1,9 @@
 # Variables and lists.
 ######################################################################
+SOURCE_1 := ../colour_text/colour_text
+SOURCE_2 := ../display_structure/display_structure
+SOURCE_3 := ../move_cursor/move_cursor
+SOURCE_4 := ../random/random
 HEADERS := \
 	binary_search_tree.h \
 	../colour_text/colour_text.h \
@@ -28,17 +32,17 @@ main:  $(UPDATES)
 out/main.o:  main.cpp $(TEMPLATES)
 	g++ -Wall -c main.cpp -o out/main.o
 
-out/colour_text.o:  ../colour_text/colour_text.cpp ../colour_text/colour_text.h
-	g++ -Wall -c ../colour_text/colour_text.cpp -o out/colour_text.o
+out/colour_text.o:  $(SOURCE_1).cpp $(SOURCE_1).h
+	g++ -Wall -c $(SOURCE_1).cpp -o out/colour_text.o
 
-out/display_structure.o:  ../display_structure/display_structure.cpp ../display_structure/display_structure.h
-	g++ -Wall -c ../display_structure/display_structure.cpp -o out/display_structure.o
+out/display_structure.o:  $(SOURCE_2).cpp $(SOURCE_2).h
+	g++ -Wall -c $(SOURCE_2).cpp -o out/display_structure.o
 
-out/move_cursor.o:  ../move_cursor/move_cursor.cpp ../move_cursor/move_cursor.h
-	g++ -Wall -c ../move_cursor/move_cursor.cpp -o out/move_cursor.o
+out/move_cursor.o:  $(SOURCE_3).cpp $(SOURCE_3).h
+	g++ -Wall -c $(SOURCE_3).cpp -o out/move_cursor.o
 
-out/random.o:  ../random/random.cpp ../random/random.h
-	g++ -Wall -c ../random/random.cpp -o out/random.o
+out/random.o:  $(SOURCE_4).cpp $(SOURCE_4).h
+	g++ -Wall -c $(SOURCE_4).cpp -o out/random.o
 
 out/:
 	mkdir -p out

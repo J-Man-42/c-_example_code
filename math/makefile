@@ -1,5 +1,6 @@
 # Variables and lists.
 ######################################################################
+SOURCE_1 := math
 HEADERS := \
 	math.h
 OBJECTS := \
@@ -16,8 +17,8 @@ main:  $(UPDATES)
 out/main.o:  main.cpp
 	g++ -Wall -c main.cpp -o out/main.o
 
-out/math.o:  math.cpp math.h
-	g++ -Wall -c math.cpp -o out/math.o
+out/math.o:  $(SOURCE_1).cpp $(SOURCE_1).h
+	g++ -Wall -c $(SOURCE_1).cpp -o out/math.o
 
 out/:
 	mkdir -p out

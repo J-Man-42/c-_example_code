@@ -1,5 +1,8 @@
 # Variables and lists.
 ######################################################################
+SOURCE_1 := ../math/math
+SOURCE_2 := ../move_cursor/move_cursor
+SOURCE_3 := ../random/random
 HEADERS := \
 	sorting.h \
 	../math/math.h \
@@ -24,14 +27,14 @@ main:  $(UPDATES)
 out/main.o:  main.cpp $(TEMPLATES)
 	g++ -Wall -c main.cpp -o out/main.o
 
-out/math.o:  ../math/math.cpp ../math/math.h
-	g++ -Wall -c ../math/math.cpp -o out/math.o
+out/math.o:  $(SOURCE_1).cpp $(SOURCE_1).h
+	g++ -Wall -c $(SOURCE_1).cpp -o out/math.o
 
-out/move_cursor.o:  ../move_cursor/move_cursor.cpp ../move_cursor/move_cursor.h
-	g++ -Wall -c ../move_cursor/move_cursor.cpp -o out/move_cursor.o
+out/move_cursor.o:  $(SOURCE_2).cpp $(SOURCE_2).h
+	g++ -Wall -c $(SOURCE_2).cpp -o out/move_cursor.o
 
-out/random.o:  ../random/random.cpp ../random/random.h
-	g++ -Wall -c ../random/random.cpp -o out/random.o
+out/random.o:  $(SOURCE_3).cpp $(SOURCE_3).h
+	g++ -Wall -c $(SOURCE_3).cpp -o out/random.o
 
 out/:
 	mkdir -p out

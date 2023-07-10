@@ -46,20 +46,19 @@ templates=( $(echo "${templates[@]%.*}")  )
 
 
 # Indicate to user that the makefile is being generated.
-printf "Generating makefile..."
+echo "Generating makefile..."
 if [[ $includes ]]; then
-	printf "\n> includes: "
+	echo "> includes:"
 	for item in ${includes[@]}; do
-		printf "  $item.h"
+		echo "  • $item.h"
 	done
 fi
 if [[ $templates ]]; then
-	printf "\n> templates:"
+	echo "> templates:"
 	for item in ${templates[@]}; do
-		printf "  $item.h"
+		echo "  • $item.h"
 	done
 fi
-printf "\n"
 
 
 # Print the variables and lists section.
@@ -67,6 +66,22 @@ printf "# Variables and lists.\n" > makefile
 for (( i = 0; i < 70; i++ )); do
 	printf "#" >> makefile
 done
+
+# SOURCE_N.
+count=0
+if [[ "${headers[@]}" || "${includes[@]}" ]]; then
+	for title in ${headers[@]}; do
+		if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
+			continue
+		fi
+		count=$((count + 1))
+		printf "\nSOURCE_${count} := $title" >> makefile
+	done
+	for title in ${includes[@]}; do
+		count=$((count + 1))
+		printf "\nSOURCE_${count} := $title" >> makefile
+	done
+fi
 
 # HEADERS & OBJECTS.
 if [[ "${headers[@]}" || "${includes[@]}" ]]; then
@@ -139,19 +154,25 @@ printf "\n\tg++ -Wall -c main.cpp -o out/main.o\n" >> makefile
 
 
 # Continue with each entry in headers.
+count=0
 for title in ${headers[@]}; do
 	if [[ "${templates[@]}" && "${templates[@]}" == *"$title"* ]]; then
 		continue
 	fi
-	printf "\nout/$title.o:  $title.cpp $title.h\n" >> makefile
-	printf "\tg++ -Wall -c $title.cpp -o out/$title.o\n" >> makefile
+	count=$((count + 1))
+	printf "\nout/$title.o:  " >> makefile
+	printf "\$(SOURCE_${count}).cpp \$(SOURCE_${count}).h\n\t" >> makefile
+	printf "g++ -Wall -c \$(SOURCE_${count}).cpp -o out/$title.o\n" >> makefile
 done
 
 
 # Continue with each additional included title.
 for (( i = 0; i < ${#titles[@]}; i++ )); do
-	printf "\nout/${titles[i]}.o:  ${includes[i]}.cpp ${includes[i]}.h\n" >> makefile
-	printf "\tg++ -Wall -c ${includes[i]}.cpp -o out/${titles[i]}.o\n" >> makefile
+	count=$((count + 1))
+	printf "\nout/${titles[i]}.o:  " >> makefile
+	printf "\$(SOURCE_${count}).cpp \$(SOURCE_${count}).h\n\t" >> makefile
+	printf "g++ -Wall -c \$(SOURCE_${count}).cpp" >> makefile
+	printf " -o out/${titles[i]}.o\n" >> makefile
 done
 
 
