@@ -2,7 +2,7 @@
 #define HEAP_H
 
 #include <iostream>
-#include "../display_structure/display_structure.h"
+#include "../../display_structure/display_structure.h"
 
 
 // The node class.

@@ -4,8 +4,8 @@
 #include <thread>
 #include <cmath>
 #include "heap.h"
-#include "../move_cursor/move_cursor.h"
-#include "../random/random.h"
+#include "../../move_cursor/move_cursor.h"
+#include "../../random/random.h"
 using namespace std;
 using namespace std::this_thread;	// sleep_for, sleep_until
 using namespace std::chrono;		// nanoseconds, system_clock, seconds.
