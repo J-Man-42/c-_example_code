@@ -151,7 +151,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (unsigned i = 0; i < number; i++) {
-				temp.insert(randUint(0, 999));
+				temp.insert(randUint(1, 999));
 			}
 			tree = temp;
 			break;

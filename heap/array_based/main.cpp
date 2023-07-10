@@ -153,7 +153,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (unsigned i = 0; i < number; i++) {
-				temp.push(randUint(0, 999));
+				temp.push(randUint(1, 999));
 			}
 			heap = temp;
 			temp.clear();

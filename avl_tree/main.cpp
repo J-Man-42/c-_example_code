@@ -143,7 +143,7 @@ int main() {
 			cin >> number;
 			temp.clear();
 			for (unsigned i = 0; i < number; i++) {
-				temp.insert(randInt(0, 999));
+				temp.insert(randInt(1, 999));
 			}
 			tree = temp;
 			break;
