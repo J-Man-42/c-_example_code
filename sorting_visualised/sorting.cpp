@@ -637,8 +637,8 @@ void Sorting::quickSortV2(
 
 	// Configure all highlights.
 	Highlights* highlight = new Highlights();
-	highlight->append(Highlight('R', low));
-	highlight->append(Highlight('R'));
+	highlight->append(Highlight('b', low));
+	highlight->append(Highlight('b'));
 	for (int i = 0; i < low; i++) {
 		highlight->append(Highlight('x', i));
 	}
@@ -667,6 +667,7 @@ int Sorting::partitionV2(
 	unsigned middle = ((high - low) / 2) + low;
 	unsigned pivot = array[middle];
 	unsigned horizontalBar = pivot;
+	highlight->append(Highlight('R', middle));
 
 	// Left index.
 	int i = low - 1;
@@ -680,7 +681,7 @@ int Sorting::partitionV2(
 		// Move left index (at least once).
 		do {
 			if (i >= 0) {
-				highlight->append(Highlight('c', i));
+				highlight->append(Highlight('G', i));
 			}
 			i++;
 			highlight->get(0).index = i;
