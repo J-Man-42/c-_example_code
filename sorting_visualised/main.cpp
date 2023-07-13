@@ -239,6 +239,7 @@ int main() {
 			cout << "(12)  Radix Sort (custom base)" << endl;
 			cout << "(13)  Heap Sort" << endl;
 			cout << "(14)  Bucket Sort" << endl;
+			cout << "(15)  Bitonic Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -296,6 +297,9 @@ int main() {
 				break;
 			case 14:
 				Sorting::bucketSort(array, size);
+				break;
+			case 15:
+				Sorting::bitonicSort(array, size);
 				break;
 			default:
 				clearScreen();

@@ -69,6 +69,7 @@ public:
 		unsigned array[], const unsigned& SIZE, const unsigned BASE = 10);
 	static void heapSort(unsigned array[], const unsigned& SIZE);
 	static void bucketSort(unsigned array[], const unsigned& SIZE);
+	static void bitonicSort(unsigned array[], const unsigned& SIZE);
 
 private:
 
@@ -107,6 +108,10 @@ private:
 	static void heapify(
 		unsigned array[], const unsigned& SIZE, unsigned end,
 		unsigned parentIndex, Highlights* highlight);
+	static void bitonicSort(
+		unsigned array[], unsigned low, unsigned high, bool ascending);
+	static void bitonicMerge(
+		unsigned array[], unsigned low, unsigned high, bool ascending);
 };
 
 

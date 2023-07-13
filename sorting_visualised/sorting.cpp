@@ -1244,3 +1244,70 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	// Delete dynamic memory.
 	delete highlight;
 }
+
+
+
+// Bitonic Sort the array.
+void Sorting::bitonicSort(unsigned array[], const unsigned& SIZE) {
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// BitonicSort.
+	bitonicSort(array, 0, SIZE, sortAscending);
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}
+
+
+// Recursive part of Bitonic Sort.
+void Sorting::bitonicSort(
+	unsigned array[], unsigned low, unsigned high, bool ascending) {
+
+	// Stopping condition.
+	if (high <= 1) {
+		return;
+	}
+
+	// Get the middle.
+	unsigned middle = high / 2;
+
+	// Sort lower half in ascending order.
+	bitonicSort(array, low, middle, true);
+
+	// Sort upper half in descending order.
+	bitonicSort(array, low+middle, middle, false);
+
+	// Merge and sort in specified order.
+	bitonicMerge(array, low, high, ascending);
+}
+
+    
+// Where the bitonic sorting actually happens.
+void Sorting::bitonicMerge(
+	unsigned array[], unsigned low, unsigned high, bool ascending) {
+
+	// Stopping condition.
+	if (high <= 1) {
+		return;
+	}
+    
+    // Get the middle and lower limit.
+	unsigned middle = high / 2;
+	unsigned limit = low + middle;
+
+	// Iterate through all entries from low to limit.
+	for (unsigned i=low, j = limit; i < limit; i++, j++) {
+		if (ascending == (array[j] < array[i])) {
+			swap(array[i], array[j]);
+		}
+	}
+
+	// Sort the lower and middle halves.
+	bitonicMerge(array, low, middle, ascending);
+	bitonicMerge(array, limit, middle, ascending);
+}
