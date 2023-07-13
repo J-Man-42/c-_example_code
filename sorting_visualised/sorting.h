@@ -59,6 +59,7 @@ public:
 	static void selectionSort(unsigned array[], const unsigned& SIZE);
 	static void insertionSort(unsigned array[], const unsigned& SIZE);
 	static void cocktailShakerSort(unsigned array[], const unsigned& SIZE);
+	static void gnomeSort(unsigned array[], const unsigned& SIZE);
 	static void quickSort(unsigned array[], const unsigned& SIZE);
 	static void quickSortV2(unsigned array[], const unsigned& SIZE);
 	static void shellSort(unsigned array[], const unsigned& SIZE);

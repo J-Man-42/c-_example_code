@@ -229,15 +229,16 @@ int main() {
 			cout << " (2)  Selection Sort" << endl;
 			cout << " (3)  Insertion Sort" << endl;
 			cout << " (4)  Cocktail Shaker Sort" << endl;
-			cout << " (5)  QuickSort" << endl;
-			cout << " (6)  QuickSort V2" << endl;
-			cout << " (7)  Shell Sort" << endl;
-			cout << " (8)  Merge Sort" << endl;
-			cout << " (9)  Comb Sort" << endl;
-			cout << "(10)  Radix Sort (base 10)" << endl;
-			cout << "(11)  Radix Sort (custom base)" << endl;
-			cout << "(12)  Heap Sort" << endl;
-			cout << "(13)  Bucket Sort" << endl;
+			cout << " (5)  Gnome Sort" << endl;
+			cout << " (6)  QuickSort" << endl;
+			cout << " (7)  QuickSort V2" << endl;
+			cout << " (8)  Shell Sort" << endl;
+			cout << " (9)  Merge Sort" << endl;
+			cout << "(10)  Comb Sort" << endl;
+			cout << "(11)  Radix Sort (base 10)" << endl;
+			cout << "(12)  Radix Sort (custom base)" << endl;
+			cout << "(13)  Heap Sort" << endl;
+			cout << "(14)  Bucket Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -264,33 +265,36 @@ int main() {
 				Sorting::cocktailShakerSort(array, size);
 				break;
 			case 5:
-				Sorting::quickSort(array, size);
+				Sorting::gnomeSort(array, size);
 				break;
 			case 6:
-				Sorting::quickSortV2(array, size);
+				Sorting::quickSort(array, size);
 				break;
 			case 7:
-				Sorting::shellSort(array, size);
+				Sorting::quickSortV2(array, size);
 				break;
 			case 8:
-				Sorting::mergeSort(array, size);
+				Sorting::shellSort(array, size);
 				break;
 			case 9:
-				Sorting::combSort(array, size);
+				Sorting::mergeSort(array, size);
 				break;
 			case 10:
-				Sorting::radixSort(array, size);
+				Sorting::combSort(array, size);
 				break;
 			case 11:
+				Sorting::radixSort(array, size);
+				break;
+			case 12:
 				cout << "base = ";
 				unsigned base;
 				cin >> base;
 				Sorting::radixSort(array, size, base);
 				break;
-			case 12:
+			case 13:
 				Sorting::heapSort(array, size);
 				break;
-			case 13:
+			case 14:
 				Sorting::bucketSort(array, size);
 				break;
 			default:

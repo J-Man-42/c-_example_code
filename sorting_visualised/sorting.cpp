@@ -498,6 +498,37 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 
 
 
+// Gnome Sort the array.
+void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
+
+	// Display the array before sorting.
+	clearScreen();
+	displayArray(array, SIZE);
+	sleep_for(delay);
+
+	// Start sorting.
+	unsigned index = 1;
+	while (index < SIZE) {
+
+		// Move forwards.
+		if (index == 0 || !compare(array[index], array[index-1])) {
+			index++;
+		}
+
+		// Move backwards and swap.
+		else {
+			swap(array[index], array[index-1]);
+			index--;
+		}
+	}
+
+	// Display the array after sorting.
+	displayArray(array, SIZE);
+	sleep_for(delay);
+}
+
+
+
 // Quick Sort the array.
 void Sorting::quickSort(unsigned array[], const unsigned& SIZE) {
 
