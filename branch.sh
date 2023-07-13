@@ -92,7 +92,7 @@ function createNewBranch() {
 
 	# Show error if branch already exists. Otherwise, link remote and local branch.
 	if [[ $exists == true ]]; then
-		printColour Red "Error! Branch '$branch' already exists."
+		printColour Red "Error! Branch '$branch' already exists.\n"
 	else
 		git branch --set-upstream-to=origin/$branch $branch
 	fi
@@ -125,7 +125,7 @@ function deleteBranch() {
 
 	# If neither exists, show error message.
 	if [[ $missing == true ]]; then
-		printColour Red "Error! Branch '$branch' does not exist."
+		printColour Red "Error! Branch '$branch' does not exist.\n"
 	fi
 }
 

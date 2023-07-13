@@ -3,24 +3,39 @@ source ./colour_print.sh
 
 
 # Organize the input parameters.
-while getopts 'hsr' arg; do
+while getopts 'hsrn:' arg; do
 	case $arg in
 		h) hard=true;;
 		s) soft=true;;
 		r) remote=true;;
+		n) number="${OPTARG}";;
 	esac
 done
 
 # Validate the input arguments.
 if [[ $hard && $soft ]]; then
-	printColour Red "Error! Cannot perform a hard and soft reset simultaneously!"
+	printColour Red "Error! Cannot perform a hard and soft reset simultaneously!\n"
 	exit 1
 fi
 
-# Get list of commits and extract previous hash and message.
+# Ensure number is at least 1.
+digit='^[0-9]+$'
+if ! [[ $number && $number =~ $digit && $number -ge 1 ]]; then
+	number=1
+fi
+
+# Get list of commits
 readarray -t logs <<< $(git log --pretty=oneline)
-hash=${logs[1]:0:40}
-message=${logs[1]:41}
+
+# Ensure number is within range.
+maxValue=$(("${#logs[@]}" - 1))
+if (( number > maxValue)); then
+	number=$maxValue
+fi
+
+# Extract previous hash and message.
+hash=${logs[$number]:0:40}
+message=${logs[$number]:41}
 
 # Format the local commit text to display below.
 if [[ $hard ]]; then
@@ -34,11 +49,18 @@ if [[ $remote ]]; then
 	remoteText="REMOTE reset and a "
 fi
 
+# Format the message for previous commit.
+if (( number == 1)); then
+	previous="to the previous commit"
+else
+	previous="$number commits back"
+fi
+
 # Display details of previous commit.
-printColour LightGreen "\nPerforming a ${remoteText}LOCAL ${localText}reset to the previous commit..."
+printColour LightGreen "\nPerforming a ${remoteText}LOCAL ${localText}reset ${previous}...\n"
 echo "message:  $message"
 echo "hash:     $hash"
-printColour DarkGrey "════════════════════════════════════════════════════════════════════════════"
+printColour DarkGrey "════════════════════════════════════════════════════════════════════════════\n"
 
 # Reset local branch to previous commit.
 if [[ $hard ]]; then
