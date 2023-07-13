@@ -21,6 +21,10 @@ int main() {
 	Heap<unsigned> heap;
 	Heap<unsigned> temp;
 
+	// Initialise the array pointer.
+	unsigned size = 0;
+	unsigned* array = new unsigned[size];
+
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
 
@@ -43,25 +47,40 @@ int main() {
 		// Display the heap.
 		heap.display();
 
+		// Print the array.
+		cout << "\nArray:" << endl;
+		displayArray(array, size);
+
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
+		cout << " (A)  Create Heap from Array" << endl;
 		cout << " (1)  clear()" << endl;
 		cout << " (2)  clone()" << endl;
 		cout << " (3)  contains(element)" << endl;
 		cout << " (4)  isEmpty() / isNotEmpty()" << endl;
 		cout << " (5)  push(element)" << endl;
 		cout << " (6)  pop()" << endl;
-		cout << " (7)  toggleMaxMin()" << endl;
-		cout << " (8)  operator=" << endl;
-		cout << " (9)  operator+(element)" << endl;
-		cout << "(10)  operator+=(element)" << endl;
-		cout << "(11)  prefix operator--" << endl;
-		cout << "(12)  postfix operator--" << endl;
+		cout << " (7)  toDynamicArray()" << endl;
+		cout << " (8)  toDynamicArray(size)" << endl;
+		cout << " (9)  toggleMaxMin()" << endl;
+		cout << "(10)  operator=" << endl;
+		cout << "(11)  operator+(element)" << endl;
+		cout << "(12)  operator+=(element)" << endl;
+		cout << "(13)  prefix operator--" << endl;
+		cout << "(14)  postfix operator--" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
 		answer[0] = toupper(answer[0]);
+
+
+		// Create heap from array.
+		if (answer[0] == 'A') {
+			cout << "Create Heap from Array" << endl;
+			heap = Heap<unsigned>(array, size);
+			continue;
+		}
 
 
 		// Any other character continues the loop.
@@ -137,8 +156,41 @@ int main() {
 			break;
 
 
-		// Converts the heap from max to min or vice versa.
+		// Convert to a dynamic array.
 		case 7:
+			cout << "toDynamicArray()" << endl;
+			delete array;
+			try {
+				array = heap.toDynamicArray();
+				size = heap.size();
+			} catch (char const* e) {
+				cout << e << endl;
+				size = 0;
+				array = new unsigned[size];
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Convert to a dynamic array of specified size.
+		case 8:
+			cout << "toDynamicArray(size)" << endl;
+			cout << "> size = ";
+			cin >> size;
+			delete array;
+			try {
+				array = heap.toDynamicArray(size);
+			} catch (char const* e) {
+				cout << e << endl;
+				size = 0;
+				array = new unsigned[size];
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Converts the heap from max to min or vice versa.
+		case 9:
 			cout << "toggleMaxMin()" << endl;
 			heap.toggleMaxMin();
 			temp.toggleMaxMin();
@@ -146,7 +198,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 8:
+		case 10:
 			cout << "operator=" << endl;
 			cout << "> number of elements = ";
 			cin >> number;
@@ -160,7 +212,7 @@ int main() {
 
 
 		// Work with heap + element.
-		case 9:
+		case 11:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -173,7 +225,7 @@ int main() {
 
 
 		// Work with heap += element.
-		case 10:
+		case 12:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -182,7 +234,7 @@ int main() {
 
 
 		// Work with --heap;
-		case 11:
+		case 13:
 			cout << "prefix operator--" << endl;
 			try {
 				--heap;
@@ -194,7 +246,7 @@ int main() {
 
 
 		// Work with heap--;
-		case 12:
+		case 14:
 			cout << "postfix operator--" << endl;
 			try {
 				temp = heap--;
@@ -209,6 +261,9 @@ int main() {
 			break;
 		}
 	}
+
+	// Clear dynamic memory.
+	delete [] array;
 
 	return 0;
 }

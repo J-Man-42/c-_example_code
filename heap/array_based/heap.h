@@ -12,6 +12,7 @@ class Heap
 public:
 	Heap(const bool maxHeap = true, const unsigned maxCapacity = 100);
 	Heap(const Heap<T>& other);
+	Heap(const T array[], const unsigned SIZE, const bool maxHeap = true);
 	~Heap();
 
 	Heap<T>& operator=(const Heap<T>& other);
@@ -35,6 +36,8 @@ public:
 	void push(const T element);
 	T pop();
 	unsigned size() const;
+	T* toDynamicArray();
+	T* toDynamicArray(const unsigned SIZE);
 	void toggleMaxMin();
 
 private:

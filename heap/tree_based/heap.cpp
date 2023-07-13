@@ -41,6 +41,23 @@ Heap<T>::Heap(const Heap<T>& other) {
 }
 
 
+// Construct heap from a given array.
+template<class T>
+Heap<T>::Heap(const T array[], const unsigned SIZE, const bool maxHeap) {
+	
+	// Set defaults.
+	this->root = nullptr;
+	this->leftmost = nullptr;
+	this->numElements = 0;
+	this->maxHeap = maxHeap;
+
+	// Iteratively push all array elements.
+	for (unsigned i = 0; i < SIZE; i++) {
+		this->push(array[i]);
+	}
+}
+
+
 // The destructor.
 template<class T>
 Heap<T>::~Heap() {
@@ -500,6 +517,47 @@ T Heap<T>::pop() {
 template<class T>
 unsigned Heap<T>::size() const {
 	return numElements;
+}
+
+
+
+// Converts the heap into a dynamic array.
+template<class T>
+T* Heap<T>::toDynamicArray() {
+
+	// Throw an error if the heap is empty.
+	if (isEmpty()) {
+		throw "Error! No elements in the heap";
+	}
+
+	// Returns array with heap's number of elements.
+	return toDynamicArray(numElements);
+}
+
+
+// Converts the heap into a dynamic array of the specified size.
+template<class T>
+T* Heap<T>::toDynamicArray(const unsigned SIZE) {
+
+	// Initialise a new array.
+	T* array = new T[SIZE];
+
+	// Copy all elements row by row.
+	HeapNode<T>* nodePtr = root;
+	HeapNode<T>* rowLeftmost = root;
+	for (unsigned i = 0; i < SIZE; i++) {
+		array[i] = nodePtr->data;
+
+		// Get next entry in the heap.
+		if (nodePtr->next == rowLeftmost) {
+			nodePtr = rowLeftmost = rowLeftmost->left;
+		} else {
+			nodePtr = nodePtr->next;
+		}
+	}
+
+	// Return the new array.
+	return array;
 }
 
 
