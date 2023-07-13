@@ -500,6 +500,9 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 
 // Gnome Sort the array.
 void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
+	Highlights* highlight = new Highlights();
+	highlight->append(Highlight('b', 0));
+	highlight->append(Highlight('b', 1));
 
 	// Display the array before sorting.
 	clearScreen();
@@ -510,15 +513,27 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	unsigned index = 1;
 	while (index < SIZE) {
 
+		// Display the current comparison.
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
 		// Move forwards.
 		if (index == 0 || !compare(array[index], array[index-1])) {
 			index++;
+
+			// Update highlights.
+			highlight->getFirst().index++;
+			highlight->getLast().index++;
 		}
 
 		// Move backwards and swap.
 		else {
 			swap(array[index], array[index-1]);
 			index--;
+
+			// Update highlights.
+			highlight->getFirst().index--;
+			highlight->getLast().index--;
 		}
 	}
 
