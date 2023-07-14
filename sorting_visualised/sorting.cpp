@@ -1285,7 +1285,7 @@ void Sorting::bitonicSort(
 	bitonicMerge(array, SIZE, low, high, ascending);
 }
 
-    
+
 // Where the bitonic sorting actually happens.
 void Sorting::bitonicMerge(
 	unsigned array[], const unsigned& SIZE, unsigned low,
@@ -1295,7 +1295,7 @@ void Sorting::bitonicMerge(
 	if (high <= 1) {
 		return;
 	}
-    
+
     // Get the middle and lower limit.
 	unsigned middle = high / 2;
 	unsigned limit = low + middle;

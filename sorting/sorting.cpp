@@ -240,7 +240,7 @@ int Sorting<T>::partition(T array[], int low, int high) {
 	// Final swap, then return pivot index.
 	i++;
 	if (array[i] != array[high]) {
-	    swap(array[i], array[high]);
+		swap(array[i], array[high]);
 	}
 
 	// Delete dynamic memory and return pivot index.
@@ -679,8 +679,8 @@ void Sorting<T>::bitonicMerge(
 	if (high <= 1) {
 		return;
 	}
-    
-    // Get the middle and lower limit.
+
+	// Get the middle and lower limit.
 	unsigned middle = high / 2;
 	unsigned limit = low + middle;
 
