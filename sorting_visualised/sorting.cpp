@@ -1256,7 +1256,7 @@ void Sorting::bitonicSort(unsigned array[], const unsigned& SIZE) {
 	sleep_for(delay);
 
 	// BitonicSort.
-	bitonicSort(array, 0, SIZE, sortAscending);
+	bitonicSort(array, SIZE, 0, SIZE, sortAscending);
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
@@ -1266,7 +1266,8 @@ void Sorting::bitonicSort(unsigned array[], const unsigned& SIZE) {
 
 // Recursive part of Bitonic Sort.
 void Sorting::bitonicSort(
-	unsigned array[], unsigned low, unsigned high, bool ascending) {
+	unsigned array[], const unsigned& SIZE, unsigned low,
+	unsigned high, bool ascending) {
 
 	// Stopping condition.
 	if (high <= 1) {
@@ -1276,20 +1277,19 @@ void Sorting::bitonicSort(
 	// Get the middle.
 	unsigned middle = high / 2;
 
-	// Sort lower half in ascending order.
-	bitonicSort(array, low, middle, true);
-
-	// Sort upper half in descending order.
-	bitonicSort(array, low+middle, middle, false);
+	// Split and sort in both ascending and descending order.
+	bitonicSort(array, SIZE, low, middle, sortAscending);
+	bitonicSort(array, SIZE, low+middle, middle, !sortAscending);
 
 	// Merge and sort in specified order.
-	bitonicMerge(array, low, high, ascending);
+	bitonicMerge(array, SIZE, low, high, ascending);
 }
 
     
 // Where the bitonic sorting actually happens.
 void Sorting::bitonicMerge(
-	unsigned array[], unsigned low, unsigned high, bool ascending) {
+	unsigned array[], const unsigned& SIZE, unsigned low,
+	unsigned high, bool ascending) {
 
 	// Stopping condition.
 	if (high <= 1) {
@@ -1300,14 +1300,41 @@ void Sorting::bitonicMerge(
 	unsigned middle = high / 2;
 	unsigned limit = low + middle;
 
+	// Create the comparison highlights.
+	Highlights* highlight = new Highlights();
+	highlight->append(Highlight('R'));
+	highlight->append(Highlight('R'));
+
+	// Grey out all entries before low and after limit.
+	for (unsigned i = 0; i < low; i++)
+		highlight->append(Highlight('x', i));
+	for (unsigned i = limit + middle; i < SIZE; i++)
+		highlight->append(Highlight('x', i));
+
+	// Display the array portion.
+	displayArray(array, SIZE, highlight);
+	sleep_for(delay);
+
 	// Iterate through all entries from low to limit.
 	for (unsigned i=low, j = limit; i < limit; i++, j++) {
+
+		// Show comparison.
+		highlight->get(0).index = i;
+		highlight->get(1).index = j;
+		displayArray(array, SIZE, highlight);
+		sleep_for(delay);
+
+		// See if swap is needed.
 		if (ascending == (array[j] < array[i])) {
 			swap(array[i], array[j]);
+
+			// Show after swap.
+			displayArray(array, SIZE, highlight);
+			sleep_for(delay);
 		}
 	}
 
 	// Sort the lower and middle halves.
-	bitonicMerge(array, low, middle, ascending);
-	bitonicMerge(array, limit, middle, ascending);
+	bitonicMerge(array, SIZE, low, middle, ascending);
+	bitonicMerge(array, SIZE, limit, middle, ascending);
 }
