@@ -69,6 +69,14 @@ Array<T>& Array<T>::operator=(const Array<T>& other) {
 
 
 
+// Overload the subscript operator.
+template<class T>
+T& Array<T>::operator[](const int index) {
+	return array[handleNegativeIndex(index)];
+}
+
+
+
 // Returns the string representation of the array.
 template<class T>
 string Array<T>::toString() {
@@ -84,4 +92,22 @@ string Array<T>::toString() {
 	}
 	ss << "]";
 	return ss.str();
+}
+
+
+
+// Return the positive index equivalent.
+template<class T>
+unsigned Array<T>::handleNegativeIndex(const int index) {
+	int signedLength = length;
+	
+	// Throw error if index out of bounds.
+	if (index >= signedLength || index < -signedLength) {
+		throw "Error! Index out of bounds";
+	}
+
+	// Return adjusted index otherwise.
+	if (index < 0)
+		return length + index;
+	return index;
 }

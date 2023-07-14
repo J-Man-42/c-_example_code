@@ -16,9 +16,12 @@ public:
 		std::ostream& out, Array<U>& array);
 
 	Array<T>& operator=(const Array<T>& other);
+	T& operator[](const int index);
 	std::string toString();
 
 private:
+	unsigned handleNegativeIndex(const int index);
+	
 	T* array;
 	unsigned length;
 };

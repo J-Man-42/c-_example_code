@@ -13,6 +13,8 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 int main() {
 	char answer[20];
 	unsigned number;
+	unsigned element;
+	int index;
 
 	// Create the array.
 	Array<unsigned> array(10);
@@ -31,6 +33,8 @@ int main() {
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
+		cout << " (1)  operator=" << endl;
+		cout << " (2)  operator[]" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -45,8 +49,36 @@ int main() {
 		// Switch statement for answer.
 		number = atoi(answer);
 		switch (number) {
+
+
+		// Work with the assignment operator.
 		case 1:
+			cout << "operator=" << endl;
+			cout << "> new size = ";
+			cin >> number;
+			temp = Array<unsigned>(number);
+			for (unsigned i = 0; i < number; i++) {
+				temp[i] = randUint(10, 99);
+			}
+			array = temp;
 			break;
+
+
+		// Work with the subscript operator.
+		case 2:
+			cout << "operator[]" << endl;
+			cout << "> index = ";
+			cin >> index;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				array[index] = element;
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
 		}
 	}
 
