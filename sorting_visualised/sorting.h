@@ -109,11 +109,11 @@ private:
 		unsigned array[], const unsigned& SIZE, unsigned end,
 		unsigned parentIndex, Highlights* highlight);
 	static void bitonicSort(
-		unsigned array[], const unsigned& SIZE, unsigned start,
-		unsigned end, bool ascending);
+		unsigned array[], const unsigned& SIZE, unsigned low,
+		unsigned high, bool ascending);
 	static void bitonicMerge(
-		unsigned array[], const unsigned& SIZE, unsigned start,
-		unsigned end, bool ascending);
+		unsigned array[], const unsigned& SIZE, unsigned low,
+		unsigned high, bool ascending);
 };
 
 

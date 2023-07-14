@@ -1334,6 +1334,9 @@ void Sorting::bitonicMerge(
 		}
 	}
 
+	// Delete dynamic memory.
+	delete highlight;
+
 	// Sort the lower and middle halves.
 	bitonicMerge(array, SIZE, low, middle, ascending);
 	bitonicMerge(array, SIZE, limit, middle, ascending);
