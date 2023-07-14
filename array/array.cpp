@@ -84,12 +84,17 @@ string Array<T>::toString() {
 	// Iterate through all elements.
 	stringstream ss;
 	ss << "[";
+
+	// Print first element.
 	if (length > 0) {
 		ss << array[0];
 	}
+	// Print second and remaining elements.
 	for (unsigned i = 1; i < length; i++) {
 		ss << ", " << array[i];
 	}
+
+	// Close bracket and return the string.
 	ss << "]";
 	return ss.str();
 }
