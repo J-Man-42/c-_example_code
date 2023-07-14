@@ -32,6 +32,7 @@ public:
 	static void radixSort(T array[], const unsigned& SIZE, unsigned base = 10);
 	static void heapSort(T array[], const unsigned& SIZE);
 	static void bucketSort(T array[], const unsigned& SIZE);
+	static void bitonicSort(T array[], const unsigned& SIZE);
 
 private:
 
@@ -53,6 +54,10 @@ private:
 	static unsigned radixHash(unsigned& value, unsigned digit, const unsigned& BASE);
 	static unsigned radixHash(char& value, unsigned digit, const unsigned& BASE);
 	static void heapify(T array[], unsigned end, unsigned parentIndex);
+	static void bitonicSort(
+		T array[], unsigned low, unsigned high, bool ascending);
+	static void bitonicMerge(
+		T array[], unsigned low, unsigned high, bool ascending);
 };
 
 #include "sorting.cpp"

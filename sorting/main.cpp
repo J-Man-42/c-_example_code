@@ -236,6 +236,7 @@ int main() {
 			cout << "(12)  Radix Sort (custom base)" << endl;
 			cout << "(13)  Heap Sort" << endl;
 			cout << "(14)  Bucket Sort" << endl;
+			cout << "(15)  Bitonic Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -372,6 +373,14 @@ int main() {
 					Sorting<unsigned>::bucketSort(unsignedArray, size);
 				} else {
 					Sorting<char>::bucketSort(charArray, size);
+				}
+				break;
+			case 15:
+				cout << "Performing Bitonic Sort..." << endl;
+				if (isUint) {
+					Sorting<unsigned>::bitonicSort(unsignedArray, size);
+				} else {
+					Sorting<char>::bitonicSort(charArray, size);
 				}
 				break;
 			}

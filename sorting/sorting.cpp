@@ -638,3 +638,60 @@ void Sorting<T>::bucketSort(T array[], const unsigned& SIZE) {
 		}
 	}
 }
+
+
+
+// Bitonic Sort the array.
+template<class T>
+void Sorting<T>::bitonicSort(T array[], const unsigned& SIZE) {
+	bitonicSort(array, 0, SIZE, sortAscending);
+}
+
+
+// Recursive part of Bitonic Sort.
+template<class T>
+void Sorting<T>::bitonicSort(
+	T array[], unsigned low, unsigned high, bool ascending) {
+
+	// Stopping condition.
+	if (high <= 1) {
+		return;
+	}
+
+	// Get the middle.
+	unsigned middle = high / 2;
+
+	// Split and sort in both ascending and descending order.
+	bitonicSort(array, low, middle, sortAscending);
+	bitonicSort(array, low+middle, middle, !sortAscending);
+
+	// Merge and sort in specified order.
+	bitonicMerge(array, low, high, ascending);
+}
+
+
+// Where the bitonic sorting actually happens.
+template<class T>
+void Sorting<T>::bitonicMerge(
+	T array[], unsigned low, unsigned high, bool ascending) {
+
+	// Stopping condition.
+	if (high <= 1) {
+		return;
+	}
+    
+    // Get the middle and lower limit.
+	unsigned middle = high / 2;
+	unsigned limit = low + middle;
+
+	// Iterate through all entries from low to limit.
+	for (unsigned i=low, j = limit; i < limit; i++, j++) {
+		if (ascending == (array[j] < array[i])) {
+			swap(array[i], array[j]);
+		}
+	}
+
+	// Sort the lower and middle halves.
+	bitonicMerge(array, low, middle, ascending);
+	bitonicMerge(array, limit, middle, ascending);
+}
