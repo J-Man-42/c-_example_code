@@ -226,15 +226,16 @@ int main() {
 			cout << " (2)  Selection Sort" << endl;
 			cout << " (3)  Insertion Sort" << endl;
 			cout << " (4)  Cocktail Shaker Sort" << endl;
-			cout << " (5)  QuickSort" << endl;
-			cout << " (6)  QuickSort V2" << endl;
-			cout << " (7)  Shell Sort" << endl;
-			cout << " (8)  Merge Sort" << endl;
-			cout << " (9)  Comb Sort" << endl;
-			cout << "(10)  Radix Sort (base 10)" << endl;
-			cout << "(11)  Radix Sort (custom base)" << endl;
-			cout << "(12)  Heap Sort" << endl;
-			cout << "(13)  Bucket Sort" << endl;
+			cout << " (5)  Gnome Sort" << endl;
+			cout << " (6)  QuickSort" << endl;
+			cout << " (7)  QuickSort V2" << endl;
+			cout << " (8)  Shell Sort" << endl;
+			cout << " (9)  Merge Sort" << endl;
+			cout << "(10)  Comb Sort" << endl;
+			cout << "(11)  Radix Sort (base 10)" << endl;
+			cout << "(12)  Radix Sort (custom base)" << endl;
+			cout << "(13)  Heap Sort" << endl;
+			cout << "(14)  Bucket Sort" << endl;
 			cout << "==============================" << endl;
 			cout << "> ";
 			cin.getline(answer, 20);
@@ -290,6 +291,14 @@ int main() {
 				}
 				break;
 			case 5:
+				cout << "Performing Gnome Sort..." << endl;
+				if (isUint) {
+					Sorting<unsigned>::gnomeSort(unsignedArray, size);
+				} else {
+					Sorting<char>::gnomeSort(charArray, size);
+				}
+				break;
+			case 6:
 				cout << "Performing Quick Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::quickSort(unsignedArray, size);
@@ -297,7 +306,7 @@ int main() {
 					Sorting<char>::quickSort(charArray, size);
 				}
 				break;
-			case 6:
+			case 7:
 				cout << "Performing Quick Sort V2..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::quickSortV2(unsignedArray, size);
@@ -305,7 +314,7 @@ int main() {
 					Sorting<char>::quickSortV2(charArray, size);
 				}
 				break;
-			case 7:
+			case 8:
 				cout << "Performing Shell Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::shellSort(unsignedArray, size);
@@ -313,7 +322,7 @@ int main() {
 					Sorting<char>::shellSort(charArray, size);
 				}
 				break;
-			case 8:
+			case 9:
 				cout << "Performing Merge Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::mergeSort(unsignedArray, size);
@@ -321,7 +330,7 @@ int main() {
 					Sorting<char>::mergeSort(charArray, size);
 				}
 				break;
-			case 9:
+			case 10:
 				cout << "Performing Comb Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::combSort(unsignedArray, size);
@@ -329,7 +338,7 @@ int main() {
 					Sorting<char>::combSort(charArray, size);
 				}
 				break;
-			case 10:
+			case 11:
 				cout << "Performing Radix Sort (base 10)..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::radixSort(unsignedArray, size);
@@ -337,7 +346,7 @@ int main() {
 					Sorting<char>::radixSort(charArray, size);
 				}
 				break;
-			case 11:
+			case 12:
 				cout << "base = ";
 				cin.getline(answer, 20);
 				number = atoi(answer);
@@ -349,7 +358,7 @@ int main() {
 					Sorting<char>::radixSort(charArray, size, number);
 				}
 				break;
-			case 12:
+			case 13:
 				cout << "Performing Heap Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::heapSort(unsignedArray, size);
@@ -357,7 +366,7 @@ int main() {
 					Sorting<char>::heapSort(charArray, size);
 				}
 				break;
-			case 13:
+			case 14:
 				cout << "Performing Bucket Sort..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::bucketSort(unsignedArray, size);

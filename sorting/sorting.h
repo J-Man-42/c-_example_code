@@ -23,6 +23,7 @@ public:
 	static void selectionSort(T array[], const unsigned& SIZE);
 	static void insertionSort(T array[], const unsigned& SIZE);
 	static void cocktailShakerSort(T array[], const unsigned& SIZE);
+	static void gnomeSort(T array[], const unsigned& SIZE);
 	static void quickSort(T array[], const unsigned& SIZE);
 	static void quickSortV2(T array[], const unsigned& SIZE);
 	static void shellSort(T array[], const unsigned& SIZE);

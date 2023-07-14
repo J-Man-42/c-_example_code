@@ -169,6 +169,29 @@ void Sorting<T>::cocktailShakerSort(T array[], const unsigned& SIZE) {
 
 
 
+// Gnome Sort the array.
+template<class T>
+void Sorting<T>::gnomeSort(T array[], const unsigned& SIZE) {
+
+	// Sort while index < SIZE.
+	unsigned index = 1;
+	while (index < SIZE) {
+
+		// Move forwards.
+		if (index == 0 || !compare(array[index], array[index-1])) {
+			index++;
+		}
+
+		// Move backwards and swap.
+		else {
+			swap(array[index], array[index-1]);
+			index--;
+		}
+	}
+}
+
+
+
 // Quick Sort the array.
 template<class T>
 void Sorting<T>::quickSort(T array[], const unsigned& SIZE) {
