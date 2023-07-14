@@ -77,6 +77,14 @@ T& Array<T>::operator[](const int index) {
 
 
 
+// Returns the size of the array.
+template<class T>
+unsigned Array<T>::size() const {
+	return length;
+}
+
+
+
 // Returns the string representation of the array.
 template<class T>
 string Array<T>::toString() {

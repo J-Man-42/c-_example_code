@@ -17,11 +17,12 @@ public:
 
 	Array<T>& operator=(const Array<T>& other);
 	T& operator[](const int index);
+	unsigned size() const;
 	std::string toString();
 
 private:
 	unsigned handleNegativeIndex(const int index);
-	
+
 	T* array;
 	unsigned length;
 };

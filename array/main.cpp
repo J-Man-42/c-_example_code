@@ -19,12 +19,16 @@ int main() {
 	// Create the array.
 	Array<unsigned> array(10);
 	Array<unsigned> temp(10);
-	
+
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
 
 		// Clear the screen
 		clearScreen();
+
+		// Print the array size.
+		cout << "Size:   ";
+		cout << array.size() << endl;
 
 		// Print the array.
 		cout << "Array:  ";
