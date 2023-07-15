@@ -26,6 +26,8 @@ public:
 	Array<T> clone();
 	bool contains(const T element) const;
 	T& get(const int index);
+	void reverse();
+	Array<T> reversed();
 	void set(const int index, const T element);
 	unsigned size() const;
 	Array<T>* subArray(const unsigned start, const unsigned end);

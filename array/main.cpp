@@ -43,14 +43,16 @@ int main() {
 		cout << " (2)  contains(element)" << endl;
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  get(index)" << endl;
-		cout << " (5)  set(index, element)" << endl;
-		cout << " (6)  subArray(start, end)" << endl;
-		cout << " (7)  operator=" << endl;
-		cout << " (8)  operator[]" << endl;
-		cout << " (9)  operator+(element)" << endl;
-		cout << "(10)  operator+(array)" << endl;
-		cout << "(11)  operator+=(element)" << endl;
-		cout << "(12)  operator+=(array)" << endl;
+		cout << " (5)  reverse()" << endl;
+		cout << " (6)  reversed()" << endl;
+		cout << " (7)  set(index, element)" << endl;
+		cout << " (8)  subArray(start, end)" << endl;
+		cout << " (9)  operator=" << endl;
+		cout << "(10)  operator[]" << endl;
+		cout << "(11)  operator+(element)" << endl;
+		cout << "(12)  operator+(array)" << endl;
+		cout << "(13)  operator+=(element)" << endl;
+		cout << "(14)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -115,8 +117,24 @@ int main() {
 			break;
 
 
-		// Set element at given index.
+		// Reverse the array.
 		case 5:
+			cout << "reverse()" << endl;
+			array.reverse();
+			break;
+
+
+		// Return a reversed version of this array.
+		case 6:
+			cout << "reversed()" << endl;
+			temp = array.reversed();
+			cout << "> Reversed:  " << temp << endl;
+			sleep_for(seconds(5));
+			break;
+
+
+		// Set element at given index.
+		case 7:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -132,7 +150,7 @@ int main() {
 
 
 		// Creates sub array from start to end.
-		case 6:
+		case 8:
 			cout << "subArray(start, end)" << endl;
 			cout << "> start = ";
 			cin >> start;
@@ -152,7 +170,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 7:
+		case 9:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -165,7 +183,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 8:
+		case 10:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -181,7 +199,7 @@ int main() {
 
 
 		// Work with array + element.
-		case 9:
+		case 11:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -192,7 +210,7 @@ int main() {
 
 
 		// Work with array + other array.
-		case 10:
+		case 12:
 			cout << "operator+(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
@@ -207,7 +225,7 @@ int main() {
 
 
 		// Work with array += element.
-		case 11:
+		case 13:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -216,7 +234,7 @@ int main() {
 
 
 		// Work with array += other array.
-		case 12:
+		case 14:
 			cout << "operator+=(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;

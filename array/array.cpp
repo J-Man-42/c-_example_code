@@ -203,6 +203,28 @@ T& Array<T>::get(const int index) {
 
 
 
+// Reverse this array.
+template<class T>
+void Array<T>::reverse() {
+	for (unsigned i = 0, j = length-1; i < j; i++, j--) {
+		swap(array[i], array[j]);
+	}
+}
+
+
+
+// Return a reversed version of this array.
+template<class T>
+Array<T> Array<T>::reversed() {
+	Array newArray(length);
+	for (unsigned i = 0, j = length-1; i < length; i++, j--) {
+		newArray[i] = array[j];
+	}
+	return newArray;
+}
+
+
+
 // Set the element at the given index.
 template<class T>
 void Array<T>::set(const int index, const T element) {
