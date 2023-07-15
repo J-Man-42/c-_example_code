@@ -37,8 +37,13 @@ int main() {
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
-		cout << " (1)  operator=" << endl;
-		cout << " (2)  operator[]" << endl;
+		cout << " (1)  clone()" << endl;
+		cout << " (2)  operator=" << endl;
+		cout << " (3)  operator[]" << endl;
+		cout << " (4)  operator+(element)" << endl;
+		cout << " (5)  operator+(array)" << endl;
+		cout << " (6)  operator+=(element)" << endl;
+		cout << " (7)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -55,8 +60,17 @@ int main() {
 		switch (number) {
 
 
-		// Work with the assignment operator.
+		// Clone the array.
 		case 1:
+			cout << "clone()" << endl;
+			temp = array.clone();
+			cout << "> cloned array:  " << temp.toString() << endl;
+			sleep_for(seconds(5));
+			break;
+
+
+		// Work with the assignment operator.
+		case 2:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -69,7 +83,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 2:
+		case 3:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -81,6 +95,54 @@ int main() {
 				cout << e << endl;
 				sleep_for(seconds(2));
 			}
+			break;
+
+
+		// Work with array + element.
+		case 4:
+			cout << "operator+(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			temp = array + element;
+			cout << "> new array:  " << temp.toString() << endl;
+			sleep_for(seconds(5));
+			break;
+
+
+		// Work with array + other array.
+		case 5:
+			cout << "operator+(array)" << endl;
+			cout << "> other array size = ";
+			cin >> number;
+			temp = Array<unsigned>(number);
+			for (unsigned i = 0; i < number; i++) {
+				temp[i] = randUint(10, 99);
+			}
+			temp = array + temp;
+			cout << "> new array:  " << temp.toString() << endl;
+			sleep_for(seconds(5));
+			break;
+
+
+		// Work with array += element.
+		case 6:
+			cout << "operator+=(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			array += element;
+			break;
+
+
+		// Work with array += other array.
+		case 7:
+			cout << "operator+=(array)" << endl;
+			cout << "> other array size = ";
+			cin >> number;
+			temp = Array<unsigned>(number);
+			for (unsigned i = 0; i < number; i++) {
+				temp[i] = randUint(10, 99);
+			}
+			array += temp;
 			break;
 
 		}

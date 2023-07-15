@@ -77,6 +77,57 @@ T& Array<T>::operator[](const int index) {
 
 
 
+// Returns a copied array with the element added to the end.
+template<class T>
+Array<T> Array<T>::operator+(const T element) {
+	Array<T> newArray(this->size()+1);
+	for (unsigned i = 0; i < this->size(); i++) {
+		newArray[i] = this->array[i];
+	}
+	newArray[-1] = element;
+	return newArray;
+}
+
+
+// Returns a copied array with the array added to the end.
+template<class T>
+Array<T> Array<T>::operator+(const Array<T>& other) {
+	Array<T> newArray(this->size()+other.size());
+	for (unsigned i = 0; i < this->size(); i++) {
+		newArray[i] = this->array[i];
+	}
+	for (unsigned i = this->size(), j = 0; j < other.size(); i++, j++) {
+		newArray[i] = other.array[j];
+	}
+	return newArray;
+}
+
+
+// Add the element to the end of the array.
+template<class T>
+Array<T>& Array<T>::operator+=(const T element) {
+	*this = *this + element;
+	return *this;
+}
+
+
+// Add the other array to the end of this array.
+template<class T>
+Array<T>& Array<T>::operator+=(const Array<T>& other) {
+	*this = *this + other;
+	return *this;
+}
+
+
+
+// Returns a hard copy of this array.
+template<class T>
+Array<T> Array<T>::clone() {
+	return Array<T>(*this);
+}
+
+
+
 // Returns the size of the array.
 template<class T>
 unsigned Array<T>::size() const {

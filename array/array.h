@@ -17,6 +17,12 @@ public:
 
 	Array<T>& operator=(const Array<T>& other);
 	T& operator[](const int index);
+	Array<T> operator+(const T element);
+	Array<T> operator+(const Array<T>& other);
+	Array<T>& operator+=(const T element);
+	Array<T>& operator+=(const Array<T>& other);
+
+	Array<T> clone();
 	unsigned size() const;
 	std::string toString();
 
