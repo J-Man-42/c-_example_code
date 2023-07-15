@@ -37,13 +37,17 @@ int main() {
 		// Print majority of available functions.
 		cout << "\n==============================" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
-		cout << " (1)  clone()" << endl;
-		cout << " (2)  operator=" << endl;
-		cout << " (3)  operator[]" << endl;
-		cout << " (4)  operator+(element)" << endl;
-		cout << " (5)  operator+(array)" << endl;
-		cout << " (6)  operator+=(element)" << endl;
-		cout << " (7)  operator+=(array)" << endl;
+		cout << " (1)  append(element)" << endl;
+		cout << " (2)  contains(element)" << endl;
+		cout << " (3)  clone()" << endl;
+		cout << " (4)  get(index)" << endl;
+		cout << " (5)  set(index, element)" << endl;
+		cout << " (6)  operator=" << endl;
+		cout << " (7)  operator[]" << endl;
+		cout << " (8)  operator+(element)" << endl;
+		cout << " (9)  operator+(array)" << endl;
+		cout << "(10)  operator+=(element)" << endl;
+		cout << "(11)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -60,8 +64,32 @@ int main() {
 		switch (number) {
 
 
-		// Clone the array.
+		// Append an element to the array.
 		case 1:
+			cout << "append(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			array.append(element);
+			break;
+
+
+		// Check if element is in the array.
+		case 2:
+			cout << "contains(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			cout << "> array contains " << element << ":  ";
+			if (array.contains(element)) {
+				cout << "true" << endl;
+			} else {
+				cout << "false" << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Clone the array.
+		case 3:
 			cout << "clone()" << endl;
 			temp = array.clone();
 			cout << "> cloned array:  " << temp.toString() << endl;
@@ -69,8 +97,39 @@ int main() {
 			break;
 
 
+		// Get element at index.
+		case 4:
+			cout << "get(index)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			try {
+				element = array.get(index);
+				cout << "array["<<index<<"] = " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Set element at given index.
+		case 5:
+			cout << "set(index, element)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				array.set(index, element);
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
 		// Work with the assignment operator.
-		case 2:
+		case 6:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -83,7 +142,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 3:
+		case 7:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -99,7 +158,7 @@ int main() {
 
 
 		// Work with array + element.
-		case 4:
+		case 8:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -110,7 +169,7 @@ int main() {
 
 
 		// Work with array + other array.
-		case 5:
+		case 9:
 			cout << "operator+(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
@@ -125,7 +184,7 @@ int main() {
 
 
 		// Work with array += element.
-		case 6:
+		case 10:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -134,7 +193,7 @@ int main() {
 
 
 		// Work with array += other array.
-		case 7:
+		case 11:
 			cout << "operator+=(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;

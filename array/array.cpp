@@ -80,10 +80,16 @@ T& Array<T>::operator[](const int index) {
 // Returns a copied array with the element added to the end.
 template<class T>
 Array<T> Array<T>::operator+(const T element) {
-	Array<T> newArray(this->size()+1);
-	for (unsigned i = 0; i < this->size(); i++) {
-		newArray[i] = this->array[i];
+
+	// Create new array.
+	Array<T> newArray(length+1);
+
+	// Copy all elements from this array to new array.
+	for (unsigned i = 0; i < length; i++) {
+		newArray[i] = array[i];
 	}
+
+	// Add final element and return new array.
 	newArray[-1] = element;
 	return newArray;
 }
@@ -92,13 +98,21 @@ Array<T> Array<T>::operator+(const T element) {
 // Returns a copied array with the array added to the end.
 template<class T>
 Array<T> Array<T>::operator+(const Array<T>& other) {
+
+	// Create new array.
 	Array<T> newArray(this->size()+other.size());
+
+	// Copy all elements from this array to new array.
 	for (unsigned i = 0; i < this->size(); i++) {
 		newArray[i] = this->array[i];
 	}
+
+	// Copy all elements from other array to new array.
 	for (unsigned i = this->size(), j = 0; j < other.size(); i++, j++) {
 		newArray[i] = other.array[j];
 	}
+
+	// Return the new array.
 	return newArray;
 }
 
@@ -106,7 +120,22 @@ Array<T> Array<T>::operator+(const Array<T>& other) {
 // Add the element to the end of the array.
 template<class T>
 Array<T>& Array<T>::operator+=(const T element) {
-	*this = *this + element;
+
+	// Create temporary array.
+	T* temp = new T[length+1];
+
+	// Copy all elements from this array to temporary array.
+	for (unsigned i = 0; i < length; i++) {
+		temp[i] = this->array[i];
+	}
+
+	// Add final element.
+	temp[length] = element;
+
+	// Update this array and length.
+	delete [] this->array;
+	this->array = temp;
+	this->length++;
 	return *this;
 }
 
@@ -114,8 +143,33 @@ Array<T>& Array<T>::operator+=(const T element) {
 // Add the other array to the end of this array.
 template<class T>
 Array<T>& Array<T>::operator+=(const Array<T>& other) {
-	*this = *this + other;
+
+	// Create temporary array.
+	T* temp = new T[this->size()+other.size()];
+
+	// Copy all elements from this array to temporary array.
+	for (unsigned i = 0; i < this->size(); i++) {
+		temp[i] = this->array[i];
+	}
+
+	// Copy all elements from other array to temporary array.
+	for (unsigned i = this->size(), j = 0; j < other.size(); i++, j++) {
+		temp[i] = other.array[j];
+	}
+
+	// Update this array and length.
+	delete [] this->array;
+	this->array = temp;
+	this->length += other.length;
 	return *this;
+}
+
+
+
+// Append element to the end of the array.
+template<class T>
+void Array<T>::append(const T element) {
+	*this += element;
 }
 
 
@@ -124,6 +178,35 @@ Array<T>& Array<T>::operator+=(const Array<T>& other) {
 template<class T>
 Array<T> Array<T>::clone() {
 	return Array<T>(*this);
+}
+
+
+
+// Returns true if element in array.
+template<class T>
+bool Array<T>::contains(const T element) const {
+	for (unsigned i = 0; i < length; i++) {
+		if (array[i] == element) {
+			return true;
+		}
+	}
+	return false;
+}
+
+
+
+// Returns the element at the given index.
+template<class T>
+T& Array<T>::get(const int index) {
+	return (*this)[index];
+}
+
+
+
+// Set the element at the given index.
+template<class T>
+void Array<T>::set(const int index, const T element) {
+	(*this)[index] = element;
 }
 
 

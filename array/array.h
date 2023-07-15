@@ -22,7 +22,11 @@ public:
 	Array<T>& operator+=(const T element);
 	Array<T>& operator+=(const Array<T>& other);
 
+	void append(const T element);
 	Array<T> clone();
+	bool contains(const T element) const;
+	T& get(const int index);
+	void set(const int index, const T element);
 	unsigned size() const;
 	std::string toString();
 
