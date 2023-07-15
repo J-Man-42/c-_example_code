@@ -12,9 +12,11 @@ using namespace std::chrono;		// nanoseconds, system_clock, seconds.
 // Main function.
 int main() {
 	char answer[20];
+	unsigned start, end;
 	unsigned number;
 	unsigned element;
 	int index;
+	Array<unsigned>* subArray = nullptr;
 
 	// Create the array.
 	Array<unsigned> array(10);
@@ -42,12 +44,13 @@ int main() {
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  get(index)" << endl;
 		cout << " (5)  set(index, element)" << endl;
-		cout << " (6)  operator=" << endl;
-		cout << " (7)  operator[]" << endl;
-		cout << " (8)  operator+(element)" << endl;
-		cout << " (9)  operator+(array)" << endl;
-		cout << "(10)  operator+=(element)" << endl;
-		cout << "(11)  operator+=(array)" << endl;
+		cout << " (6)  subArray(start, end)" << endl;
+		cout << " (7)  operator=" << endl;
+		cout << " (8)  operator[]" << endl;
+		cout << " (9)  operator+(element)" << endl;
+		cout << "(10)  operator+(array)" << endl;
+		cout << "(11)  operator+=(element)" << endl;
+		cout << "(12)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -128,8 +131,28 @@ int main() {
 			break;
 
 
-		// Work with the assignment operator.
+		// Creates sub array from start to end.
 		case 6:
+			cout << "subArray(start, end)" << endl;
+			cout << "> start = ";
+			cin >> start;
+			cout << "> end = ";
+			cin >> end;
+			try {
+				subArray = array.subArray(start, end);
+				cout << "> subArray:  " << subArray->toString() << endl;
+				delete subArray;
+				subArray = nullptr;
+				sleep_for(seconds(5));
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Work with the assignment operator.
+		case 7:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -142,7 +165,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 7:
+		case 8:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -158,7 +181,7 @@ int main() {
 
 
 		// Work with array + element.
-		case 8:
+		case 9:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -169,7 +192,7 @@ int main() {
 
 
 		// Work with array + other array.
-		case 9:
+		case 10:
 			cout << "operator+(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
@@ -184,7 +207,7 @@ int main() {
 
 
 		// Work with array += element.
-		case 10:
+		case 11:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -193,7 +216,7 @@ int main() {
 
 
 		// Work with array += other array.
-		case 11:
+		case 12:
 			cout << "operator+=(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;

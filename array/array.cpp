@@ -219,6 +219,34 @@ unsigned Array<T>::size() const {
 
 
 
+// Returns a sub array from start to end.
+template<class T>
+Array<T>* Array<T>::subArray(const unsigned start, const unsigned end) {
+
+	// Swap indices if start is greater than end.
+	if (start > end) {
+		throw "Error! Start index > end index";
+	}
+
+	// Throw error if invalid index.
+	if (start >= length || end > length) {
+		throw "Error! Index out of bounds";
+	}
+
+	// Create the new array.
+	Array<T>* newArray = new Array<T>(end-start);
+
+	// Copy elements from start to end.
+	for (unsigned i = start, j = 0; i < end; i++, j++) {
+		newArray->set(j, array[i]);
+	}
+
+	// Return the sub array.
+	return newArray;
+}
+
+
+
 // Returns the string representation of the array.
 template<class T>
 string Array<T>::toString() {

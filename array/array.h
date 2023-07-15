@@ -28,6 +28,7 @@ public:
 	T& get(const int index);
 	void set(const int index, const T element);
 	unsigned size() const;
+	Array<T>* subArray(const unsigned start, const unsigned end);
 	std::string toString();
 
 private:
