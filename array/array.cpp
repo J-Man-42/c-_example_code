@@ -272,6 +272,71 @@ void Array<T>::insertAt(const int signedIndex, const T element) {
 
 
 
+// Removes the first instance of the given element.
+template<class T>
+void Array<T>::remove(const T element) {
+
+	// Find index of element and throw error if not found.
+	unsigned index = indexOf(element);
+	if (index > length) {
+		throw "Error! Element not in array";
+	}
+
+	// Create temporary array.
+	T* temp = new T[length-1];
+
+	// Copy all elements up to the remove index.
+	for (unsigned i = 0; i < index; i++) {
+		temp[i] = array[i];
+	}
+
+	// Copy all elements after the remove index.
+	for (unsigned i = index+1, j = index; i < length; i++, j++) {
+		temp[j] = array[i];
+	}
+
+	// Update this array and length.
+	delete [] array;
+	array = temp;
+	length--;
+}
+
+
+
+// Removes the element at the given index.
+template<class T>
+T Array<T>::removeAt(const int signedIndex) {
+
+	// Get the positive array index.
+	unsigned index = handleNegativeIndex(signedIndex);
+
+	// Create temporary array.
+	T* temp = new T[length-1];
+
+	// Save the element to remove.
+	T element = array[index];
+
+	// Copy all elements up to the remove index.
+	for (unsigned i = 0; i < index; i++) {
+		temp[i] = array[i];
+	}
+
+	// Copy all elements after the remove index.
+	for (unsigned i = index+1, j = index; i < length; i++, j++) {
+		temp[j] = array[i];
+	}
+
+	// Update this array and length.
+	delete [] array;
+	array = temp;
+	length--;
+
+	// Return the removed element.
+	return element;
+}
+
+
+
 // Reverse this array.
 template<class T>
 void Array<T>::reverse() {

@@ -29,6 +29,8 @@ public:
 	int indexOf(const T element);
 	void insert(const T element);
 	void insertAt(const int signedIndex, const T element);
+	void remove(const T element);
+	T removeAt(const int signedIndex);
 	void reverse();
 	Array<T> reversed();
 	void set(const int index, const T element);

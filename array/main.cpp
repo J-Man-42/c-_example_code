@@ -46,16 +46,18 @@ int main() {
 		cout << " (5)  indexOf(element)" << endl;
 		cout << " (6)  insert(element)" << endl;
 		cout << " (7)  insertAt(index, element)" << endl;
-		cout << " (8)  reverse()" << endl;
-		cout << " (9)  reversed()" << endl;
-		cout << "(10)  set(index, element)" << endl;
-		cout << "(11)  subArray(start, end)" << endl;
-		cout << "(12)  operator=" << endl;
-		cout << "(13)  operator[]" << endl;
-		cout << "(14)  operator+(element)" << endl;
-		cout << "(15)  operator+(array)" << endl;
-		cout << "(16)  operator+=(element)" << endl;
-		cout << "(17)  operator+=(array)" << endl;
+		cout << " (8)  remove(element)" << endl;
+		cout << " (9)  removeAt(index)" << endl;
+		cout << "(10)  reverse()" << endl;
+		cout << "(11)  reversed()" << endl;
+		cout << "(12)  set(index, element)" << endl;
+		cout << "(13)  subArray(start, end)" << endl;
+		cout << "(14)  operator=" << endl;
+		cout << "(15)  operator[]" << endl;
+		cout << "(16)  operator+(element)" << endl;
+		cout << "(17)  operator+(array)" << endl;
+		cout << "(18)  operator+=(element)" << endl;
+		cout << "(19)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -156,15 +158,44 @@ int main() {
 			break;
 
 
-		// Reverse the array.
+		// Remove the specified element.
 		case 8:
+			cout << "remove(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				array.remove(element);
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Remove element at the given index.
+		case 9:
+			cout << "removeAt(index)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			try {
+				element = array.removeAt(index);
+				cout << "removed element " << element << endl;
+			} catch (char const* e) {
+				cout << e << endl;
+			}
+			sleep_for(seconds(2));
+			break;
+
+
+		// Reverse the array.
+		case 10:
 			cout << "reverse()" << endl;
 			array.reverse();
 			break;
 
 
 		// Return a reversed version of this array.
-		case 9:
+		case 11:
 			cout << "reversed()" << endl;
 			temp = array.reversed();
 			cout << "> Reversed:  " << temp << endl;
@@ -173,7 +204,7 @@ int main() {
 
 
 		// Set element at given index.
-		case 10:
+		case 12:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -189,7 +220,7 @@ int main() {
 
 
 		// Creates sub array from start to end.
-		case 11:
+		case 13:
 			cout << "subArray(start, end)" << endl;
 			cout << "> start = ";
 			cin >> start;
@@ -209,7 +240,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 12:
+		case 14:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -222,7 +253,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 13:
+		case 15:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -238,7 +269,7 @@ int main() {
 
 
 		// Work with array + element.
-		case 14:
+		case 16:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -249,7 +280,7 @@ int main() {
 
 
 		// Work with array + other array.
-		case 15:
+		case 17:
 			cout << "operator+(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
@@ -264,7 +295,7 @@ int main() {
 
 
 		// Work with array += element.
-		case 16:
+		case 18:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -273,7 +304,7 @@ int main() {
 
 
 		// Work with array += other array.
-		case 17:
+		case 19:
 			cout << "operator+=(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
