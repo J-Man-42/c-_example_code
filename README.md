@@ -3,6 +3,10 @@ A collection of example code written in C++.
 
 ## Table of Content:
 ---
+### Array
+- [array.cpp](array/array.cpp)
+- [array.h](array/array.h)
+
 ### AVL Tree
 - [avl_tree.cpp](avl_tree/avl_tree.cpp)
 - [avl_tree.h](avl_tree/avl_tree.h)
