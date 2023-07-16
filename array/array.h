@@ -26,6 +26,9 @@ public:
 	Array<T> clone();
 	bool contains(const T element) const;
 	T& get(const int index);
+	int indexOf(const T element);
+	void insert(const T element);
+	void insertAt(const int signedIndex, const T element);
 	void reverse();
 	Array<T> reversed();
 	void set(const int index, const T element);

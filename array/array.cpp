@@ -203,6 +203,75 @@ T& Array<T>::get(const int index) {
 
 
 
+// Returns the array index of the given element.
+template<class T>
+int Array<T>::indexOf(const T element) {
+	for (unsigned i = 0; i < length; i++) {
+		if (array[i] == element) {
+			return i;
+		}
+	}
+
+	// Returns -1 if not found.
+	return -1;
+}
+
+
+
+// Insert element at beginning of array.
+template<class T>
+void Array<T>::insert(const T element) {
+
+	// Create temporary array.
+	T* temp = new T[length+1];
+
+	// Add element to beginning of temporary array.
+	temp[0] = element;
+
+	// Copy all elements from this array to temporary array.
+	for (unsigned i = 0, j = 1; i < length; i++, j++) {
+		temp[j] = array[i];
+	}
+
+	// Update this array and length.
+	delete [] array;
+	array = temp;
+	length++;
+}
+
+
+
+// Insert element at the specified index.
+template<class T>
+void Array<T>::insertAt(const int signedIndex, const T element) {
+
+	// Create temporary array.
+	T* temp = new T[length+1];
+
+	// Get the positive array index.
+	unsigned index = handleNegativeIndex(signedIndex);
+
+	// Copy all elements up to the insert index.
+	for (unsigned i = 0; i < index; i++) {
+		temp[i] = array[i];
+	}
+
+	// Insert the element.
+	temp[index] = element;
+
+	// Copy all elements after the insert index.
+	for (unsigned i = index, j = index+1; i < length; i++, j++) {
+		temp[j] = array[i];
+	}
+
+	// Update this array and length.
+	delete [] array;
+	array = temp;
+	length++;
+}
+
+
+
 // Reverse this array.
 template<class T>
 void Array<T>::reverse() {

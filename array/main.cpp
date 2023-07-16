@@ -43,16 +43,19 @@ int main() {
 		cout << " (2)  contains(element)" << endl;
 		cout << " (3)  clone()" << endl;
 		cout << " (4)  get(index)" << endl;
-		cout << " (5)  reverse()" << endl;
-		cout << " (6)  reversed()" << endl;
-		cout << " (7)  set(index, element)" << endl;
-		cout << " (8)  subArray(start, end)" << endl;
-		cout << " (9)  operator=" << endl;
-		cout << "(10)  operator[]" << endl;
-		cout << "(11)  operator+(element)" << endl;
-		cout << "(12)  operator+(array)" << endl;
-		cout << "(13)  operator+=(element)" << endl;
-		cout << "(14)  operator+=(array)" << endl;
+		cout << " (5)  indexOf(element)" << endl;
+		cout << " (6)  insert(element)" << endl;
+		cout << " (7)  insertAt(index, element)" << endl;
+		cout << " (8)  reverse()" << endl;
+		cout << " (9)  reversed()" << endl;
+		cout << "(10)  set(index, element)" << endl;
+		cout << "(11)  subArray(start, end)" << endl;
+		cout << "(12)  operator=" << endl;
+		cout << "(13)  operator[]" << endl;
+		cout << "(14)  operator+(element)" << endl;
+		cout << "(15)  operator+(array)" << endl;
+		cout << "(16)  operator+=(element)" << endl;
+		cout << "(17)  operator+=(array)" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
 		cin.getline(answer, 20);
@@ -117,15 +120,51 @@ int main() {
 			break;
 
 
-		// Reverse the array.
+		// Find the index of the given element.
 		case 5:
+			cout << "indexOf(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			cout << "> index of " << element << ":  ";
+			cout << array.indexOf(element) << endl;
+			sleep_for(seconds(2));
+			break;
+
+
+		// Insert an element at the beginning of the array.
+		case 6:
+			cout << "insert(element)" << endl;
+			cout << "> element = ";
+			cin >> element;
+			array.insert(element);
+			break;
+
+
+		// Insert an element at the given index.
+		case 7:
+			cout << "insertAt(index, element)" << endl;
+			cout << "> index = ";
+			cin >> index;
+			cout << "> element = ";
+			cin >> element;
+			try {
+				array.insertAt(index, element);
+			} catch (char const* e) {
+				cout << e << endl;
+				sleep_for(seconds(2));
+			}
+			break;
+
+
+		// Reverse the array.
+		case 8:
 			cout << "reverse()" << endl;
 			array.reverse();
 			break;
 
 
 		// Return a reversed version of this array.
-		case 6:
+		case 9:
 			cout << "reversed()" << endl;
 			temp = array.reversed();
 			cout << "> Reversed:  " << temp << endl;
@@ -134,7 +173,7 @@ int main() {
 
 
 		// Set element at given index.
-		case 7:
+		case 10:
 			cout << "set(index, element)" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -150,7 +189,7 @@ int main() {
 
 
 		// Creates sub array from start to end.
-		case 8:
+		case 11:
 			cout << "subArray(start, end)" << endl;
 			cout << "> start = ";
 			cin >> start;
@@ -170,7 +209,7 @@ int main() {
 
 
 		// Work with the assignment operator.
-		case 9:
+		case 12:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -183,7 +222,7 @@ int main() {
 
 
 		// Work with the subscript operator.
-		case 10:
+		case 13:
 			cout << "operator[]" << endl;
 			cout << "> index = ";
 			cin >> index;
@@ -199,7 +238,7 @@ int main() {
 
 
 		// Work with array + element.
-		case 11:
+		case 14:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -210,7 +249,7 @@ int main() {
 
 
 		// Work with array + other array.
-		case 12:
+		case 15:
 			cout << "operator+(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
@@ -225,7 +264,7 @@ int main() {
 
 
 		// Work with array += element.
-		case 13:
+		case 16:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -234,7 +273,7 @@ int main() {
 
 
 		// Work with array += other array.
-		case 14:
+		case 17:
 			cout << "operator+=(array)" << endl;
 			cout << "> other array size = ";
 			cin >> number;
