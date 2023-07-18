@@ -9,6 +9,7 @@ function showHelp {
 	echo "║ arguments:                                                         ║"
 	echo "║    -h:  Shows the help dialogue                                    ║"
 	echo "║    -l:  Links all remote branches with local branches              ║"
+	echo "║    -p:  Prunes all branches no longer in remote                    ║"
 	echo "║    -n:  Creates and links a new branch, locally and remotely       ║"
 	echo "║    -d:  Deletes the specified branch, locally and remotely         ║"
 	echo "║                                                                    ║"
@@ -135,10 +136,11 @@ function deleteBranch() {
 ################################################################################
 
 # Organize the input parameters.
-while getopts "hln:d:" arg; do
+while getopts "hlpn:d:" arg; do
 	case $arg in
 		h) help=true;;
 		l) link=true;;
+		p) prune=true;;
 		n) new="${OPTARG}";;
 		d) delete="${OPTARG}";;
 	esac
@@ -146,7 +148,7 @@ done
 
 
 # If an argument has not been provided, show the help dialogue.
-if ! [[ $link || $new || $delete ]]; then
+if ! [[ $link || $prune || $new || $delete ]]; then
 	help=true
 fi
 
@@ -160,6 +162,11 @@ if [[ $link ]]; then
 	linkBranches
 fi
 
+# Prune all branches not in remote.
+if [[ $prune ]]; then
+    git remote prune origin
+fi
+
 # Create a new branch.
 if [[ $new ]]; then
 	createNewBranch $new
@@ -169,4 +176,3 @@ fi
 if [[ $delete ]]; then
 	deleteBranch $delete
 fi
-
