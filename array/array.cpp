@@ -317,6 +317,7 @@ unsigned Array<T>::maxCapacity() const {
 // Removes the first instance of the given element.
 template<class T>
 void Array<T>::remove(const T element) {
+	T* temp = this->array;
 
 	// Find index of element and throw error if not found.
 	unsigned index = indexOf(element);
@@ -324,9 +325,20 @@ void Array<T>::remove(const T element) {
 		throw "Error! Element not in array";
 	}
 
+	// If array 15 items below capacity, shrink array.
+	if (capacity - length >= 15) {
+		capacity -= 10;
+		temp = new T[capacity];
+
+		// Copy all elements up to the remove index.
+		for (unsigned i = 0; i < index; i++) {
+			temp[i] = array[i];
+		}
+	}
+
 	// Shift down all elements after the remove index.
 	for (unsigned i = index; i < length; i++) {
-		array[i] = array[i+1];
+		temp[i] = array[i+1];
 	}
 
 	// Update the length.
@@ -338,12 +350,24 @@ void Array<T>::remove(const T element) {
 // Removes the element at the given index.
 template<class T>
 T Array<T>::removeAt(const int signedIndex) {
+	T* temp = this->array;
 
 	// Get the positive array index.
 	unsigned index = handleNegativeIndex(signedIndex);
 
 	// Save the element to remove.
 	T element = array[index];
+
+	// If array 15 items below capacity, shrink array.
+	if (capacity - length >= 15) {
+		capacity -= 10;
+		temp = new T[capacity];
+
+		// Copy all elements up to the remove index.
+		for (unsigned i = 0; i < index; i++) {
+			temp[i] = array[i];
+		}
+	}
 
 	// Shift down all elements after the remove index.
 	for (unsigned i = index; i < length; i++) {
