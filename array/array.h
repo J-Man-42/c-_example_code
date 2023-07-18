@@ -7,7 +7,7 @@ template<class T>
 class Array
 {
 public:
-	Array(const unsigned capacity = 10);
+	Array(const unsigned capacity = 100);
 	Array(const Array<T>& other);
 	~Array();
 

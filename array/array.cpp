@@ -85,7 +85,7 @@ template<class T>
 Array<T> Array<T>::operator+(const T element) {
 
 	// Create new array.
-	unsigned newCapacity = (length == capacity ? capacity+10 : capacity);
+	unsigned newCapacity = (length == capacity ? capacity+100 : capacity);
 	Array<T> newArray(newCapacity);
 	newArray.length = length+1;
 
@@ -131,9 +131,9 @@ Array<T> Array<T>::operator+(const Array<T>& other) {
 template<class T>
 Array<T>& Array<T>::operator+=(const T element) {
 
-	// If array at max capacity, grow array by 10.
+	// If array at max capacity, grow array by 100.
 	if (length == capacity) {
-		capacity += 10;
+		capacity += 100;
 		T* temp = new T[capacity];
 
 		// Copy all elements from this array to temporary array.
@@ -245,9 +245,9 @@ template<class T>
 void Array<T>::insert(const T element) {
 	T* temp = this->array;
 
-	// If array at max capacity, grow array by 10.
+	// If array at max capacity, grow array by 100.
 	if (length == capacity) {
-		capacity += 10;
+		capacity += 100;
 		temp = new T[capacity];
 	}
 
@@ -277,9 +277,9 @@ void Array<T>::insertAt(const int signedIndex, const T element) {
 	// Get the positive array index.
 	unsigned index = handleNegativeIndex(signedIndex);
 
-	// If array at max capacity, grow array by 10.
+	// If array at max capacity, grow array by 100.
 	if (length == capacity) {
-		capacity += 10;
+		capacity += 100;
 		temp = new T[capacity];
 
 		// Copy all elements up to the insert index.
@@ -325,9 +325,9 @@ void Array<T>::remove(const T element) {
 		throw "Error! Element not in array";
 	}
 
-	// If array 15 items below capacity, shrink array.
-	if (capacity - length >= 15) {
-		capacity -= 10;
+	// If array 150 items below capacity, shrink array.
+	if (capacity - length >= 150) {
+		capacity -= 100;
 		temp = new T[capacity];
 
 		// Copy all elements up to the remove index.
@@ -358,9 +358,9 @@ T Array<T>::removeAt(const int signedIndex) {
 	// Save the element to remove.
 	T element = array[index];
 
-	// If array 15 items below capacity, shrink array.
-	if (capacity - length >= 15) {
-		capacity -= 10;
+	// If array 150 items below capacity, shrink array.
+	if (capacity - length >= 150) {
+		capacity -= 100;
 		temp = new T[capacity];
 
 		// Copy all elements up to the remove index.
@@ -494,8 +494,8 @@ unsigned Array<T>::handleNegativeIndex(const int index) {
 template<class T>
 unsigned Array<T>::updateCapacity(const unsigned length) {
 	unsigned newCapacity = length;
-	if (length % 10 != 0) {
-		newCapacity += 10 - (length % 10);
+	if (length % 100 != 0) {
+		newCapacity += 100 - (length % 100);
 	}
 	return newCapacity;
 }
