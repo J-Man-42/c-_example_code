@@ -7,7 +7,7 @@ template<class T>
 class Array
 {
 public:
-	Array(const unsigned length);
+	Array(const unsigned capacity = 10);
 	Array(const Array<T>& other);
 	~Array();
 
@@ -29,6 +29,7 @@ public:
 	int indexOf(const T element);
 	void insert(const T element);
 	void insertAt(const int signedIndex, const T element);
+	unsigned maxCapacity() const;
 	void remove(const T element);
 	T removeAt(const int signedIndex);
 	void reverse();
@@ -40,9 +41,11 @@ public:
 
 private:
 	unsigned handleNegativeIndex(const int index);
+	unsigned updateCapacity(const unsigned length);
 
 	T* array;
 	unsigned length;
+	unsigned capacity;
 };
 
 

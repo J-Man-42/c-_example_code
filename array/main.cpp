@@ -19,14 +19,18 @@ int main() {
 	Array<unsigned>* subArray = nullptr;
 
 	// Create the array.
-	Array<unsigned> array(10);
-	Array<unsigned> temp(10);
+	Array<unsigned> array;
+	Array<unsigned> temp;
 
 	// Loop until Q has been entered.
 	while (answer[0] != 'Q') {
 
 		// Clear the screen
 		clearScreen();
+
+		// Print the array capacity.
+		cout << "Capacity:  ";
+		cout << array.maxCapacity() << endl;
 
 		// Print the array size.
 		cout << "Size:   ";
@@ -244,9 +248,9 @@ int main() {
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
-			temp = Array<unsigned>(number);
+			temp = Array<unsigned>();
 			for (unsigned i = 0; i < number; i++) {
-				temp[i] = randUint(10, 99);
+				temp.append(randUint(10, 99));
 			}
 			array = temp;
 			break;
@@ -286,7 +290,7 @@ int main() {
 			cin >> number;
 			temp = Array<unsigned>(number);
 			for (unsigned i = 0; i < number; i++) {
-				temp[i] = randUint(10, 99);
+				temp.append(randUint(10, 99));
 			}
 			temp = array + temp;
 			cout << "> new array:  " << temp.toString() << endl;
@@ -310,7 +314,7 @@ int main() {
 			cin >> number;
 			temp = Array<unsigned>(number);
 			for (unsigned i = 0; i < number; i++) {
-				temp[i] = randUint(10, 99);
+				temp.append(randUint(10, 99));
 			}
 			array += temp;
 			break;

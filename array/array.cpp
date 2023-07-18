@@ -6,9 +6,10 @@ using namespace std;
 
 // The constructor.
 template<class T>
-Array<T>::Array(const unsigned length) {
-	this->length = length;
-	this->array = new T[length];
+Array<T>::Array(const unsigned capacity) {
+	this->length = 0;
+	this->capacity = capacity;
+	this->array = new T[capacity];
 }
 
 
@@ -21,9 +22,10 @@ Array<T>::Array(const Array<T>& other) {
 		return;
 	}
 
-	// Copy length and all array elements.
+	// Copy length, capacity, and all array elements.
 	this->length = other.length;
-	this->array = new T[length];
+	this->capacity = other.capacity;
+	this->array = new T[capacity];
 	for (unsigned i = 0; i < length; i++) {
 		this->array[i] = other.array[i];
 	}
@@ -56,9 +58,10 @@ Array<T>& Array<T>::operator=(const Array<T>& other) {
 	if (this != &other) {
 		delete [] this->array;
 		
-		// Copy length and all array elements.
+		// Copy length, capacity, and all array elements.
+		this->capacity = other.capacity;
 		this->length = other.length;
-		this->array = new T[length];
+		this->array = new T[capacity];
 		for (unsigned i = 0; i < length; i++) {
 			this->array[i] = other.array[i];
 		}
@@ -82,7 +85,9 @@ template<class T>
 Array<T> Array<T>::operator+(const T element) {
 
 	// Create new array.
-	Array<T> newArray(length+1);
+	unsigned newCapacity = (length == capacity ? capacity+10 : capacity);
+	Array<T> newArray(newCapacity);
+	newArray.length = length+1;
 
 	// Copy all elements from this array to new array.
 	for (unsigned i = 0; i < length; i++) {
@@ -99,8 +104,13 @@ Array<T> Array<T>::operator+(const T element) {
 template<class T>
 Array<T> Array<T>::operator+(const Array<T>& other) {
 
+	// Calculate capacity of new array.
+	unsigned newLength = this->size() + other.size();
+	unsigned newCapacity = updateCapacity(newLength);
+
 	// Create new array.
-	Array<T> newArray(this->size()+other.size());
+	Array<T> newArray(newCapacity);
+	newArray.length = newLength;
 
 	// Copy all elements from this array to new array.
 	for (unsigned i = 0; i < this->size(); i++) {
@@ -121,21 +131,24 @@ Array<T> Array<T>::operator+(const Array<T>& other) {
 template<class T>
 Array<T>& Array<T>::operator+=(const T element) {
 
-	// Create temporary array.
-	T* temp = new T[length+1];
+	// If array at max capacity, grow array by 10.
+	if (length == capacity) {
+		capacity += 10;
+		T* temp = new T[capacity];
 
-	// Copy all elements from this array to temporary array.
-	for (unsigned i = 0; i < length; i++) {
-		temp[i] = this->array[i];
+		// Copy all elements from this array to temporary array.
+		for (unsigned i = 0; i < length; i++) {
+			temp[i] = this->array[i];
+		}
+
+		// Update this array.
+		delete [] this->array;
+		this->array = temp;
 	}
 
-	// Add final element.
-	temp[length] = element;
-
-	// Update this array and length.
-	delete [] this->array;
-	this->array = temp;
-	this->length++;
+	// Add new element to array and update its length.
+	array[length] = element;
+	length++;
 	return *this;
 }
 
@@ -144,23 +157,32 @@ Array<T>& Array<T>::operator+=(const T element) {
 template<class T>
 Array<T>& Array<T>::operator+=(const Array<T>& other) {
 
-	// Create temporary array.
-	T* temp = new T[this->size()+other.size()];
+	// Calculate new capacity.
+	unsigned newLength = this->size() + other.size();
+	unsigned newCapacity = updateCapacity(newLength);
 
-	// Copy all elements from this array to temporary array.
-	for (unsigned i = 0; i < this->size(); i++) {
-		temp[i] = this->array[i];
+	// If new capacity is greater than before, grow array.
+	if (newCapacity > this->capacity) {
+		this->capacity = newCapacity;
+		T* temp = new T[capacity];
+
+		// Copy all elements from this array to temporary array.
+		for (unsigned i = 0; i < length; i++) {
+			temp[i] = array[i];
+		}
+
+		// Update this array.
+		delete [] array;
+		array = temp;
 	}
 
-	// Copy all elements from other array to temporary array.
-	for (unsigned i = this->size(), j = 0; j < other.size(); i++, j++) {
-		temp[i] = other.array[j];
+	// Copy all elements from other array to this array.
+	for (unsigned i = length, j = 0; j < other.size(); i++, j++) {
+		array[i] = other.array[j];
 	}
 
-	// Update this array and length.
-	delete [] this->array;
-	this->array = temp;
-	this->length += other.length;
+	// Update length of this array.
+	this->length = newLength;
 	return *this;
 }
 
@@ -221,21 +243,27 @@ int Array<T>::indexOf(const T element) {
 // Insert element at beginning of array.
 template<class T>
 void Array<T>::insert(const T element) {
+	T* temp = this->array;
 
-	// Create temporary array.
-	T* temp = new T[length+1];
-
-	// Add element to beginning of temporary array.
-	temp[0] = element;
-
-	// Copy all elements from this array to temporary array.
-	for (unsigned i = 0, j = 1; i < length; i++, j++) {
-		temp[j] = array[i];
+	// If array at max capacity, grow array by 10.
+	if (length == capacity) {
+		capacity += 10;
+		temp = new T[capacity];
 	}
 
-	// Update this array and length.
-	delete [] array;
-	array = temp;
+	// Copy/shift all elements from this array to temporary array.
+	for (unsigned i = length; i > 0; i--) {
+		temp[i] = array[i-1];
+	}
+
+	// If needed, update this array.
+	if (temp != array) {
+		delete [] array;
+		array = temp;
+	}
+
+	// Insert element at beginning of array.
+	array[0] = element;
 	length++;
 }
 
@@ -244,30 +272,44 @@ void Array<T>::insert(const T element) {
 // Insert element at the specified index.
 template<class T>
 void Array<T>::insertAt(const int signedIndex, const T element) {
-
-	// Create temporary array.
-	T* temp = new T[length+1];
+	T* temp = this->array;
 
 	// Get the positive array index.
 	unsigned index = handleNegativeIndex(signedIndex);
 
-	// Copy all elements up to the insert index.
-	for (unsigned i = 0; i < index; i++) {
-		temp[i] = array[i];
+	// If array at max capacity, grow array by 10.
+	if (length == capacity) {
+		capacity += 10;
+		temp = new T[capacity];
+
+		// Copy all elements up to the insert index.
+		for (unsigned i = 0; i < index; i++) {
+			temp[i] = array[i];
+		}
 	}
 
-	// Insert the element.
-	temp[index] = element;
-
-	// Copy all elements after the insert index.
-	for (unsigned i = index, j = index+1; i < length; i++, j++) {
-		temp[j] = array[i];
+	// Copy/shift up all elements after the insert index.
+	for (unsigned i = length; i > index; i--) {
+		temp[i] = array[i-1];
 	}
 
-	// Update this array and length.
-	delete [] array;
-	array = temp;
+	// If needed, update this array.
+	if (temp != array) {
+		delete [] array;
+		array = temp;
+	}
+
+	// Insert element at the correct index.
+	array[index] = element;
 	length++;
+}
+
+
+
+// Returns the capacity of the array.
+template<class T>
+unsigned Array<T>::maxCapacity() const {
+	return capacity;
 }
 
 
@@ -282,22 +324,12 @@ void Array<T>::remove(const T element) {
 		throw "Error! Element not in array";
 	}
 
-	// Create temporary array.
-	T* temp = new T[length-1];
-
-	// Copy all elements up to the remove index.
-	for (unsigned i = 0; i < index; i++) {
-		temp[i] = array[i];
+	// Shift down all elements after the remove index.
+	for (unsigned i = index; i < length; i++) {
+		array[i] = array[i+1];
 	}
 
-	// Copy all elements after the remove index.
-	for (unsigned i = index+1, j = index; i < length; i++, j++) {
-		temp[j] = array[i];
-	}
-
-	// Update this array and length.
-	delete [] array;
-	array = temp;
+	// Update the length.
 	length--;
 }
 
@@ -310,28 +342,16 @@ T Array<T>::removeAt(const int signedIndex) {
 	// Get the positive array index.
 	unsigned index = handleNegativeIndex(signedIndex);
 
-	// Create temporary array.
-	T* temp = new T[length-1];
-
 	// Save the element to remove.
 	T element = array[index];
 
-	// Copy all elements up to the remove index.
-	for (unsigned i = 0; i < index; i++) {
-		temp[i] = array[i];
+	// Shift down all elements after the remove index.
+	for (unsigned i = index; i < length; i++) {
+		array[i] = array[i+1];
 	}
 
-	// Copy all elements after the remove index.
-	for (unsigned i = index+1, j = index; i < length; i++, j++) {
-		temp[j] = array[i];
-	}
-
-	// Update this array and length.
-	delete [] array;
-	array = temp;
+	// Update the length and return the removed element.
 	length--;
-
-	// Return the removed element.
 	return element;
 }
 
@@ -350,7 +370,8 @@ void Array<T>::reverse() {
 // Return a reversed version of this array.
 template<class T>
 Array<T> Array<T>::reversed() {
-	Array newArray(length);
+	Array newArray(capacity);
+	newArray.length = this->length;
 	for (unsigned i = 0, j = length-1; i < length; i++, j--) {
 		newArray[i] = array[j];
 	}
@@ -441,4 +462,16 @@ unsigned Array<T>::handleNegativeIndex(const int index) {
 	if (index < 0)
 		return length + index;
 	return index;
+}
+
+
+
+// Return an updated array capacity based on the length.
+template<class T>
+unsigned Array<T>::updateCapacity(const unsigned length) {
+	unsigned newCapacity = length;
+	if (length % 10 != 0) {
+		newCapacity += 10 - (length % 10);
+	}
+	return newCapacity;
 }
