@@ -92,7 +92,7 @@ private:
 	static bool compare(unsigned left, unsigned right);
 	static void handleCtrlC(int signum);
 	static bool wasInterrupted(Highlights* highlight);
-	static void quickSort(
+	static bool quickSort(
 		unsigned array[], const int& SIZE, int low, int high);
 	static int partition(
 		unsigned array[], const int& SIZE, int low, int high,

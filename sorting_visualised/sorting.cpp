@@ -302,7 +302,7 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -316,7 +316,7 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
-				// Handle interrupt.
+				// Handle keyboard interrupt.
 				if (wasInterrupted(highlight)) {
 					return;
 				}
@@ -370,7 +370,7 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i;
 			highlight->get(1).index = j;
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -396,7 +396,7 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 		highlight->set(0, Highlight('R', minIndex));
 		highlight->get(1).index = i;
 
-		// Handle interrupt.
+		// Handle keyboard interrupt.
 		if (wasInterrupted(highlight)) {
 			return;
 		}
@@ -459,7 +459,7 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = j-1;
 			highlight->get(1).index = j;
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -469,7 +469,7 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 			sleep_for(delay);
 			swap(array[j], array[j-1]);
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -529,7 +529,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -543,7 +543,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
-				// Handle interrupt.
+				// Handle keyboard interrupt.
 				if (wasInterrupted(highlight)) {
 					return;
 				}
@@ -567,7 +567,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
-			// Handle interrupt.
+			// Handle keyboard interrupt.
 			if (wasInterrupted(highlight)) {
 				return;
 			}
@@ -581,7 +581,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 				swap(array[i], array[i-1]);
 				swapped = true;
 
-				// Handle interrupt.
+				// Handle keyboard interrupt.
 				if (wasInterrupted(highlight)) {
 					return;
 				}
@@ -625,7 +625,7 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	unsigned index = 1;
 	while (index < SIZE) {
 
-		// Handle interrupt.
+		// Handle keyboard interrupt.
 		if (wasInterrupted(highlight)) {
 			return;
 		}
@@ -667,6 +667,10 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 // Quick Sort the array.
 void Sorting::quickSort(unsigned array[], const unsigned& SIZE) {
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -682,12 +686,13 @@ void Sorting::quickSort(unsigned array[], const unsigned& SIZE) {
 
 
 // The hidden recursive Quick Sort function.
-void Sorting::quickSort(
+// Returns true while not interrupted.
+bool Sorting::quickSort(
 	unsigned array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low > high || low < 0) {
-		return;
+		return true;
 	}
 
 	// Configure all highlights.
@@ -705,12 +710,28 @@ void Sorting::quickSort(
 	// Partition array and get the pivot index.
 	int pivotIndex = partition(array, SIZE, low, high, highlight);
 
-	// Sort the two partitions.
-	quickSort(array, SIZE, low, pivotIndex-1);
-	quickSort(array, SIZE, pivotIndex+1, high);
+	// Check keyboard interrupt.
+	if (pivotIndex == -999) {
+		return false;
+	}
 
 	// Delete dynamic memory.
 	delete highlight;
+
+	// Sort the lower partition.
+	bool keepSorting = quickSort(array, SIZE, low, pivotIndex-1);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Sort the upper partition.
+	keepSorting = quickSort(array, SIZE, pivotIndex+1, high);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Continue sorting status.
+	return true;
 }
 
 
@@ -731,6 +752,11 @@ int Sorting::partition(
 	// Iterate from low to high.
 	for (int j = low; j < high; j++) {
 
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return -999;
+		}
+
 		// Display the array.
 		highlight->get(1).index = j;
 		displayArray(array, SIZE, highlight, horizontalBar);
@@ -741,6 +767,11 @@ int Sorting::partition(
 			highlight->append(Highlight('G', i));
 			i++;
 			swap(array[i], array[j]);
+
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return -999;
+			}
 
 			// Display array after swapping.
 			highlight->get(0).index = i;
@@ -753,6 +784,11 @@ int Sorting::partition(
 	i++;
 	if (array[i] != array[high]) {
 
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return -999;
+		}
+
 		// Show array before swapping.
 		highlight->removeAt(0);
 		highlight->set(0, Highlight('R', i));
@@ -762,6 +798,11 @@ int Sorting::partition(
 
 		// Swap.
 	    swap(array[i], array[high]);
+
+	    // Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return -999;
+		}
 
 	    // Show array after swapping.
 		highlight->get(0).index = i;
