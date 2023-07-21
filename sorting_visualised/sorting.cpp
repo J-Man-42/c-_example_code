@@ -1272,8 +1272,13 @@ void Sorting::combSort(unsigned array[], const unsigned& SIZE) {
 
 
 // Radix Sort the array using the specified base.
-void Sorting::radixSort(unsigned array[], const unsigned& SIZE, const unsigned BASE) {
+void Sorting::radixSort(
+	unsigned array[], const unsigned& SIZE, const unsigned BASE) {
 	Highlights* highlight = new Highlights();
+
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
 
 	// Display the array before sorting.
 	clearScreen();
@@ -1303,6 +1308,11 @@ void Sorting::radixSort(unsigned array[], const unsigned& SIZE, const unsigned B
 		// Iterate through all elements in the array.
 		for (unsigned i = 0; i < SIZE; i++) {
 			copy[i] = array[i];
+
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return;
+			}
 
 			// Show current comparison.
 			highlight->getFirst().index = i;
@@ -1346,6 +1356,11 @@ void Sorting::radixSort(unsigned array[], const unsigned& SIZE, const unsigned B
 			count[d]--;
 			array[count[d]] = copy[i];
 
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return;
+			}
+
 			// Show array after copy.
 			highlight->append(Highlight('G', count[d]));
 			displayArray(array, SIZE, highlight);
@@ -1358,8 +1373,9 @@ void Sorting::radixSort(unsigned array[], const unsigned& SIZE, const unsigned B
 		sleep_for(delay);
 	}
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
