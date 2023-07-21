@@ -91,7 +91,7 @@ private:
 	static void printBorder(string symbol, const unsigned& SIZE);
 	static bool compare(unsigned left, unsigned right);
 	static void handleCtrlC(int signum);
-	static bool wasInterrupted();
+	static bool wasInterrupted(Highlights* highlight);
 	static void quickSort(
 		unsigned array[], const int& SIZE, int low, int high);
 	static int partition(

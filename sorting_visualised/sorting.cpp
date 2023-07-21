@@ -258,13 +258,15 @@ void Sorting::handleCtrlC(int signum) {
 }
 
 
-// See if the interrupt exception must be thrown.
-bool Sorting::wasInterrupted() {
+// See if the interrupt was triggered.
+// Deletes the highlights if true.
+bool Sorting::wasInterrupted(Highlights* highlight) {
 
 	// See if interrupt was triggered.
 	if (interrupted) {
 		isSorting = false;
 		interrupted = false;
+		delete highlight;
 		return true;
 	}
 
@@ -301,7 +303,7 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(1).index = i;
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -315,7 +317,7 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 				swapped = true;
 
 				// Handle interrupt.
-				if (wasInterrupted()) {
+				if (wasInterrupted(highlight)) {
 					return;
 				}
 
@@ -369,7 +371,7 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(1).index = j;
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -395,7 +397,7 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 		highlight->get(1).index = i;
 
 		// Handle interrupt.
-		if (wasInterrupted()) {
+		if (wasInterrupted(highlight)) {
 			return;
 		}
 
@@ -458,7 +460,7 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(1).index = j;
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -468,7 +470,7 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 			swap(array[j], array[j-1]);
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -483,7 +485,7 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 		if (!swapped) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 			displayArray(array, SIZE, highlight);
@@ -528,7 +530,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(1).index = i;
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -542,7 +544,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 				swapped = true;
 
 				// Handle interrupt.
-				if (wasInterrupted()) {
+				if (wasInterrupted(highlight)) {
 					return;
 				}
 
@@ -566,7 +568,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(1).index = i;
 
 			// Handle interrupt.
-			if (wasInterrupted()) {
+			if (wasInterrupted(highlight)) {
 				return;
 			}
 
@@ -580,7 +582,7 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 				swapped = true;
 
 				// Handle interrupt.
-				if (wasInterrupted()) {
+				if (wasInterrupted(highlight)) {
 					return;
 				}
 
@@ -624,7 +626,7 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	while (index < SIZE) {
 
 		// Handle interrupt.
-		if (wasInterrupted()) {
+		if (wasInterrupted(highlight)) {
 			return;
 		}
 
