@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cmath>
+#include <signal.h>
 #include "sorting.h"
 #include "../colour_text/colour_text.h"
 #include "../math/math.h"
@@ -11,6 +12,8 @@ using namespace std;
 
 
 // Set static member values.
+bool Sorting::isSorting = false;
+bool Sorting::interrupted = false;
 bool Sorting::sortAscending = true;
 Duration Sorting::delay = milliseconds(50);
 unsigned Sorting::barHeight = 40;
@@ -241,11 +244,45 @@ bool Sorting::compare(unsigned left, unsigned right) {
 
 
 
+// Handles the Ctrl-C interrupt.
+void Sorting::handleCtrlC(int signum) {
+
+	// Stop sorting.
+	if (isSorting) {
+		interrupted = true;
+		fflush(stdout);
+	}
+
+	// Simply exit the program.
+	else exit(0);
+}
+
+
+// See if the interrupt exception must be thrown.
+bool Sorting::wasInterrupted() {
+
+	// See if interrupt was triggered.
+	if (interrupted) {
+		isSorting = false;
+		interrupted = false;
+		return true;
+	}
+
+	// It was not.
+	return false;
+}
+
+
+
 // Bubble sort the given array.
 void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
+
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
 
 	// Display the array before sorting.
 	clearScreen();
@@ -263,6 +300,11 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
+
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
@@ -271,6 +313,11 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
+
+				// Handle interrupt.
+				if (wasInterrupted()) {
+					return;
+				}
 
 				// Display the swapped elements.
 				displayArray(array, SIZE, highlight);
@@ -301,6 +348,10 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('R'));
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -316,6 +367,11 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 		for (unsigned j = i+1; j < SIZE; j++) {
 			highlight->get(0).index = i;
 			highlight->get(1).index = j;
+
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
 
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
@@ -337,6 +393,11 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 		highlight->removeAt(0);
 		highlight->set(0, Highlight('R', minIndex));
 		highlight->get(1).index = i;
+
+		// Handle interrupt.
+		if (wasInterrupted()) {
+			return;
+		}
 
 		// Display the array before and after swapping.
 		displayArray(array, SIZE, highlight);
@@ -377,6 +438,10 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('b'));
 	bool swapped;
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -391,9 +456,23 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 		while (j > 0 && compare(array[j], array[j-1])) {
 			highlight->get(0).index = j-1;
 			highlight->get(1).index = j;
+
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
+
+			// Display array before swapping.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			swap(array[j], array[j-1]);
+
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
+
+			// Display array after swapping.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 			swapped = true;
@@ -404,6 +483,9 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 		if (!swapped) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
+			if (wasInterrupted()) {
+				return;
+			}
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
@@ -425,6 +507,10 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('b'));
 	highlight->append(Highlight('b'));
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -441,6 +527,11 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
+
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
@@ -449,6 +540,11 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
+
+				// Handle interrupt.
+				if (wasInterrupted()) {
+					return;
+				}
 
 				// Display the swapped elements.
 				displayArray(array, SIZE, highlight);
@@ -469,6 +565,11 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			highlight->get(0).index = i-1;
 			highlight->get(1).index = i;
 
+			// Handle interrupt.
+			if (wasInterrupted()) {
+				return;
+			}
+
 			// Display the current comparison.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
@@ -477,6 +578,11 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 			if (compare(array[i], array[i-1])) {
 				swap(array[i], array[i-1]);
 				swapped = true;
+
+				// Handle interrupt.
+				if (wasInterrupted()) {
+					return;
+				}
 
 				// Display the swapped elements.
 				displayArray(array, SIZE, highlight);
@@ -504,6 +610,10 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('b', 0));
 	highlight->append(Highlight('b', 1));
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -512,6 +622,11 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	// Start sorting.
 	unsigned index = 1;
 	while (index < SIZE) {
+
+		// Handle interrupt.
+		if (wasInterrupted()) {
+			return;
+		}
 
 		// Display the current comparison.
 		displayArray(array, SIZE, highlight);

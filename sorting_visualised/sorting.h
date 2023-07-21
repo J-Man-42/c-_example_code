@@ -74,6 +74,8 @@ public:
 private:
 
 	// Variables.
+	static bool isSorting;
+	static bool interrupted;
 	static Duration delay;
 	static unsigned barHeight;
 	static unsigned barWidth;
@@ -88,6 +90,8 @@ private:
 	static unsigned scaleVertically(unsigned value);
 	static void printBorder(string symbol, const unsigned& SIZE);
 	static bool compare(unsigned left, unsigned right);
+	static void handleCtrlC(int signum);
+	static bool wasInterrupted();
 	static void quickSort(
 		unsigned array[], const int& SIZE, int low, int high);
 	static int partition(
