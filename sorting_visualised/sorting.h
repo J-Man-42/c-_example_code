@@ -102,10 +102,10 @@ private:
 	static int partitionV2(
 		unsigned array[], const int& SIZE, int low, int high,
 		Highlights* highlight);
-	static void split(
+	static bool split(
 		unsigned array[], unsigned copy[], const unsigned& SIZE,
 		unsigned start, unsigned end);
-	static void merge(
+	static bool merge(
 		unsigned array[], unsigned copy[], const unsigned& SIZE,
 		unsigned start, unsigned middle, unsigned end,
 		Highlights* highlight);
