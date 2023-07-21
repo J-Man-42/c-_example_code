@@ -337,8 +337,9 @@ void Sorting::bubbleSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
@@ -427,8 +428,9 @@ void Sorting::selectionSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
@@ -497,8 +499,9 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
@@ -600,8 +603,9 @@ void Sorting::cocktailShakerSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
@@ -658,8 +662,9 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
@@ -682,6 +687,9 @@ void Sorting::quickSort(unsigned array[], const unsigned& SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Stop sorting.
+	isSorting = false;
 }
 
 
@@ -810,7 +818,7 @@ int Sorting::partition(
 		sleep_for(delay);
 	}
 
-	// Delete dynamic memory and return pivot index.
+	// Return pivot index.
     return i;
 }
 
