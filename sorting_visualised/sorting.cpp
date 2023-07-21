@@ -485,11 +485,11 @@ void Sorting::insertionSort(unsigned array[], const unsigned& SIZE) {
 
 		// Only print if no swap occurred.
 		if (!swapped) {
-			highlight->get(0).index = i-1;
-			highlight->get(1).index = i;
 			if (wasInterrupted(highlight)) {
 				return;
 			}
+			highlight->get(0).index = i-1;
+			highlight->get(1).index = i;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
 		}
@@ -989,6 +989,10 @@ void Sorting::shellSort(unsigned array[], const unsigned& SIZE) {
 	bool sorted = false;
 	bool swapped;
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -1010,11 +1014,27 @@ void Sorting::shellSort(unsigned array[], const unsigned& SIZE) {
 			// Do the gapped insertion sort.
 			unsigned j = i;
 			while (j >= gap && compare(array[j], array[j-gap])) {
+
+				// Handle keyboard interrupt.
+				if (wasInterrupted(highlight)) {
+					return;
+				}
+
+				// Display array before swapping.
 				highlight->get(0).index = j-gap;
 				highlight->get(1).index = j;
 				displayArray(array, SIZE, highlight);
 				sleep_for(delay);
+				
+				// Swap elements.
 				swap(array[j], array[j-gap]);
+				
+				// Handle keyboard interrupt.
+				if (wasInterrupted(highlight)) {
+					return;
+				}
+
+				// Display array after swapping.
 				displayArray(array, SIZE, highlight);
 				sleep_for(delay);
 				swapped = true;
@@ -1023,6 +1043,9 @@ void Sorting::shellSort(unsigned array[], const unsigned& SIZE) {
 
 			// Only print if no swap occurred.
 			if (!swapped) {
+				if (wasInterrupted(highlight)) {
+					return;
+				}
 				highlight->get(0).index = i-gap;
 				highlight->get(1).index = i;
 				displayArray(array, SIZE, highlight);
@@ -1035,8 +1058,9 @@ void Sorting::shellSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
