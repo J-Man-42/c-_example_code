@@ -1169,6 +1169,10 @@ void Sorting::combSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('R'));
 	bool sorted = false;
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -1186,14 +1190,28 @@ void Sorting::combSort(unsigned array[], const unsigned& SIZE) {
 		// Bubble Sort with the current gap.
 		for (unsigned i = 0, j = gap; j < SIZE; i++, j++) {
 
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return;
+			}
+
 			// Highlight indices before and after swapping.
 			highlight->get(0).index = i;
 			highlight->get(1).index = j;
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
+
+			// Swap if required.
 			if (compare(array[j], array[i])) {
 				swap(array[j], array[i]);
 				sorted = false;
+
+				// Handle keyboard interrupt.
+				if (wasInterrupted(highlight)) {
+					return;
+				}
+
+				// Display array after swapping.
 				displayArray(array, SIZE, highlight);
 				sleep_for(delay);
 			}
@@ -1204,8 +1222,9 @@ void Sorting::combSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
