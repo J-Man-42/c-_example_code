@@ -657,6 +657,9 @@ void Sorting::gnomeSort(unsigned array[], const unsigned& SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Delete dynamic memory.
+	delete highlight;
 }
 
 
