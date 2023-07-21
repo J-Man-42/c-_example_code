@@ -827,6 +827,10 @@ int Sorting::partition(
 // Quick Sort the array.
 void Sorting::quickSortV2(unsigned array[], const unsigned& SIZE) {
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -838,16 +842,19 @@ void Sorting::quickSortV2(unsigned array[], const unsigned& SIZE) {
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Stop sorting.
+	isSorting = false;
 }
 
 
 // The hidden recursive Quick Sort function.
-void Sorting::quickSortV2(
+bool Sorting::quickSortV2(
 	unsigned array[], const int& SIZE, int low, int high) {
 
 	// Stopping condition.
 	if (low >= high || low < 0 || high < 0) {
-		return;
+		return true;
 	}
 
 	// Configure all highlights.
@@ -864,12 +871,28 @@ void Sorting::quickSortV2(
 	// Partition array and get the pivot index.
 	int pivotIndex = partitionV2(array, SIZE, low, high, highlight);
 
-	// Sort the two partitions.
-	quickSortV2(array, SIZE, low, pivotIndex);
-	quickSortV2(array, SIZE, pivotIndex+1, high);
+	// Check keyboard interrupt.
+	if (pivotIndex == -999) {
+		return false;
+	}
 
 	// Delete dynamic memory.
 	delete highlight;
+
+	// Sort the lower partition.
+	bool keepSorting = quickSortV2(array, SIZE, low, pivotIndex);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Sort the upper partition.
+	keepSorting = quickSortV2(array, SIZE, pivotIndex+1, high);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Continue sorting status.
+	return true;
 }
 
 
@@ -895,6 +918,12 @@ int Sorting::partitionV2(
 
 		// Move left index (at least once).
 		do {
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return -999;
+			}
+
+			// Display the array.
 			if (i >= 0) {
 				highlight->append(Highlight('G', i));
 			}
@@ -906,6 +935,13 @@ int Sorting::partitionV2(
 
 		// Move right index (at least once).
 		do {
+
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return -999;
+			}
+
+			// Display the array.
 			if (j <= high) {
 				highlight->append(Highlight('G', j));
 			}
@@ -920,12 +956,22 @@ int Sorting::partitionV2(
 			return j;
 		}
 
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return -999;
+		}
+
 		// Show array before swapping.
 		displayArray(array, SIZE, highlight, horizontalBar);
 		sleep_for(delay);
 
 		// Swap left and right.
 		swap(array[i], array[j]);
+
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return -999;
+		}
 
 		// Display array after swapping.
 		displayArray(array, SIZE, highlight, horizontalBar);

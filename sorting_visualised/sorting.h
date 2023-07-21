@@ -97,7 +97,7 @@ private:
 	static int partition(
 		unsigned array[], const int& SIZE, int low, int high,
 		Highlights* highlight);
-	static void quickSortV2(
+	static bool quickSortV2(
 		unsigned array[], const int& SIZE, int low, int high);
 	static int partitionV2(
 		unsigned array[], const int& SIZE, int low, int high,
