@@ -1387,8 +1387,14 @@ void Sorting::heapSort(unsigned array[], const unsigned& SIZE) {
 	highlight->append(Highlight('R'));
 
 	// The colours for various heap heights.
-	char colours[] = {'m', 'y', 'c', 'M', 'C'};
+	const unsigned NUM_COLOURS = 5;
+	char colours[NUM_COLOURS] = {'m', 'y', 'c', 'M', 'C'};
 	unsigned index;
+
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	bool keepSorting;
+	isSorting = true;
 
 	// Display the array before sorting.
 	clearScreen();
@@ -1400,7 +1406,14 @@ void Sorting::heapSort(unsigned array[], const unsigned& SIZE) {
 
 	// Highlight all entries after node.
 	for (int i = SIZE-1; i > node; i--) {
-		index = int(log2(i+1)) % 5;
+
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return;
+		}
+
+		// Display array with coloured element.
+		index = int(log2(i+1)) % NUM_COLOURS;
 		highlight->insert(Highlight(colours[index], i));
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
@@ -1408,7 +1421,10 @@ void Sorting::heapSort(unsigned array[], const unsigned& SIZE) {
 
 	// Heapify the whole array.
 	for (int i = node; i >= 0; i--) {
-		heapify(array, SIZE, SIZE, i, highlight);
+		keepSorting = heapify(array, SIZE, SIZE, i, highlight);
+		if (!keepSorting) {
+			return;
+		}
 
 		// Highlight parents already considered.
 		index = int(log2(i+1)) % 5;
@@ -1418,31 +1434,49 @@ void Sorting::heapSort(unsigned array[], const unsigned& SIZE) {
 	// Sort by continuously popping from the heap.
 	for (unsigned end = SIZE-1; end > 0; end--) {
 
-		// Show the array before and after swapping.
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return;
+		}
+
+		// Show the array before swapping.
 		highlight->get(-1).index = end;
 		highlight->get(-2).index = 0;
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
+		
+		// Swap max with end.
 		swap(array[0], array[end]);
+
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return;
+		}
+		
+		// Show the array after swapping.
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
 
 		// Call heapify for up to end elements.
 		highlight->get(end).colour = 'G';
-		heapify(array, SIZE, end, 0, highlight);
+		keepSorting = heapify(array, SIZE, end, 0, highlight);
+		if (!keepSorting) {
+			return;
+		}
 	}
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
 // Recursively heapify the array at the given index.
-void Sorting::heapify(
+bool Sorting::heapify(
 	unsigned array[], const unsigned& SIZE, unsigned end,
 	unsigned parentIndex, Highlights* highlight) {
 
@@ -1473,6 +1507,11 @@ void Sorting::heapify(
 			criticalIndex = left;
 		}
 
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return false;
+		}
+
 		// Display the array before swapping.
 		highlight->get(-1).index = criticalIndex;
 		highlight->get(-2).index = parentIndex;
@@ -1482,6 +1521,11 @@ void Sorting::heapify(
 		// Only swap and trickle down heap
 		// if parent is not the critical value.
 		if (criticalIndex != parentIndex) {
+
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return false;
+			}
 
 			// Display the array after swapping.
 			swap(array[criticalIndex], array[parentIndex]);
@@ -1494,8 +1538,10 @@ void Sorting::heapify(
 
 		// Break loop otherwise.
 		else break;
-
 	}
+
+	// Continue sorting.
+	return true;
 }
 
 

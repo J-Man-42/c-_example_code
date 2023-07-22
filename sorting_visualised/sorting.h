@@ -109,7 +109,7 @@ private:
 		unsigned array[], unsigned copy[], const unsigned& SIZE,
 		unsigned start, unsigned middle, unsigned end,
 		Highlights* highlight);
-	static void heapify(
+	static bool heapify(
 		unsigned array[], const unsigned& SIZE, unsigned end,
 		unsigned parentIndex, Highlights* highlight);
 	static void bitonicSort(
