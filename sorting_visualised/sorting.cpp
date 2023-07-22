@@ -1632,50 +1632,71 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 // Bitonic Sort the array.
 void Sorting::bitonicSort(unsigned array[], const unsigned& SIZE) {
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// BitonicSort.
+	// Call the recursive bitonic sort function.
 	bitonicSort(array, SIZE, 0, SIZE, sortAscending);
 
 	// Display the array after sorting.
 	displayArray(array, SIZE);
 	sleep_for(delay);
+
+	// Stop sorting.
+	isSorting = false;
 }
 
 
 // Recursive part of Bitonic Sort.
-void Sorting::bitonicSort(
+bool Sorting::bitonicSort(
 	unsigned array[], const unsigned& SIZE, unsigned low,
 	unsigned high, bool ascending) {
 
 	// Stopping condition.
 	if (high <= 1) {
-		return;
+		return true;
 	}
 
 	// Get the middle.
 	unsigned middle = high / 2;
 
-	// Split and sort in both ascending and descending order.
-	bitonicSort(array, SIZE, low, middle, sortAscending);
-	bitonicSort(array, SIZE, low+middle, middle, !sortAscending);
+	// Split and sort in ascending order.
+	bool keepSorting = bitonicSort(array, SIZE, low, middle, sortAscending);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Split and sort in descending order.
+	keepSorting = bitonicSort(array, SIZE, low+middle, middle, !sortAscending);
+	if (!keepSorting) {
+		return false;
+	}
 
 	// Merge and sort in specified order.
-	bitonicMerge(array, SIZE, low, high, ascending);
+	keepSorting = bitonicMerge(array, SIZE, low, high, ascending);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Continue sorting.
+	return true;
 }
 
 
 // Where the bitonic sorting actually happens.
-void Sorting::bitonicMerge(
+bool Sorting::bitonicMerge(
 	unsigned array[], const unsigned& SIZE, unsigned low,
 	unsigned high, bool ascending) {
 
 	// Stopping condition.
 	if (high <= 1) {
-		return;
+		return true;
 	}
 
     // Get the middle and lower limit.
@@ -1693,12 +1714,22 @@ void Sorting::bitonicMerge(
 	for (unsigned i = limit + middle; i < SIZE; i++)
 		highlight->append(Highlight('x', i));
 
+	// Handle keyboard interrupt.
+	if (wasInterrupted(highlight)) {
+		return false;
+	}
+
 	// Display the array portion.
 	displayArray(array, SIZE, highlight);
 	sleep_for(delay);
 
 	// Iterate through all entries from low to limit.
 	for (unsigned i=low, j = limit; i < limit; i++, j++) {
+
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return false;
+		}
 
 		// Show comparison.
 		highlight->get(0).index = i;
@@ -1710,6 +1741,11 @@ void Sorting::bitonicMerge(
 		if (ascending == (array[j] < array[i])) {
 			swap(array[i], array[j]);
 
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return false;
+			}
+
 			// Show after swap.
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
@@ -1719,7 +1755,18 @@ void Sorting::bitonicMerge(
 	// Delete dynamic memory.
 	delete highlight;
 
-	// Sort the lower and middle halves.
-	bitonicMerge(array, SIZE, low, middle, ascending);
-	bitonicMerge(array, SIZE, limit, middle, ascending);
+	// Sort the lower half.
+	bool keepSorting = bitonicMerge(array, SIZE, low, middle, ascending);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Sort the middle half.
+	keepSorting = bitonicMerge(array, SIZE, limit, middle, ascending);
+	if (!keepSorting) {
+		return false;
+	}
+
+	// Continue sorting.
+	return true;
 }
