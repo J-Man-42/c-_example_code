@@ -1551,6 +1551,10 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	Highlights* highlight = new Highlights();
 	highlight->append(Highlight('b'));
 
+	// Initialise the Ctrl-C interrupt.
+	signal(SIGINT, handleCtrlC);
+	isSorting = true;
+
 	// Display the array before sorting.
 	clearScreen();
 	displayArray(array, SIZE);
@@ -1570,10 +1574,20 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 		j = array[i] * ratio;
 		bucket[j].push(array[i]);
 
+		// Handle keyboard interrupt.
+		if (wasInterrupted(highlight)) {
+			return;
+		}
+
 		// Show current item.
 		highlight->getFirst().index = i;
 		displayArray(array, SIZE, highlight);
 		sleep_for(delay);
+	}
+
+	// Handle keyboard interrupt.
+	if (wasInterrupted(highlight)) {
+		return;
 	}
 
 	// Display the array after filling bucket.
@@ -1589,6 +1603,11 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 		while (!bucket[i].isEmpty()) {
 			array[j] = bucket[i].pop();
 
+			// Handle keyboard interrupt.
+			if (wasInterrupted(highlight)) {
+				return;
+			}
+
 			// Display update.
 			highlight->append(Highlight('G', j));
 			displayArray(array, SIZE, highlight);
@@ -1603,8 +1622,9 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Delete dynamic memory.
+	// Delete dynamic memory and stop sorting.
 	delete highlight;
+	isSorting = false;
 }
 
 
