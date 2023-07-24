@@ -55,6 +55,7 @@ public:
 	unsigned size() const;
 	T* toDynamicArray();
 	T* toDynamicArray(const unsigned SIZE);
+	void togglePriority();
 	std::string toString();
 private:
 	bool compare(const T left, const T right) const;

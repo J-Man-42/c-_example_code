@@ -49,7 +49,7 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T>& other) {
 template<class T>
 PriorityQueue<T>::PriorityQueue(
 	const T array[], const unsigned SIZE, const bool maxPriority) {
-	
+
 	this->maxPriority = maxPriority;
 	this->head = nullptr;
 	this->tail = nullptr;
@@ -377,6 +377,36 @@ T* PriorityQueue<T>::toDynamicArray(const unsigned SIZE) {
 
 	// Return the final array.
 	return array;
+}
+
+
+
+// Toggles maxPriority and reversed the queue.
+template<class T>
+void PriorityQueue<T>::togglePriority() {
+	maxPriority = !maxPriority;
+
+	// Do nothing else if less than 2 elements.
+	if (length < 2) {
+		return;
+	}
+
+	// Create new queue.
+	PriorityQueue<T> other(maxPriority);
+
+	// Add all elements to new queue.
+	while (this->isNotEmpty()) {
+		other.push(this->pop());
+	}
+
+	// Move elements to this queue.
+	this->head = other.head;
+	this->tail = other.tail;
+	this->length = other.length;
+
+	// Nullify other queue.
+	other.head = other.tail = nullptr;
+	other.length = 0;
 }
 
 

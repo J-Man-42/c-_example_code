@@ -59,11 +59,12 @@ int main() {
 		cout << " (9)  size()" << endl;
 		cout << "(10)  toDynamicArray()" << endl;
 		cout << "(11)  toDynamicArray(size)" << endl;
-		cout << "(12)  operator=" << endl;
-		cout << "(13)  operator+(element)" << endl;
-		cout << "(14)  operator+(queue)" << endl;
-		cout << "(15)  operator+=(element)" << endl;
-		cout << "(16)  operator+=(queue)" << endl;
+		cout << "(12)  togglePriority()" << endl;
+		cout << "(13)  operator=" << endl;
+		cout << "(14)  operator+(element)" << endl;
+		cout << "(15)  operator+(queue)" << endl;
+		cout << "(16)  operator+=(element)" << endl;
+		cout << "(17)  operator+=(queue)" << endl;
 		cout << " (Q)  << QUIT PROGRAM >>" << endl;
 		cout << "==============================" << endl;
 		cout << "> ";
@@ -226,8 +227,16 @@ int main() {
 			break;
 
 
-		// Work with the assignment operator.
+		// Toggles between max and min priority.
 		case 12:
+			cout << "togglePriority()" << endl;
+			queue.togglePriority();
+			temp.togglePriority();
+			break;
+
+
+		// Work with the assignment operator.
+		case 13:
 			cout << "operator=" << endl;
 			cout << "> new size = ";
 			cin >> number;
@@ -240,7 +249,7 @@ int main() {
 
 
 		// Work with queue + element.
-		case 13:
+		case 14:
 			cout << "operator+(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -251,7 +260,7 @@ int main() {
 
 
 		// Work with queue + other queue.
-		case 14:
+		case 15:
 			cout << "operator+(queue)" << endl;
 			cout << "> other queue size = ";
 			cin >> number;
@@ -266,7 +275,7 @@ int main() {
 
 
 		// Work with queue += element.
-		case 15:
+		case 16:
 			cout << "operator+=(element)" << endl;
 			cout << "> element = ";
 			cin >> element;
@@ -275,7 +284,7 @@ int main() {
 
 
 		// Work with queue += other queue.
-		case 16:
+		case 17:
 			cout << "operator+=(queue)" << endl;
 			cout << "> other queue size = ";
 			cin >> number;
