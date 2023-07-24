@@ -6,9 +6,11 @@ using namespace std;
 
 // The constructor.
 template<class T>
-PriorityQueue<T>::PriorityQueue() {
-	head = tail = nullptr;
-	length = 0;
+PriorityQueue<T>::PriorityQueue(const bool maxPriority) {
+	this->maxPriority = maxPriority;
+	this->head = nullptr;
+	this->tail = nullptr;
+	this->length = 0;
 }
 
 
@@ -22,6 +24,7 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T>& other) {
 	}
 
 	// Set the initial parameters.
+	this->maxPriority = other.maxPriority;
 	this->length = other.length;
 	this->head = nullptr;
 	this->tail = nullptr;
@@ -44,7 +47,10 @@ PriorityQueue<T>::PriorityQueue(const PriorityQueue<T>& other) {
 
 // Construct a PriorityQueue from the given array.
 template<class T>
-PriorityQueue<T>::PriorityQueue(const T array[], const unsigned SIZE) {
+PriorityQueue<T>::PriorityQueue(
+	const T array[], const unsigned SIZE, const bool maxPriority) {
+	
+	this->maxPriority = maxPriority;
 	this->head = nullptr;
 	this->tail = nullptr;
 	this->length = 0;
@@ -79,6 +85,7 @@ PriorityQueue<T>& PriorityQueue<T>::operator=(const PriorityQueue<T>& other) {
 	if (this != &other) {
 		this->clear();
 		this->length = other.length;
+		this->maxPriority = other.maxPriority;
 
 		// Copy other.head if not null.
 		if (other.head) {
@@ -185,6 +192,17 @@ void PriorityQueue<T>::clear() {
 
 
 
+// Max priority:  returns status of left > right.
+// Min priority:  returns status of left < right.
+template<class T>
+bool PriorityQueue<T>::compare(const T left, const T right) const {
+	if (maxPriority)
+		return left > right;
+	return left < right;
+}
+
+
+
 // Returns a hard copy of this queue.
 template<class T>
 PriorityQueue<T> PriorityQueue<T>::clone() {
@@ -200,7 +218,7 @@ bool PriorityQueue<T>::contains(const T element) const {
 	while (nodePtr) {
 		if (nodePtr->data == element)
 			return true;
-		if (nodePtr->data < element)
+		if (compare(element, nodePtr->data))
 			return false;
 		nodePtr = nodePtr->next;
 	}
@@ -228,6 +246,20 @@ T& PriorityQueue<T>::front() {
 template<class T>
 bool PriorityQueue<T>::isEmpty() const {
 	return head == nullptr;
+}
+
+
+// Returns the status of maxPriority.
+template<class T>
+bool PriorityQueue<T>::isMaxPriority() const {
+	return maxPriority;
+}
+
+
+// Returns the inverted status of maxPriority.
+template<class T>
+bool PriorityQueue<T>::isMinPriority() const {
+	return !maxPriority;
 }
 
 
@@ -279,30 +311,30 @@ void PriorityQueue<T>::push(const T element) {
 	// See if it's the first element.
 	if (isEmpty()) {
 		head = tail = new PQueueNode<T>(element);
+		return;
 	}
 
 	// See if it's smaller than the last element.
-	else if (tail->data >= element) {
+	if (compare(tail->data, element)) {
 		tail->next = new PQueueNode<T>(element);
 		tail = tail->next;
+		return;
 	}
 
 	// Otherwise, find position to insert.
-	else {
-		PQueueNode<T>* prevPtr = nullptr;
-		PQueueNode<T>* nodePtr = head;
-		while (nodePtr && nodePtr->data > element) {
-			prevPtr = nodePtr;
-			nodePtr = nodePtr->next;
-		}
-		if (prevPtr) {
-			prevPtr->next = new PQueueNode<T>(element);
-			prevPtr = prevPtr->next;
-			prevPtr->next = nodePtr;
-		} else {
-			head = new PQueueNode<T>(element);
-			head->next = nodePtr;
-		}
+	PQueueNode<T>* prevPtr = nullptr;
+	PQueueNode<T>* nodePtr = head;
+	while (nodePtr && compare(nodePtr->data, element)) {
+		prevPtr = nodePtr;
+		nodePtr = nodePtr->next;
+	}
+	if (prevPtr) {
+		prevPtr->next = new PQueueNode<T>(element);
+		prevPtr = prevPtr->next;
+		prevPtr->next = nodePtr;
+	} else {
+		head = new PQueueNode<T>(element);
+		head->next = nodePtr;
 	}
 }
 

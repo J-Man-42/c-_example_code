@@ -33,8 +33,12 @@ int main() {
 		// Clear the screen
 		clearScreen();
 
+		// Print priority.
+		cout << "Priority:  ";
+		cout << (queue.isMaxPriority() ? "Max\n" : "Min\n");
+
 		// Print the priority queue.
-		cout << "PriorityQueue:" << endl;
+		cout << "\nPriorityQueue:" << endl;
 		cout << queue << endl;
 
 		// Print the array.

@@ -26,9 +26,10 @@ template<class T>
 class PriorityQueue
 {
 public:
-	PriorityQueue();
+	PriorityQueue(const bool maxPriority = true);
 	PriorityQueue(const PriorityQueue<T>& other);
-	PriorityQueue(const T array[], const unsigned SIZE);
+	PriorityQueue(
+		const T array[], const unsigned SIZE, const bool maxPriority = true);
 	~PriorityQueue();
 
 	template<class U>
@@ -46,6 +47,8 @@ public:
 	bool contains(const T element) const;
 	T& front();
 	bool isEmpty() const;
+	bool isMaxPriority() const;
+	bool isMinPriority() const;
 	bool isNotEmpty() const;
 	T pop();
 	void push(const T element);
@@ -54,6 +57,8 @@ public:
 	T* toDynamicArray(const unsigned SIZE);
 	std::string toString();
 private:
+	bool compare(const T left, const T right) const;
+	bool maxPriority;
 	unsigned length;
 	PQueueNode<T>* head;
 	PQueueNode<T>* tail;
