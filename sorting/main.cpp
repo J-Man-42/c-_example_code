@@ -254,7 +254,7 @@ int main() {
 			number = atoi(answer);
 
 			// Only clear screen if not Radix Sort with custom base.
-			if (number != 11) {
+			if (number != 12) {
 				clearScreen();
 			}
 
@@ -352,6 +352,7 @@ int main() {
 				cin.getline(answer, 20);
 				number = atoi(answer);
 				clearScreen();
+				start = high_resolution_clock::now();
 				cout << "Performing Radix Sort (base "<<number<<")..." << endl;
 				if (isUint) {
 					Sorting<unsigned>::radixSort(unsignedArray, size, number);

@@ -617,26 +617,30 @@ void Sorting<T>::bucketSort(T array[], const unsigned& SIZE) {
 	double ratio = double(SIZE) / maxValue;
 
 	// Create priority queue array.
-	PriorityQueue<T> bucket[SIZE];
+	PriorityQueue<T>* bucket = new PriorityQueue<T>[SIZE];
+	for (unsigned i = 0; i < SIZE; i++) {
+		bucket[i] = PriorityQueue<T>(sortAscending);
+	}
 
 	// Iterate through array and push elements to bucket.
 	for (unsigned j, i = 0; i < SIZE; i++) {
 		j = array[i] * ratio;
+		if (!sortAscending) {
+			j = SIZE - 1 - j;
+		}
 		bucket[j].push(array[i]);
 	}
 
-	// Get array starting index based on sorting order.
-	int j = (sortAscending ? SIZE-1 : 0);
-
 	// Iterate through bucket and sort array.
-	for (int i = SIZE-1; i >= 0; i--) {
+	for (int i = SIZE-1, j = SIZE; i >= 0; i--) {
 		while (!bucket[i].isEmpty()) {
+			j--;
 			array[j] = bucket[i].pop();
-
-			// Update array index.
-			j += (sortAscending ? -1 : 1);
 		}
 	}
+
+	// Delete dynamic memory.
+	delete [] bucket;
 }
 
 
