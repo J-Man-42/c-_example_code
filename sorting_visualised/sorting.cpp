@@ -1567,11 +1567,17 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	double ratio = double(SIZE) / maxValue;
 
 	// Create priority queue array.
-	PriorityQueue<unsigned> bucket[SIZE];
+	PriorityQueue<unsigned>* bucket = new PriorityQueue<unsigned>[SIZE];
+	for (unsigned i = 0; i < SIZE; i++) {
+		bucket[i] = PriorityQueue<unsigned>(sortAscending);
+	}
 
 	// Iterate through array and push elements to bucket.
 	for (unsigned j, i = 0; i < SIZE; i++) {
 		j = array[i] * ratio;
+		if (!sortAscending) {
+			j = SIZE - 1 - j;
+		}
 		bucket[j].push(array[i]);
 
 		// Handle keyboard interrupt.
@@ -1595,12 +1601,10 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	displayArray(array, SIZE);
 	sleep_for(delay);
 
-	// Get array starting index based on sorting order.
-	int j = (sortAscending ? SIZE-1 : 0);
-
 	// Iterate through bucket and sort array.
-	for (int i = SIZE-1; i >= 0; i--) {
-		while (!bucket[i].isEmpty()) {
+	for (int i = SIZE-1, j = SIZE; i >= 0; i--) {
+		while (bucket[i].isNotEmpty()) {
+			j--;
 			array[j] = bucket[i].pop();
 
 			// Handle keyboard interrupt.
@@ -1612,9 +1616,6 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 			highlight->append(Highlight('G', j));
 			displayArray(array, SIZE, highlight);
 			sleep_for(delay);
-
-			// Update array index.
-			j += (sortAscending ? -1 : 1);
 		}
 	}
 
@@ -1623,6 +1624,7 @@ void Sorting::bucketSort(unsigned array[], const unsigned& SIZE) {
 	sleep_for(delay);
 
 	// Delete dynamic memory and stop sorting.
+	delete [] bucket;
 	delete highlight;
 	isSorting = false;
 }
